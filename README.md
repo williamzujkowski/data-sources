@@ -1,60 +1,99 @@
-# .github Template Repository
+# Data Sources Manager
 
-A standardized, comprehensive, and best-practice set of GitHub repository configuration files and workflows to accelerate new project setup.
+A centralized, version‑controlled catalog of high‑quality data feeds for LLM‑based projects, with an initial focus on vulnerability research.
 
-## What This Template Provides
+## Overview
 
-- **GitHub Actions Workflows** for CI/CD, security scanning, and dependency management
-- **Issue Templates** for bug reports and feature requests
-- **Pull Request Template** to ensure quality contributions
-- **Community Health Files** including Code of Conduct, Contributing Guidelines, and Security Policy
-- **Dependabot Configuration** for automated dependency updates
-- **Repository Configuration Files** and recommended settings
+The data-sources-manager streamlines source discovery, scoring, and consumption, enabling consistent, automated integration of reliable information into downstream workflows.
 
-## How to Use This Template
+## Quick Start
 
-1. Click the "Use this template" button on the GitHub repository
-2. Name your new repository and create it
-3. Review and customize the included files to fit your specific project needs
-4. Update placeholders in files (especially in SECURITY.md)
-5. Uncomment relevant sections in configuration files where noted
-6. Delete or modify files that do not apply to your project
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/data-sources-manager.git
+   cd data-sources-manager
+   ```
 
-## Included Components
+2. Set up a Python environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r tools/requirements.txt
+   ```
 
-### GitHub Actions Workflows
+3. Run the tools:
+   ```bash
+   # Fetch latest data from sources
+   python tools/fetch_sources.py
+   
+   # Calculate quality scores
+   python tools/score_sources.py
+   
+   # Build the search index
+   python tools/index_sources.py
+   ```
 
-- `ci.yml`: Basic CI workflow with linting and testing placeholders
-- `codeql-analysis.yml`: Security scanning using GitHub CodeQL
-- `dependency-review.yml`: Reviews dependencies for security issues on PRs
+## Querying the Index
 
-### Issue & PR Templates
+The repository maintains a lightweight SQLite index for efficient lookups. Here's how to use it:
 
-- Bug report template
-- Feature request template
-- PR template with checklist
+```python
+from sqlitedict import SqliteDict
 
-### Community Health Files
+# Open the index
+with SqliteDict("index.db") as db:
+    # List all sources in a specific category
+    vulnerability_sources = db["category_index"].get("vulnerability", [])
+    
+    # Look up sources by tag
+    cloud_sources = db["tag_index"].get("cloud", [])
+    
+    # Get high-quality sources
+    excellent_sources = db["quality_index"].get("excellent", [])
+    
+    # Get details for a specific source
+    nvd_details = db["source_lookup"].get("nvd-cve")
+```
 
-- `CODE_OF_CONDUCT.md`: Contributor Covenant Code of Conduct
-- `CONTRIBUTING.md`: Guidelines for contributing to the project
-- `SECURITY.md`: Security policy and vulnerability reporting process
+## Directory Structure
 
-### Configuration Files
+```
+data-sources-manager/
+├── data-sources/                # Data source metadata files
+│   └── vulnerability/           # Grouped by category
+│       ├── cve/                 # Subcategories
+│       │   ├── nvd.json
+│       │   ├── vendor-advisory.json
+│       │   └── …
+│       ├── exploit-db.json
+│       └── …
+├── schemas/                     # JSON schema definitions
+│   ├── source.schema.json       # Source metadata schema
+│   └── quality.schema.json      # Quality scoring schema
+├── config/                      # Configuration files
+│   ├── categories.json          # Category definitions
+│   └── scoring-config.json      # Quality scoring weights
+├── tools/                       # Python utilities
+│   ├── fetch_sources.py         # Update source data
+│   ├── score_sources.py         # Calculate quality scores
+│   └── index_sources.py         # Build search index
+└── .github/workflows/           # CI/CD automation
+    ├── update-sources.yml       # Daily source updates
+    └── lint-schemas.yml         # Schema validation
+```
 
-- `dependabot.yml`: Automated dependency updates (initially for GitHub Actions)
+## Features
 
-## Customization Guide
-
-- Review all files and update project-specific information
-- For workflows, add language/framework-specific build and test commands
-- Update issue templates with project-specific categories/labels
-- Configure Dependabot for your project package ecosystems
-
-## License
-
-This template is available under the MIT License.
+- **Structured Metadata**: Consistent JSON schema for tracking diverse source types
+- **Quality Scoring**: Numeric scoring (0-100) based on freshness, authority, coverage, and availability
+- **User Preference Weights**: Customize source priorities based on your needs
+- **Automated Updates**: Daily fetching, scoring, and indexing via GitHub Actions
+- **Fast Lookups**: Minimal-token lookups via lightweight SQLite index
 
 ## Contributing
 
-Contributions to improve this template are welcome! Please see the CONTRIBUTING.md file for guidelines.
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to add or update data sources.
+
+## License
+
+This project is available under the MIT License.

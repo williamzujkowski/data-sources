@@ -1,0 +1,27 @@
+name: "Update Data Sources"
+on:
+  schedule:
+    - cron: "0 2 * * *"
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install requirements
+        run: pip install -r tools/requirements.txt
+      - name: Fetch sources
+        run: python tools/fetch_sources.py
+      - name: Score sources
+        run: python tools/score_sources.py
+      - name: Index sources
+        run: python tools/index_sources.py
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data-sources/ index.db
+          git commit -m "chore: daily update of data sources"
+          git push

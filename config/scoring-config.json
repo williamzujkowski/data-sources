@@ -1,0 +1,12 @@
+{
+  "weights": {
+    "freshness":    0.4,
+    "authority":    0.3,
+    "coverage":     0.2,
+    "availability": 0.1
+  },
+  "update_schedule": {
+    "daily":  true,
+    "weekly": false
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quality Scoring Attributes",
+  "type": "object",
+  "properties": {
+    "freshness":    { "type": "number", "description": "days since last update" },
+    "authority":    { "type": "number", "description": "0–100 credibility" },
+    "coverage":     { "type": "number", "description": "0–100 scope of data" },
+    "availability": { "type": "number", "description": "0–100 uptime/reliability" },
+    "user_preference_weight": {
+      "type": "object",
+      "properties": {
+        "freshness":    { "type": "number" },
+        "authority":    { "type": "number" },
+        "coverage":     { "type": "number" },
+        "availability": { "type": "number" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["freshness","authority","coverage","availability"]
+}

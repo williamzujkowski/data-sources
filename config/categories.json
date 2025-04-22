@@ -1,0 +1,4 @@
+{
+  "vulnerability": ["cve","nvd","exploit-db","vendor-advisory"],
+  "technology_tags": ["web","container","cloud","network","host"]
+}

@@ -1,98 +1,90 @@
-# Project Plan & Goals: .github Template Repository
+# Project Plan: Data Sources Manager
 
-**Last Updated:** 2025-04-18
-
----
-
-## 1. Overall Project Vision & Goal
-
-To provide a standardized, comprehensive, and best-practice set of repository configuration files and workflows for all new projects. The goal is to accelerate new project setup, ensure consistency across repositories, promote security defaults, and encourage community contribution standards from day one.
+**Last Updated:** 2025-04-22
 
 ---
 
-## 2. Current Phase Objectives (Initial Setup & Baseline)
+## 1. Project Overview
 
-* Establish baseline GitHub Actions workflows for common CI tasks (e.g., linting, placeholder for testing).
-* Implement standard Issue Templates (Bug Report, Feature Request) and a Pull Request Template.
-* Include essential community health files (`CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`).
-* Configure Dependabot for automated dependency updates (initially for GitHub Actions).
-* Set up basic security scanning defaults (e.g., GitHub Code Scanning placeholder/defaults).
-* Document how to use and customize this template effectively.
+The **data-sources-manager** repository will serve as a centralized, version‑controlled catalog of high‑quality data feeds for LLM‑based projects, with an initial focus on vulnerability research. It will streamline source discovery, scoring, and consumption, enabling consistent, automated integration of reliable information into downstream workflows.
 
----
+## 2. Objectives
 
-## 3. Key Features / Template Contents Roadmap
+1. Define a reusable folder structure and JSON metadata schema for tracking diverse source types.
+2. Implement numeric quality scoring (0–100) plus user‑preference weights to prioritize sources.
+3. Automate daily or weekly fetching, scoring, and indexing via CI workflows.
+4. Provide clear contribution guidelines, including retirement (quality_score=0) of deprecated sources.
+5. Enable fast, minimal‑token lookups via a lightweight index.
 
-*(Bold items are the current focus for initial setup)*
+## 3. Scope
 
-* **GitHub Actions Workflows (`./workflows/`)**
-    * **Basic CI Workflow (Linting, Testing Placeholder)**
-    * **CodeQL Analysis (Security Scanning)**
-    * **Dependency Review**
-    * Issue/PR Labeling/Triage Automation (Future)
-    * Release Drafter/Semantic Release Placeholder (Future)
-* **Issue Templates (`./ISSUE_TEMPLATE/`)**
-    * **Bug Report Template (`bug_report.md`)**
-    * **Feature Request Template (`feature_request.md`)**
-    * **Configuration File (`config.yml`)**
-* **Pull Request Template (`pull_request_template.md`)**
-* **Community Health Files**
-    * **`CODE_OF_CONDUCT.md`** (Using Contributor Covenant)
-    * **`CONTRIBUTING.md`** (Guidelines for contributing to projects using this template)
-    * **`SECURITY.md`** (Security policy and reporting guidelines)
-    * `LICENSE` (Placeholder - Recommend MIT/Apache 2.0, but project-specific)
-* **Dependency Management**
-    * **`dependabot.yml`** (Configure for GitHub Actions, placeholder for common package managers)
-* **Repository Settings Files (Informational/Placeholders)**
-    * `.gitignore` (Standard comprehensive baseline)
-    * `CODEOWNERS` (Placeholder explaining usage)
-    * `FUNDING.yml` (Optional placeholder)
-* **Supporting Documentation**
-    * **`README.md`** (Explains the template repo itself)
-    * This `PROJECT_PLAN.md`
-    * `USAGE_GUIDE.md` (How downstream projects should use/customize the template - Future)
+**In Scope:**
+- JSON schema definitions for `source` and `quality` metadata.
+- Configuration files for categories, tags, and scoring weights.
+- Python tools: `fetch_sources.py`, `score_sources.py`, `index_sources.py`.
+- CI/CD: GitHub Actions workflows for updating and validating artifacts.
+- Documentation: `README.md`, `CONTRIBUTING.md`, and this `project_plan.md`.
 
----
+**Out of Scope:**
+- Language‑ or framework‑specific build pipelines.
+- Production deployment scripts beyond GitHub Actions.
 
-## 4. Target Audience / User Profile
+## 4. Deliverables
 
-Developers initiating new software projects who require a standardized and best-practice starting point for repository configuration, CI, security, and community interaction within GitHub.
+- **Scaffolding Prompt:** `SCAFFOLDING_PROMPT.md` (detailed instructions for LLM-based repo generation).
+- **Folder Structure & Templates:** stub files and directories in `data-sources/`, `schemas/`, `config/`, and `tools/`.
+- **JSON Schemas:** `source.schema.json`, `quality.schema.json`.
+- **Config Files:** `categories.json`, `scoring-config.json`.
+- **CI Workflows:** `update-sources.yml`, `lint-schemas.yml`.
+- **Documentation:** `README.md`, `CONTRIBUTING.md`, `project_plan.md`.
 
----
+## 5. Timeline
 
-## 5. Core Principles & Constraints
+| Phase               | Tasks                                                      | Duration     |
+|---------------------|------------------------------------------------------------|--------------|
+| **Phase 1**         | Finalize schemas and folder structure; write scaffolding prompt | Week 1       |
+| **Phase 2**         | Scaffold repository via LLM; review and commit templates    | Week 2       |
+| **Phase 3**         | Implement and test Python tools; validate CI workflows      | Week 3       |
+| **Phase 4**         | Write documentation; onboard contributors; finalize release  | Week 4       |
 
-* **Consistency:** Ensure similar repository structures and workflows across projects.
-* **Security by Default:** Integrate security scanning and best practices from the start.
-* **Maintainability:** Keep workflows and configurations clear, documented, and easy to update (both in the template and downstream).
-* **Convention over Configuration:** Use widely accepted defaults and community standards where possible.
-* **Customizability:** While providing defaults, ensure downstream projects can easily override or extend configurations where necessary. Templates should guide, not rigidly enforce where inappropriate.
-* **Leverage GitHub Native Features:** Prefer using built-in GitHub Actions, features, and recommended community actions.
+## 6. Roles & Responsibilities
 
----
+- **Project Owner (William):** Define requirements, review scaffolding, approve merges.
+- **Repo Automation:** LLM-assisted code generation for stubs and CI.
+- **Contributors (future):** Add new sources, validate schemas, write tests.
 
-## 6. Non-Goals (What This Template Does NOT Provide)
+## 7. Risks & Mitigations
 
-* **Language/Framework-Specific Build/Test Logic:** Workflows will provide placeholders, but the specific commands must be added by the downstream project.
-* **Complex Deployment Pipelines:** Deployment logic is highly project-specific and out of scope for this generic template.
-* **Infrastructure as Code (IaC):** Not included.
-* **Project-Specific Configuration Files:** (e.g., `setup.py`, `package.json` - except for repo-level files like `.gitignore`).
-* **Enforced Commit Message Styles:** (Though it could be added as an optional workflow later).
+- **Risk:** Outdated or broken feeds.  
+  **Mitigation:** Automated fetch retries and fallback logic; health monitoring.
 
----
+- **Risk:** Schema drift causing CI failures.  
+  **Mitigation:** Strict schema validation in `lint-schemas.yml`.
 
-## 7. High-Level Architecture Notes
+- **Risk:** Excessive token usage in lookups.  
+  **Mitigation:** Lean metadata design and lightweight index format.
 
-* Focuses entirely on files within the `.github` directory and root-level config/documentation files (`.gitignore`, `LICENSE`, `README.md`).
-* Relies heavily on GitHub Actions for automation, using standard GitHub-hosted runners.
-* Utilizes reusable workflows where practical to promote maintainability (Future Enhancement).
+## 8. Communication Plan
 
----
+- **Weekly Sync:** Status updates in Slack channel `#data-sources-manager`.
+- **GitHub Issues:** Track feature requests, bugs, and schema changes.
+- **Documentation Updates:** Pull requests for any doc changes.
 
-## 8. Links to Detailed Planning
+## 9. Success Metrics
 
-* **Template Improvement Ideas/Issues:** [Link to this repository's Issues tab]
-* **GitHub Actions Documentation:** [https://docs.github.com/en/actions](https://docs.github.com/en/actions)
-* **GitHub Community Health Docs:** [https://docs.github.com/en/communities](https://docs.github.com/en/communities)
+- 100% of sources conform to JSON schemas.
+- Automated update workflow runs successfully at least 95% of scheduled times.
+- Average index lookup latency below 100 ms.
+- Positive feedback from downstream consumers on ease of use.
 
----
+## 10. Next Steps
+
+1. Merge this `project_plan.md` into the main branch.  
+2. Execute the scaffolding prompt in `SCAFFOLDING_PROMPT.md` to generate the initial structure.  
+3. Review and iterate on generated templates and tools.  
+4. Publish first release tag (`v0.1.0`).
+
+## 11. Scaffolding Reference
+
+For detailed repository structure, file templates, and instructions, refer to **`SCAFFOLDING_PROMPT.md`** in this repository.
+

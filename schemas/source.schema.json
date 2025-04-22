@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Data Source Metadata",
+  "type": "object",
+  "properties": {
+    "id":              { "type": "string" },
+    "name":            { "type": "string" },
+    "url":             { "type": "string", "format": "uri" },
+    "description":     { "type": "string" },
+    "category":        { "type": "string" },
+    "sub_category":    { "type": "string" },
+    "format":          { "type": "string", "enum": ["json","csv","rss","xml","other"] },
+    "tags":            { "type": "array", "items": { "type": "string" } },
+    "quality_score":   { "type": "number", "minimum": 0, "maximum": 100 },
+    "user_weighted_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "last_updated":    { "type": "string", "format": "date-time" }
+  },
+  "required": ["id","name","url","category","format","quality_score","last_updated"]
+}

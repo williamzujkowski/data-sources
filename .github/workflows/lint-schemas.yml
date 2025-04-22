@@ -1,0 +1,17 @@
+name: "Validate JSON Schemas"
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate schemas
+        run: |
+          pip install jsonschema
+          python - <<EOF
+import json, jsonschema
+for file in ["schemas/source.schema.json","schemas/quality.schema.json"]:
+    schema = json.load(open(file))
+    jsonschema.Draft7Validator.check_schema(schema)
+print("All schemas are valid")
+EOF
