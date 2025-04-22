@@ -11,8 +11,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # This is needed for pushing to the repository
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
@@ -37,10 +42,9 @@ jobs:
           cp -r site/* docs/
           cp site/.nojekyll docs/
       
-      - name: Commit changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add docs/
-          git commit -m "docs: update GitHub Pages site" || echo "No changes to commit"
-          git push
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: site       # The folder the action should deploy
+          branch: gh-pages   # The branch the action should deploy to
+          token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically created token
