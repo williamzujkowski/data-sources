@@ -1,0 +1,74 @@
+site_name: Data Sources Manager
+site_description: A centralized catalog of high-quality data feeds for LLM projects
+site_author: William Zujkowski
+site_url: https://williamzujkowski.github.io/data-sources
+
+repo_name: williamzujkowski/data-sources
+repo_url: https://github.com/williamzujkowski/data-sources
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - search.highlight
+    - search.share
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - getting-started/installation.md
+    - getting-started/quickstart.md
+    - getting-started/configuration.md
+  - Usage:
+    - usage/querying.md
+    - usage/data-sources.md
+    - usage/scoring.md
+  - API:
+    - api/source-schema.md
+    - api/quality-schema.md
+    - api/python-tools.md
+  - Development:
+    - development/contributing.md
+    - development/architecture.md
+    - development/api-keys.md
+    - development/secrets-management.md
+  - GitHub: https://github.com/williamzujkowski/data-sources
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/williamzujkowski
+      name: William Zujkowski on GitHub
