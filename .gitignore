@@ -39,7 +39,7 @@ Thumbs.db
 index.db
 *.log
 .env
-.env.*
+!.env.sample
 
 # Testing
 .coverage
