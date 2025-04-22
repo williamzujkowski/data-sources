@@ -1,4 +1,4 @@
-name: Publish Documentation
+name: Build MkDocs Site
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - '.github/workflows/publish-docs.yml'
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +20,27 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mkdocs mkdocs-material mkdocstrings pymdown-extensions
+          pip install mkdocs mkdocs-material pymdown-extensions
       
-      - name: Build and deploy documentation
-        run: mkdocs gh-deploy --force
+      - name: Build MkDocs site
+        run: mkdocs build --site-dir ./site
+      
+      - name: Copy files to docs directory for GitHub Pages
+        run: |
+          # Ensure docs directory exists (should already exist)
+          mkdir -p docs
+          
+          # Create a .nojekyll file to disable Jekyll processing
+          touch site/.nojekyll
+          
+          # Copy the built site to docs directory
+          cp -r site/* docs/
+          cp site/.nojekyll docs/
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/
+          git commit -m "docs: update GitHub Pages site" || echo "No changes to commit"
+          git push
