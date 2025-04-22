@@ -60,6 +60,8 @@ nav:
     - development/architecture.md
     - development/api-keys.md
     - development/secrets-management.md
+  - Setup:
+    - GitHub Pages: github-pages-setup.md
   - GitHub: https://github.com/williamzujkowski/data-sources
 
 extra:
