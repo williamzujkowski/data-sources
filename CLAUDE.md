@@ -4,13 +4,18 @@ This file provides comprehensive guidance for Claude AI when working with code i
 
 **Purpose:** Use this file as a primary reference for understanding project conventions, requirements, and best practices when generating or modifying code.
 
+**Important Notes:** 
+1. While this file provides general guidance, all prompt templates and LLM-specific configurations should be stored in the `.llmconfig/` directory to ensure consistent AI agent behavior across the project.
+2. The `FILE_TREE.md` document MUST be kept updated whenever the repository structure changes to ensure AI agents can effectively navigate the codebase.
+
 **Content Overview:**
 1.  **Quick Start:** Build, setup, lint, and test commands.
 2.  **Project Code Style Summary:** Key style guidelines for this specific project.
 3.  **Detailed Coding Standards:** Comprehensive rules covering style, documentation, architecture, security, performance, and more.
 4.  **Detailed Testing Manifesto:** In-depth testing principles and quality assurance standards.
 5.  **Overall Project Standards Framework:** High-level view integrating development lifecycle, AI ethics, technical quality, and operations.
-6.  **Master Prompts:** Pre-defined prompts for guiding LLM code generation based on these standards.
+6.  **Repository Structure for LLM Code Agents:** Guidelines for organizing repositories to optimize for LLM-based development.
+7.  **Master Prompts:** Pre-defined prompts for guiding LLM code generation based on these standards.
 
 ---
 
@@ -450,7 +455,111 @@ This outlines the high-level framework guiding the project:
 
 ---
 
-## 6. Master Prompts for LLM Interaction
+## 6. Repository Structure for LLM Code Agents
+
+Designing a repository optimized for LLM-driven code agents involves establishing a structured, maintainable, and secure environment that facilitates high-quality code generation and adherence to established standards.
+
+### 6.1. Root-Level Files and Directories
+
+- **`README.md`**: Provides an overview of the project, including its purpose, setup instructions, and usage examples
+- **`CONTRIBUTING.md`**: Outlines guidelines for contributing to the project, including code standards, branching strategies, and pull request procedures
+- **`CODE_OF_CONDUCT.md`**: Defines expected behavior for contributors to foster an inclusive and respectful community
+- **`LICENSE`**: Specifies the project's licensing information
+- **`FILE_TREE.md`**: **CRITICAL** - Maintains an up-to-date file structure overview of the project. This file must be kept current whenever the repository structure changes to ensure AI agents can properly navigate the codebase.
+- **`docs/`**: Contains detailed documentation, such as architecture overviews, API references, and style guides
+- **`src/`**: Houses the main source code, organized by feature or module
+- **`tests/`**: Includes unit, integration, and end-to-end tests, mirroring the structure of the `src/` directory
+- **`scripts/`**: Contains utility scripts for tasks like setup, deployment, and maintenance
+- **`config/`**: Stores configuration files for different environments (e.g., development, testing, production)
+- **`.github/`**: Includes GitHub-specific files, such as issue templates and workflows
+- **`.llmconfig/`**: Dedicated directory for LLM agent configurations and rules
+
+### 6.2. LLM Agent Configuration (`.llmconfig/`)
+
+**IMPORTANT:** All LLM-specific configurations, prompts, and context files MUST be stored in the `.llmconfig/` directory rather than in other locations such as project root. This ensures consistent AI agent behavior and makes prompt engineering maintainable.
+
+The `.llmconfig/` directory should contain:
+
+- **`CLAUDE.md`**: Primary configuration file for Claude AI, containing general instructions
+- **`agent-rules.md`**: Defines coding standards and best practices for the LLM agent to follow
+- **`prompt-templates/`**: Contains reusable prompt templates to guide the LLM's behavior
+- **`context/`**: Includes files that provide context to the LLM, such as sample inputs/outputs and domain-specific information
+- **`examples/`**: Contains exemplary interactions or code snippets for few-shot learning
+- **`system-prompts/`**: Holds system-level instructions for different AI agents
+
+This structured approach ensures that all prompt engineering work is centralized, versioned, and properly maintained alongside the codebase.
+
+### 6.3. Maintaining FILE_TREE.md
+
+**CRITICAL:** Whenever the repository structure changes (adding, removing, or moving files and directories), the `FILE_TREE.md` document must be updated accordingly. This file serves as a map of the codebase for LLM agents and is essential for their ability to:
+
+1. Efficiently navigate the project structure
+2. Understand relationships between components
+3. Identify relevant files when implementing new features or fixing bugs
+4. Maintain a mental model of the overall architecture
+
+The `FILE_TREE.md` should:
+- Provide a hierarchical representation of the repository's file structure
+- Include brief descriptions for key directories and files
+- Highlight important files that define core functionality
+- Be automatically updated by scripts when possible, or manually updated after structural changes
+- Be referenced in commit messages when updated ("Update FILE_TREE.md to reflect new module structure")
+
+### 6.4. Configuration and Tooling
+
+#### 6.4.1. Linters and Formatters
+- **JavaScript/TypeScript**: Use ESLint and Prettier with a shared configuration to enforce code style and formatting
+- **Python**: Employ Flake8 and Black for linting and formatting, respectively
+- **Go**: Utilize `go fmt` and `golint` to maintain code consistency
+
+#### 6.4.2. Type Checking
+- **TypeScript**: Enable strict mode in `tsconfig.json` to enforce rigorous type checking
+- **Python**: Incorporate type hints and use tools like `mypy` for static type analysis
+
+#### 6.4.3. Testing Frameworks
+- **JavaScript/TypeScript**: Implement Jest for unit and integration testing
+- **Python**: Use Pytest to write and manage tests
+- **Go**: Leverage the built-in `testing` package for writing tests
+
+#### 6.4.4. Continuous Integration/Continuous Deployment (CI/CD)
+- **GitHub Actions**: Set up workflows to automate testing, linting, and deployment processes
+- **Pre-commit Hooks**: Use tools like `pre-commit` to run linters and tests before commits are made
+
+### 6.5. Coding Standards and Best Practices
+
+#### 6.5.1. Naming Conventions
+- **Variables and Functions**: Use `camelCase` for naming
+- **Classes and Types**: Adopt `PascalCase`
+- **Constants**: Use `UPPER_SNAKE_CASE`
+
+#### 6.5.2. Code Structure
+- **Modularity**: Design code in small, reusable modules or functions
+- **Single Responsibility**: Ensure each module or function has a single, well-defined purpose
+- **Documentation**: Include docstrings or comments to explain complex logic and usage
+
+### 6.6. Security and Compliance
+
+- **Input Sanitization**: Ensure all user inputs are properly sanitized to prevent injection attacks
+- **Dependency Management**: Regularly update dependencies and monitor for known vulnerabilities using tools like `npm audit` or `pip-audit`
+- **Secrets Management**: Store secrets and sensitive information securely, avoiding hardcoding them in the codebase
+- **Access Controls**: Implement proper authentication and authorization mechanisms to protect resources
+
+### 6.7. Testing and Quality Assurance
+
+- **Test Coverage**: Aim for high test coverage, focusing on critical and complex parts of the codebase
+- **Automated Testing**: Integrate automated tests into the CI/CD pipeline to catch regressions early
+- **Code Reviews**: Conduct thorough code reviews to maintain code quality and share knowledge among team members
+
+### 6.8. Documentation and Communication
+
+- **API Documentation**: Use tools like Swagger or JSDoc to generate and maintain API documentation
+- **Changelog**: Maintain a `CHANGELOG.md` to document significant changes and updates
+- **Architecture Diagrams**: Include diagrams to visualize system architecture and data flow
+- **FILE_TREE.md**: Keep this file updated with each structural change to the repository (this is a critical requirement for LLM agents)
+
+---
+
+## 7. Master Prompts for LLM Interaction
 
 Use these prompts as starting points when requesting code generation or modification:
 
@@ -490,6 +599,8 @@ Follow these comprehensive coding standards:
     * Design for extensibility.
 
 The code should be robust, efficient, secure, maintainable, directly contribute to the objectives in `PROJECT_PLAN.md`, and demonstrate high craftsmanship adhering to all project standards outlined in `CLAUDE.md`.
+
+Note: This is a template example. For project use, store actual prompt templates in the `.llmconfig/prompt-templates/` directory.
 ```
 
 ### Master Prompt for Test Suite Generation
@@ -529,6 +640,8 @@ For each test:
 * Categorize tests appropriately (unit, integration, etc. - potentially via markers).
 
 The test suite should be maintainable, provide fast feedback, and verify the code's correctness, robustness, and alignment with the requirements and goals specified in both `CLAUDE.md` and `PROJECT_PLAN.md`.
+
+Note: This is a template example. For project use, store actual prompt templates in the `.llmconfig/prompt-templates/` directory.
 ```
 
 ---
