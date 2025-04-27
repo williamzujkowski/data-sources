@@ -24,7 +24,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data-sources/ index.db
+          git add -f data-sources/ index.db # Force add index.db even if ignored
           # Check if there are staged changes
           if git diff --staged --quiet; then
             echo "No changes to commit."
