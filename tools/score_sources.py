@@ -131,7 +131,13 @@ def calculate_user_weighted_score(
     if not user_weights:
         # If no user weights provided, return the standard quality score
         # Ensure quality_score exists, otherwise calculate it
-        return source.get("quality_score") if source.get("quality_score") is not None else calculate_quality_score(source, weights)
+        # Check if quality_score is present and not None before returning
+        existing_score = source.get("quality_score")
+        if existing_score is not None:
+            return existing_score
+        else:
+            # If quality_score is missing or null, calculate it using default weights
+            return calculate_quality_score(source, weights)
 
     # Use values from source if available, otherwise use defaults
     freshness = calculate_freshness_score(source.get("last_updated")) # Handles None internally
