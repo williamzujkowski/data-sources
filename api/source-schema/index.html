@@ -1297,12 +1297,32 @@
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">&quot;sub_category&quot;</span><span class="p">:</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;json&quot;</span><span class="p">,</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span><span class="s2">&quot;rss&quot;</span><span class="p">,</span><span class="s2">&quot;xml&quot;</span><span class="p">,</span><span class="s2">&quot;other&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;array&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nt">&quot;quality_score&quot;</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nt">&quot;user_weighted_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nt">&quot;last_updated&quot;</span><span class="p">:</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date-time&quot;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="p">},</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="s2">&quot;url&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;format&quot;</span><span class="p">,</span><span class="s2">&quot;quality_score&quot;</span><span class="p">,</span><span class="s2">&quot;last_updated&quot;</span><span class="p">]</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">}</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nt">&quot;quality_score&quot;</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Calculated quality score based on various metrics&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nt">&quot;user_weighted_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Quality score adjusted by user-defined weights (optional)&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nt">&quot;last_updated&quot;</span><span class="p">:</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;date-time&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timestamp of the last update check or data fetch (ISO 8601 format)&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="nt">&quot;freshness&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Score indicating how recently the source was updated (optional)&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="nt">&quot;authority&quot;</span><span class="p">:</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Score indicating the credibility/trustworthiness of the source (optional)&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="nt">&quot;coverage&quot;</span><span class="p">:</span><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Score indicating the scope or completeness of the data (optional)&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="nt">&quot;availability&quot;</span><span class="p">:</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;minimum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;maximum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Score indicating the uptime/reliability of the source (optional)&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="nt">&quot;update_frequency&quot;</span><span class="p">:{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;How often the source is typically updated (e.g., Daily, Hourly, Weekly) (optional)&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="nt">&quot;api_details&quot;</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="nt">&quot;requires_auth&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;boolean&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="nt">&quot;documentation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uri&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">      </span><span class="p">},</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">      </span><span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Details about accessing the source via API (optional)&quot;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="nt">&quot;data_format_sample&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;null&quot;</span><span class="p">],</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An example snippet of the data provided by the source (optional)&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">      </span><span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="s2">&quot;url&quot;</span><span class="p">,</span><span class="s2">&quot;category&quot;</span><span class="p">,</span><span class="s2">&quot;format&quot;</span><span class="p">,</span><span class="s2">&quot;quality_score&quot;</span><span class="p">,</span><span class="s2">&quot;last_updated&quot;</span><span class="p">],</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">  </span><span class="nt">&quot;additionalProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <table>
@@ -1367,19 +1387,73 @@
 <td><code>quality_score</code></td>
 <td>number (0-100)</td>
 <td>Yes</td>
-<td>Calculated quality score</td>
+<td>Calculated quality score based on various metrics</td>
 </tr>
 <tr>
 <td><code>user_weighted_score</code></td>
-<td>number (0-100)</td>
+<td>number (0-100) or null</td>
 <td>No</td>
-<td>Quality score with user preference weights</td>
+<td>Quality score adjusted by user-defined weights (optional)</td>
 </tr>
 <tr>
 <td><code>last_updated</code></td>
 <td>string (date-time)</td>
 <td>Yes</td>
-<td>Timestamp of the last update (ISO 8601 format)</td>
+<td>Timestamp of the last update check or data fetch (ISO 8601 format)</td>
+</tr>
+<tr>
+<td><code>freshness</code></td>
+<td>number (0-100) or null</td>
+<td>No</td>
+<td>Score indicating how recently the source was updated (optional)</td>
+</tr>
+<tr>
+<td><code>authority</code></td>
+<td>number (0-100) or null</td>
+<td>No</td>
+<td>Score indicating the credibility/trustworthiness of the source (optional)</td>
+</tr>
+<tr>
+<td><code>coverage</code></td>
+<td>number (0-100) or null</td>
+<td>No</td>
+<td>Score indicating the scope or completeness of the data (optional)</td>
+</tr>
+<tr>
+<td><code>availability</code></td>
+<td>number (0-100) or null</td>
+<td>No</td>
+<td>Score indicating the uptime/reliability of the source (optional)</td>
+</tr>
+<tr>
+<td><code>update_frequency</code></td>
+<td>string or null</td>
+<td>No</td>
+<td>How often the source is typically updated (e.g., Daily, Hourly, Weekly) (optional)</td>
+</tr>
+<tr>
+<td><code>api_details</code></td>
+<td>object or null</td>
+<td>No</td>
+<td>Details about accessing the source via API (optional)</td>
+</tr>
+<tr>
+<td><code>api_details.requires_auth</code></td>
+<td>boolean</td>
+<td>No</td>
+<td>Whether API access requires authentication</td>
+</tr>
+<tr>
+<td><code>api_details.documentation</code></td>
+<td>string (URI)</td>
+<td>No</td>
+<td>URL to the API documentation</td>
+</tr>
+<tr>
+<td><code>data_format_sample</code></td>
+<td>object or null</td>
+<td>No</td>
+<td>An example snippet of the data provided by the source (optional)</td>
 </tr>
 </tbody>
 </table>
