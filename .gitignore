@@ -46,3 +46,4 @@ index.db
 htmlcov/
 .pytest_cache/
 .tox/
+.aider*
