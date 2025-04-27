@@ -68,7 +68,8 @@ def load_source_files() -> List[Dict[str, Any]]:
 def calculate_freshness_score(last_updated_str: Optional[str]) -> float:
     """Calculate freshness score (0-100) based on last update date."""
     if not last_updated_str:
-        logger.warning("Missing or invalid last_updated string, returning freshness 0.")
+        # logger.warning("Missing or invalid last_updated string, returning freshness 0.") 
+        # Reducing noise, this is expected for new/unfetched files
         return 0
         
     try:
@@ -97,7 +98,7 @@ def calculate_quality_score(source: Dict[str, Any], weights: Dict[str, float]) -
 
     # Use values from source if available, otherwise use defaults
     freshness = calculate_freshness_score(source.get("last_updated")) # Handles None internally
-    
+
     # Handle potential None values explicitly for other metrics
     authority = source.get("authority")
     authority = authority if authority is not None else default_score
@@ -148,11 +149,15 @@ def calculate_user_weighted_score(
     # Normalize user weights to sum to 1
     weight_sum = sum(user_weights.values())
     if weight_sum == 0:
-        # If all weights are 0, use default weights
-        return source.get("quality_score", 0)
-    
+        # If all weights are 0, return the standard quality score
+        existing_score = source.get("quality_score")
+        if existing_score is not None:
+            return existing_score
+        else:
+            # If quality_score is missing or null, calculate it using default weights
+            return calculate_quality_score(source, weights)
+
     normalized_weights = {k: v / weight_sum for k, v in user_weights.items()}
-    
     # Calculate weighted score using user weights
     weighted_score = (
         freshness * normalized_weights.get("freshness", weights.get("freshness", 0.4)) +
@@ -196,12 +201,11 @@ def main() -> None:
         quality_score = calculate_quality_score(source, weights)
         source["quality_score"] = quality_score
         
-        # Calculate user-weighted score if user preferences exist
-        user_weights = source.get("user_preference_weight", {})
-        if user_weights:
-            user_weighted_score = calculate_user_weighted_score(source, weights, user_weights)
-            source["user_weighted_score"] = user_weighted_score
-        
+        # Calculate user-weighted score (handles case where user_weights might be None or empty)
+        user_weights = source.get("user_preference_weight") # Get potential user weights
+        user_weighted_score = calculate_user_weighted_score(source, weights, user_weights)
+        source["user_weighted_score"] = user_weighted_score # Store it (might be same as quality_score)
+
         # Save updated source
         save_source_file(source)
     

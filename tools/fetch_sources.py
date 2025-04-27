@@ -71,9 +71,10 @@ def update_source_metadata(source: Dict[str, Any], health: Dict[str, Any]) -> Di
     """Update the source metadata with health check results and current timestamp."""
     updated_source = source.copy()
     
-    # Update last_updated timestamp
-    updated_source["last_updated"] = datetime.datetime.utcnow().isoformat() + "Z"
-    
+    # Update last_updated timestamp only if the fetch was successful or if it's missing
+    if health["available"] or not updated_source.get("last_updated"):
+        updated_source["last_updated"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds') + "Z"
+
     # Update availability score based on health check
     current_availability = updated_source.get("availability")
     
@@ -106,8 +107,11 @@ def save_source_file(source: Dict[str, Any]) -> None:
     
     try:
         with open(file_path, "w") as f:
-            json.dump(source, f, indent=2)
-        logger.info(f"Updated {file_path}")
+            # Use indent=2 for readability, ensure_ascii=False for potential non-ASCII chars
+            json.dump(source, f, indent=2, ensure_ascii=False)
+            # Add a newline at the end of the file for consistency
+            f.write("\n")
+        logger.debug(f"Saved updated metadata to {file_path}") # Changed level to debug
     except Exception as e:
         logger.error(f"Failed to update {file_path}: {e}")
 
