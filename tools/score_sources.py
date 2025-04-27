@@ -72,13 +72,14 @@ def calculate_freshness_score(last_updated_str: Optional[str]) -> float:
         # Reducing noise, this is expected for new/unfetched files
         return 0
     try:
-        # Handle ISO 8601 format with 'Z' for UTC
+        # Handle ISO 8601 format with 'Z' for UTC explicitly
         if last_updated_str.endswith('Z'):
+            # Replace 'Z' with '+00:00' for compatibility with fromisoformat
             last_updated_str = last_updated_str[:-1] + '+00:00'
             
         last_updated = datetime.datetime.fromisoformat(last_updated_str)
         
-        # Ensure 'now' is timezone-aware to compare with last_updated (which is now UTC)
+        # Ensure 'now' is timezone-aware (UTC) to compare with last_updated (which is now UTC)
         now = datetime.datetime.now(datetime.timezone.utc)
             
         days_since_update = (now - last_updated).days
