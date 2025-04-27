@@ -18,11 +18,31 @@ The `source.schema.json` defines the structure for data source metadata files. T
     "sub_category":    { "type": "string" },
     "format":          { "type": "string", "enum": ["json","csv","rss","xml","other"] },
     "tags":            { "type": "array", "items": { "type": "string" } },
-    "quality_score":   { "type": "number", "minimum": 0, "maximum": 100 },
-    "user_weighted_score": { "type": "number", "minimum": 0, "maximum": 100 },
-    "last_updated":    { "type": "string", "format": "date-time" }
+    "quality_score":   { "type": "number", "minimum": 0, "maximum": 100, "description": "Calculated quality score based on various metrics" },
+    "user_weighted_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Quality score adjusted by user-defined weights (optional)" },
+    "last_updated":    { "type": "string", "format": "date-time", "description": "Timestamp of the last update check or data fetch (ISO 8601 format)" },
+    "freshness":       { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating how recently the source was updated (optional)" },
+    "authority":       { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the credibility/trustworthiness of the source (optional)" },
+    "coverage":        { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the scope or completeness of the data (optional)" },
+    "availability":    { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the uptime/reliability of the source (optional)" },
+    "update_frequency":{ "type": ["string", "null"], "description": "How often the source is typically updated (e.g., Daily, Hourly, Weekly) (optional)" },
+    "api_details":     { 
+      "type": ["object", "null"],
+      "properties": {
+        "requires_auth": { "type": "boolean" },
+        "documentation": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false,
+      "description": "Details about accessing the source via API (optional)"
+    },
+    "data_format_sample": {
+      "type": ["object", "null"],
+      "description": "An example snippet of the data provided by the source (optional)",
+      "additionalProperties": true 
+    }
   },
-  "required": ["id","name","url","category","format","quality_score","last_updated"]
+  "required": ["id","name","url","category","format","quality_score","last_updated"],
+  "additionalProperties": false
 }
 ```
 
@@ -38,9 +58,18 @@ The `source.schema.json` defines the structure for data source metadata files. T
 | `sub_category` | string | No | Subcategory for more specific classification |
 | `format` | string (enum) | Yes | Format of the data (json, csv, rss, xml, other) |
 | `tags` | array of strings | No | List of tags for additional classification |
-| `quality_score` | number (0-100) | Yes | Calculated quality score |
-| `user_weighted_score` | number (0-100) | No | Quality score with user preference weights |
-| `last_updated` | string (date-time) | Yes | Timestamp of the last update (ISO 8601 format) |
+| `quality_score` | number (0-100) | Yes | Calculated quality score based on various metrics |
+| `user_weighted_score` | number (0-100) or null | No | Quality score adjusted by user-defined weights (optional) |
+| `last_updated` | string (date-time) | Yes | Timestamp of the last update check or data fetch (ISO 8601 format) |
+| `freshness` | number (0-100) or null | No | Score indicating how recently the source was updated (optional) |
+| `authority` | number (0-100) or null | No | Score indicating the credibility/trustworthiness of the source (optional) |
+| `coverage` | number (0-100) or null | No | Score indicating the scope or completeness of the data (optional) |
+| `availability` | number (0-100) or null | No | Score indicating the uptime/reliability of the source (optional) |
+| `update_frequency` | string or null | No | How often the source is typically updated (e.g., Daily, Hourly, Weekly) (optional) |
+| `api_details` | object or null | No | Details about accessing the source via API (optional) |
+| `api_details.requires_auth` | boolean | No | Whether API access requires authentication |
+| `api_details.documentation` | string (URI) | No | URL to the API documentation |
+| `data_format_sample` | object or null | No | An example snippet of the data provided by the source (optional) |
 
 ## Example Source File
 

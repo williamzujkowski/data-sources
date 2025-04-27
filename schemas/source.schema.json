@@ -11,9 +11,29 @@
     "sub_category":    { "type": "string" },
     "format":          { "type": "string", "enum": ["json","csv","rss","xml","other"] },
     "tags":            { "type": "array", "items": { "type": "string" } },
-    "quality_score":   { "type": "number", "minimum": 0, "maximum": 100 },
-    "user_weighted_score": { "type": "number", "minimum": 0, "maximum": 100 },
-    "last_updated":    { "type": "string", "format": "date-time" }
+    "quality_score":   { "type": "number", "minimum": 0, "maximum": 100, "description": "Calculated quality score based on various metrics" },
+    "user_weighted_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Quality score adjusted by user-defined weights (optional)" },
+    "last_updated":    { "type": "string", "format": "date-time", "description": "Timestamp of the last update check or data fetch (ISO 8601 format)" },
+    "freshness":       { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating how recently the source was updated (optional)" },
+    "authority":       { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the credibility/trustworthiness of the source (optional)" },
+    "coverage":        { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the scope or completeness of the data (optional)" },
+    "availability":    { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the uptime/reliability of the source (optional)" },
+    "update_frequency":{ "type": ["string", "null"], "description": "How often the source is typically updated (e.g., Daily, Hourly, Weekly) (optional)" },
+    "api_details":     { 
+      "type": ["object", "null"],
+      "properties": {
+        "requires_auth": { "type": "boolean" },
+        "documentation": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false,
+      "description": "Details about accessing the source via API (optional)"
+    },
+    "data_format_sample": {
+      "type": ["object", "null"],
+      "description": "An example snippet of the data provided by the source (optional)",
+      "additionalProperties": true 
+    }
   },
-  "required": ["id","name","url","category","format","quality_score","last_updated"]
+  "required": ["id","name","url","category","format","quality_score","last_updated"],
+  "additionalProperties": false
 }
