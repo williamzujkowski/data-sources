@@ -68,7 +68,7 @@ def load_source_files() -> List[Dict[str, Any]]:
 def calculate_freshness_score(last_updated_str: Optional[str]) -> float:
     """Calculate freshness score (0-100) based on last update date."""
     if not last_updated_str:
-        # logger.warning("Missing or invalid last_updated string, returning freshness 0.") 
+        # logger.warning("Missing or invalid last_updated string, returning freshness 0.")
         # Reducing noise, this is expected for new/unfetched files
         return 0
         
