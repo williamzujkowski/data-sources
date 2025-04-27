@@ -71,15 +71,15 @@ def calculate_freshness_score(last_updated_str: Optional[str]) -> float:
         # logger.warning("Missing or invalid last_updated string, returning freshness 0.") 
         # Reducing noise, this is expected for new/unfetched files
         return 0
-        
     try:
-        last_updated = date_parser.parse(last_updated_str)
-        # Ensure 'now' is timezone-aware if last_updated is, otherwise make it naive
-        if last_updated.tzinfo:
-            now = datetime.datetime.now(last_updated.tzinfo)
-        else:
-            # Or consider making everything UTC? For now, use local naive time if input is naive.
-            now = datetime.datetime.now() 
+        # Handle ISO 8601 format with 'Z' for UTC
+        if last_updated_str.endswith('Z'):
+            last_updated_str = last_updated_str[:-1] + '+00:00'
+            
+        last_updated = datetime.datetime.fromisoformat(last_updated_str)
+        
+        # Ensure 'now' is timezone-aware to compare with last_updated (which is now UTC)
+        now = datetime.datetime.now(datetime.timezone.utc)
             
         days_since_update = (now - last_updated).days
         
