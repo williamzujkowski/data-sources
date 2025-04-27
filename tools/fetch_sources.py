@@ -74,13 +74,26 @@ def update_source_metadata(source: Dict[str, Any], health: Dict[str, Any]) -> Di
     # Update last_updated timestamp
     updated_source["last_updated"] = datetime.datetime.utcnow().isoformat() + "Z"
     
-    # You would update quality metrics here based on results
-    # This is a simplified example
-    if not health["available"]:
-        # If source is unavailable, reduce the availability score
-        if "availability" in updated_source:
-            updated_source["availability"] = max(0, updated_source.get("availability", 100) - 10)
+    # Update availability score based on health check
+    current_availability = updated_source.get("availability")
     
+    if health["available"]:
+        # Optional: Increment availability score if it was previously lowered?
+        # For now, we only decrement on failure.
+        pass 
+    else:
+        # If source is unavailable, reduce the availability score
+        if current_availability is None:
+            # If availability was null, set it to 90 (100 - 10)
+            updated_source["availability"] = 90.0
+            logger.info(f"Source {updated_source.get('id')} unavailable, setting availability to 90.")
+        elif isinstance(current_availability, (int, float)):
+            # If it's already a number, decrement it, clamping at 0
+            updated_source["availability"] = max(0.0, current_availability - 10.0)
+            logger.info(f"Source {updated_source.get('id')} unavailable, reducing availability to {updated_source['availability']}.")
+        else:
+             logger.warning(f"Source {updated_source.get('id')} has unexpected type for availability: {type(current_availability)}. Not updating score.")
+
     return updated_source
 
 

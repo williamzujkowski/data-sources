@@ -65,11 +65,21 @@ def load_source_files() -> List[Dict[str, Any]]:
     return sources
 
 
-def calculate_freshness_score(last_updated_str: str) -> float:
+def calculate_freshness_score(last_updated_str: Optional[str]) -> float:
     """Calculate freshness score (0-100) based on last update date."""
+    if not last_updated_str:
+        logger.warning("Missing or invalid last_updated string, returning freshness 0.")
+        return 0
+        
     try:
         last_updated = date_parser.parse(last_updated_str)
-        now = datetime.datetime.now(last_updated.tzinfo)
+        # Ensure 'now' is timezone-aware if last_updated is, otherwise make it naive
+        if last_updated.tzinfo:
+            now = datetime.datetime.now(last_updated.tzinfo)
+        else:
+            # Or consider making everything UTC? For now, use local naive time if input is naive.
+            now = datetime.datetime.now() 
+            
         days_since_update = (now - last_updated).days
         
         # Score decreases as days increase
@@ -83,12 +93,21 @@ def calculate_freshness_score(last_updated_str: str) -> float:
 
 def calculate_quality_score(source: Dict[str, Any], weights: Dict[str, float]) -> float:
     """Calculate overall quality score based on component metrics and weights."""
+    default_score = 50.0 # Default score for missing or null metrics
+
     # Use values from source if available, otherwise use defaults
-    freshness = calculate_freshness_score(source.get("last_updated", ""))
-    authority = source.get("authority", 50)
-    coverage = source.get("coverage", 50)
-    availability = source.get("availability", 50)
+    freshness = calculate_freshness_score(source.get("last_updated")) # Handles None internally
     
+    # Handle potential None values explicitly for other metrics
+    authority = source.get("authority")
+    authority = authority if authority is not None else default_score
+    
+    coverage = source.get("coverage")
+    coverage = coverage if coverage is not None else default_score
+    
+    availability = source.get("availability")
+    availability = availability if availability is not None else default_score
+
     # Calculate weighted score
     quality_score = (
         freshness * weights.get("freshness", 0.4) +
@@ -106,16 +125,26 @@ def calculate_user_weighted_score(
     user_weights: Optional[Dict[str, float]] = None
 ) -> float:
     """Calculate user-weighted score based on user preference weights."""
+    default_score = 50.0 # Default score for missing or null metrics
+
     if not user_weights:
         # If no user weights provided, return the standard quality score
-        return source.get("quality_score", 0)
-    
+        # Ensure quality_score exists, otherwise calculate it
+        return source.get("quality_score") if source.get("quality_score") is not None else calculate_quality_score(source, weights)
+
     # Use values from source if available, otherwise use defaults
-    freshness = calculate_freshness_score(source.get("last_updated", ""))
-    authority = source.get("authority", 50)
-    coverage = source.get("coverage", 50)
-    availability = source.get("availability", 50)
+    freshness = calculate_freshness_score(source.get("last_updated")) # Handles None internally
+
+    # Handle potential None values explicitly for other metrics
+    authority = source.get("authority")
+    authority = authority if authority is not None else default_score
     
+    coverage = source.get("coverage")
+    coverage = coverage if coverage is not None else default_score
+    
+    availability = source.get("availability")
+    availability = availability if availability is not None else default_score
+
     # Normalize user weights to sum to 1
     weight_sum = sum(user_weights.values())
     if weight_sum == 0:
