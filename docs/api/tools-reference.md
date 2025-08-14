@@ -623,4 +623,4 @@ for source in sources:
 
 ---
 
-For more examples and detailed usage instructions, see the [DEVELOPMENT.md](../DEVELOPMENT.md) file and the individual tool source code in the `tools/` directory.
+For more examples and detailed usage instructions, see the [Development Guide](../development/contributing.md) and the individual tool source code in the `tools/` directory.
