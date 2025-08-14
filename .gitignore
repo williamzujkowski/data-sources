@@ -47,3 +47,43 @@ htmlcov/
 .pytest_cache/
 .tox/
 .aider*
+
+# Claude Flow / AI Agent Files
+.claude-flow/
+.hive-mind/
+.swarm/
+.llmconfig/
+.ai-cache/
+*.claude
+*.swarm
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+.cache/
+
+# Database files (if not needed in repo)
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+logs/
+*.log.*
+*.log-*
+
+# Generated documentation
+site/
+docs/_build/
+mkdocs-site/
+
+# Data files that should not be tracked
+data/
+*.csv
+*.xlsx
+*.xls
+!templates/*.csv
+!examples/*.csv
