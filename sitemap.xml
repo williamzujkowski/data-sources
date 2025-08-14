@@ -2,70 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/API_KEYS/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/SECRETS_MANAGEMENT/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/github-pages-setup/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/api/python-tools/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/api/quality-schema/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/api/source-schema/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
+    </url>
+    <url>
+         <loc>https://williamzujkowski.github.io/data-sources/api/tools-reference/</loc>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/development/api-keys/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/development/architecture/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/development/contributing/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/development/secrets-management/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/getting-started/configuration/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/getting-started/installation/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/getting-started/quickstart/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/usage/data-sources/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/usage/querying/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
     <url>
          <loc>https://williamzujkowski.github.io/data-sources/usage/scoring/</loc>
-         <lastmod>2025-04-27</lastmod>
+         <lastmod>2025-08-14</lastmod>
     </url>
 </urlset>
