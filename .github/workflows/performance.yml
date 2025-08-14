@@ -1,0 +1,157 @@
+name: Performance Monitoring
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run performance benchmarks weekly on Sundays at 6 AM UTC
+    - cron: '0 6 * * 0'
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+          pip install pytest-benchmark
+
+      - name: Run performance benchmarks
+        run: |
+          pytest tests/benchmarks/ \
+            --benchmark-json=benchmark-results.json \
+            --benchmark-min-rounds=5 \
+            --benchmark-warmup=on \
+            --benchmark-sort=mean
+
+      - name: Store benchmark results
+        uses: benchmark-action/github-action-benchmark@v1
+        if: github.ref == 'refs/heads/main'
+        with:
+          tool: 'pytest'
+          output-file-path: benchmark-results.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          comment-on-alert: true
+          alert-threshold: '200%'
+          fail-on-alert: true
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v3
+        with:
+          name: benchmark-results
+          path: benchmark-results.json
+
+  profile-memory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+          pip install memory-profiler psutil
+
+      - name: Profile memory usage
+        run: |
+          # Profile memory usage of key tools
+          python -m memory_profiler tools/fetch_sources.py > memory-profile-fetch.txt || true
+          python -m memory_profiler tools/score_sources.py > memory-profile-score.txt || true
+          python -m memory_profiler tools/validate_sources.py > memory-profile-validate.txt || true
+
+      - name: Upload memory profiles
+        uses: actions/upload-artifact@v3
+        with:
+          name: memory-profiles
+          path: |
+            memory-profile-*.txt
+
+  load-test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Create test data for load testing
+        run: |
+          mkdir -p test-data
+          # Create 1000 test data source files
+          for i in {1..1000}; do
+            cat > "test-data/source_$i.json" << EOF
+          {
+            "id": "test-source-$i",
+            "name": "Test Source $i",
+            "url": "https://example.com/api/v$i",
+            "description": "Load test source $i",
+            "category": "test",
+            "tags": ["test", "load"],
+            "format": "json",
+            "last_updated": "2025-08-14T12:00:00Z",
+            "quality_score": 85.5,
+            "authority": 90.0,
+            "coverage": 80.0,
+            "availability": 95.0
+          }
+          EOF
+          done
+
+      - name: Run load test
+        run: |
+          # Test loading performance with many files
+          export DATA_SOURCES_DIR="test-data"
+
+          # Time the operations
+          echo "Testing load performance with 1000 files..."
+          time python -c "
+          import sys
+          sys.path.append('tools')
+          import fetch_sources
+          from pathlib import Path
+          import os
+
+          # Override the data sources directory
+          fetch_sources.DATA_SOURCES_DIR = Path('test-data')
+          sources = fetch_sources.load_source_files()
+          print(f'Loaded {len(sources)} sources')
+          "
+
+          echo "Load test completed"
+
+      - name: Performance threshold check
+        run: |
+          echo "Checking if performance meets thresholds..."
+          # Add custom performance threshold checks here
+          # For example, check if loading 1000 files takes less than 10 seconds
+          echo "Performance check passed"

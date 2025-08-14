@@ -1,0 +1,4 @@
+# file: /home/william/git/data-sources/tools/score_sources.py
+# hypothesis_version: 6.131.9
+
+[0.1, 0.2, 0.3, 0.4, 50.0, 100, '+00:00', 'Z', '__main__', '_file_path', 'authority', 'availability', 'config', 'coverage', 'data-sources', 'freshness', 'last_updated', 'quality_score', 'r', 'score_sources', 'scoring-config.json', 'user_weighted_score', 'w', 'weights']

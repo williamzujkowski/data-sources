@@ -1,0 +1,39 @@
+{
+  "__serializer_meta__": {
+    "nodeVersion": "v20.19.4",
+    "platform": "linux",
+    "serializer": "AdvancedSerializer",
+    "timestamp": "2025-08-14T05:37:15.051Z",
+    "version": "1.0.0"
+  },
+  "__session_meta__": {
+    "compressionEnabled": true,
+    "nodeVersion": "v20.19.4",
+    "platform": "linux",
+    "serializer": "SessionSerializer",
+    "timestamp": "2025-08-14T05:37:15.051Z",
+    "version": "2.0.0"
+  },
+  "checkpointId": "checkpoint-1755149835051-v3w3oaa8c",
+  "checkpointName": "auto-pause",
+  "data": {
+    "objective": "review and improve this repo",
+    "reason": "User pressed Ctrl+C",
+    "status": "paused_by_user",
+    "swarmId": "swarm-1755149814329-nc8db3vmh",
+    "timestamp": "2025-08-14T05:37:15.048Z",
+    "workerCount": 8,
+    "workerTypes": [
+      "researcher",
+      "coder",
+      "analyst",
+      "tester",
+      "architect",
+      "reviewer",
+      "optimizer",
+      "documenter"
+    ]
+  },
+  "sessionId": "session-1755149814421-pcj1wp7t9",
+  "timestamp": "2025-08-14T05:37:15.051Z"
+}

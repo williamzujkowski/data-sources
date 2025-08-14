@@ -1,12 +1,12 @@
 {
-  "weights": {
-    "freshness":    0.4,
-    "authority":    0.3,
-    "coverage":     0.2,
-    "availability": 0.1
-  },
   "update_schedule": {
-    "daily":  true,
+    "daily": true,
     "weekly": false
+  },
+  "weights": {
+    "authority": 0.3,
+    "availability": 0.1,
+    "coverage": 0.2,
+    "freshness": 0.4
   }
 }

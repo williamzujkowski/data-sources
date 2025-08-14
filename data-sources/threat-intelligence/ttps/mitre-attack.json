@@ -1,0 +1,286 @@
+{
+  "id": "mitre-attack",
+  "name": "MITRE ATT&CK Framework",
+  "url": "https://attack.mitre.org/",
+  "category": "threat-intelligence",
+  "sub_category": "ttps",
+  "format": "json",
+  "description": "MITRE ATT&CK is a globally-accessible knowledge base of adversary tactics, techniques, and procedures (TTPs) based on real-world observations. The knowledge base is used as a foundation for the development of specific threat models and methodologies in the private sector, in government, and in the cybersecurity product and service community. ATT&CK provides a comprehensive framework for understanding adversary behavior throughout the attack lifecycle.",
+  "tags": [
+    "mitre",
+    "attack-framework",
+    "tactics",
+    "techniques",
+    "procedures",
+    "threat-intelligence",
+    "adversary-behavior",
+    "cti",
+    "stix",
+    "enterprise",
+    "mobile",
+    "ics",
+    "authoritative"
+  ],
+  "api_details": {
+    "data_feed": "https://github.com/mitre/cti/",
+    "stix_api": "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json",
+    "mobile_api": "https://raw.githubusercontent.com/mitre/cti/master/mobile-attack/mobile-attack.json",
+    "ics_api": "https://raw.githubusercontent.com/mitre/cti/master/ics-attack/ics-attack.json",
+    "format": "json",
+    "requires_auth": false,
+    "documentation": "https://attack.mitre.org/resources/",
+    "stix_documentation": "https://stix.mitre.org/",
+    "update_frequency": "Continuous",
+    "rate_limits": "None - GitHub open data",
+    "data_formats": [
+      "json",
+      "stix2.1"
+    ]
+  },
+  "update_frequency": "Quarterly",
+  "quality_score": 100.0,
+  "authority": 100,
+  "coverage": 100,
+  "availability": 100,
+  "freshness": 95,
+  "last_updated": "2025-08-14T06:30:00Z",
+  "source_weight": 9,
+  "threat_intelligence": {
+    "attack_techniques": [
+      {
+        "technique_id": "T1001",
+        "technique_name": "Data Obfuscation",
+        "tactic": "Command and Control",
+        "sub_technique": null
+      },
+      {
+        "technique_id": "T1566.001",
+        "technique_name": "Spearphishing Attachment",
+        "tactic": "Initial Access",
+        "sub_technique": "Spearphishing Attachment"
+      }
+    ],
+    "iocs": [
+      {
+        "type": "technique_id",
+        "format": "T#### or T####.###",
+        "confidence": 100
+      },
+      {
+        "type": "tactic_name",
+        "format": "string",
+        "confidence": 100
+      }
+    ],
+    "threat_actors": [
+      {
+        "name": "APT1",
+        "aliases": [
+          "Comment Crew",
+          "PLA Unit 61398"
+        ],
+        "attribution": "China"
+      },
+      {
+        "name": "Lazarus Group",
+        "aliases": [
+          "Hidden Cobra",
+          "Guardians of Peace"
+        ],
+        "attribution": "North Korea"
+      }
+    ],
+    "malware_families": [
+      "Cobalt Strike",
+      "Mimikatz",
+      "PowerShell Empire",
+      "Metasploit",
+      "PsExec"
+    ],
+    "cve_mappings": [
+      {
+        "cve_id": "CVE-2017-0144",
+        "techniques": [
+          "T1210",
+          "T1068"
+        ]
+      },
+      {
+        "cve_id": "CVE-2019-0708",
+        "techniques": [
+          "T1210",
+          "T1021.001"
+        ]
+      }
+    ]
+  },
+  "data_quality": {
+    "confidence_score": 100,
+    "source_authority": 100,
+    "data_completeness": 100,
+    "false_positive_rate": 0,
+    "update_reliability": 95,
+    "validation_methods": [
+      "Peer review by cybersecurity community",
+      "Real-world attack observation validation",
+      "Industry expert validation",
+      "Government agency collaboration"
+    ],
+    "known_limitations": [
+      "May not include the most recent emerging techniques immediately",
+      "Focus on documented behaviors may miss novel attack methods",
+      "Technique descriptions are generalized and may not capture all variants"
+    ]
+  },
+  "frameworks_supported": [
+    {
+      "name": "STIX 2.1",
+      "version": "2.1",
+      "mapping": "Native STIX 2.1 format"
+    },
+    {
+      "name": "NIST Cybersecurity Framework",
+      "version": "1.1",
+      "mapping": "Detect, Respond, Identify"
+    },
+    {
+      "name": "MITRE D3FEND",
+      "version": "0.10.1",
+      "mapping": "Defensive techniques mapped to offensive techniques"
+    },
+    {
+      "name": "CIS Controls",
+      "version": "8",
+      "mapping": "Detection and mitigation controls"
+    }
+  ],
+  "usage_guidance": {
+    "primary_use_cases": [
+      "Threat modeling and risk assessment",
+      "Detection rule development",
+      "Incident response playbook creation",
+      "Red team exercise planning",
+      "Security tool evaluation and testing",
+      "Threat hunting methodology",
+      "Cybersecurity training and education"
+    ],
+    "integration_recommendations": [
+      "Map organizational assets to relevant techniques",
+      "Integrate with SIEM for detection rule creation",
+      "Cross-reference with D3FEND for defensive measures",
+      "Correlate with threat intelligence feeds",
+      "Use for gap analysis in security controls"
+    ],
+    "automation_potential": "High - structured STIX format with extensive API support"
+  },
+  "value_proposition": {
+    "key_benefits": [
+      "Comprehensive taxonomy of adversary behavior",
+      "Industry-standard framework for threat intelligence",
+      "Enables consistent threat communication",
+      "Supports evidence-based security decisions",
+      "Facilitates threat hunting and detection development"
+    ],
+    "differentiators": [
+      "Most widely adopted adversary behavior framework",
+      "Backed by MITRE Corporation research",
+      "Continuously updated with real-world observations",
+      "Free and open-source knowledge base",
+      "Extensive community contribution and validation"
+    ]
+  },
+  "organizational_context": {
+    "organization": "MITRE Corporation",
+    "type": "Federally Funded Research and Development Center (FFRDC)",
+    "established": "2013 (ATT&CK framework)",
+    "funding": "U.S. Government",
+    "mission": "Advance cybersecurity through shared knowledge and understanding"
+  },
+  "coverage_details": {
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Cloud (AWS, Azure, GCP)",
+      "Network",
+      "Mobile (iOS, Android)",
+      "Industrial Control Systems (ICS)"
+    ],
+    "attack_lifecycle": [
+      "Initial Access",
+      "Execution",
+      "Persistence",
+      "Privilege Escalation",
+      "Defense Evasion",
+      "Credential Access",
+      "Discovery",
+      "Lateral Movement",
+      "Collection",
+      "Command and Control",
+      "Exfiltration",
+      "Impact"
+    ],
+    "technique_count": {
+      "enterprise": 193,
+      "mobile": 73,
+      "ics": 81,
+      "total_sub_techniques": 401
+    }
+  },
+  "data_format_sample": {
+    "type": "attack-pattern",
+    "spec_version": "2.1",
+    "id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
+    "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+    "created": "2017-05-31T21:30:19.735Z",
+    "modified": "2023-04-14T16:58:40.771Z",
+    "name": "System Information Discovery",
+    "description": "An adversary may attempt to get detailed information about the operating system and hardware, including version, patches, hotfixes, service packs, and architecture.",
+    "kill_chain_phases": [
+      {
+        "kill_chain_name": "mitre-attack",
+        "phase_name": "discovery"
+      }
+    ],
+    "external_references": [
+      {
+        "source_name": "mitre-attack",
+        "url": "https://attack.mitre.org/techniques/T1082",
+        "external_id": "T1082"
+      }
+    ],
+    "object_marking_refs": [
+      "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+    ],
+    "x_mitre_attack_spec_version": "3.1.0",
+    "x_mitre_version": "1.5",
+    "x_mitre_domains": [
+      "enterprise-attack"
+    ],
+    "x_mitre_platforms": [
+      "Linux",
+      "macOS",
+      "Windows"
+    ],
+    "x_mitre_data_sources": [
+      "Command: Command Execution",
+      "Process: Process Creation"
+    ]
+  },
+  "api_examples": {
+    "get_all_techniques": {
+      "endpoint": "https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json",
+      "method": "GET",
+      "description": "Retrieve all enterprise ATT&CK techniques in STIX format"
+    },
+    "technique_lookup": {
+      "description": "Filter techniques by ID, name, or tactic",
+      "example": "Filter objects where type='attack-pattern' and external_references contains T1082"
+    },
+    "relationship_mapping": {
+      "description": "Find relationships between techniques, tactics, and mitigations",
+      "example": "Filter objects where type='relationship' and source_ref points to technique"
+    }
+  },
+  "user_weighted_score": 100.0
+}

@@ -87,4 +87,3 @@ The **data-sources-manager** repository will serve as a centralized, version‑c
 ## 11. Scaffolding Reference
 
 For detailed repository structure, file templates, and instructions, refer to **`SCAFFOLDING_PROMPT.md`** in this repository.
-

@@ -1,39 +1,846 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Data Source Metadata",
-  "type": "object",
+  "additionalProperties": true,
   "properties": {
-    "id":              { "type": "string" },
-    "name":            { "type": "string" },
-    "url":             { "type": "string", "format": "uri" },
-    "description":     { "type": "string" },
-    "category":        { "type": "string" },
-    "sub_category":    { "type": "string" },
-    "format":          { "type": "string", "enum": ["json","csv","rss","xml","other"] },
-    "tags":            { "type": "array", "items": { "type": "string" } },
-    "quality_score":   { "type": "number", "minimum": 0, "maximum": 100, "description": "Calculated quality score based on various metrics" },
-    "user_weighted_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Quality score adjusted by user-defined weights (optional)" },
-    "last_updated":    { "type": "string", "format": "date-time", "description": "Timestamp of the last update check or data fetch (ISO 8601 format)" },
-    "freshness":       { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating how recently the source was updated (optional)" },
-    "authority":       { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the credibility/trustworthiness of the source (optional)" },
-    "coverage":        { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the scope or completeness of the data (optional)" },
-    "availability":    { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Score indicating the uptime/reliability of the source (optional)" },
-    "update_frequency":{ "type": ["string", "null"], "description": "How often the source is typically updated (e.g., Daily, Hourly, Weekly) (optional)" },
-    "api_details":     { 
-      "type": ["object", "null"],
+    "aggregation_benefits": {
+      "additionalProperties": true,
+      "description": "Benefits of data aggregation (optional)",
+      "type": [
+        "array",
+        "object",
+        "string",
+        "null"
+      ]
+    },
+    "api_details": {
+      "additionalProperties": true,
+      "description": "Details about accessing the source via API (optional)",
       "properties": {
-        "requires_auth": { "type": "boolean" },
-        "documentation": { "type": "string", "format": "uri" }
+        "aggregation": {
+          "description": "Information about data aggregation",
+          "type": "string"
+        },
+        "api_key_benefit": {
+          "description": "Benefits of using an API key",
+          "type": "string"
+        },
+        "api_key_info": {
+          "description": "URL for API key registration or information",
+          "format": "uri",
+          "type": "string"
+        },
+        "auth_type": {
+          "description": "Type of authentication required",
+          "type": "string"
+        },
+        "data_feed": {
+          "description": "Direct data feed URL",
+          "format": "uri",
+          "type": "string"
+        },
+        "data_formats": {
+          "description": "Available data formats",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "documentation": {
+          "format": "uri",
+          "type": "string"
+        },
+        "format": {
+          "description": "Data format provided by the API",
+          "type": "string"
+        },
+        "format_options": {
+          "description": "Available format options",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "pricing": {
+          "description": "Pricing information for API access",
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "query_parameters": {
+          "description": "Available query parameters for the API",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rate_limits": {
+          "description": "Rate limiting information for the API",
+          "type": "string"
+        },
+        "requires_auth": {
+          "type": "boolean"
+        },
+        "rss_feed": {
+          "description": "RSS feed URL if available",
+          "format": "uri",
+          "type": "string"
+        },
+        "signup_url": {
+          "description": "URL to sign up for API access",
+          "format": "uri",
+          "type": "string"
+        },
+        "web_interface": {
+          "description": "Web interface URL",
+          "format": "uri",
+          "type": "string"
+        }
       },
-      "additionalProperties": false,
-      "description": "Details about accessing the source via API (optional)"
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "api_functionality": {
+      "additionalProperties": true,
+      "description": "API functionality details (optional)",
+      "type": [
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "authority": {
+      "description": "Score indicating the credibility/trustworthiness of the source (optional)",
+      "maximum": 100,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "availability": {
+      "description": "Score indicating the uptime/reliability of the source (optional)",
+      "maximum": 100,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "available_feeds": {
+      "description": "Available data feeds from this source (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "category": {
+      "type": "string"
+    },
+    "collaborative_platforms": {
+      "description": "Collaborative platforms associated with this source (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": [
+          "string",
+          "object"
+        ]
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "community_contribution": {
+      "additionalProperties": true,
+      "description": "Community contribution information (optional)",
+      "type": [
+        "object",
+        "string",
+        "null"
+      ]
+    },
+    "community_engagement": {
+      "description": "Community engagement aspects of this source (optional)",
+      "type": [
+        "string",
+        "object",
+        "null"
+      ]
+    },
+    "community_engagement_opportunities": {
+      "additionalProperties": true,
+      "description": "Opportunities for community engagement (optional)",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
+    },
+    "consumption_methods": {
+      "additionalProperties": true,
+      "description": "Different ways to consume data from this source (optional)",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "content_types": {
+      "description": "Types of content provided by this source (optional)",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "coverage": {
+      "description": "Score indicating the scope or completeness of the data (optional)",
+      "maximum": 100,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "cve_process": {
+      "additionalProperties": true,
+      "description": "CVE process information (optional)",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "data_coverage": {
+      "additionalProperties": true,
+      "description": "Information about data coverage (optional)",
+      "type": [
+        "object",
+        "string",
+        "null"
+      ]
+    },
+    "data_feeds": {
+      "additionalProperties": true,
+      "description": "Available data feeds (optional)",
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
     },
     "data_format_sample": {
-      "type": ["object", "null"],
+      "additionalProperties": true,
       "description": "An example snippet of the data provided by the source (optional)",
-      "additionalProperties": true 
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "data_quality": {
+      "additionalProperties": true,
+      "description": "Data quality metrics and metadata (optional)",
+      "properties": {
+        "confidence_score": {
+          "description": "Confidence in the data quality (0-100)",
+          "maximum": 100,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "data_completeness": {
+          "description": "Completeness of data fields (0-100)",
+          "maximum": 100,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "false_positive_rate": {
+          "description": "Estimated false positive rate (0-100)",
+          "maximum": 100,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "known_limitations": {
+          "description": "Known limitations or biases in the data",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "last_verified": {
+          "description": "When this source was last verified as operational",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_authority": {
+          "description": "Authority score based on source reputation and track record",
+          "maximum": 100,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "update_reliability": {
+          "description": "Reliability of updates based on promised frequency",
+          "maximum": 100,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "validation_methods": {
+          "description": "Methods used to validate data from this source",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "example_query": {
+      "additionalProperties": true,
+      "description": "Example query for this data source (optional)",
+      "type": [
+        "string",
+        "object",
+        "null"
+      ]
+    },
+    "exploitation_status": {
+      "additionalProperties": true,
+      "description": "Information about vulnerability exploitation status (optional)",
+      "properties": {
+        "active_exploitation": {
+          "description": "Whether active exploitation has been observed",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "epss_percentile": {
+          "description": "EPSS percentile ranking",
+          "maximum": 100,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "epss_score": {
+          "description": "EPSS (Exploit Prediction Scoring System) score",
+          "maximum": 1,
+          "minimum": 0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "exploitation_timeline": {
+          "description": "Timeline of exploitation events",
+          "items": {
+            "properties": {
+              "date": {
+                "format": "date",
+                "type": "string"
+              },
+              "event": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "kev_listed": {
+          "description": "Whether this vulnerability is listed in CISA KEV catalog",
+          "type": "boolean"
+        },
+        "ransomware_associated": {
+          "description": "Whether this vulnerability is associated with ransomware campaigns",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "weaponized": {
+          "description": "Whether exploit code/tools are publicly available",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "features": {
+      "additionalProperties": true,
+      "description": "Available features (optional)",
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
+    },
+    "format": {
+      "enum": [
+        "json",
+        "csv",
+        "rss",
+        "xml",
+        "other"
+      ],
+      "type": "string"
+    },
+    "frameworks_supported": {
+      "description": "Security frameworks or standards supported by this source (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "freshness": {
+      "description": "Score indicating how recently the source was updated (optional)",
+      "maximum": 100,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "included_vendors": {
+      "description": "List of included vendors (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": [
+          "string",
+          "object"
+        ]
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "indicator_types": {
+      "description": "Types of indicators provided by this source (optional)",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "integration_methods": {
+      "additionalProperties": true,
+      "description": "Available integration methods (optional)",
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
+    },
+    "integration_options": {
+      "additionalProperties": true,
+      "description": "Available integration options (optional)",
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
+    },
+    "international_collaboration": {
+      "additionalProperties": true,
+      "description": "International collaboration aspects (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "key_endpoints": {
+      "description": "Key API endpoints available (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": [
+          "string",
+          "object"
+        ]
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "last_updated": {
+      "description": "Timestamp of the last update check or data fetch (ISO 8601 format)",
+      "format": "date-time",
+      "type": "string"
+    },
+    "limitations": {
+      "description": "Known limitations of the data source (optional)",
+      "type": [
+        "string",
+        "object",
+        "null"
+      ]
+    },
+    "media_verticals": {
+      "additionalProperties": true,
+      "description": "Media verticals covered by this source (optional)",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "organizational_context": {
+      "additionalProperties": true,
+      "description": "Organizational context information (optional)",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "quality_score": {
+      "description": "Calculated quality score based on various metrics",
+      "maximum": 100,
+      "minimum": 0,
+      "type": "number"
+    },
+    "recommended_additional_sources": {
+      "description": "Additional recommended sources related to this one (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "regulatory_considerations": {
+      "description": "Regulatory considerations for using this source (optional)",
+      "type": [
+        "string",
+        "object",
+        "null"
+      ]
+    },
+    "regulatory_context": {
+      "additionalProperties": true,
+      "description": "Regulatory context for this data source (optional)",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "related_resources": {
+      "description": "Related resources and tools (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "related_standards": {
+      "description": "Related standards and frameworks (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "search_capabilities": {
+      "additionalProperties": true,
+      "description": "Search capabilities available (optional)",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "service_tiers": {
+      "additionalProperties": true,
+      "description": "Different service tiers available (optional)",
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
+    },
+    "source_weight": {
+      "default": 5,
+      "description": "Weight assigned to this source in scoring calculations (optional)",
+      "maximum": 10,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "sources": {
+      "description": "Individual sources within this data source collection (optional)",
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "sub_category": {
+      "type": "string"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "threat_intelligence": {
+      "additionalProperties": true,
+      "description": "Threat intelligence specific information (optional)",
+      "properties": {
+        "attack_techniques": {
+          "description": "MITRE ATT&CK techniques associated with this source",
+          "items": {
+            "properties": {
+              "sub_technique": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "tactic": {
+                "type": "string"
+              },
+              "technique_id": {
+                "type": "string"
+              },
+              "technique_name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "cve_mappings": {
+          "description": "CVE to MITRE ATT&CK technique mappings",
+          "items": {
+            "properties": {
+              "cve_id": {
+                "type": "string"
+              },
+              "techniques": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "defensive_measures": {
+          "description": "MITRE D3FEND defensive techniques mapped to this source",
+          "items": {
+            "properties": {
+              "effectiveness_score": {
+                "maximum": 100,
+                "minimum": 0,
+                "type": "number"
+              },
+              "technique_id": {
+                "type": "string"
+              },
+              "technique_name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "iocs": {
+          "description": "Indicators of Compromise provided by this source",
+          "items": {
+            "properties": {
+              "confidence": {
+                "maximum": 100,
+                "minimum": 0,
+                "type": "number"
+              },
+              "format": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "malware_families": {
+          "description": "Malware families covered by this source",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "threat_actors": {
+          "description": "Threat actors covered by this source",
+          "items": {
+            "properties": {
+              "aliases": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "attribution": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "unique_features": {
+      "additionalProperties": true,
+      "description": "Unique features of this data source (optional)",
+      "type": [
+        "array",
+        "object",
+        "null"
+      ]
+    },
+    "update_frequency": {
+      "description": "How often the source is typically updated (e.g., Daily, Hourly, Weekly) (optional)",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "url": {
+      "format": "uri",
+      "type": "string"
+    },
+    "usage_guidance": {
+      "additionalProperties": true,
+      "description": "Guidance on how to effectively use this data source (optional)",
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "user_weighted_score": {
+      "description": "Quality score adjusted by user-defined weights (optional)",
+      "maximum": 100,
+      "minimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "utility_in_security_operations": {
+      "description": "How this source is useful in security operations (optional)",
+      "type": [
+        "string",
+        "object",
+        "null"
+      ]
+    },
+    "value_proposition": {
+      "description": "Value proposition of using this data source (optional)",
+      "type": [
+        "string",
+        "object",
+        "null"
+      ]
     }
   },
-  "required": ["id","name","url","category","format","quality_score","last_updated"],
-  "additionalProperties": false
+  "required": [
+    "id",
+    "name",
+    "url",
+    "category",
+    "format",
+    "quality_score",
+    "last_updated"
+  ],
+  "title": "Data Source Metadata",
+  "type": "object"
 }
