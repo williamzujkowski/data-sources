@@ -1,0 +1,171 @@
+{
+  "id": "source-identifier",
+  "name": "Source Full Name",
+  "description": "Comprehensive description of what this source provides",
+  "category": "vulnerability|threat-intelligence|defensive",
+  "subcategory": "specific-type",
+  "authority": "official|commercial|community|research",
+  "website": "https://source-website.com",
+  "documentation": "https://api-docs.source.com",
+  
+  "api": {
+    "type": "REST|GraphQL|SOAP|RSS|Other",
+    "base_url": "https://api.source.com/v1",
+    "endpoints": [
+      {
+        "path": "/endpoint/path",
+        "method": "GET|POST|PUT|DELETE",
+        "description": "What this endpoint provides",
+        "parameters": [
+          {
+            "name": "param_name",
+            "type": "string|integer|boolean",
+            "required": true,
+            "description": "Parameter description",
+            "example": "example_value"
+          }
+        ],
+        "headers": {
+          "Accept": "application/json",
+          "User-Agent": "YourApp/1.0"
+        },
+        "response_format": {
+          "type": "JSON|XML|CSV",
+          "schema_url": "Link to response schema if available",
+          "example": {
+            "sample": "response structure"
+          }
+        },
+        "rate_limit": {
+          "requests_per_minute": 10,
+          "requests_per_hour": 500,
+          "requests_per_day": 10000,
+          "notes": "Additional rate limiting details"
+        }
+      }
+    ]
+  },
+  
+  "authentication": {
+    "type": "none|api_key|oauth2|basic|bearer|custom",
+    "required": true,
+    "registration_url": "https://source.com/register",
+    "documentation": "https://source.com/auth-docs",
+    "setup_instructions": [
+      "Step 1: Register at registration_url",
+      "Step 2: Navigate to API settings",
+      "Step 3: Generate API key",
+      "Step 4: Store key securely"
+    ],
+    "example_implementation": {
+      "python": "headers = {'API-Key': os.environ['SOURCE_API_KEY']}",
+      "curl": "curl -H 'API-Key: YOUR_KEY' https://api.source.com",
+      "javascript": "fetch(url, { headers: { 'API-Key': process.env.SOURCE_API_KEY } })"
+    }
+  },
+  
+  "integration_examples": {
+    "python": {
+      "basic_fetch": "# Python code example for basic data fetch",
+      "pagination": "# Python code for handling pagination",
+      "error_handling": "# Python code for error handling",
+      "full_example": "# Complete working Python example"
+    },
+    "curl": {
+      "basic_fetch": "curl -X GET 'https://api.source.com/endpoint'",
+      "with_auth": "curl -H 'API-Key: KEY' 'https://api.source.com/endpoint'"
+    },
+    "javascript": {
+      "basic_fetch": "// JavaScript fetch example",
+      "async_await": "// Modern async/await pattern",
+      "error_handling": "// Error handling example"
+    },
+    "go": {
+      "basic_fetch": "// Go implementation example"
+    }
+  },
+  
+  "data_format": {
+    "primary_format": "JSON|XML|CSV",
+    "encoding": "UTF-8",
+    "compression": "none|gzip|zip",
+    "schemas": {
+      "json_schema": "Link to JSON schema",
+      "xml_schema": "Link to XSD",
+      "documentation": "Link to format documentation"
+    },
+    "field_descriptions": {
+      "key_field": "Description of what this field contains",
+      "another_field": "Description of another important field"
+    }
+  },
+  
+  "coverage": {
+    "data_types": ["CVE", "CPE", "CWE", "IOC", "TTP"],
+    "geographical": "global|regional|country-specific",
+    "temporal": {
+      "historical_data": "2002-present",
+      "update_frequency": "real-time|hourly|daily|weekly",
+      "latency": "Typical delay from event to availability"
+    },
+    "completeness": "Estimated coverage percentage"
+  },
+  
+  "quality_metrics": {
+    "reliability": "high|medium|low",
+    "accuracy": "Accuracy assessment",
+    "timeliness": "How quickly data is updated",
+    "false_positive_rate": "Known FP rate if applicable",
+    "community_rating": 4.5,
+    "last_verified": "2024-01-15"
+  },
+  
+  "operational_guidance": {
+    "recommended_update_frequency": "How often to poll this source",
+    "best_practices": [
+      "Cache responses for X minutes",
+      "Implement exponential backoff on errors",
+      "Store API keys in environment variables"
+    ],
+    "common_pitfalls": [
+      "Don't exceed rate limits",
+      "Handle pagination properly",
+      "Account for maintenance windows"
+    ],
+    "cost_considerations": {
+      "pricing_model": "free|freemium|subscription|pay-per-use",
+      "free_tier_limits": "Description of free tier",
+      "paid_tiers": "Information about paid options"
+    }
+  },
+  
+  "troubleshooting": {
+    "common_errors": [
+      {
+        "error_code": "401",
+        "meaning": "Authentication failed",
+        "solution": "Verify API key is correct and active"
+      },
+      {
+        "error_code": "429",
+        "meaning": "Rate limit exceeded",
+        "solution": "Implement rate limiting in your client"
+      }
+    ],
+    "support_channels": {
+      "documentation": "https://docs.source.com",
+      "community": "https://forum.source.com",
+      "email": "support@source.com",
+      "issues": "https://github.com/source/issues"
+    }
+  },
+  
+  "metadata": {
+    "added_date": "2024-01-15",
+    "last_updated": "2024-01-15",
+    "contributors": ["github_username"],
+    "tags": ["vulnerability", "api", "official-source"],
+    "related_sources": ["similar-source-id"],
+    "alternatives": ["alternative-source-id"]
+  }
+}

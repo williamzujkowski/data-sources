@@ -1,162 +1,255 @@
-# Data Sources Manager
+# Threat Intelligence Data Sources Catalog
 
-A centralized, version‑controlled catalog of high‑quality data feeds for LLM‑based projects, with an initial focus on vulnerability research.
+A comprehensive metadata catalog for threat intelligence and cybersecurity data sources. This repository provides structured documentation on how to access and integrate various security data feeds, APIs, and services.
 
-## Overview
+## 🎯 Purpose
 
-The data-sources-manager streamlines source discovery, scoring, and consumption, enabling consistent, automated integration of reliable information into downstream workflows.
+This repository answers one key question: **"How do I access this data source?"**
 
-## 📊 Data Sources
+We provide:
+- 📚 Comprehensive API documentation
+- 🔐 Authentication setup instructions  
+- 💻 Working code examples in multiple languages
+- 🚀 Integration patterns and best practices
+- ⚡ Rate limiting and optimization guidance
 
-### Government & Standards Sources (Implemented)
-- **CISA KEV** (10/10): Real-time exploited vulnerabilities catalog - highest authority for active exploitation
-- **MITRE ATT&CK** (9/10): Adversary tactics and techniques framework - comprehensive TTP coverage
-- **MITRE D3FEND** (8/10): Defensive countermeasures framework - structured defensive techniques
-- **EPSS** (9/10): ML-based exploit prediction scoring - probabilistic exploitation forecasting
+## 📂 Repository Structure
 
-### Community Sources (Coming Soon)
-- AlienVault OTX - Crowd-sourced threat intelligence
-- abuse.ch suite - Malware and botnet tracking
-- NVD - Comprehensive vulnerability database
-- More sources being added weekly!
+```
+data-sources/
+├── sources/                    # Data source metadata files
+│   ├── vulnerability/          # Vulnerability databases
+│   │   ├── cve/               # CVE sources (NVD, MITRE)
+│   │   ├── advisory/          # Security advisories (CISA KEV)
+│   │   └── scoring/           # Risk scoring (EPSS, CVSS)
+│   ├── threat-intelligence/    # Threat intel feeds
+│   │   ├── ttps/              # Tactics, Techniques, Procedures
+│   │   ├── iocs/              # Indicators of Compromise
+│   │   └── actors/            # Threat actor intelligence
+│   └── osint/                  # Open Source Intelligence
+├── schemas/                    # JSON schemas for validation
+└── templates/                  # Templates for new sources
+```
 
 ## 🚀 Quick Start
 
-### Installation
+### Finding a Data Source
+
+Browse the `sources/` directory by category or use git to search:
+
 ```bash
-# Clone the repository
-git clone https://github.com/williamzujkowski/data-sources.git
-cd data-sources
+# Find all CVE-related sources
+find sources -name "*.json" | xargs grep -l "cve"
 
-# Set up Python environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -e ".[dev]"
+# Search for sources with API access
+grep -r "api_key" sources/
 ```
 
-### Using the Data
-```python
-from tools.fetch_sources import load_source_files
-from tools.score_sources import calculate_quality_score
+### Using a Data Source
 
-# Load all data sources
-sources = load_source_files()
+Each source file contains:
 
-# Filter high-priority vulnerabilities
-critical_vulns = [
-    s for s in sources 
-    if s.get('exploitation_status', {}).get('kev_listed', False) or 
-       s.get('exploitation_status', {}).get('epss_score', 0) > 0.7
-]
+1. **Basic Information** - Name, description, category
+2. **API Documentation** - Endpoints, parameters, authentication
+3. **Integration Examples** - Working code in Python, JavaScript, Go, and curl
+4. **Operational Guidance** - Best practices, rate limits, common pitfalls
 
-# Calculate quality scores
-for source in sources:
-    score = calculate_quality_score(source, weights={
-        "freshness": 0.4,
-        "authority": 0.3,
-        "coverage": 0.2,
-        "availability": 0.1
-    })
-    print(f"{source['name']}: {score}/100")
-```
-
-### Command Line Tools
-```bash
-# Validate all sources against schema
-python tools/validate_sources.py
-
-# Fetch latest data from sources
-python tools/fetch_sources.py
-
-# Calculate quality scores
-python tools/score_sources.py
-
-# Build the search index
-python tools/index_sources.py
-```
-
-## Querying the Index
-
-The repository maintains a lightweight SQLite index for efficient lookups. Here's how to use it:
+Example: Accessing the National Vulnerability Database (NVD)
 
 ```python
-from sqlitedict import SqliteDict
+import requests
+import os
 
-# Open the index
-with SqliteDict("index.db") as db:
-    # List all sources in a specific category
-    vulnerability_sources = db["category_index"].get("vulnerability", [])
-    
-    # Look up sources by tag
-    cloud_sources = db["tag_index"].get("cloud", [])
-    
-    # Get high-quality sources
-    excellent_sources = db["quality_index"].get("excellent", [])
-    
-    # Get details for a specific source
-    nvd_details = db["source_lookup"].get("nvd-cve")
+# Simple CVE lookup
+url = 'https://services.nvd.nist.gov/rest/json/cves/2.0'
+headers = {'apiKey': os.environ.get('NVD_API_KEY')}  # Optional but recommended
+
+params = {'cveId': 'CVE-2021-44228'}
+response = requests.get(url, headers=headers, params=params)
+
+if response.status_code == 200:
+    data = response.json()
+    cve = data['vulnerabilities'][0]['cve']
+    print(f"{cve['id']}: {cve['descriptions'][0]['value']}")
 ```
 
-## Directory Structure
+## 📊 Featured Data Sources
 
+### Vulnerability Databases
+- **[NVD](sources/vulnerability/cve/nvd.json)** - NIST National Vulnerability Database
+  - Comprehensive CVE data with CVSS scores
+  - Free API with optional key for higher rate limits
+  - Real-time updates
+
+- **[CISA KEV](sources/vulnerability/advisory/cisa-kev.json)** - Known Exploited Vulnerabilities
+  - Actively exploited vulnerabilities
+  - Remediation deadlines
+  - Ransomware associations
+
+- **[EPSS](sources/vulnerability/scoring/epss.json)** - Exploit Prediction Scoring System
+  - Probabilistic exploitation scoring
+  - Daily updates
+  - Risk prioritization data
+
+### Threat Intelligence
+- **[MITRE ATT&CK](sources/threat-intelligence/ttps/mitre-attack.json)** - Adversary tactics and techniques
+  - STIX 2.1 format
+  - Technique detection rules
+  - Actor mappings
+
+## 💡 Common Integration Patterns
+
+### 1. Caching Strategy
+Most APIs have rate limits. Implement caching:
+
+```python
+import json
+import time
+from pathlib import Path
+
+def fetch_with_cache(url, cache_file, max_age=3600):
+    cache_path = Path(cache_file)
+    
+    # Check cache age
+    if cache_path.exists():
+        age = time.time() - cache_path.stat().st_mtime
+        if age < max_age:
+            return json.loads(cache_path.read_text())
+    
+    # Fetch fresh data
+    response = requests.get(url)
+    data = response.json()
+    
+    # Update cache
+    cache_path.write_text(json.dumps(data))
+    return data
 ```
-data-sources-manager/
-├── data-sources/                # Data source metadata files
-│   └── vulnerability/           # Grouped by category
-│       ├── cve/                 # Subcategories
-│       │   ├── nvd.json
-│       │   ├── vendor-advisory.json
-│       │   └── …
-│       ├── exploit-db.json
-│       └── …
-├── schemas/                     # JSON schema definitions
-│   ├── source.schema.json       # Source metadata schema
-│   └── quality.schema.json      # Quality scoring schema
-├── config/                      # Configuration files
-│   ├── categories.json          # Category definitions
-│   └── scoring-config.json      # Quality scoring weights
-├── tools/                       # Python utilities
-│   ├── fetch_sources.py         # Update source data
-│   ├── score_sources.py         # Calculate quality scores
-│   └── index_sources.py         # Build search index
-└── .github/workflows/           # CI/CD automation
-    ├── update-sources.yml       # Daily source updates
-    └── lint-schemas.yml         # Schema validation
+
+### 2. Rate Limit Handling
+Respect API rate limits with exponential backoff:
+
+```python
+def fetch_with_retry(url, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(url, timeout=30)
+            if response.status_code == 200:
+                return response.json()
+            elif response.status_code == 429:  # Rate limited
+                wait_time = 2 ** attempt * 60
+                time.sleep(wait_time)
+        except requests.RequestException as e:
+            if attempt == max_retries - 1:
+                raise
+            time.sleep(2 ** attempt)
 ```
 
-## 📈 Source Quality Metrics
+### 3. Batch Processing
+For large datasets, use pagination:
 
-| Source | Authority | Update Frequency | Coverage | API Limits | Quality Score |
-|--------|-----------|-----------------|----------|------------|---------------|
-| CISA KEV | 10/10 | Real-time | Exploited CVEs | Unlimited | 100/100 |
-| MITRE ATT&CK | 10/10 | Quarterly | TTPs | Unlimited | 95/100 |
-| EPSS | 9/10 | Daily | All CVEs | Unlimited | 92/100 |
-| D3FEND | 9/10 | Periodic | Defenses | Unlimited | 88/100 |
+```python
+def fetch_all_pages(base_url, params=None):
+    all_results = []
+    params = params or {}
+    params['resultsPerPage'] = 100
+    params['startIndex'] = 0
+    
+    while True:
+        response = requests.get(base_url, params=params)
+        data = response.json()
+        
+        all_results.extend(data.get('results', []))
+        
+        if params['startIndex'] + params['resultsPerPage'] >= data['totalResults']:
+            break
+            
+        params['startIndex'] += params['resultsPerPage']
+        time.sleep(1)  # Be nice to the API
+    
+    return all_results
+```
 
-## 🔄 Data Update Schedule
+## 🔑 Authentication Methods
 
-Sources are automatically updated according to their configured frequency:
-- **Real-time**: CISA KEV (on publication)
-- **Daily**: EPSS scores (2 AM UTC)
-- **Weekly**: Community feeds (Sundays)
-- **Quarterly**: MITRE frameworks
+### API Keys
+Most sources offer free API keys for higher rate limits:
 
-## Features
+| Source | Free Tier | With API Key | Registration |
+|--------|-----------|--------------|--------------|
+| NVD | 50 requests/30 days | 50,000 requests/30 days | [Register](https://nvd.nist.gov/developers/request-an-api-key) |
+| VirusTotal | 4 requests/minute | 500 requests/day | [Register](https://www.virustotal.com/gui/join-us) |
 
-- **Structured Metadata**: Consistent JSON schema for tracking diverse source types
-- **Quality Scoring**: Numeric scoring (0-100) based on freshness, authority, coverage, and availability
-- **User Preference Weights**: Customize source priorities based on your needs
-- **Automated Updates**: Daily fetching, scoring, and indexing via GitHub Actions
-- **Fast Lookups**: Minimal-token lookups via lightweight SQLite index
-- **Threat Intelligence**: Extended schema supporting IOCs, TTPs, and threat actors
-- **Exploitation Tracking**: KEV status, EPSS scores, and weaponization indicators
+### No Authentication Required
+These sources provide public access:
+- CISA KEV Catalog
+- MITRE ATT&CK Framework
+- EPSS Scores
 
-## Contributing
+## 📝 Data Source Schema
 
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to add or update data sources.
+Each source follows our [standard schema](schemas/source.schema.json):
 
-## License
+```json
+{
+  "id": "unique-source-id",
+  "name": "Human Readable Name",
+  "category": "vulnerability|threat-intelligence|osint",
+  "authority": "official|community|commercial",
+  "api": {
+    "base_url": "https://api.example.com",
+    "endpoints": [...],
+    "rate_limit": {...}
+  },
+  "authentication": {...},
+  "integration_examples": {...},
+  "operational_guidance": {...}
+}
+```
 
-This project is available under the MIT License.
+## 🤝 Contributing
+
+We welcome contributions! To add a new data source:
+
+1. **Use the template**: Copy `templates/source-metadata-template.json`
+2. **Follow the schema**: Validate against `schemas/source.schema.json`
+3. **Include examples**: Provide working code in at least Python and curl
+4. **Document thoroughly**: Include authentication setup and common pitfalls
+5. **Test your examples**: Ensure all code examples actually work
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+## 📊 Quality Standards
+
+All data sources are evaluated on:
+- **Completeness** - API documentation, examples, error handling
+- **Accuracy** - Verified endpoints, correct parameters
+- **Timeliness** - Recently tested and validated
+- **Usability** - Clear instructions, working examples
+
+## 🔍 Use Cases
+
+This catalog supports:
+- **Security Operations Centers (SOCs)** - Vulnerability prioritization
+- **Threat Intelligence Teams** - Feed aggregation and enrichment
+- **DevSecOps** - Automated vulnerability scanning
+- **Incident Response** - Threat actor attribution
+- **Risk Management** - Exploitation probability assessment
+
+## 📚 Additional Resources
+
+- [FIRST CVE Services](https://www.first.org/cvss/)
+- [MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/)
+- [CISA Cybersecurity Resources](https://www.cisa.gov/resources-tools/resources)
+- [EPSS Model Documentation](https://www.first.org/epss/model)
+
+## 📄 License
+
+This metadata catalog is provided under the MIT License. Individual data sources maintain their own licensing terms.
+
+## 🙏 Acknowledgments
+
+This catalog aggregates metadata about publicly available data sources. We acknowledge and respect the work of all organizations providing these valuable security resources to the community.
+
+---
+
+**Note**: This repository contains metadata and documentation only. For actual threat data, please access the sources directly using the provided integration examples.

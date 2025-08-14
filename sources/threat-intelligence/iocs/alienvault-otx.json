@@ -1,0 +1,127 @@
+{
+  "api_details": {
+    "auth_header": "X-OTX-API-KEY",
+    "auth_type": "api_key",
+    "base_url": "https://otx.alienvault.com/api/v1",
+    "data_formats": [
+      "json"
+    ],
+    "endpoints": {
+      "indicators_type": "/indicators/{type}/{indicator}",
+      "pulse_details": "/pulses/{pulse_id}",
+      "pulses_activity": "/pulses/activity",
+      "pulses_subscribed": "/pulses/subscribed",
+      "search": "/search/pulses"
+    },
+    "pagination": true,
+    "rate_limit": "10000/hour",
+    "real_time": false,
+    "requires_auth": true,
+    "webhook_support": false
+  },
+  "authentication_required": true,
+  "authentication_type": "api_key",
+  "authority": 70,
+  "availability": 95,
+  "category": "threat-intelligence",
+  "coverage": 85,
+  "data_quality": {
+    "accuracy": 0.85,
+    "completeness": 0.9,
+    "consistency": 0.85,
+    "timeliness": 0.95,
+    "validation_method": "community_verification"
+  },
+  "description": "Crowd-sourced threat intelligence platform providing real-time IOCs, threat actor information, and adversary TTPs",
+  "documentation_url": "https://otx.alienvault.com/api",
+  "format": "json",
+  "frameworks_supported": [
+    {
+      "mapping_type": "techniques",
+      "name": "MITRE ATT&CK",
+      "version": "14.0"
+    },
+    {
+      "mapping_type": "full",
+      "name": "STIX",
+      "version": "2.1"
+    }
+  ],
+  "id": "alienvault-otx",
+  "ioc_types": [
+    "ipv4",
+    "ipv6",
+    "domain",
+    "hostname",
+    "url",
+    "md5",
+    "sha1",
+    "sha256",
+    "imphash",
+    "pehash",
+    "email",
+    "cve",
+    "mutex",
+    "filepath",
+    "yara"
+  ],
+  "last_updated": "2025-08-14T18:08:32+00:00Z",
+  "license": "Apache 2.0",
+  "name": "AlienVault Open Threat Exchange",
+  "quality_score": 82.5,
+  "sample_data": {
+    "pulse": {
+      "adversary": "APT28",
+      "author_name": "security_researcher",
+      "created": "2024-01-15T10:30:00Z",
+      "description": "Indicators related to recent APT28 phishing campaign",
+      "id": "5f8d2a3b1c2d4e5f6a7b8c9d",
+      "indicators_count": 47,
+      "modified": "2024-01-15T14:45:00Z",
+      "name": "APT28 Campaign Targeting Government Entities",
+      "tags": [
+        "apt28",
+        "phishing",
+        "government"
+      ],
+      "tlp": "white"
+    }
+  },
+  "source_type": "api",
+  "source_weight": 7,
+  "subcategory": "iocs",
+  "tags": [
+    "iocs",
+    "threat-intelligence",
+    "crowd-sourced",
+    "indicators",
+    "malware",
+    "threat-actors",
+    "pulses"
+  ],
+  "threat_intelligence": {
+    "attack_techniques": [],
+    "cve_mappings": [],
+    "defensive_measures": [],
+    "iocs": [],
+    "malware_families": [],
+    "threat_actors": []
+  },
+  "update_frequency": "hourly",
+  "url": "https://otx.alienvault.com",
+  "usage_guidance": {
+    "integration_notes": "Best used in combination with authoritative sources for validation",
+    "limitations": [
+      "Community-sourced data may have false positives",
+      "Requires API key for full access",
+      "Rate limits apply to free tier"
+    ],
+    "primary_use_cases": [
+      "Real-time threat detection",
+      "IOC enrichment and correlation",
+      "Threat hunting operations",
+      "Security incident investigation"
+    ],
+    "update_strategy": "Pull hourly for active pulses, daily for historical data"
+  }
+}

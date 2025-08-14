@@ -1,0 +1,230 @@
+{
+  "id": "mitre-attack",
+  "name": "MITRE ATT&CK Framework",
+  "description": "MITRE ATT&CK is a globally-accessible knowledge base of adversary tactics, techniques, and procedures (TTPs) based on real-world observations. It provides a comprehensive framework for understanding adversary behavior throughout the attack lifecycle, used as a foundation for threat models, methodologies, and security tools worldwide.",
+  "category": "threat-intelligence",
+  "subcategory": "ttps",
+  "authority": "official",
+  "website": "https://attack.mitre.org",
+  "documentation": "https://attack.mitre.org/resources/",
+  
+  "api": {
+    "type": "REST",
+    "base_url": "https://raw.githubusercontent.com/mitre/cti/master",
+    "endpoints": [
+      {
+        "path": "/enterprise-attack/enterprise-attack.json",
+        "method": "GET",
+        "description": "Complete enterprise ATT&CK framework in STIX 2.1 format",
+        "parameters": [],
+        "headers": {
+          "Accept": "application/json"
+        },
+        "response_format": {
+          "type": "JSON",
+          "schema_url": "https://docs.oasis-open.org/cti/stix/v2.1/stix-v2.1.html",
+          "example": {
+            "type": "bundle",
+            "id": "bundle--",
+            "spec_version": "2.1",
+            "objects": [
+              {
+                "type": "attack-pattern",
+                "id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
+                "created": "2017-05-31T21:30:19.735Z",
+                "modified": "2023-04-14T16:58:40.771Z",
+                "name": "System Information Discovery",
+                "description": "An adversary may attempt to get detailed information about the operating system and hardware...",
+                "external_references": [
+                  {
+                    "source_name": "mitre-attack",
+                    "external_id": "T1082",
+                    "url": "https://attack.mitre.org/techniques/T1082"
+                  }
+                ],
+                "kill_chain_phases": [
+                  {
+                    "kill_chain_name": "mitre-attack",
+                    "phase_name": "discovery"
+                  }
+                ],
+                "x_mitre_platforms": ["Linux", "macOS", "Windows"],
+                "x_mitre_data_sources": ["Command: Command Execution", "Process: Process Creation"]
+              }
+            ]
+          }
+        },
+        "rate_limit": {
+          "requests_per_minute": null,
+          "notes": "No rate limits - GitHub raw content"
+        }
+      },
+      {
+        "path": "/mobile-attack/mobile-attack.json",
+        "method": "GET",
+        "description": "Mobile ATT&CK framework for iOS and Android",
+        "parameters": []
+      },
+      {
+        "path": "/ics-attack/ics-attack.json",
+        "method": "GET",
+        "description": "Industrial Control Systems ATT&CK framework",
+        "parameters": []
+      }
+    ]
+  },
+  
+  "authentication": {
+    "type": "none",
+    "required": false,
+    "documentation": "https://github.com/mitre/cti",
+    "setup_instructions": [
+      "No authentication required - public GitHub repository",
+      "Direct download available without registration",
+      "Consider caching locally for performance"
+    ],
+    "example_implementation": {
+      "python": "response = requests.get('https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json')",
+      "curl": "curl -O https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json",
+      "javascript": "fetch('https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json')"
+    }
+  },
+  
+  "integration_examples": {
+    "python": {
+      "basic_fetch": "import requests\nimport json\n\n# Fetch enterprise ATT&CK framework\nurl = 'https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json'\nresponse = requests.get(url)\nattack_data = response.json()\n\nprint(f\"STIX Bundle ID: {attack_data['id']}\")\nprint(f\"Total objects: {len(attack_data['objects'])}\")\n\n# Count object types\nobject_types = {}\nfor obj in attack_data['objects']:\n    obj_type = obj['type']\n    object_types[obj_type] = object_types.get(obj_type, 0) + 1\n\nfor obj_type, count in sorted(object_types.items()):\n    print(f\"{obj_type}: {count}\")",
+      
+      "technique_parser": "import requests\nfrom typing import List, Dict, Optional\n\nclass ATTACKParser:\n    def __init__(self):\n        url = 'https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json'\n        response = requests.get(url)\n        self.data = response.json()\n        self.techniques = self._parse_techniques()\n        self.tactics = self._parse_tactics()\n        self.relationships = self._parse_relationships()\n    \n    def _parse_techniques(self) -> List[Dict]:\n        \"\"\"Extract all techniques from STIX bundle\"\"\"\n        techniques = []\n        for obj in self.data['objects']:\n            if obj['type'] == 'attack-pattern':\n                # Extract technique ID from external references\n                tech_id = None\n                for ref in obj.get('external_references', []):\n                    if ref.get('source_name') == 'mitre-attack':\n                        tech_id = ref.get('external_id')\n                        break\n                \n                if tech_id:\n                    techniques.append({\n                        'id': tech_id,\n                        'name': obj['name'],\n                        'description': obj.get('description', ''),\n                        'tactics': [phase['phase_name'] for phase in obj.get('kill_chain_phases', [])],\n                        'platforms': obj.get('x_mitre_platforms', []),\n                        'data_sources': obj.get('x_mitre_data_sources', [])\n                    })\n        return techniques\n    \n    def _parse_tactics(self) -> List[Dict]:\n        \"\"\"Extract all tactics from STIX bundle\"\"\"\n        tactics = []\n        for obj in self.data['objects']:\n            if obj['type'] == 'x-mitre-tactic':\n                tactics.append({\n                    'name': obj['name'],\n                    'description': obj.get('description', ''),\n                    'shortname': obj.get('x_mitre_shortname', '')\n                })\n        return tactics\n    \n    def _parse_relationships(self) -> List[Dict]:\n        \"\"\"Extract relationships between objects\"\"\"\n        return [obj for obj in self.data['objects'] if obj['type'] == 'relationship']\n    \n    def get_technique(self, technique_id: str) -> Optional[Dict]:\n        \"\"\"Get specific technique by ID (e.g., 'T1082')\"\"\"\n        for tech in self.techniques:\n            if tech['id'] == technique_id:\n                return tech\n        return None\n    \n    def get_techniques_by_tactic(self, tactic: str) -> List[Dict]:\n        \"\"\"Get all techniques for a specific tactic\"\"\"\n        return [tech for tech in self.techniques if tactic in tech['tactics']]\n    \n    def get_techniques_by_platform(self, platform: str) -> List[Dict]:\n        \"\"\"Get all techniques applicable to a platform\"\"\"\n        return [tech for tech in self.techniques if platform in tech['platforms']]\n\n# Usage example\nparser = ATTACKParser()\n\n# Get specific technique\nt1082 = parser.get_technique('T1082')\nif t1082:\n    print(f\"Technique: {t1082['name']}\")\n    print(f\"Tactics: {', '.join(t1082['tactics'])}\")\n    print(f\"Platforms: {', '.join(t1082['platforms'])}\")\n\n# Get all discovery techniques\ndiscovery_techs = parser.get_techniques_by_tactic('discovery')\nprint(f\"\\nDiscovery techniques: {len(discovery_techs)}\")\nfor tech in discovery_techs[:5]:\n    print(f\"  - {tech['id']}: {tech['name']}\")",
+      
+      "threat_actor_mapper": "import requests\nfrom collections import defaultdict\n\ndef map_threat_actors_to_techniques():\n    \"\"\"Map threat actors to their used techniques\"\"\"\n    url = 'https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json'\n    response = requests.get(url)\n    data = response.json()\n    \n    # Build lookup dictionaries\n    actors = {}\n    techniques = {}\n    actor_techniques = defaultdict(list)\n    \n    for obj in data['objects']:\n        if obj['type'] == 'intrusion-set':  # Threat actor\n            actors[obj['id']] = obj['name']\n        elif obj['type'] == 'attack-pattern':  # Technique\n            for ref in obj.get('external_references', []):\n                if ref.get('source_name') == 'mitre-attack':\n                    techniques[obj['id']] = {\n                        'id': ref.get('external_id'),\n                        'name': obj['name']\n                    }\n    \n    # Map relationships\n    for obj in data['objects']:\n        if obj['type'] == 'relationship' and obj.get('relationship_type') == 'uses':\n            if obj['source_ref'] in actors and obj['target_ref'] in techniques:\n                actor_name = actors[obj['source_ref']]\n                technique = techniques[obj['target_ref']]\n                actor_techniques[actor_name].append(technique)\n    \n    return dict(actor_techniques)\n\n# Get actor-technique mappings\nactor_map = map_threat_actors_to_techniques()\n\n# Show top actors by technique count\ntop_actors = sorted(actor_map.items(), key=lambda x: len(x[1]), reverse=True)[:5]\nfor actor, techniques in top_actors:\n    print(f\"\\n{actor}: {len(techniques)} techniques\")\n    for tech in techniques[:3]:\n        print(f\"  - {tech['id']}: {tech['name']}\")",
+      
+      "detection_builder": "import requests\nimport json\nfrom typing import List, Dict\n\nclass DetectionRuleBuilder:\n    \"\"\"Build detection rules based on ATT&CK techniques\"\"\"\n    \n    def __init__(self):\n        url = 'https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json'\n        response = requests.get(url)\n        self.data = response.json()\n        self.techniques = self._extract_techniques()\n    \n    def _extract_techniques(self) -> Dict:\n        techniques = {}\n        for obj in self.data['objects']:\n            if obj['type'] == 'attack-pattern':\n                for ref in obj.get('external_references', []):\n                    if ref.get('source_name') == 'mitre-attack':\n                        tech_id = ref.get('external_id')\n                        techniques[tech_id] = {\n                            'name': obj['name'],\n                            'description': obj.get('description', ''),\n                            'data_sources': obj.get('x_mitre_data_sources', []),\n                            'platforms': obj.get('x_mitre_platforms', []),\n                            'detection': obj.get('x_mitre_detection', '')\n                        }\n        return techniques\n    \n    def generate_sigma_rule(self, technique_id: str) -> Dict:\n        \"\"\"Generate a Sigma rule template for a technique\"\"\"\n        tech = self.techniques.get(technique_id)\n        if not tech:\n            return None\n        \n        # Basic Sigma rule structure\n        sigma_rule = {\n            'title': f\"Potential {tech['name']} - {technique_id}\",\n            'id': f\"detect-{technique_id.lower()}\",\n            'status': 'experimental',\n            'description': tech['description'][:200] + '...',\n            'references': [\n                f'https://attack.mitre.org/techniques/{technique_id}/'\n            ],\n            'tags': [\n                f'attack.{technique_id.lower()}'\n            ],\n            'logsource': {\n                'category': 'process_creation',\n                'product': 'windows'\n            },\n            'detection': {\n                'selection': {\n                    '# TODO': 'Add detection logic based on data sources'\n                },\n                'condition': 'selection'\n            },\n            'falsepositives': [\n                'Unknown'\n            ],\n            'level': 'medium'\n        }\n        \n        # Add data sources as comments\n        if tech['data_sources']:\n            sigma_rule['detection']['data_sources'] = tech['data_sources']\n        \n        return sigma_rule\n    \n    def generate_splunk_search(self, technique_id: str) -> str:\n        \"\"\"Generate a Splunk search for a technique\"\"\"\n        tech = self.techniques.get(technique_id)\n        if not tech:\n            return None\n        \n        # Basic Splunk search template\n        search = f\"\"\"index=* \n| eval technique=\"{technique_id}\"\n| eval technique_name=\"{tech['name']}\"\n| search \n  # TODO: Add detection logic based on:\n  # Data Sources: {', '.join(tech['data_sources'][:3]) if tech['data_sources'] else 'N/A'}\n  # Platforms: {', '.join(tech['platforms']) if tech['platforms'] else 'All'}\n| table _time, host, user, process, commandline, technique, technique_name\n| sort -_time\"\"\"\n        \n        return search\n\n# Usage\nbuilder = DetectionRuleBuilder()\n\n# Generate Sigma rule for T1082\nsigma = builder.generate_sigma_rule('T1082')\nif sigma:\n    print(\"Sigma Rule:\")\n    print(json.dumps(sigma, indent=2))\n\n# Generate Splunk search\nsplunk = builder.generate_splunk_search('T1082')\nif splunk:\n    print(\"\\nSplunk Search:\")\n    print(splunk)",
+      
+      "full_example": "#!/usr/bin/env python3\n\"\"\"\nMITRE ATT&CK Framework Client - Complete working example\n\"\"\"\n\nimport requests\nimport json\nimport sqlite3\nfrom datetime import datetime\nfrom typing import List, Dict, Optional, Set\nfrom collections import defaultdict\n\nclass ATTACKClient:\n    def __init__(self, cache_db: str = 'attack_cache.db'):\n        self.base_url = 'https://raw.githubusercontent.com/mitre/cti/master'\n        self.cache_db = cache_db\n        self._init_cache()\n        self.data = self._fetch_attack_data()\n        \n    def _init_cache(self):\n        \"\"\"Initialize SQLite cache database\"\"\"\n        conn = sqlite3.connect(self.cache_db)\n        cursor = conn.cursor()\n        \n        cursor.execute('''\n            CREATE TABLE IF NOT EXISTS techniques (\n                technique_id TEXT PRIMARY KEY,\n                name TEXT,\n                description TEXT,\n                tactics TEXT,\n                platforms TEXT,\n                data_sources TEXT,\n                last_updated TIMESTAMP\n            )\n        ''')\n        \n        cursor.execute('''\n            CREATE TABLE IF NOT EXISTS actors (\n                actor_id TEXT PRIMARY KEY,\n                name TEXT,\n                aliases TEXT,\n                description TEXT,\n                last_updated TIMESTAMP\n            )\n        ''')\n        \n        cursor.execute('''\n            CREATE TABLE IF NOT EXISTS actor_techniques (\n                actor_name TEXT,\n                technique_id TEXT,\n                PRIMARY KEY (actor_name, technique_id)\n            )\n        ''')\n        \n        conn.commit()\n        conn.close()\n    \n    def _fetch_attack_data(self, domain: str = 'enterprise-attack') -> Dict:\n        \"\"\"Fetch ATT&CK data for specified domain\"\"\"\n        url = f\"{self.base_url}/{domain}/{domain}.json\"\n        response = requests.get(url)\n        response.raise_for_status()\n        return response.json()\n    \n    def get_all_techniques(self) -> List[Dict]:\n        \"\"\"Get all techniques with parsed information\"\"\"\n        techniques = []\n        \n        for obj in self.data['objects']:\n            if obj['type'] == 'attack-pattern':\n                # Extract technique ID\n                tech_id = None\n                url = None\n                for ref in obj.get('external_references', []):\n                    if ref.get('source_name') == 'mitre-attack':\n                        tech_id = ref.get('external_id')\n                        url = ref.get('url')\n                        break\n                \n                if tech_id:\n                    # Parse tactics from kill chain phases\n                    tactics = []\n                    for phase in obj.get('kill_chain_phases', []):\n                        if phase.get('kill_chain_name') == 'mitre-attack':\n                            tactics.append(phase['phase_name'])\n                    \n                    techniques.append({\n                        'id': tech_id,\n                        'stix_id': obj['id'],\n                        'name': obj['name'],\n                        'description': obj.get('description', ''),\n                        'url': url,\n                        'tactics': tactics,\n                        'platforms': obj.get('x_mitre_platforms', []),\n                        'data_sources': obj.get('x_mitre_data_sources', []),\n                        'is_subtechnique': '.' in tech_id,\n                        'detection': obj.get('x_mitre_detection', ''),\n                        'mitigations': [],  # Will be filled from relationships\n                        'created': obj.get('created'),\n                        'modified': obj.get('modified')\n                    })\n        \n        return techniques\n    \n    def get_all_actors(self) -> List[Dict]:\n        \"\"\"Get all threat actors/groups\"\"\"\n        actors = []\n        \n        for obj in self.data['objects']:\n            if obj['type'] == 'intrusion-set':\n                # Extract group ID\n                group_id = None\n                url = None\n                for ref in obj.get('external_references', []):\n                    if ref.get('source_name') == 'mitre-attack':\n                        group_id = ref.get('external_id')\n                        url = ref.get('url')\n                        break\n                \n                if group_id:\n                    actors.append({\n                        'id': group_id,\n                        'stix_id': obj['id'],\n                        'name': obj['name'],\n                        'aliases': obj.get('aliases', []),\n                        'description': obj.get('description', ''),\n                        'url': url\n                    })\n        \n        return actors\n    \n    def get_actor_techniques(self) -> Dict[str, List[str]]:\n        \"\"\"Map actors to their techniques\"\"\"\n        # Build lookup dictionaries\n        actors = {obj['id']: obj['name'] \n                 for obj in self.data['objects'] \n                 if obj['type'] == 'intrusion-set'}\n        \n        techniques = {}\n        for obj in self.data['objects']:\n            if obj['type'] == 'attack-pattern':\n                for ref in obj.get('external_references', []):\n                    if ref.get('source_name') == 'mitre-attack':\n                        techniques[obj['id']] = ref.get('external_id')\n        \n        # Map relationships\n        actor_techniques = defaultdict(list)\n        for obj in self.data['objects']:\n            if obj['type'] == 'relationship' and obj.get('relationship_type') == 'uses':\n                if obj['source_ref'] in actors and obj['target_ref'] in techniques:\n                    actor_name = actors[obj['source_ref']]\n                    technique_id = techniques[obj['target_ref']]\n                    actor_techniques[actor_name].append(technique_id)\n        \n        return dict(actor_techniques)\n    \n    def search_techniques(self, keyword: str) -> List[Dict]:\n        \"\"\"Search techniques by keyword in name or description\"\"\"\n        keyword_lower = keyword.lower()\n        techniques = self.get_all_techniques()\n        \n        results = []\n        for tech in techniques:\n            if (keyword_lower in tech['name'].lower() or \n                keyword_lower in tech['description'].lower()):\n                results.append(tech)\n        \n        return results\n    \n    def get_techniques_by_platform(self, platform: str) -> List[Dict]:\n        \"\"\"Get techniques applicable to a specific platform\"\"\"\n        techniques = self.get_all_techniques()\n        return [t for t in techniques if platform in t['platforms']]\n    \n    def get_techniques_by_tactic(self, tactic: str) -> List[Dict]:\n        \"\"\"Get techniques for a specific tactic\"\"\"\n        techniques = self.get_all_techniques()\n        return [t for t in techniques if tactic in t['tactics']]\n    \n    def get_technique_mitigations(self, technique_id: str) -> List[Dict]:\n        \"\"\"Get mitigations for a specific technique\"\"\"\n        # Find technique STIX ID\n        tech_stix_id = None\n        for obj in self.data['objects']:\n            if obj['type'] == 'attack-pattern':\n                for ref in obj.get('external_references', []):\n                    if ref.get('external_id') == technique_id:\n                        tech_stix_id = obj['id']\n                        break\n        \n        if not tech_stix_id:\n            return []\n        \n        # Find mitigations\n        mitigations = []\n        mitigation_ids = set()\n        \n        for obj in self.data['objects']:\n            if obj['type'] == 'relationship' and obj.get('relationship_type') == 'mitigates':\n                if obj['target_ref'] == tech_stix_id:\n                    mitigation_ids.add(obj['source_ref'])\n        \n        # Get mitigation details\n        for obj in self.data['objects']:\n            if obj['type'] == 'course-of-action' and obj['id'] in mitigation_ids:\n                mit_id = None\n                for ref in obj.get('external_references', []):\n                    if ref.get('source_name') == 'mitre-attack':\n                        mit_id = ref.get('external_id')\n                        break\n                \n                mitigations.append({\n                    'id': mit_id,\n                    'name': obj['name'],\n                    'description': obj.get('description', '')\n                })\n        \n        return mitigations\n    \n    def generate_navigator_layer(self, technique_ids: List[str], \n                                 layer_name: str = \"Custom Layer\") -> Dict:\n        \"\"\"Generate ATT&CK Navigator layer JSON\"\"\"\n        techniques_scoring = []\n        \n        for tech_id in technique_ids:\n            techniques_scoring.append({\n                \"techniqueID\": tech_id,\n                \"score\": 1,\n                \"color\": \"#ff6666\",\n                \"enabled\": True,\n                \"showSubtechniques\": True\n            })\n        \n        layer = {\n            \"version\": \"4.5\",\n            \"name\": layer_name,\n            \"description\": f\"Generated layer with {len(technique_ids)} techniques\",\n            \"domain\": \"enterprise-attack\",\n            \"techniques\": techniques_scoring\n        }\n        \n        return layer\n    \n    def generate_report(self) -> str:\n        \"\"\"Generate summary report of ATT&CK data\"\"\"\n        techniques = self.get_all_techniques()\n        actors = self.get_all_actors()\n        actor_techniques = self.get_actor_techniques()\n        \n        # Calculate statistics\n        tactics = set()\n        platforms = set()\n        for tech in techniques:\n            tactics.update(tech['tactics'])\n            platforms.update(tech['platforms'])\n        \n        # Find most used techniques\n        technique_usage = defaultdict(int)\n        for actor, techs in actor_techniques.items():\n            for tech in techs:\n                technique_usage[tech] += 1\n        \n        top_techniques = sorted(technique_usage.items(), \n                               key=lambda x: x[1], reverse=True)[:10]\n        \n        report = f\"\"\"\nMITRE ATT&CK Framework Analysis\n{'=' * 50}\nGenerated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\nSTATISTICS\n{'-' * 20}\nTotal Techniques: {len(techniques)}\nTotal Threat Actors: {len(actors)}\nTotal Tactics: {len(tactics)}\nSupported Platforms: {len(platforms)}\n\nTACTICS\n{'-' * 20}\n{', '.join(sorted(tactics))}\n\nPLATFORMS\n{'-' * 20}\n{', '.join(sorted(platforms))}\n\nMOST USED TECHNIQUES BY THREAT ACTORS\n{'-' * 40}\n\"\"\"\n        \n        for tech_id, count in top_techniques:\n            tech_name = next((t['name'] for t in techniques if t['id'] == tech_id), 'Unknown')\n            report += f\"{tech_id}: {tech_name} ({count} actors)\\n\"\n        \n        # Top actors by technique count\n        top_actors = sorted(actor_techniques.items(), \n                           key=lambda x: len(x[1]), reverse=True)[:5]\n        \n        report += f\"\\nMOST ACTIVE THREAT ACTORS\\n{'-' * 25}\\n\"\n        for actor, techs in top_actors:\n            report += f\"{actor}: {len(techs)} techniques\\n\"\n        \n        return report\n\n# Example usage\nif __name__ == '__main__':\n    client = ATTACKClient()\n    \n    # Generate report\n    print(client.generate_report())\n    \n    # Search for specific techniques\n    print(\"\\nSearching for 'credential' techniques:\")\n    cred_techniques = client.search_techniques('credential')\n    for tech in cred_techniques[:5]:\n        print(f\"  - {tech['id']}: {tech['name']}\")\n    \n    # Get techniques for Windows\n    print(\"\\nWindows techniques count:\", \n          len(client.get_techniques_by_platform('Windows')))\n    \n    # Get mitigations for a technique\n    print(\"\\nMitigations for T1003 (OS Credential Dumping):\")\n    mitigations = client.get_technique_mitigations('T1003')\n    for mit in mitigations:\n        print(f\"  - {mit['id']}: {mit['name']}\")\n    \n    # Generate Navigator layer\n    layer = client.generate_navigator_layer(\n        ['T1003', 'T1055', 'T1082', 'T1083'],\n        \"Critical Techniques\"\n    )\n    print(\"\\nNavigator layer generated with\", \n          len(layer['techniques']), \"techniques\")"
+    },
+    
+    "curl": {
+      "basic_fetch": "# Download complete enterprise ATT&CK framework\ncurl -O https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json",
+      "pretty_print": "# Download and format with jq\ncurl -s https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json | jq '.'",
+      "count_objects": "# Count different object types\ncurl -s https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json | \\\n  jq '.objects | group_by(.type) | map({type: .[0].type, count: length})'",
+      "list_techniques": "# List all technique IDs and names\ncurl -s https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json | \\\n  jq '.objects[] | select(.type == \"attack-pattern\") | {id: .external_references[0].external_id, name: .name}'",
+      "search_technique": "# Search for specific technique\nTECH_ID=\"T1082\"\ncurl -s https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json | \\\n  jq --arg tech \"$TECH_ID\" '.objects[] | select(.type == \"attack-pattern\" and .external_references[].external_id == $tech)'",
+      "list_actors": "# List all threat actors\ncurl -s https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json | \\\n  jq '.objects[] | select(.type == \"intrusion-set\") | {name: .name, aliases: .aliases}'",
+      "get_tactics": "# Get all tactics\ncurl -s https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json | \\\n  jq '.objects[] | select(.type == \"x-mitre-tactic\") | {name: .name, shortname: .x_mitre_shortname}'"
+    },
+    
+    "javascript": {
+      "basic_fetch": "// Fetch and parse ATT&CK framework\nconst fetchATTACK = async () => {\n  const url = 'https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json';\n  \n  try {\n    const response = await fetch(url);\n    const data = await response.json();\n    \n    console.log(`STIX Bundle: ${data.id}`);\n    console.log(`Total objects: ${data.objects.length}`);\n    \n    // Count object types\n    const objectTypes = {};\n    data.objects.forEach(obj => {\n      objectTypes[obj.type] = (objectTypes[obj.type] || 0) + 1;\n    });\n    \n    console.log('\\nObject types:');\n    Object.entries(objectTypes).forEach(([type, count]) => {\n      console.log(`  ${type}: ${count}`);\n    });\n    \n    return data;\n  } catch (error) {\n    console.error('Error fetching ATT&CK data:', error);\n    throw error;\n  }\n};\n\nfetchATTACK();",
+      
+      "attack_parser": "// ATT&CK Framework Parser\nclass ATTACKFramework {\n  constructor() {\n    this.data = null;\n    this.techniques = [];\n    this.tactics = [];\n    this.actors = [];\n    this.relationships = [];\n  }\n  \n  async load(domain = 'enterprise-attack') {\n    const url = `https://raw.githubusercontent.com/mitre/cti/master/${domain}/${domain}.json`;\n    const response = await fetch(url);\n    this.data = await response.json();\n    this._parseObjects();\n    return this;\n  }\n  \n  _parseObjects() {\n    this.data.objects.forEach(obj => {\n      switch(obj.type) {\n        case 'attack-pattern':\n          this._parseTechnique(obj);\n          break;\n        case 'x-mitre-tactic':\n          this._parseTactic(obj);\n          break;\n        case 'intrusion-set':\n          this._parseActor(obj);\n          break;\n        case 'relationship':\n          this.relationships.push(obj);\n          break;\n      }\n    });\n  }\n  \n  _parseTechnique(obj) {\n    const techId = obj.external_references?.find(\n      ref => ref.source_name === 'mitre-attack'\n    )?.external_id;\n    \n    if (techId) {\n      const tactics = obj.kill_chain_phases\n        ?.filter(phase => phase.kill_chain_name === 'mitre-attack')\n        .map(phase => phase.phase_name) || [];\n      \n      this.techniques.push({\n        id: techId,\n        name: obj.name,\n        description: obj.description,\n        tactics: tactics,\n        platforms: obj.x_mitre_platforms || [],\n        dataSources: obj.x_mitre_data_sources || [],\n        isSubtechnique: techId.includes('.')\n      });\n    }\n  }\n  \n  _parseTactic(obj) {\n    this.tactics.push({\n      name: obj.name,\n      description: obj.description,\n      shortname: obj.x_mitre_shortname\n    });\n  }\n  \n  _parseActor(obj) {\n    const groupId = obj.external_references?.find(\n      ref => ref.source_name === 'mitre-attack'\n    )?.external_id;\n    \n    if (groupId) {\n      this.actors.push({\n        id: groupId,\n        name: obj.name,\n        aliases: obj.aliases || [],\n        description: obj.description\n      });\n    }\n  }\n  \n  getTechnique(techniqueId) {\n    return this.techniques.find(t => t.id === techniqueId);\n  }\n  \n  getTechniquesByTactic(tactic) {\n    return this.techniques.filter(t => t.tactics.includes(tactic));\n  }\n  \n  getTechniquesByPlatform(platform) {\n    return this.techniques.filter(t => t.platforms.includes(platform));\n  }\n  \n  searchTechniques(keyword) {\n    const lower = keyword.toLowerCase();\n    return this.techniques.filter(t => \n      t.name.toLowerCase().includes(lower) ||\n      t.description.toLowerCase().includes(lower)\n    );\n  }\n  \n  getActorTechniques(actorName) {\n    const actorObj = this.data.objects.find(\n      obj => obj.type === 'intrusion-set' && obj.name === actorName\n    );\n    \n    if (!actorObj) return [];\n    \n    const techniqueIds = new Set();\n    this.relationships\n      .filter(rel => \n        rel.relationship_type === 'uses' && \n        rel.source_ref === actorObj.id\n      )\n      .forEach(rel => {\n        const tech = this.data.objects.find(\n          obj => obj.id === rel.target_ref && obj.type === 'attack-pattern'\n        );\n        if (tech) {\n          const techId = tech.external_references?.find(\n            ref => ref.source_name === 'mitre-attack'\n          )?.external_id;\n          if (techId) techniqueIds.add(techId);\n        }\n      });\n    \n    return Array.from(techniqueIds);\n  }\n}\n\n// Usage\nconst attack = new ATTACKFramework();\n\nattack.load().then(() => {\n  console.log(`Loaded ${attack.techniques.length} techniques`);\n  console.log(`Loaded ${attack.actors.length} threat actors`);\n  console.log(`Loaded ${attack.tactics.length} tactics`);\n  \n  // Get specific technique\n  const t1082 = attack.getTechnique('T1082');\n  if (t1082) {\n    console.log(`\\n${t1082.id}: ${t1082.name}`);\n    console.log(`Tactics: ${t1082.tactics.join(', ')}`);\n  }\n  \n  // Search techniques\n  const credTechniques = attack.searchTechniques('credential');\n  console.log(`\\nFound ${credTechniques.length} credential-related techniques`);\n  \n  // Get Windows techniques\n  const windowsTechs = attack.getTechniquesByPlatform('Windows');\n  console.log(`Found ${windowsTechs.length} Windows techniques`);\n});",
+      
+      "navigator_layer_generator": "// Generate ATT&CK Navigator layers\nclass NavigatorLayerGenerator {\n  constructor() {\n    this.baseLayer = {\n      version: \"4.5\",\n      name: \"Custom Layer\",\n      description: \"\",\n      domain: \"enterprise-attack\",\n      techniques: []\n    };\n  }\n  \n  createLayer(techniques, options = {}) {\n    const layer = { ...this.baseLayer };\n    layer.name = options.name || \"Custom Layer\";\n    layer.description = options.description || `Layer with ${techniques.length} techniques`;\n    \n    layer.techniques = techniques.map(tech => ({\n      techniqueID: typeof tech === 'string' ? tech : tech.id,\n      score: options.score || 1,\n      color: options.color || this._getColorByScore(options.score || 1),\n      enabled: true,\n      showSubtechniques: options.showSubtechniques !== false,\n      comment: typeof tech === 'object' ? tech.comment : \"\",\n      metadata: typeof tech === 'object' ? tech.metadata : []\n    }));\n    \n    return layer;\n  }\n  \n  _getColorByScore(score) {\n    if (score >= 75) return \"#ff3333\";\n    if (score >= 50) return \"#ff9933\";\n    if (score >= 25) return \"#ffff33\";\n    return \"#33ff33\";\n  }\n  \n  createHeatmapLayer(techniqueScores) {\n    const techniques = Object.entries(techniqueScores).map(([id, score]) => ({\n      techniqueID: id,\n      score: score,\n      color: this._getColorByScore(score),\n      enabled: true\n    }));\n    \n    return {\n      ...this.baseLayer,\n      name: \"Heatmap Layer\",\n      description: \"Technique usage heatmap\",\n      techniques: techniques,\n      gradient: {\n        colors: [\"#33ff33\", \"#ffff33\", \"#ff9933\", \"#ff3333\"],\n        minValue: 0,\n        maxValue: 100\n      }\n    };\n  }\n  \n  mergeLayer(layers) {\n    const merged = { ...this.baseLayer };\n    merged.name = \"Merged Layer\";\n    merged.description = `Merged from ${layers.length} layers`;\n    \n    const techniqueMap = new Map();\n    \n    layers.forEach(layer => {\n      layer.techniques.forEach(tech => {\n        const existing = techniqueMap.get(tech.techniqueID);\n        if (!existing || tech.score > existing.score) {\n          techniqueMap.set(tech.techniqueID, tech);\n        }\n      });\n    });\n    \n    merged.techniques = Array.from(techniqueMap.values());\n    return merged;\n  }\n  \n  exportToFile(layer, filename = 'layer.json') {\n    const dataStr = JSON.stringify(layer, null, 2);\n    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);\n    \n    const link = document.createElement('a');\n    link.setAttribute('href', dataUri);\n    link.setAttribute('download', filename);\n    link.click();\n  }\n}\n\n// Usage\nconst generator = new NavigatorLayerGenerator();\n\n// Create a simple layer\nconst criticalTechniques = ['T1003', 'T1055', 'T1082', 'T1083'];\nconst layer = generator.createLayer(criticalTechniques, {\n  name: \"Critical Techniques\",\n  description: \"High priority techniques for detection\",\n  score: 100,\n  color: \"#ff0000\"\n});\n\nconsole.log('Generated layer:', layer);\n\n// Create heatmap based on usage\nconst usageScores = {\n  'T1003': 85,\n  'T1055': 70,\n  'T1082': 45,\n  'T1083': 30\n};\n\nconst heatmap = generator.createHeatmapLayer(usageScores);\nconsole.log('Generated heatmap:', heatmap);"
+    },
+    
+    "go": {
+      "basic_fetch": "package main\n\nimport (\n    \"encoding/json\"\n    \"fmt\"\n    \"io\"\n    \"net/http\"\n    \"strings\"\n)\n\n// STIX types\ntype Bundle struct {\n    Type       string   `json:\"type\"`\n    ID         string   `json:\"id\"`\n    Objects    []Object `json:\"objects\"`\n}\n\ntype Object map[string]interface{}\n\ntype Technique struct {\n    ID          string\n    Name        string\n    Description string\n    Tactics     []string\n    Platforms   []string\n}\n\nfunc fetchATTACK() (*Bundle, error) {\n    url := \"https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json\"\n    \n    resp, err := http.Get(url)\n    if err != nil {\n        return nil, fmt.Errorf(\"failed to fetch ATT&CK data: %w\", err)\n    }\n    defer resp.Body.Close()\n    \n    body, err := io.ReadAll(resp.Body)\n    if err != nil {\n        return nil, fmt.Errorf(\"failed to read response: %w\", err)\n    }\n    \n    var bundle Bundle\n    if err := json.Unmarshal(body, &bundle); err != nil {\n        return nil, fmt.Errorf(\"failed to parse JSON: %w\", err)\n    }\n    \n    return &bundle, nil\n}\n\nfunc parseTechniques(bundle *Bundle) []Technique {\n    var techniques []Technique\n    \n    for _, obj := range bundle.Objects {\n        if objType, ok := obj[\"type\"].(string); ok && objType == \"attack-pattern\" {\n            tech := Technique{\n                Name:        getString(obj, \"name\"),\n                Description: getString(obj, \"description\"),\n            }\n            \n            // Extract technique ID\n            if refs, ok := obj[\"external_references\"].([]interface{}); ok {\n                for _, ref := range refs {\n                    if refMap, ok := ref.(map[string]interface{}); ok {\n                        if refMap[\"source_name\"] == \"mitre-attack\" {\n                            tech.ID = getString(refMap, \"external_id\")\n                        }\n                    }\n                }\n            }\n            \n            // Extract tactics\n            if phases, ok := obj[\"kill_chain_phases\"].([]interface{}); ok {\n                for _, phase := range phases {\n                    if phaseMap, ok := phase.(map[string]interface{}); ok {\n                        if phaseMap[\"kill_chain_name\"] == \"mitre-attack\" {\n                            if tactic, ok := phaseMap[\"phase_name\"].(string); ok {\n                                tech.Tactics = append(tech.Tactics, tactic)\n                            }\n                        }\n                    }\n                }\n            }\n            \n            // Extract platforms\n            if platforms, ok := obj[\"x_mitre_platforms\"].([]interface{}); ok {\n                for _, platform := range platforms {\n                    if p, ok := platform.(string); ok {\n                        tech.Platforms = append(tech.Platforms, p)\n                    }\n                }\n            }\n            \n            if tech.ID != \"\" {\n                techniques = append(techniques, tech)\n            }\n        }\n    }\n    \n    return techniques\n}\n\nfunc getString(obj map[string]interface{}, key string) string {\n    if val, ok := obj[key].(string); ok {\n        return val\n    }\n    return \"\"\n}\n\nfunc main() {\n    fmt.Println(\"Fetching MITRE ATT&CK Framework...\")\n    \n    bundle, err := fetchATTACK()\n    if err != nil {\n        fmt.Printf(\"Error: %v\\n\", err)\n        return\n    }\n    \n    fmt.Printf(\"Bundle ID: %s\\n\", bundle.ID)\n    fmt.Printf(\"Total objects: %d\\n\\n\", len(bundle.Objects))\n    \n    // Parse techniques\n    techniques := parseTechniques(bundle)\n    fmt.Printf(\"Found %d techniques\\n\\n\", len(techniques))\n    \n    // Show first 5 techniques\n    for i, tech := range techniques {\n        if i >= 5 {\n            break\n        }\n        fmt.Printf(\"%s: %s\\n\", tech.ID, tech.Name)\n        fmt.Printf(\"  Tactics: %s\\n\", strings.Join(tech.Tactics, \", \"))\n        fmt.Printf(\"  Platforms: %s\\n\", strings.Join(tech.Platforms, \", \"))\n    }\n}"
+    }
+  },
+  
+  "data_format": {
+    "primary_format": "JSON",
+    "encoding": "UTF-8",
+    "compression": "none",
+    "schemas": {
+      "json_schema": "https://docs.oasis-open.org/cti/stix/v2.1/stix-v2.1.html",
+      "documentation": "https://attack.mitre.org/resources/working-with-attack/"
+    },
+    "field_descriptions": {
+      "type": "STIX object type (attack-pattern, intrusion-set, malware, tool, etc.)",
+      "id": "STIX identifier for the object",
+      "name": "Human-readable name",
+      "description": "Detailed description of the object",
+      "external_references": "Array containing MITRE ATT&CK IDs and URLs",
+      "kill_chain_phases": "Tactics associated with the technique",
+      "x_mitre_platforms": "Platforms the technique applies to",
+      "x_mitre_data_sources": "Data sources for detecting the technique",
+      "x_mitre_detection": "Detection guidance for the technique",
+      "relationship_type": "Type of relationship between objects (uses, mitigates, etc.)"
+    }
+  },
+  
+  "coverage": {
+    "data_types": ["Tactics", "Techniques", "Procedures", "Threat Actors", "Mitigations", "Software"],
+    "geographical": "global",
+    "temporal": {
+      "historical_data": "2015-present",
+      "update_frequency": "quarterly with minor updates as needed",
+      "latency": "Based on real-world observation and analysis"
+    },
+    "completeness": "Most comprehensive adversary behavior framework available"
+  },
+  
+  "quality_metrics": {
+    "reliability": "high",
+    "accuracy": "Industry standard framework validated by global community",
+    "timeliness": "Quarterly updates with emerging techniques",
+    "false_positive_rate": "N/A - Framework for categorization",
+    "community_rating": 5.0,
+    "last_verified": "2024-01-15"
+  },
+  
+  "operational_guidance": {
+    "recommended_update_frequency": "Check monthly for updates, full refresh quarterly",
+    "best_practices": [
+      "Cache the complete framework locally for performance",
+      "Build technique ID to name mapping for quick lookups",
+      "Map your environment's platforms to relevant techniques",
+      "Cross-reference with D3FEND for defensive measures",
+      "Use sub-techniques for more granular detection",
+      "Leverage ATT&CK Navigator for visualization",
+      "Integrate with SIEM for detection rule mapping"
+    ],
+    "common_pitfalls": [
+      "Not considering sub-techniques in coverage analysis",
+      "Ignoring platform-specific techniques",
+      "Not updating framework regularly",
+      "Using techniques without understanding tactics",
+      "Missing relationships between objects"
+    ],
+    "cost_considerations": {
+      "pricing_model": "free",
+      "free_tier_limits": "Unlimited - Open source knowledge base",
+      "paid_tiers": "N/A"
+    }
+  },
+  
+  "troubleshooting": {
+    "common_errors": [
+      {
+        "error_code": "404",
+        "meaning": "GitHub repository structure changed",
+        "solution": "Check MITRE CTI GitHub repository for new URLs"
+      },
+      {
+        "error_code": "JSON parsing error",
+        "meaning": "STIX format may have changed",
+        "solution": "Verify STIX version compatibility"
+      },
+      {
+        "error_code": "Large file timeout",
+        "meaning": "File is several MB in size",
+        "solution": "Increase timeout or download and cache locally"
+      }
+    ],
+    "support_channels": {
+      "documentation": "https://attack.mitre.org/resources/",
+      "community": "https://medium.com/mitre-attack",
+      "github": "https://github.com/mitre/cti",
+      "email": "attack@mitre.org"
+    }
+  },
+  
+  "metadata": {
+    "added_date": "2024-01-15",
+    "last_updated": "2024-01-15",
+    "contributors": ["williamzujkowski"],
+    "tags": ["threat-intelligence", "ttps", "mitre", "attack-framework", "tactics", "techniques"],
+    "related_sources": ["mitre-defend", "mitre-cve", "cisa-kev"],
+    "alternatives": ["lockheed-kill-chain", "unified-kill-chain"]
+  }
+}

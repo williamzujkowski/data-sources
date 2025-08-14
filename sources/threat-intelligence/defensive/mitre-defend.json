@@ -1,0 +1,301 @@
+{
+  "api_details": {
+    "api_documentation": "https://d3fend.mitre.org/api/",
+    "data_feed": "https://d3fend.mitre.org/api/",
+    "data_formats": [
+      "json",
+      "rdf",
+      "owl",
+      "ttl"
+    ],
+    "documentation": "https://d3fend.mitre.org/resources/",
+    "format": "json",
+    "json_api": "https://d3fend.mitre.org/api/technique/",
+    "ontology_api": "https://d3fend.mitre.org/ontologies/",
+    "rate_limits": "None specified - MITRE open data",
+    "rdf_download": "https://d3fend.mitre.org/ontologies/d3fend.owl",
+    "requires_auth": false,
+    "sparql_endpoint": "https://d3fend.mitre.org/sparql",
+    "update_frequency": "Continuous"
+  },
+  "api_examples": {
+    "get_all_techniques": {
+      "description": "Retrieve all defensive techniques",
+      "endpoint": "https://d3fend.mitre.org/api/technique/",
+      "method": "GET"
+    },
+    "sparql_query": {
+      "description": "Query the D3FEND knowledge graph using SPARQL",
+      "endpoint": "https://d3fend.mitre.org/sparql",
+      "example_query": "SELECT ?technique ?label WHERE { ?technique a d3f:DefensiveTechnique . ?technique rdfs:label ?label . }",
+      "method": "POST"
+    },
+    "technique_details": {
+      "description": "Get detailed information about a specific defensive technique",
+      "endpoint": "https://d3fend.mitre.org/api/technique/d3f:FileAnalysis",
+      "method": "GET"
+    }
+  },
+  "authority": 98,
+  "availability": 95,
+  "category": "threat-intelligence",
+  "coverage": 90,
+  "coverage_details": {
+    "countermeasure_types": [
+      "Technical Controls",
+      "Administrative Controls",
+      "Physical Controls",
+      "Hybrid Controls"
+    ],
+    "defensive_categories": [
+      "Detect",
+      "Deny",
+      "Disrupt",
+      "Degrade",
+      "Deceive",
+      "Contain"
+    ],
+    "technique_count": {
+      "contain_techniques": 63,
+      "deceive_techniques": 24,
+      "degrade_techniques": 38,
+      "deny_techniques": 82,
+      "detect_techniques": 156,
+      "disrupt_techniques": 45,
+      "total_techniques": 408
+    },
+    "technique_domains": [
+      "Digital Artifact Analysis",
+      "Network Analysis",
+      "Host Analysis",
+      "Platform Hardening",
+      "Credential Hardening",
+      "Application Hardening",
+      "Message Hardening",
+      "Network Hardening"
+    ]
+  },
+  "data_format_sample": {
+    "relationship": {
+      "confidence": 0.9,
+      "evidence": [
+        "Research Paper A",
+        "Industry Report B"
+      ],
+      "relationship-type": "defends-against",
+      "source": "d3f:D3-FAPA",
+      "target": "mitre-attack:T1027"
+    },
+    "technique": {
+      "definition": "Analyzing a file's format, structure, and content to detect potentially malicious activity.",
+      "effectiveness-metrics": {
+        "detection-rate": 0.85,
+        "false-positive-rate": 0.03,
+        "implementation-complexity": "Medium"
+      },
+      "id": "d3f:D3-FAPA",
+      "kb-abstract": "File Analysis involves examining files to identify malicious content, suspicious patterns, or indicators of compromise without executing the file.",
+      "kb-reference": "https://d3fend.mitre.org/technique/d3f:FileAnalysis",
+      "label": "File Analysis",
+      "parent": "d3f:DigitalArtifactAnalysis",
+      "related-offensive-techniques": [
+        "mitre-attack:T1027",
+        "mitre-attack:T1036",
+        "mitre-attack:T1564"
+      ],
+      "synonyms": [
+        "Static Analysis",
+        "File Inspection"
+      ]
+    }
+  },
+  "data_quality": {
+    "confidence_score": 95,
+    "data_completeness": 90,
+    "false_positive_rate": 5,
+    "known_limitations": [
+      "Newer defensive techniques may not be immediately included",
+      "Effectiveness scores are generalized and may vary by implementation",
+      "Coverage of emerging attack techniques may lag behind ATT&CK updates"
+    ],
+    "source_authority": 98,
+    "update_reliability": 90,
+    "validation_methods": [
+      "Cybersecurity expert review",
+      "Academic research validation",
+      "Industry practitioner feedback",
+      "Alignment with established security frameworks"
+    ]
+  },
+  "description": "MITRE D3FEND is a knowledge graph of cybersecurity countermeasures. D3FEND captures the relationships between offensive techniques (from ATT&CK) and the defensive techniques that can detect, deny, disrupt, degrade, deceive, and contain them. The framework provides a systematic way to think about defensive capabilities and helps organizations make evidence-based decisions about cybersecurity investments and improvements.",
+  "format": "json",
+  "frameworks_supported": [
+    {
+      "mapping": "Direct mapping from offensive to defensive techniques",
+      "name": "MITRE ATT&CK",
+      "version": "14"
+    },
+    {
+      "mapping": "Protect, Detect, Respond, Recover",
+      "name": "NIST Cybersecurity Framework",
+      "version": "1.1"
+    },
+    {
+      "mapping": "Security and privacy controls",
+      "name": "NIST SP 800-53",
+      "version": "5"
+    },
+    {
+      "mapping": "Implementation groups and safeguards",
+      "name": "CIS Controls",
+      "version": "8"
+    }
+  ],
+  "freshness": 90,
+  "id": "mitre-defend",
+  "integration_mappings": {
+    "attack_to_defense": {
+      "T1027": [
+        "D3-FAPA",
+        "D3-DA",
+        "D3-SYSMON"
+      ],
+      "T1055": [
+        "D3-HBPI",
+        "D3-PSEP",
+        "D3-HBSS"
+      ],
+      "T1566.001": [
+        "D3-FAPA",
+        "D3-EFA",
+        "D3-DNPA"
+      ]
+    },
+    "nist_csf_mapping": {
+      "DE.AE": [
+        "D3-AL",
+        "D3-SYSMON",
+        "D3-NTA"
+      ],
+      "PR.DS": [
+        "D3-ENC",
+        "D3-IFS",
+        "D3-DBK"
+      ],
+      "RS.AN": [
+        "D3-FA",
+        "D3-IDA",
+        "D3-MTA"
+      ]
+    }
+  },
+  "last_updated": "2025-08-14T18:08:32+00:00Z",
+  "name": "MITRE D3FEND - A Knowledge Graph of Cybersecurity Countermeasures",
+  "organizational_context": {
+    "established": "2021 (D3FEND framework)",
+    "funding": "U.S. Government",
+    "mission": "Advance defensive cybersecurity through systematic knowledge organization",
+    "organization": "MITRE Corporation",
+    "type": "Federally Funded Research and Development Center (FFRDC)"
+  },
+  "quality_score": 96.9,
+  "source_weight": 8,
+  "sub_category": "defensive",
+  "tags": [
+    "mitre",
+    "d3fend",
+    "defensive-techniques",
+    "countermeasures",
+    "cybersecurity-controls",
+    "knowledge-graph",
+    "detection",
+    "prevention",
+    "mitigation",
+    "authoritative",
+    "defensive-framework",
+    "security-controls"
+  ],
+  "threat_intelligence": {
+    "attack_techniques": [
+      {
+        "sub_technique": "Spearphishing Attachment",
+        "tactic": "Initial Access",
+        "technique_id": "T1566.001",
+        "technique_name": "Spearphishing Attachment"
+      },
+      {
+        "sub_technique": null,
+        "tactic": "Defense Evasion",
+        "technique_id": "T1027",
+        "technique_name": "Obfuscated Files or Information"
+      }
+    ],
+    "defensive_measures": [
+      {
+        "effectiveness_score": 85,
+        "technique_id": "D3-FAPA",
+        "technique_name": "File Analysis"
+      },
+      {
+        "effectiveness_score": 90,
+        "technique_id": "D3-NTA",
+        "technique_name": "Network Traffic Analysis"
+      },
+      {
+        "effectiveness_score": 95,
+        "technique_id": "D3-HBPI",
+        "technique_name": "Hardware-based Process Isolation"
+      }
+    ],
+    "iocs": [
+      {
+        "confidence": 100,
+        "format": "D3-XXXX",
+        "type": "defensive_technique_id"
+      },
+      {
+        "confidence": 100,
+        "format": "string",
+        "type": "countermeasure_type"
+      }
+    ]
+  },
+  "update_frequency": "Quarterly",
+  "url": "https://d3fend.mitre.org/",
+  "usage_guidance": {
+    "automation_potential": "High - structured API with SPARQL query capabilities",
+    "integration_recommendations": [
+      "Map existing security controls to D3FEND techniques",
+      "Use with ATT&CK for comprehensive threat modeling",
+      "Integrate with security tool evaluation processes",
+      "Apply to security control effectiveness measurement",
+      "Use for security awareness training development"
+    ],
+    "primary_use_cases": [
+      "Defensive capability gap analysis",
+      "Security control selection and prioritization",
+      "Detection engineering and rule development",
+      "Incident response planning",
+      "Security architecture design",
+      "Red team exercise defense planning",
+      "Cybersecurity investment justification"
+    ]
+  },
+  "user_weighted_score": 96.9,
+  "value_proposition": {
+    "differentiators": [
+      "Only comprehensive defensive counterpart to ATT&CK",
+      "Knowledge graph structure enables complex queries",
+      "Research-backed defensive technique effectiveness",
+      "Open source and freely available",
+      "Continuously updated by cybersecurity community"
+    ],
+    "key_benefits": [
+      "Systematic approach to defensive cybersecurity",
+      "Evidence-based defensive technique selection",
+      "Direct mapping to ATT&CK offensive techniques",
+      "Comprehensive knowledge graph of countermeasures",
+      "Supports quantitative security analysis"
+    ]
+  }
+}
