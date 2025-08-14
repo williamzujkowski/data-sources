@@ -199,7 +199,7 @@ class TestSchemaValidationIntegration:
                 validation_errors.append(f"{file_path}: Invalid JSON - {e}")
 
         if validation_errors:
-            pytest.fail(f"Schema validation errors:\n" + "\n".join(validation_errors))
+            pytest.fail("Schema validation errors:\n" + "\n".join(validation_errors))
 
 
 @pytest.mark.integration

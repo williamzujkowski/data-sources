@@ -1,12 +1,10 @@
-"""
-Unit tests for score_sources.py module.
-"""
+"""Unit tests for score_sources.py module."""
 
 import datetime
 import json
 import os
 import sys
-from unittest.mock import Mock, mock_open, patch
+from unittest.mock import mock_open, patch
 
 import pytest
 
@@ -172,7 +170,7 @@ class TestCalculateUserWeightedScore:
     def test_calculate_user_weighted_score_no_user_weights(
         self, sample_source, scoring_config
     ):
-        """Test user weighted score with no user weights (should return existing score)."""
+        """Test user weighted score with no user weights."""
         weights = scoring_config["weights"]
 
         result = score_sources.calculate_user_weighted_score(
@@ -183,7 +181,7 @@ class TestCalculateUserWeightedScore:
 
     def test_calculate_user_weighted_score_missing_quality_score(self, scoring_config):
         """Test user weighted score when quality_score is missing."""
-        source = sample_source = {
+        source = {
             "id": "test",
             "quality_score": None,
             "authority": 90,
@@ -286,7 +284,7 @@ class TestScoreSourcesIntegration:
 
     def test_score_calculation_workflow(self, temp_source_file, temp_config_dir):
         """Test the complete scoring workflow."""
-        with patch("score_sources.DATA_SOURCES_DIR") as mock_data_dir, patch(
+        with patch("score_sources.DATA_SOURCES_DIR"), patch(
             "score_sources.CONFIG_DIR", temp_config_dir
         ), patch("score_sources.glob.glob") as mock_glob:
 

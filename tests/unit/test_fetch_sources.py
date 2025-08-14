@@ -1,12 +1,9 @@
-"""
-Unit tests for fetch_sources.py module.
-"""
+"""Unit tests for fetch_sources.py module."""
 
 import datetime
 import json
 import os
 import sys
-from pathlib import Path
 from unittest.mock import Mock, mock_open, patch
 
 import pytest
@@ -249,7 +246,7 @@ class TestFetchSourcesIntegration:
     def test_full_workflow_with_temp_files(self, temp_source_file, mock_http_success):
         """Test the complete workflow with actual file I/O."""
         # Patch the DATA_SOURCES_DIR to use our temp file
-        with patch("fetch_sources.DATA_SOURCES_DIR") as mock_dir, patch(
+        with patch("fetch_sources.DATA_SOURCES_DIR"), patch(
             "fetch_sources.glob.glob"
         ) as mock_glob:
 

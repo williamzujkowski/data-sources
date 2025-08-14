@@ -1,5 +1,4 @@
-"""
-Unit tests for Phase 1 data sources: Core Government & Standards Sources.
+"""Unit tests for Phase 1 data sources: Core Government & Standards Sources.
 
 Tests the CISA KEV, MITRE ATT&CK, MITRE D3FEND, and EPSS data sources
 to ensure they meet Phase 1 requirements and quality standards.
@@ -31,7 +30,9 @@ class TestPhase1Sources:
         phase1_files = {
             "cisa-kev": "data-sources/vulnerability/exploited/cisa-kev.json",
             "mitre-attack": "data-sources/threat-intelligence/ttps/mitre-attack.json",
-            "mitre-defend": "data-sources/threat-intelligence/defensive/mitre-defend.json",
+            "mitre-defend": (
+                "data-sources/threat-intelligence/defensive/mitre-defend.json"
+            ),
             "epss": "data-sources/vulnerability/scoring/epss.json",
         }
 
@@ -295,7 +296,7 @@ class TestPhase1Sources:
     def test_api_integration_readiness(self, phase1_sources: Dict[str, Dict[str, Any]]):
         """Test that sources are ready for API integration."""
         for source_id, source in phase1_sources.items():
-            assert "api_details" in source
+            assert "api_details" in source, f"Missing api_details in {source_id}"
 
             api = source["api_details"]
 
@@ -318,6 +319,7 @@ class TestPhase1Sources:
         """Test framework mappings are present for integration."""
         for source_id, source in phase1_sources.items():
             if "frameworks_supported" in source:
+                print(f"Checking frameworks for {source_id}")  # Use source_id
                 frameworks = source["frameworks_supported"]
                 assert isinstance(frameworks, list)
 
@@ -331,7 +333,7 @@ class TestPhase1Sources:
     ):
         """Test that usage guidance is comprehensive."""
         for source_id, source in phase1_sources.items():
-            assert "usage_guidance" in source
+            assert "usage_guidance" in source, f"Missing usage_guidance in {source_id}"
 
             guidance = source["usage_guidance"]
 

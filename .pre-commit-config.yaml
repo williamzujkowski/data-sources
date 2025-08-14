@@ -57,6 +57,7 @@ repos:
         args:
           - '--max-line-length=88'
           - '--extend-ignore=E203,W503,D100,D104'  # Ignore conflicts with black and missing docstrings for modules/packages
+          - '--per-file-ignores=tests/*:E402'  # Allow imports after sys.path modification in tests
 
   # Python type checking
   - repo: https://github.com/pre-commit/mirrors-mypy
