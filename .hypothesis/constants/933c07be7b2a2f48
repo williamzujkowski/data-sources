@@ -1,0 +1,4 @@
+# file: /home/william/git/data-sources/tools/sources/nvd_fetcher.py
+# hypothesis_version: 6.131.9
+
+[0.6, 2000, '*', ':', 'CWE-', 'NVDFetcher', '__main__', 'apiKey', 'baseScore', 'configurations', 'cpe', 'cpeMatch', 'criteria', 'cve', 'cvssData', 'cvssMetricV2', 'cvssMetricV30', 'cvssMetricV31', 'description', 'descriptions', 'en', 'id', 'lang', 'lastModEndDate', 'lastModStartDate', 'lastModified', 'last_sync', 'metrics', 'nodes', 'published', 'r', 'references', 'resultsPerPage', 'score', 'startIndex', 'totalResults', 'total_processed', 'value', 'vector', 'vectorString', 'versionEndExcluding', 'version_end', 'version_start', 'vulnerabilities', 'vulnerable', 'w', 'weaknesses']

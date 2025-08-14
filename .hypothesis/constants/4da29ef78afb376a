@@ -1,0 +1,4 @@
+# file: /home/william/git/data-sources/tools/deduplication.py
+# hypothesis_version: 6.131.9
+
+[0.001, 0.85, 6.1, 7.5, 100, 200, 1000000, '2024-01-15', 'CVE-2024-1234', 'CVE-2024-5678', 'XSS vulnerability', '__main__', 'abuse_ch_threatfox', 'abuse_ch_urlhaus', 'attack_techniques', 'bloom_filter_size', 'cisa_kev', 'community', 'cve_id', 'cvss_v2_score', 'cvss_v3_score', 'cwe_ids', 'deduplication', 'default', 'description', 'duplicates_removed', 'epss', 'epss_score', 'exact_hashes_stored', 'indicator', 'items_merged', 'kev_date_added', 'md5', 'merge_ratio', 'merge_time', 'merged', 'mitre_attack', 'mitre_defend', 'name', 'nvd', 'otx', 'primary_source', 'pulse_id', 'reduction_ratio', 'references', 'secondary_source', 'sha256', 'source', 'sources', 'tags', 'title', 'total_input', 'unique_output', 'unknown', '|']
