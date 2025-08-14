@@ -1,35 +1,68 @@
-name: "Update Data Sources"
+name: "Validate Data Sources"
 on:
-  schedule:
-    - cron: "0 2 * * *"
+  push:
+    paths:
+      - 'sources/**/*.json'
+      - 'schemas/*.json'
+  pull_request:
+    paths:
+      - 'sources/**/*.json'
+      - 'schemas/*.json'
 jobs:
-  refresh:
+  validate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Allow committing back to the repository
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Install requirements
-        run: pip install -r tools/requirements.txt
-      - name: Fetch sources
-        run: python tools/fetch_sources.py
-      - name: Score sources
-        run: python tools/score_sources.py
-      - name: Index sources
-        run: python tools/index_sources.py
-      - name: Commit & Push changes
+      - name: Install jsonschema
+        run: pip install jsonschema
+      - name: Validate all source files
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Only stage changes within the data-sources directory
-          git add data-sources/
-          # Check if there are staged changes before committing
-          if git diff --staged --quiet; then
-            echo "No changes to commit in data-sources/"
-          else
-            git commit -m "chore: daily update of data sources"
-            git push
-          fi
+          python -c '
+          import json
+          import jsonschema
+          import sys
+          from pathlib import Path
+          
+          # Load the schema
+          schema_path = Path("schemas/source.schema.json")
+          if not schema_path.exists():
+              print(f"Schema file not found: {schema_path}")
+              sys.exit(1)
+          
+          with open(schema_path) as f:
+              schema = json.load(f)
+          
+          # Find all source JSON files
+          sources_dir = Path("sources")
+          source_files = list(sources_dir.glob("**/*.json"))
+          
+          if not source_files:
+              print("No source files found to validate")
+              sys.exit(0)
+          
+          errors = []
+          for source_file in source_files:
+              try:
+                  print(f"Validating {source_file}...")
+                  with open(source_file) as f:
+                      data = json.load(f)
+                  jsonschema.validate(data, schema)
+                  print(f"✓ {source_file} is valid")
+              except json.JSONDecodeError as e:
+                  errors.append(f"JSON parse error in {source_file}: {e}")
+              except jsonschema.ValidationError as e:
+                  errors.append(f"Validation error in {source_file}: {e.message}")
+              except Exception as e:
+                  errors.append(f"Error validating {source_file}: {e}")
+          
+          if errors:
+              print("\n❌ Validation errors found:")
+              for error in errors:
+                  print(f"  - {error}")
+              sys.exit(1)
+          else:
+              print(f"\n✅ All {len(source_files)} source files are valid")
+          '
