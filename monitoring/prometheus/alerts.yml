@@ -1,0 +1,103 @@
+groups:
+  - name: threatintel_alerts
+    interval: 30s
+    rules:
+      # High Error Rate
+      - alert: HighErrorRate
+        expr: rate(threatintel_errors_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }} errors/sec for {{ $labels.source }}"
+
+      # Source Fetch Failures
+      - alert: SourceFetchFailure
+        expr: rate(threatintel_source_fetch_total{status="error"}[10m]) > 0.5
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Source fetch failures"
+          description: "Source {{ $labels.source }} has high failure rate: {{ $value }}"
+
+      # Slow Response Times
+      - alert: SlowAPIResponse
+        expr: histogram_quantile(0.95, rate(threatintel_api_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slow API response times"
+          description: "95th percentile response time is {{ $value }}s for {{ $labels.endpoint }}"
+
+      # Low Deduplication Efficiency
+      - alert: LowDeduplicationEfficiency
+        expr: threatintel_deduplication_ratio < 0.5
+        for: 15m
+        labels:
+          severity: info
+        annotations:
+          summary: "Low deduplication ratio"
+          description: "Deduplication ratio for {{ $labels.source }} is {{ $value }}"
+
+      # High Memory Usage
+      - alert: HighMemoryUsage
+        expr: threatintel_memory_usage_bytes > 2147483648  # 2GB
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ humanize $value }}"
+
+      # Source Quality Degradation
+      - alert: SourceQualityDegradation
+        expr: threatintel_source_quality_score < 0.6
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Source quality degradation"
+          description: "Quality score for {{ $labels.source }} is {{ $value }}"
+
+      # No Recent Data
+      - alert: NoRecentData
+        expr: time() - threatintel_source_last_fetch_timestamp > 3600
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "No recent data from source"
+          description: "No data fetched from {{ $labels.source }} for {{ humanizeDuration $value }}"
+
+      # API Down
+      - alert: APIDown
+        expr: up{job="threatintel-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API is down"
+          description: "Threat Intelligence API has been down for more than 1 minute"
+
+      # High CPU Usage
+      - alert: HighCPUUsage
+        expr: threatintel_cpu_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value }}%"
+
+      # Cache Miss Rate
+      - alert: HighCacheMissRate
+        expr: rate(threatintel_cache_misses_total[5m]) / (rate(threatintel_cache_hits_total[5m]) + rate(threatintel_cache_misses_total[5m])) > 0.5
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "High cache miss rate"
+          description: "Cache miss rate for {{ $labels.cache_type }} is {{ $value }}"

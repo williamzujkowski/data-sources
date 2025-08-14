@@ -1,0 +1,79 @@
+{
+  "test_source": [
+    {
+      "data_samples": 10,
+      "historical_trend": "insufficient_data",
+      "issues": [
+        "Data freshness is below acceptable levels",
+        "Data completeness (0.0%) is below threshold",
+        "Potential accuracy issues detected",
+        "Overall quality score (0.51) below threshold"
+      ],
+      "metrics": {
+        "accuracy": 0.7,
+        "completeness": 0.0,
+        "consistency": 1.0,
+        "freshness": 0.0,
+        "overall": 0.505,
+        "uniqueness": 1.0
+      },
+      "recommendations": [
+        "Increase update frequency for test_source or check if source is still active",
+        "Review field mapping and ensure all required fields are being extracted",
+        "Validate test_source data against authoritative sources"
+      ],
+      "source_id": "test_source",
+      "timestamp": "2025-08-14T16:40:47.297531"
+    },
+    {
+      "data_samples": 10,
+      "historical_trend": "insufficient_data",
+      "issues": [
+        "Data freshness is below acceptable levels",
+        "Data completeness (0.0%) is below threshold",
+        "Potential accuracy issues detected",
+        "Overall quality score (0.51) below threshold"
+      ],
+      "metrics": {
+        "accuracy": 0.7,
+        "completeness": 0.0,
+        "consistency": 1.0,
+        "freshness": 0.0,
+        "overall": 0.505,
+        "uniqueness": 1.0
+      },
+      "recommendations": [
+        "Increase update frequency for test_source or check if source is still active",
+        "Review field mapping and ensure all required fields are being extracted",
+        "Validate test_source data against authoritative sources"
+      ],
+      "source_id": "test_source",
+      "timestamp": "2025-08-14T16:41:16.794482"
+    },
+    {
+      "data_samples": 10,
+      "historical_trend": "stable",
+      "issues": [
+        "Data freshness is below acceptable levels",
+        "Data completeness (0.0%) is below threshold",
+        "Potential accuracy issues detected",
+        "Overall quality score (0.51) below threshold"
+      ],
+      "metrics": {
+        "accuracy": 0.7,
+        "completeness": 0.0,
+        "consistency": 1.0,
+        "freshness": 0.0,
+        "overall": 0.505,
+        "uniqueness": 1.0
+      },
+      "recommendations": [
+        "Increase update frequency for test_source or check if source is still active",
+        "Review field mapping and ensure all required fields are being extracted",
+        "Validate test_source data against authoritative sources"
+      ],
+      "source_id": "test_source",
+      "timestamp": "2025-08-14T16:41:35.625291"
+    }
+  ]
+}

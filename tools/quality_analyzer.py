@@ -49,6 +49,7 @@ class SourceQualityReport:
     recommendations: List[str] = field(default_factory=list)
     historical_trend: Optional[str] = None
     data_samples: int = 0
+    analysis_time: float = 0.0
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert report to dictionary."""
@@ -147,6 +148,10 @@ class SourceQualityAnalyzer:
         Returns:
             SourceQualityReport with metrics and recommendations
         """
+        import time
+
+        start_time = time.time()
+
         if not data:
             return self._create_empty_report(source_id)
 
@@ -195,6 +200,7 @@ class SourceQualityAnalyzer:
             recommendations=recommendations,
             historical_trend=trend,
             data_samples=len(data),
+            analysis_time=time.time() - start_time,
         )
 
         # Store in history
