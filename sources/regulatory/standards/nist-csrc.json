@@ -1,0 +1,202 @@
+{
+  "api": {
+    "base_url": "https://csrc.nist.gov/csrc/media/feeds",
+    "endpoints": [
+      {
+        "description": "JSON feed of all NIST publications",
+        "method": "GET",
+        "parameters": [],
+        "path": "/publication-feed.json",
+        "rate_limit": {
+          "notes": "No rate limits - all content is freely accessible",
+          "requests_per_second": null
+        }
+      },
+      {
+        "description": "JSON feed of draft publications for public comment",
+        "method": "GET",
+        "parameters": [],
+        "path": "/draft-feed.json"
+      },
+      {
+        "description": "RSS/XML feed of publications",
+        "method": "GET",
+        "parameters": [],
+        "path": "/publication-feed.xml"
+      }
+    ],
+    "type": "REST",
+    "web_resources": [
+      {
+        "access": "free",
+        "description": "Security and Privacy Controls",
+        "path": "/publications/detail/sp/800-53/rev-5/final"
+      },
+      {
+        "access": "free",
+        "description": "Protecting CUI in Nonfederal Systems",
+        "path": "/publications/detail/sp/800-171/rev-2/final"
+      },
+      {
+        "access": "free",
+        "description": "Risk Management Framework",
+        "path": "/publications/detail/sp/800-37/rev-2/final"
+      },
+      {
+        "access": "free",
+        "description": "Cryptographic Standards",
+        "path": "/Projects/cryptographic-standards-and-guidelines"
+      },
+      {
+        "access": "free",
+        "description": "NIST Cybersecurity Framework",
+        "path": "/Projects/cybersecurity-framework"
+      }
+    ]
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All NIST publications, standards, and frameworks are publicly available without any authentication or registration.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 100,
+  "category": "regulatory",
+  "coverage": 95,
+  "data_coverage": {
+    "content_types": [
+      "Special Publications (SP 800 series)",
+      "NIST Interagency Reports (NISTIRs)",
+      "Federal Information Processing Standards (FIPS)",
+      "Cybersecurity Framework",
+      "Privacy Framework",
+      "Cryptographic Standards",
+      "Risk Management Framework",
+      "Zero Trust Architecture",
+      "Supply Chain Security",
+      "IoT Security"
+    ],
+    "languages": [
+      "English",
+      "Some translations available"
+    ],
+    "temporal": {
+      "draft_comment_periods": "30-90 days typical",
+      "historical_data": "1970s-present",
+      "update_frequency": "continuous"
+    },
+    "total_publications": "1000+"
+  },
+  "description": "NIST's Computer Security Resource Center providing FREE access to cybersecurity standards, frameworks, Special Publications (SP 800 series), and guidance. No authentication required.",
+  "documentation": "https://csrc.nist.gov/publications",
+  "format": "json/xml/pdf",
+  "id": "nist-csrc",
+  "integration_examples": {
+    "curl": {
+      "download_sp": "# Download specific Special Publication - FREE!\ncurl -O https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf",
+      "get_csf": "# Download Cybersecurity Framework - FREE!\ncurl -O https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf",
+      "get_drafts": "# Get draft publications for comment - FREE!\ncurl https://csrc.nist.gov/csrc/media/feeds/draft-feed.json",
+      "get_feed": "# Get NIST publications feed - COMPLETELY FREE!\ncurl https://csrc.nist.gov/csrc/media/feeds/publication-feed.json | jq '.[0:5]'"
+    },
+    "javascript": {
+      "fetch_feed": "// Fetch NIST publications - COMPLETELY FREE!\nconst fetchNISTPublications = async () => {\n  const url = 'https://csrc.nist.gov/csrc/media/feeds/publication-feed.json';\n  \n  const response = await fetch(url);\n  const publications = await response.json();\n  \n  console.log('Latest NIST Publications (FREE!):');\n  \n  publications.slice(0, 10).forEach(pub => {\n    console.log(`\\n${pub.title}`);\n    console.log(`  ${pub.series} ${pub.number}`);\n    console.log(`  Published: ${pub.publicationDate}`);\n    console.log(`  URL: ${pub.url}`);\n  });\n  \n  return publications;\n};\n\nfetchNISTPublications();",
+      "monitor_framework": "// Monitor Cybersecurity Framework updates - FREE!\nconst monitorCSF = async () => {\n  const feedUrl = 'https://csrc.nist.gov/csrc/media/feeds/publication-feed.json';\n  \n  const response = await fetch(feedUrl);\n  const pubs = await response.json();\n  \n  // Filter for CSF-related publications\n  const csfPubs = pubs.filter(pub => \n    pub.title?.toLowerCase().includes('cybersecurity framework') ||\n    pub.title?.toLowerCase().includes('csf')\n  );\n  \n  if (csfPubs.length > 0) {\n    console.log('Cybersecurity Framework Updates:');\n    csfPubs.forEach(pub => {\n      console.log(`- ${pub.title}`);\n      console.log(`  ${pub.url}`);\n    });\n  }\n};\n\nmonitorCSF();"
+    },
+    "python": {
+      "download_sp800": "import requests\nimport os\n\ndef download_nist_publication(sp_number, save_dir='nist_docs'):\n    \"\"\"Download NIST Special Publication - FREE!\"\"\"\n    \n    # Create directory if needed\n    os.makedirs(save_dir, exist_ok=True)\n    \n    # Construct URL (example pattern)\n    base_url = 'https://nvlpubs.nist.gov/nistpubs/SpecialPublications'\n    filename = f'NIST.SP.800-{sp_number}.pdf'\n    url = f'{base_url}/{filename}'\n    \n    print(f\"Downloading {filename} (FREE!)...\")\n    \n    response = requests.get(url, stream=True)\n    \n    if response.status_code == 200:\n        filepath = os.path.join(save_dir, filename)\n        with open(filepath, 'wb') as f:\n            for chunk in response.iter_content(chunk_size=8192):\n                f.write(chunk)\n        print(f\"Saved to {filepath}\")\n    else:\n        print(f\"Could not download SP 800-{sp_number}\")\n\n# Download key publications\nkey_pubs = ['53r5', '171r2', '37r2', '207']\nfor pub in key_pubs:\n    download_nist_publication(pub)",
+      "fetch_publications": "import requests\nimport json\nfrom datetime import datetime\n\n# Fetch NIST publications feed - COMPLETELY FREE!\nurl = 'https://csrc.nist.gov/csrc/media/feeds/publication-feed.json'\n\nresponse = requests.get(url)\npublications = response.json()\n\nprint(f\"NIST Publications (FREE access!)\\n\")\n\nfor pub in publications[:10]:\n    print(f\"Title: {pub.get('title', 'N/A')}\")\n    print(f\"Series: {pub.get('series', 'N/A')}\")\n    print(f\"Number: {pub.get('number', 'N/A')}\")\n    print(f\"Date: {pub.get('publicationDate', 'N/A')}\")\n    print(f\"URL: {pub.get('url', 'N/A')}\")\n    print()",
+      "monitor_drafts": "import requests\nimport json\nfrom datetime import datetime, timedelta\n\ndef monitor_nist_drafts():\n    \"\"\"Monitor NIST draft publications for comment - FREE!\"\"\"\n    \n    url = 'https://csrc.nist.gov/csrc/media/feeds/draft-feed.json'\n    \n    response = requests.get(url)\n    drafts = response.json()\n    \n    print(\"NIST Draft Publications Open for Comment (FREE!)\\n\")\n    \n    for draft in drafts:\n        # Check comment period\n        comment_due = draft.get('commentDueDate', '')\n        \n        if comment_due:\n            due_date = datetime.strptime(comment_due, '%Y-%m-%d')\n            days_left = (due_date - datetime.now()).days\n            \n            if days_left > 0:\n                print(f\"\ud83d\udcdd {draft.get('title', 'N/A')}\")\n                print(f\"   Series: {draft.get('series', 'N/A')} {draft.get('number', '')}\")\n                print(f\"   Comment Due: {comment_due} ({days_left} days left)\")\n                print(f\"   URL: {draft.get('url', 'N/A')}\")\n                print()\n\nmonitor_nist_drafts()"
+    }
+  },
+  "key_resources": {
+    "cybersecurity_framework": {
+      "access": "free download",
+      "description": "Framework for improving critical infrastructure cybersecurity",
+      "url": "https://www.nist.gov/cyberframework",
+      "version": "2.0"
+    },
+    "fips": {
+      "description": "Federal Information Processing Standards",
+      "notable": [
+        "FIPS 140-3: Cryptographic Module Validation",
+        "FIPS 199: Security Categorization",
+        "FIPS 200: Minimum Security Requirements"
+      ],
+      "url": "https://csrc.nist.gov/publications/fips"
+    },
+    "scap": {
+      "description": "Security Content Automation Protocol",
+      "formats": [
+        "XCCDF",
+        "OVAL",
+        "CPE",
+        "CVE",
+        "CVSS",
+        "CCE"
+      ],
+      "url": "https://csrc.nist.gov/projects/security-content-automation-protocol"
+    },
+    "sp_800_series": {
+      "description": "Computer security guidelines, recommendations and reference materials",
+      "notable": [
+        "SP 800-53: Security Controls",
+        "SP 800-171: Protecting CUI",
+        "SP 800-37: Risk Management",
+        "SP 800-61: Incident Handling",
+        "SP 800-115: Security Testing",
+        "SP 800-207: Zero Trust Architecture"
+      ],
+      "url": "https://csrc.nist.gov/publications/sp800"
+    }
+  },
+  "last_updated": "2025-08-15T12:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "iso-standards",
+      "cis-benchmarks",
+      "sans-resources"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "U.S. Government Work - Public Domain",
+    "maintainer": "National Institute of Standards and Technology",
+    "related_tools": [
+      "SCAP Validation Tools",
+      "National Checklist Program",
+      "National Vulnerability Database",
+      "CAVP (Cryptographic Algorithm Validation)"
+    ]
+  },
+  "name": "NIST Computer Security Resource Center",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to RSS/JSON feeds for updates",
+      "Monitor draft publications for comment opportunities",
+      "Download and cache key publications locally",
+      "Track updates to frameworks and standards",
+      "Use SCAP content for automated compliance",
+      "Reference authoritative NIST publications in policies"
+    ],
+    "common_use_cases": [
+      "Compliance with federal requirements",
+      "Risk management framework implementation",
+      "Security control selection and assessment",
+      "Cryptographic standards reference",
+      "Zero trust architecture guidance",
+      "Incident response planning",
+      "Security testing methodologies"
+    ],
+    "recommended_update_frequency": "Check feeds weekly; download updated publications quarterly",
+    "value_proposition": "Authoritative U.S. government cybersecurity standards and guidance, completely free with no restrictions"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration or authentication required",
+    "api_stability": "Stable feeds and URLs",
+    "completeness": "Comprehensive coverage of cybersecurity topics",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Authoritative U.S. government standards",
+    "reliability": "excellent",
+    "update_speed": "Publications updated as finalized"
+  },
+  "quality_score": 98,
+  "subcategory": "standards",
+  "url": "https://csrc.nist.gov"
+}

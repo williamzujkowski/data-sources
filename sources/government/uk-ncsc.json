@@ -1,0 +1,216 @@
+{
+  "api": {
+    "base_url": "https://www.ncsc.gov.uk",
+    "rate_limit": {
+      "notes": "No rate limits on RSS feeds or public content",
+      "requests_per_second": null
+    },
+    "rss_feeds": [
+      {
+        "description": "Complete feed of all NCSC news and updates",
+        "name": "All NCSC News",
+        "update_frequency": "daily",
+        "url": "https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml"
+      },
+      {
+        "description": "Latest cyber security news from NCSC",
+        "name": "NCSC News",
+        "update_frequency": "daily",
+        "url": "https://www.ncsc.gov.uk/api/1/services/v1/news-rss-feed.xml"
+      },
+      {
+        "description": "Expert analysis and commentary from NCSC specialists",
+        "name": "NCSC Blogs",
+        "update_frequency": "weekly",
+        "url": "https://www.ncsc.gov.uk/api/1/services/v1/blog-rss-feed.xml"
+      },
+      {
+        "description": "In-depth security reports and threat assessments",
+        "name": "NCSC Reports",
+        "update_frequency": "monthly",
+        "url": "https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml"
+      },
+      {
+        "description": "Security guidance and best practices",
+        "name": "Guidance",
+        "update_frequency": "weekly",
+        "url": "https://www.ncsc.gov.uk/api/1/services/v1/guidance-rss-feed.xml"
+      }
+    ],
+    "type": "RSS/Web",
+    "web_resources": [
+      {
+        "access": "free",
+        "description": "Comprehensive security guidance by topic",
+        "path": "/section/advice-guidance/all-topics"
+      },
+      {
+        "access": "free",
+        "description": "Cyber security for individuals",
+        "path": "/section/information-for/individuals-families"
+      },
+      {
+        "access": "free",
+        "description": "SME security guidance",
+        "path": "/section/information-for/small-medium-sized-organisations"
+      },
+      {
+        "access": "free",
+        "description": "Enterprise security guidance",
+        "path": "/section/information-for/large-organisations"
+      },
+      {
+        "access": "free",
+        "description": "Cyber Aware campaign resources",
+        "path": "/cyberaware"
+      }
+    ]
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All public guidance, advisories, and RSS feeds available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 95,
+  "category": "government",
+  "coverage": 85,
+  "data_coverage": {
+    "content_types": [
+      "Security Advisories",
+      "Threat Reports",
+      "Incident Response Guidance",
+      "Best Practices",
+      "Configuration Guides",
+      "Risk Management",
+      "Supply Chain Security",
+      "Cloud Security",
+      "Email Security",
+      "Network Security"
+    ],
+    "geographical": "UK-focused with global relevance",
+    "sectors": [
+      "Critical National Infrastructure",
+      "Government",
+      "Healthcare",
+      "Finance",
+      "Education",
+      "Small Business",
+      "Individuals"
+    ],
+    "temporal": {
+      "historical_data": "2016-present",
+      "latency": "Real-time for critical advisories",
+      "update_frequency": "continuous"
+    }
+  },
+  "description": "UK's National Cyber Security Centre providing FREE security guidance, threat reports, advisories, and incident information. No authentication required for public resources.",
+  "documentation": "https://www.ncsc.gov.uk/section/keep-up-to-date/rss-feeds",
+  "format": "rss/html/pdf",
+  "id": "uk-ncsc",
+  "integration_examples": {
+    "curl": {
+      "all_feed": "# Get all NCSC updates - COMPLETELY FREE!\ncurl https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml",
+      "blog_feed": "# Get NCSC blog posts - FREE!\ncurl https://www.ncsc.gov.uk/api/1/services/v1/blog-rss-feed.xml",
+      "guidance_feed": "# Get NCSC guidance - FREE!\ncurl https://www.ncsc.gov.uk/api/1/services/v1/guidance-rss-feed.xml",
+      "news_feed": "# Get NCSC news - FREE!\ncurl https://www.ncsc.gov.uk/api/1/services/v1/news-rss-feed.xml",
+      "reports_feed": "# Get NCSC reports - FREE!\ncurl https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml"
+    },
+    "javascript": {
+      "advisory_monitor": "// Monitor NCSC advisories - FREE!\nconst crypto = require('crypto');\nconst fs = require('fs');\nconst Parser = require('rss-parser');\n\nclass NCSCAdvisoryMonitor {\n  constructor() {\n    this.parser = new Parser();\n    this.feedUrl = 'https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml';\n    this.stateFile = 'ncsc-seen.json';\n    this.seenItems = this.loadState();\n  }\n  \n  loadState() {\n    try {\n      return new Set(JSON.parse(fs.readFileSync(this.stateFile, 'utf8')));\n    } catch {\n      return new Set();\n    }\n  }\n  \n  saveState() {\n    fs.writeFileSync(\n      this.stateFile,\n      JSON.stringify([...this.seenItems])\n    );\n  }\n  \n  async checkForNew() {\n    const feed = await this.parser.parseURL(this.feedUrl);\n    const newItems = [];\n    \n    for (const item of feed.items) {\n      const hash = crypto\n        .createHash('md5')\n        .update(item.link)\n        .digest('hex');\n      \n      if (!this.seenItems.has(hash)) {\n        newItems.push(item);\n        this.seenItems.add(hash);\n      }\n    }\n    \n    if (newItems.length > 0) {\n      this.saveState();\n    }\n    \n    return newItems;\n  }\n  \n  async startMonitoring(intervalMs = 3600000) {\n    console.log('Monitoring NCSC for new advisories...');\n    \n    const check = async () => {\n      const newItems = await this.checkForNew();\n      \n      if (newItems.length > 0) {\n        console.log(`\\n[${new Date().toISOString()}] New advisories:`);\n        newItems.forEach(item => {\n          console.log(`- ${item.title}`);\n          console.log(`  ${item.link}`);\n        });\n      }\n    };\n    \n    await check(); // Initial check\n    setInterval(check, intervalMs);\n  }\n}\n\n// Start monitoring\nconst monitor = new NCSCAdvisoryMonitor();\nmonitor.startMonitoring();",
+      "fetch_feeds": "// Fetch NCSC RSS feeds - COMPLETELY FREE!\nconst Parser = require('rss-parser');\nconst parser = new Parser();\n\nconst ncscFeeds = {\n  all: 'https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml',\n  news: 'https://www.ncsc.gov.uk/api/1/services/v1/news-rss-feed.xml',\n  reports: 'https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml',\n  guidance: 'https://www.ncsc.gov.uk/api/1/services/v1/guidance-rss-feed.xml',\n  blogs: 'https://www.ncsc.gov.uk/api/1/services/v1/blog-rss-feed.xml'\n};\n\nconst fetchAllFeeds = async () => {\n  const results = {};\n  \n  for (const [name, url] of Object.entries(ncscFeeds)) {\n    try {\n      const feed = await parser.parseURL(url);\n      results[name] = feed.items.slice(0, 5).map(item => ({\n        title: item.title,\n        link: item.link,\n        pubDate: item.pubDate,\n        content: item.contentSnippet\n      }));\n      console.log(`Fetched ${feed.items.length} items from ${name} feed`);\n    } catch (error) {\n      console.error(`Error fetching ${name}: ${error.message}`);\n    }\n  }\n  \n  return results;\n};\n\n// Usage\nfetchAllFeeds().then(feeds => {\n  console.log('\\nLatest NCSC Guidance (FREE):');\n  feeds.guidance?.forEach(item => {\n    console.log(`- ${item.title}`);\n  });\n});"
+    },
+    "python": {
+      "download_guidance": "import requests\nfrom bs4 import BeautifulSoup\nimport re\n\ndef get_ncsc_guidance(topic='ransomware'):\n    \"\"\"Download NCSC guidance on specific topics - FREE!\"\"\"\n    \n    # Search for guidance\n    search_url = f'https://www.ncsc.gov.uk/search?q={topic}'\n    response = requests.get(search_url)\n    soup = BeautifulSoup(response.text, 'html.parser')\n    \n    guidance_links = []\n    \n    # Find guidance articles\n    for article in soup.find_all('div', class_='search-result'):\n        title_elem = article.find('h3')\n        if title_elem:\n            link = title_elem.find('a')\n            if link and '/guidance/' in link.get('href', ''):\n                guidance_links.append({\n                    'title': link.text.strip(),\n                    'url': f\"https://www.ncsc.gov.uk{link['href']}\"\n                })\n    \n    return guidance_links\n\n# Get ransomware guidance\nguidance = get_ncsc_guidance('ransomware')\nfor g in guidance[:5]:\n    print(f\"- {g['title']}\")\n    print(f\"  URL: {g['url']}\")",
+      "monitor_advisories": "import feedparser\nimport hashlib\nimport json\nimport time\nfrom datetime import datetime\n\nclass NCSCMonitor:\n    def __init__(self):\n        self.feed_url = 'https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml'\n        self.seen_items = set()\n        self.state_file = 'ncsc_monitor.json'\n        self.load_state()\n    \n    def load_state(self):\n        try:\n            with open(self.state_file, 'r') as f:\n                self.seen_items = set(json.load(f))\n        except FileNotFoundError:\n            pass\n    \n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump(list(self.seen_items), f)\n    \n    def check_new_items(self):\n        \"\"\"Check for new NCSC updates - FREE!\"\"\"\n        feed = feedparser.parse(self.feed_url)\n        new_items = []\n        \n        for entry in feed.entries:\n            # Create unique ID for each entry\n            entry_id = hashlib.md5(entry.link.encode()).hexdigest()\n            \n            if entry_id not in self.seen_items:\n                new_items.append({\n                    'title': entry.title,\n                    'link': entry.link,\n                    'published': entry.published,\n                    'summary': getattr(entry, 'summary', '')[:200]\n                })\n                self.seen_items.add(entry_id)\n        \n        if new_items:\n            self.save_state()\n        \n        return new_items\n    \n    def monitor(self, interval=3600):\n        \"\"\"Monitor for new advisories\"\"\"\n        print(f\"Monitoring NCSC feeds (checking every {interval}s)...\")\n        \n        while True:\n            new_items = self.check_new_items()\n            \n            if new_items:\n                print(f\"\\n[{datetime.now()}] New NCSC updates:\")\n                for item in new_items:\n                    print(f\"- {item['title']}\")\n                    print(f\"  {item['link']}\")\n            \n            time.sleep(interval)\n\n# Start monitoring\nmonitor = NCSCMonitor()\nnew = monitor.check_new_items()\nprint(f\"Found {len(new)} new items\")",
+      "parse_rss": "import feedparser\nimport requests\nfrom datetime import datetime\n\n# Parse NCSC RSS feeds - COMPLETELY FREE!\nfeeds = {\n    'all': 'https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml',\n    'news': 'https://www.ncsc.gov.uk/api/1/services/v1/news-rss-feed.xml',\n    'reports': 'https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml',\n    'guidance': 'https://www.ncsc.gov.uk/api/1/services/v1/guidance-rss-feed.xml'\n}\n\nfor feed_name, feed_url in feeds.items():\n    print(f\"\\n=== NCSC {feed_name.upper()} (FREE) ===\")\n    feed = feedparser.parse(feed_url)\n    \n    for entry in feed.entries[:5]:\n        print(f\"\\nTitle: {entry.title}\")\n        print(f\"Link: {entry.link}\")\n        print(f\"Published: {entry.published}\")\n        if hasattr(entry, 'summary'):\n            print(f\"Summary: {entry.summary[:200]}...\")"
+    }
+  },
+  "key_resources": {
+    "cyber_essentials": {
+      "access": "free guidance",
+      "description": "UK government-backed certification scheme",
+      "url": "https://www.ncsc.gov.uk/cyberessentials/overview"
+    },
+    "early_warning": {
+      "access": "free with eligibility",
+      "description": "Free service to notify organizations of cyber threats",
+      "url": "https://www.ncsc.gov.uk/information/early-warning-service"
+    },
+    "exercise_in_a_box": {
+      "access": "free with registration",
+      "description": "Free online exercises for cyber incident response",
+      "url": "https://www.ncsc.gov.uk/information/exercise-in-a-box"
+    },
+    "protective_dns": {
+      "access": "free for eligible organizations",
+      "description": "Free protective DNS service for public sector",
+      "url": "https://www.ncsc.gov.uk/information/pdns"
+    },
+    "weekly_threat_report": {
+      "access": "free",
+      "description": "Weekly summary of cyber threats",
+      "url": "https://www.ncsc.gov.uk/information/weekly-threat-report"
+    }
+  },
+  "last_updated": "2025-08-15T05:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "us-cisa",
+      "cert-eu",
+      "acsc-australia"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Open Government Licence v3.0",
+    "maintainer": "UK National Cyber Security Centre",
+    "related_services": [
+      "Cyber Essentials",
+      "Exercise in a Box",
+      "Early Warning Service",
+      "Protective DNS",
+      "Web Check"
+    ]
+  },
+  "name": "UK National Cyber Security Centre",
+  "notable_resources": {
+    "10_steps_to_cyber_security": "Comprehensive framework for organizational security",
+    "active_cyber_defence": "UK's approach to proactive cyber defense",
+    "board_toolkit": "Resources for board-level cyber risk management",
+    "cloud_security_guidance": "Detailed guidance for secure cloud adoption",
+    "email_security": "Best practices for email security and anti-phishing",
+    "ransomware_guidance": "Prevention and response guidance for ransomware",
+    "supply_chain_security": "Guidance for securing supply chains"
+  },
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to all RSS feeds for comprehensive coverage",
+      "Monitor the 'all' feed for critical advisories",
+      "Cache guidance documents locally for offline access",
+      "Implement alerting for high-priority advisories",
+      "Cross-reference with other UK government sources",
+      "Use guidance as baseline for security policies"
+    ],
+    "common_use_cases": [
+      "Security policy development",
+      "Incident response guidance",
+      "Threat intelligence for UK organizations",
+      "Compliance with UK cyber regulations",
+      "Security awareness training",
+      "Risk assessment frameworks",
+      "Supply chain security guidance"
+    ],
+    "recommended_update_frequency": "Check RSS feeds hourly for critical updates, daily for general monitoring",
+    "value_proposition": "Authoritative UK government cyber security guidance completely free with no authentication"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration or authentication required for public resources",
+    "api_stability": "Stable RSS feeds",
+    "completeness": "Comprehensive UK cyber security coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Government-verified information",
+    "reliability": "excellent",
+    "update_speed": "Real-time for critical advisories"
+  },
+  "quality_score": 92,
+  "subcategory": "advisory",
+  "url": "https://www.ncsc.gov.uk"
+}

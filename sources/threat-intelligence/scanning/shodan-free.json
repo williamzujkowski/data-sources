@@ -1,0 +1,246 @@
+{
+  "api": {
+    "base_url": "https://api.shodan.io",
+    "credit_system": {
+      "academic_tier": {
+        "export_credits": "10/month",
+        "monitor_credits": "5/month",
+        "query_credits": "100/month",
+        "requirements": ".edu email address",
+        "scan_credits": "100/month"
+      },
+      "free_tier": {
+        "export_credits": "0",
+        "monitor_credits": "0",
+        "query_credits": "Limited (varies)",
+        "scan_credits": "0"
+      }
+    },
+    "endpoints": [
+      {
+        "cost": "1 query credit",
+        "description": "Get all services for an IP",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "IP address",
+            "example": "8.8.8.8",
+            "name": "ip",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Your API key",
+            "name": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/shodan/host/{ip}"
+      },
+      {
+        "cost": "1 query credit per 100 results",
+        "description": "Search Shodan database",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Search query",
+            "example": "apache port:443",
+            "name": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Your API key",
+            "name": "key",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Page number (default 1)",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "path": "/shodan/host/search"
+      },
+      {
+        "cost": "0 credits",
+        "description": "Check API key info and credits",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Your API key",
+            "name": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/api-info"
+      },
+      {
+        "cost": "1 query credit",
+        "description": "Count search results",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Search query",
+            "name": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Your API key",
+            "name": "key",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/shodan/host/count"
+      }
+    ],
+    "rate_limit": {
+      "notes": "1 req/sec rate limit for all API calls",
+      "requests_per_second": 1
+    },
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "FREE account required (register at shodan.io). Free tier: limited credits/month. Academic (.edu email): 100 query + 100 scan credits/month. 1 query credit = 100 results.",
+    "required": true,
+    "type": "api_key"
+  },
+  "authority": 85,
+  "category": "threat-intelligence",
+  "coverage": 90,
+  "data_coverage": {
+    "data_points": [
+      "Open ports",
+      "Running services",
+      "SSL certificates",
+      "Technologies used",
+      "Vulnerabilities",
+      "Geographic location",
+      "Organization",
+      "Operating system",
+      "Banners"
+    ],
+    "devices": "Billions of internet-connected devices",
+    "historical_data": "Available with paid plans",
+    "services": [
+      "Web servers",
+      "Routers",
+      "IoT devices",
+      "Industrial control systems",
+      "Databases",
+      "Webcams",
+      "Network infrastructure"
+    ],
+    "update_frequency": "Continuous scanning"
+  },
+  "description": "Search engine for internet-connected devices. FREE tier provides limited monthly query credits. Academic users (.edu email) receive enhanced quotas: 100 query + 100 scan credits monthly.",
+  "documentation": "https://developer.shodan.io/api",
+  "format": "json",
+  "id": "shodan-free",
+  "integration_examples": {
+    "curl": {
+      "check_credits": "# Check your API credits (FREE)\ncurl 'https://api.shodan.io/api-info?key=YOUR_API_KEY'",
+      "count": "# Count results (costs 1 credit)\ncurl 'https://api.shodan.io/shodan/host/count?key=YOUR_API_KEY&query=webcam'",
+      "host_info": "# Get host information (costs 1 credit)\ncurl 'https://api.shodan.io/shodan/host/8.8.8.8?key=YOUR_API_KEY'",
+      "my_ip": "# Get your IP (FREE)\ncurl 'https://api.shodan.io/tools/myip?key=YOUR_API_KEY'",
+      "search": "# Search Shodan (costs 1 credit per 100 results)\ncurl 'https://api.shodan.io/shodan/host/search?key=YOUR_API_KEY&query=apache'"
+    },
+    "javascript": {
+      "academic_tier": "// Academic tier helper (100 credits/month)\nclass ShodanAcademic {\n  constructor(apiKey) {\n    this.apiKey = apiKey;\n    this.baseUrl = 'https://api.shodan.io';\n    this.monthlyQuota = {\n      query: 100,\n      scan: 100\n    };\n  }\n  \n  async request(endpoint, params = {}) {\n    const url = `${this.baseUrl}${endpoint}`;\n    params.key = this.apiKey;\n    \n    const queryString = new URLSearchParams(params).toString();\n    const response = await fetch(`${url}?${queryString}`);\n    \n    if (!response.ok) {\n      throw new Error(`API Error: ${response.status}`);\n    }\n    \n    return response.json();\n  }\n  \n  async getInfo() {\n    return this.request('/api-info');\n  }\n  \n  async search(query, limit = 100) {\n    // Academic tier: 1 credit = 100 results\n    const info = await this.getInfo();\n    \n    if (info.query_credits < 1) {\n      console.log('\u274c No credits remaining this month');\n      return null;\n    }\n    \n    console.log(`\ud83d\udcda Academic search (${info.query_credits} credits left)`);\n    \n    return this.request('/shodan/host/search', {\n      query,\n      limit\n    });\n  }\n  \n  async scan(ips) {\n    // Academic tier gets 100 scan credits/month\n    const info = await this.getInfo();\n    \n    if (info.scan_credits < ips.length) {\n      console.log(`\u274c Not enough scan credits (need ${ips.length}, have ${info.scan_credits})`);\n      return null;\n    }\n    \n    return this.request('/shodan/scan', {\n      ips: ips.join(',')\n    });\n  }\n}\n\n// Usage with academic account\nconst client = new ShodanAcademic('YOUR_ACADEMIC_API_KEY');\n\nclient.search('university', 50).then(results => {\n  if (results) {\n    console.log(`Found ${results.total} university systems`);\n  }\n});",
+      "basic_search": "// Using Node.js with axios\nconst axios = require('axios');\n\nconst SHODAN_API_KEY = 'YOUR_API_KEY';\nconst baseUrl = 'https://api.shodan.io';\n\n// Check API info (free)\nconst checkCredits = async () => {\n  const response = await axios.get(`${baseUrl}/api-info`, {\n    params: { key: SHODAN_API_KEY }\n  });\n  \n  console.log(`Query credits: ${response.data.query_credits}`);\n  console.log(`Scan credits: ${response.data.scan_credits}`);\n  return response.data;\n};\n\n// Search Shodan (costs credits)\nconst searchShodan = async (query, page = 1) => {\n  try {\n    const response = await axios.get(`${baseUrl}/shodan/host/search`, {\n      params: {\n        key: SHODAN_API_KEY,\n        query: query,\n        page: page\n      }\n    });\n    \n    console.log(`Found ${response.data.total} results\\n`);\n    \n    response.data.matches.forEach(match => {\n      console.log(`IP: ${match.ip_str}:${match.port}`);\n      console.log(`Org: ${match.org || 'N/A'}`);\n      console.log(`Location: ${match.location.country_name || 'N/A'}`);\n      console.log();\n    });\n    \n    return response.data;\n    \n  } catch (error) {\n    console.error('Error:', error.response?.data?.error || error.message);\n  }\n};\n\n// Usage\n(async () => {\n  // Check credits first\n  const info = await checkCredits();\n  \n  if (info.query_credits > 0) {\n    // Search for webcams (costs 1 credit)\n    await searchShodan('webcam', 1);\n  } else {\n    console.log('No credits remaining!');\n  }\n})();"
+    },
+    "python": {
+      "basic_search": "import shodan\n\n# Initialize with your FREE API key\napi = shodan.Shodan('YOUR_API_KEY')\n\n# Check your remaining credits (FREE!)\ninfo = api.info()\nprint(f\"Query credits remaining: {info['query_credits']}\")\nprint(f\"Scan credits remaining: {info['scan_credits']}\")\n\n# Search for Apache servers (costs 1 credit per 100 results)\ntry:\n    results = api.search('apache', limit=10)\n    \n    print(f\"Results found: {results['total']}\\n\")\n    \n    for result in results['matches']:\n        print(f\"IP: {result['ip_str']}\")\n        print(f\"Port: {result['port']}\")\n        print(f\"Organization: {result.get('org', 'N/A')}\")\n        print(f\"Location: {result.get('location', {}).get('country_name', 'N/A')}\")\n        print()\n        \nexcept shodan.APIError as e:\n    print(f\"Error: {e}\")",
+      "credit_aware": "import shodan\nimport json\nimport os\nfrom datetime import datetime\n\nclass ShodanFreeClient:\n    \"\"\"Shodan client optimized for free tier usage\"\"\"\n    \n    def __init__(self, api_key, cache_file='shodan_cache.json'):\n        self.api = shodan.Shodan(api_key)\n        self.cache_file = cache_file\n        self.cache = self.load_cache()\n    \n    def load_cache(self):\n        if os.path.exists(self.cache_file):\n            with open(self.cache_file, 'r') as f:\n                return json.load(f)\n        return {}\n    \n    def save_cache(self):\n        with open(self.cache_file, 'w') as f:\n            json.dump(self.cache, f)\n    \n    def get_credits(self):\n        \"\"\"Check remaining credits (free API call)\"\"\"\n        info = self.api.info()\n        return {\n            'query': info['query_credits'],\n            'scan': info['scan_credits']\n        }\n    \n    def search_with_cache(self, query, limit=10):\n        \"\"\"Search with caching to save credits\"\"\"\n        cache_key = f\"search:{query}:{limit}\"\n        \n        # Check cache (expires after 7 days)\n        if cache_key in self.cache:\n            cached = self.cache[cache_key]\n            age_days = (datetime.now() - datetime.fromisoformat(cached['timestamp'])).days\n            if age_days < 7:\n                print(f\"\ud83d\udce6 Using cached results (age: {age_days} days)\")\n                return cached['data']\n        \n        # Check credits before searching\n        credits = self.get_credits()\n        if credits['query'] < 1:\n            print(f\"\u274c No query credits remaining!\")\n            return None\n        \n        print(f\"\ud83d\udd0d Searching (credits: {credits['query']})...\")\n        \n        try:\n            results = self.api.search(query, limit=limit)\n            \n            # Cache results\n            self.cache[cache_key] = {\n                'timestamp': datetime.now().isoformat(),\n                'data': results\n            }\n            self.save_cache()\n            \n            return results\n            \n        except shodan.APIError as e:\n            print(f\"Error: {e}\")\n            return None\n    \n    def count_only(self, query):\n        \"\"\"Get count without full results (costs 1 credit)\"\"\"\n        try:\n            count = self.api.count(query)\n            return count['total']\n        except shodan.APIError as e:\n            print(f\"Error: {e}\")\n            return 0\n\n# Usage for free tier\nclient = ShodanFreeClient('YOUR_API_KEY')\n\n# Check credits first\ncredits = client.get_credits()\nprint(f\"Credits - Query: {credits['query']}, Scan: {credits['scan']}\\n\")\n\n# Search with caching\nif credits['query'] > 0:\n    results = client.search_with_cache('webcam', limit=5)\n    if results:\n        print(f\"Found {results['total']} total results\")\n        for match in results['matches']:\n            print(f\"- {match['ip_str']}:{match['port']}\")",
+      "host_lookup": "import shodan\n\napi = shodan.Shodan('YOUR_API_KEY')\n\n# Look up a specific host (costs 1 credit)\nip = '8.8.8.8'\n\ntry:\n    host = api.host(ip)\n    \n    print(f\"IP: {host['ip_str']}\")\n    print(f\"Organization: {host.get('org', 'N/A')}\")\n    print(f\"Operating System: {host.get('os', 'N/A')}\")\n    print(f\"\\nPorts: {host.get('ports', [])}\")\n    \n    # List services\n    for item in host['data']:\n        print(f\"\\nPort {item['port']}:\")\n        print(f\"  Service: {item.get('product', 'Unknown')}\")\n        print(f\"  Version: {item.get('version', 'N/A')}\")\n        if 'vulns' in item:\n            print(f\"  Vulnerabilities: {', '.join(item['vulns'])}\")\n            \nexcept shodan.APIError as e:\n    print(f\"Error: {e}\")",
+      "setup": "# Install Shodan Python library\npip install shodan\n\n# Get your FREE API key from https://account.shodan.io"
+    }
+  },
+  "last_updated": "2025-08-15T14:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "censys",
+      "zoomeye",
+      "binaryedge",
+      "greynoise"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Proprietary",
+    "maintainer": "Shodan (John Matherly)",
+    "pricing_tiers": {
+      "academic": "$0 with .edu - 100 query/scan credits monthly",
+      "corporate": "$899/month - Unlimited results",
+      "free": "$0 - Very limited credits",
+      "freelancer": "$59/month - 1M results/month",
+      "small_business": "$299/month - 20M results/month"
+    }
+  },
+  "name": "Shodan Free & Academic Tier",
+  "operational_guidance": {
+    "best_practices": [
+      "Cache results to conserve monthly credits",
+      "Use count endpoint before full searches",
+      "Apply for academic access with .edu email",
+      "Use specific search filters to reduce results",
+      "Monitor credit usage throughout the month",
+      "Consider paid plans for production use"
+    ],
+    "common_use_cases": [
+      "Asset discovery",
+      "Vulnerability assessment",
+      "Exposed database detection",
+      "IoT device discovery",
+      "Certificate monitoring",
+      "Technology stack analysis",
+      "Security research"
+    ],
+    "limitations": [
+      "Very limited credits in free tier",
+      "No scanning in free tier",
+      "No bulk exports in free tier",
+      "No real-time notifications",
+      "No historical data access",
+      "1 request/second rate limit"
+    ],
+    "recommended_update_frequency": "Monthly searches only due to credit limits",
+    "value_proposition": "Limited but useful free tier for basic searches; academic tier provides significant value for research"
+  },
+  "quality_metrics": {
+    "accessibility": "Requires registration",
+    "api_stability": "Stable API with good documentation",
+    "completeness": "Most comprehensive for internet-exposed services",
+    "cost": "FREE tier very limited; Academic tier generous",
+    "data_quality": "Comprehensive internet-wide scanning data",
+    "reliability": "excellent",
+    "update_speed": "Continuous scanning"
+  },
+  "quality_score": 86,
+  "search_filters": {
+    "advanced": [
+      "http.title:\"Dashboard\"",
+      "ssl.cert.subject.cn:example.com",
+      "product:Apache",
+      "version:2.4.1",
+      "vuln:CVE-2014-0160",
+      "tag:iot",
+      "screenshot.label:webcam"
+    ],
+    "basic": [
+      "port:80",
+      "country:US",
+      "city:\"San Francisco\"",
+      "org:Microsoft",
+      "hostname:.edu",
+      "net:8.8.8.0/24",
+      "os:Windows"
+    ]
+  },
+  "subcategory": "scanning",
+  "url": "https://www.shodan.io"
+}

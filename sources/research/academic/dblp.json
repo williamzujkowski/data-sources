@@ -1,0 +1,220 @@
+{
+  "api": {
+    "base_url": "https://dblp.org",
+    "bulk_download": {
+      "available": true,
+      "description": "Complete DBLP dataset available as XML dump (4GB+)",
+      "format": "XML",
+      "frequency": "Monthly snapshots",
+      "url": "https://dblp.org/xml/"
+    },
+    "endpoints": [
+      {
+        "description": "Search for publications",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Search query string",
+            "example": "cybersecurity",
+            "name": "q",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Response format: xml (default), json, jsonp",
+            "example": "json",
+            "name": "format",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Maximum hits to return (max 1000, default 30)",
+            "example": "100",
+            "name": "h",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "First hit to return for pagination (default 0)",
+            "example": "0",
+            "name": "f",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Maximum completion terms (max 1000, default 10)",
+            "example": "0",
+            "name": "c",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "path": "/search/publ/api",
+        "rate_limit": {
+          "notes": "No rate limits! DBLP encourages responsible use but doesn't enforce limits",
+          "requests_per_second": null
+        }
+      },
+      {
+        "description": "Search for authors",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Author name search",
+            "example": "Bruce Schneier",
+            "name": "q",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Response format",
+            "example": "json",
+            "name": "format",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/search/author/api"
+      },
+      {
+        "description": "Search for conferences/journals",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Venue name search",
+            "example": "USENIX Security",
+            "name": "q",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/search/venue/api"
+      },
+      {
+        "description": "Get specific record by DBLP key",
+        "example": "https://dblp.org/rec/conf/uss/2024.xml",
+        "method": "GET",
+        "parameters": [],
+        "path": "/rec/{key}.xml"
+      }
+    ],
+    "oai_pmh": {
+      "available": true,
+      "base_url": "https://dblp.org/oai",
+      "description": "OAI-PMH protocol for metadata harvesting"
+    },
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "DBLP is COMPLETELY FREE! No API key, no registration, no authentication required. All data is released as open data under CC0 1.0 license.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 95,
+  "category": "research",
+  "coverage": 98,
+  "data_coverage": {
+    "authors": "3+ million",
+    "conferences": "7,000+",
+    "fields": [
+      "Computer Science",
+      "Cybersecurity",
+      "Artificial Intelligence",
+      "Software Engineering",
+      "Networks",
+      "Databases",
+      "Theory"
+    ],
+    "journals": "1,500+",
+    "temporal": {
+      "historical_data": "1936-present",
+      "latency": "New publications added within days",
+      "update_frequency": "daily"
+    },
+    "total_publications": "6.8+ million"
+  },
+  "data_format": {
+    "encoding": "UTF-8",
+    "field_descriptions": {
+      "authors": "List of authors with DBLP IDs",
+      "doi": "Digital Object Identifier",
+      "ee": "Electronic edition URL",
+      "key": "Unique DBLP identifier",
+      "pages": "Page numbers",
+      "title": "Publication title",
+      "type": "Publication type (article, inproceedings, book, etc.)",
+      "url": "Link to publication",
+      "venue": "Conference or journal name",
+      "year": "Publication year"
+    },
+    "primary_format": "JSON/XML"
+  },
+  "description": "Open bibliographic information on major computer science journals and proceedings. Comprehensive database with 6.8+ million publications, completely FREE with no authentication required.",
+  "documentation": "https://dblp.org/faq/How+to+use+the+dblp+search+API.html",
+  "format": "json",
+  "id": "dblp-computer-science",
+  "integration_examples": {
+    "curl": {
+      "author_search": "# Search for author - FREE!\ncurl 'https://dblp.org/search/author/api?q=Yann+LeCun&format=json'",
+      "basic_search": "# Search for papers - COMPLETELY FREE!\ncurl 'https://dblp.org/search/publ/api?q=machine+learning+security&format=json&h=10'",
+      "get_record": "# Get specific record by key - FREE!\ncurl 'https://dblp.org/rec/conf/sp/2024.xml'",
+      "venue_search": "# Search for conference/journal - FREE!\ncurl 'https://dblp.org/search/venue/api?q=NDSS&format=json'",
+      "with_pagination": "# Paginated results - FREE!\ncurl 'https://dblp.org/search/publ/api?q=cryptography&format=json&h=100&f=200'"
+    },
+    "javascript": {
+      "author_network": "// Build co-author network - FREE!\nconst getCoauthorNetwork = async (authorName) => {\n  const searchUrl = 'https://dblp.org/search/publ/api';\n  \n  // Get all papers by author\n  const params = new URLSearchParams({\n    q: `author:\"${authorName}\"`,\n    format: 'json',\n    h: 1000\n  });\n  \n  const response = await fetch(`${searchUrl}?${params}`);\n  const data = await response.json();\n  \n  const coauthors = new Map();\n  const hits = data.result.hits.hit || [];\n  \n  for (const hit of hits) {\n    const authors = extractAuthors(hit.info);\n    \n    for (const author of authors) {\n      if (author !== authorName) {\n        coauthors.set(author, (coauthors.get(author) || 0) + 1);\n      }\n    }\n  }\n  \n  // Sort by collaboration count\n  return Array.from(coauthors.entries())\n    .sort((a, b) => b[1] - a[1])\n    .map(([name, count]) => ({ name, collaborations: count }));\n};\n\n// Find frequent collaborators\ngetCoauthorNetwork('Adi Shamir').then(network => {\n  console.log('Top collaborators:');\n  network.slice(0, 10).forEach(c => {\n    console.log(`- ${c.name}: ${c.collaborations} papers`);\n  });\n});",
+      "fetch_papers": "// Fetch computer science papers - COMPLETELY FREE!\nconst searchDBLP = async (query, limit = 50) => {\n  const baseUrl = 'https://dblp.org/search/publ/api';\n  const params = new URLSearchParams({\n    q: query,\n    format: 'json',\n    h: limit\n  });\n  \n  const response = await fetch(`${baseUrl}?${params}`);\n  const data = await response.json();\n  \n  console.log(`Found ${data.result.hits['@total']} papers (FREE!)`);\n  \n  const papers = [];\n  const hits = data.result.hits.hit || [];\n  \n  for (const hit of hits) {\n    const info = hit.info;\n    papers.push({\n      title: info.title,\n      authors: extractAuthors(info),\n      year: info.year,\n      venue: info.venue,\n      url: info.url,\n      doi: info.doi\n    });\n  }\n  \n  return papers;\n};\n\nconst extractAuthors = (info) => {\n  if (!info.authors || !info.authors.author) return [];\n  const authors = info.authors.author;\n  if (Array.isArray(authors)) {\n    return authors.map(a => a.text || a);\n  }\n  return [authors.text || authors];\n};\n\n// Usage - ALL FREE!\nsearchDBLP('blockchain security', 20).then(papers => {\n  papers.forEach(p => {\n    console.log(`- ${p.title} (${p.year})`);\n  });\n});"
+    },
+    "python": {
+      "author_search": "import requests\n\n# Search for author publications - FREE!\ndef get_author_publications(author_name):\n    # First, search for the author\n    author_url = 'https://dblp.org/search/author/api'\n    params = {\n        'q': author_name,\n        'format': 'json',\n        'h': 10\n    }\n    \n    response = requests.get(author_url, params=params)\n    authors = response.json()\n    \n    if authors['result']['hits']['@total'] == '0':\n        return []\n    \n    # Get author's DBLP key\n    author_info = authors['result']['hits']['hit'][0]['info']\n    author_url = author_info['url']\n    \n    # Fetch author's publication list\n    # Convert URL to API endpoint\n    author_key = author_url.split('/')[-1]\n    \n    # Search for all papers by this author\n    pub_url = 'https://dblp.org/search/publ/api'\n    params = {\n        'q': f'author:{author_name}',\n        'format': 'json',\n        'h': 1000  # Get up to 1000 papers\n    }\n    \n    response = requests.get(pub_url, params=params)\n    return response.json()\n\n# Example usage\npubs = get_author_publications('Bruce Schneier')\nprint(f\"Found {pubs['result']['hits']['@total']} publications\")",
+      "basic_search": "import requests\nimport json\n\n# Search for security papers - COMPLETELY FREE!\nurl = 'https://dblp.org/search/publ/api'\nparams = {\n    'q': 'ransomware detection',\n    'format': 'json',\n    'h': 100  # Get 100 results\n}\n\nresponse = requests.get(url, params=params)\ndata = response.json()\n\nprint(f\"Found {data['result']['hits']['@total']} papers (FREE!)\")\n\nfor hit in data['result']['hits'].get('hit', []):\n    info = hit['info']\n    print(f\"\\nTitle: {info.get('title', 'N/A')}\")\n    if 'authors' in info and 'author' in info['authors']:\n        authors = info['authors']['author']\n        if isinstance(authors, list):\n            print(f\"Authors: {', '.join([a.get('text', '') for a in authors])}\")\n        else:\n            print(f\"Authors: {authors.get('text', '')}\")\n    print(f\"Year: {info.get('year', 'N/A')}\")\n    print(f\"Venue: {info.get('venue', 'N/A')}\")\n    print(f\"URL: {info.get('url', 'N/A')}\")",
+      "bulk_processing": "import requests\nimport xml.etree.ElementTree as ET\nimport gzip\nfrom io import BytesIO\n\ndef download_dblp_snapshot():\n    \"\"\"Download and process DBLP XML snapshot - FREE!\"\"\"\n    \n    # Note: This is a large file (4GB+)\n    # Consider using the search API for smaller queries\n    \n    snapshot_url = 'https://dblp.org/xml/dblp.xml.gz'\n    \n    # For demonstration, use the DTD to understand structure\n    dtd_url = 'https://dblp.org/xml/dblp.dtd'\n    \n    response = requests.get(dtd_url)\n    print(\"DBLP DTD Structure:\")\n    print(response.text[:500])\n    \n    # Example of processing a smaller dataset\n    # You can download venue-specific XML files\n    venue_url = 'https://dblp.org/xml/conf/uss.xml'\n    response = requests.get(venue_url)\n    \n    root = ET.fromstring(response.content)\n    \n    papers = []\n    for article in root.findall('.//inproceedings'):\n        title = article.find('title')\n        year = article.find('year')\n        if title is not None and year is not None:\n            papers.append({\n                'title': title.text,\n                'year': year.text\n            })\n    \n    return papers",
+      "conference_papers": "import requests\nfrom datetime import datetime\n\ndef get_conference_papers(conference, year=None):\n    \"\"\"Get papers from a specific conference - FREE!\"\"\"\n    \n    url = 'https://dblp.org/search/publ/api'\n    \n    # Build query\n    query = f'venue:{conference}'\n    if year:\n        query += f' year:{year}'\n    \n    params = {\n        'q': query,\n        'format': 'json',\n        'h': 500\n    }\n    \n    response = requests.get(url, params=params)\n    data = response.json()\n    \n    papers = []\n    for hit in data['result']['hits'].get('hit', []):\n        info = hit['info']\n        papers.append({\n            'title': info.get('title'),\n            'authors': extract_authors(info),\n            'year': info.get('year'),\n            'doi': info.get('doi'),\n            'url': info.get('url')\n        })\n    \n    return papers\n\ndef extract_authors(info):\n    if 'authors' not in info:\n        return []\n    authors_data = info['authors'].get('author', [])\n    if isinstance(authors_data, dict):\n        authors_data = [authors_data]\n    return [a.get('text', '') for a in authors_data]\n\n# Get USENIX Security 2024 papers\npapers = get_conference_papers('USENIX Security', 2024)\nfor paper in papers[:5]:\n    print(f\"- {paper['title']}\")"
+    }
+  },
+  "last_updated": "2025-08-15T03:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "semantic-scholar",
+      "arxiv",
+      "google-scholar"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "CC0 1.0 - All metadata released as open data",
+    "maintainer": "Schloss Dagstuhl - Leibniz Center for Informatics"
+  },
+  "name": "DBLP Computer Science Bibliography",
+  "operational_guidance": {
+    "best_practices": [
+      "Use JSON format for easier parsing",
+      "Implement pagination for large result sets (use 'f' parameter)",
+      "Cache results locally to reduce API calls",
+      "Use specific search fields (author:, venue:, year:) for precise queries",
+      "Consider downloading XML dumps for bulk analysis",
+      "No rate limiting but be respectful with request frequency"
+    ],
+    "common_use_cases": [
+      "Building publication databases",
+      "Author collaboration networks",
+      "Conference paper tracking",
+      "Citation analysis",
+      "Research trend monitoring",
+      "Academic CV generation",
+      "Literature reviews"
+    ],
+    "recommended_update_frequency": "Daily for new publications, weekly for bulk updates",
+    "value_proposition": "Complete access to 6.8+ million CS publications with no restrictions, authentication, or payment required"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "api_stability": "Stable for 10+ years",
+    "completeness": "Most comprehensive CS bibliography available",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Curated by computer science community",
+    "reliability": "excellent",
+    "update_speed": "New publications within days"
+  },
+  "quality_score": 95,
+  "subcategory": "academic",
+  "url": "https://dblp.org"
+}

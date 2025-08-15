@@ -1,0 +1,154 @@
+{
+  "api": {
+    "base_url": "https://api.greynoise.io",
+    "endpoints": [
+      {
+        "description": "Check if an IP is internet background noise",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "IPv4 address to check",
+            "example": "8.8.8.8",
+            "name": "ip",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/v3/community/{ip}",
+        "rate_limit": {
+          "free_tier": "50 lookups per week (combined API + UI)",
+          "notes": "Weekly limit resets on Sunday UTC"
+        },
+        "response_format": {
+          "example": {
+            "classification": "benign",
+            "ip": "8.8.8.8",
+            "last_seen": "2024-01-15",
+            "link": "https://viz.greynoise.io/ip/8.8.8.8",
+            "message": "Success",
+            "name": "Google Public DNS",
+            "noise": false,
+            "riot": true
+          }
+        }
+      }
+    ],
+    "response_codes": {
+      "200": "Successful lookup",
+      "400": "Invalid IP format",
+      "401": "Invalid or missing API key",
+      "429": "Rate limit exceeded"
+    },
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "FREE tier: 50 lookups/week total (API + visualizer combined) without auth. With free account API key: same 50/week limit but programmatic access. Paid tiers available for higher volumes.",
+    "required": false,
+    "type": "api_key"
+  },
+  "authority": 82,
+  "category": "threat-intelligence",
+  "coverage": 85,
+  "data_coverage": {
+    "coverage_scope": "Internet-wide scanning and crawling activity",
+    "data_points": {
+      "classification": "Benign/Malicious/Unknown",
+      "last_seen": "Last observation date",
+      "link": "GreyNoise visualizer URL",
+      "name": "Organization or service name",
+      "noise": "Is the IP internet scanner/crawler",
+      "riot": "Is IP part of common business services"
+    },
+    "ip_classifications": [
+      "benign",
+      "malicious",
+      "unknown"
+    ],
+    "ip_types": [
+      "Scanners",
+      "Crawlers",
+      "Worms",
+      "Research scanners",
+      "Business services",
+      "CDNs",
+      "Cloud providers"
+    ],
+    "update_frequency": "Real-time"
+  },
+  "description": "FREE community API for IP intelligence, identifying internet scanners, crawlers, and background noise. Limited to 50 IP lookups per week without authentication.",
+  "documentation": "https://docs.greynoise.io/reference/community-api",
+  "format": "json",
+  "id": "greynoise-community",
+  "integration_examples": {
+    "curl": {
+      "basic_lookup": "# Check IP with GreyNoise Community API - FREE (50/week)\ncurl 'https://api.greynoise.io/v3/community/8.8.8.8'",
+      "batch_script": "#!/bin/bash\n# Batch check IPs (be mindful of 50/week limit!)\n\nIPS=(\"8.8.8.8\" \"1.1.1.1\" \"45.83.65.123\")\nCOUNT=0\nLIMIT=50\n\nfor ip in \"${IPS[@]}\"; do\n  if [ $COUNT -ge $LIMIT ]; then\n    echo \"Reached weekly limit of $LIMIT lookups\"\n    break\n  fi\n  \n  echo \"Checking $ip...\"\n  curl -s \"https://api.greynoise.io/v3/community/$ip\" | jq '.'\n  \n  COUNT=$((COUNT + 1))\n  echo \"Lookups used: $COUNT/$LIMIT\"\n  sleep 1\ndone",
+      "check_scanner": "# Check if IP is a known scanner\ncurl -s 'https://api.greynoise.io/v3/community/185.220.101.45' | jq '.noise'",
+      "with_jq": "# Pretty print with jq\ncurl -s 'https://api.greynoise.io/v3/community/45.83.65.123' | jq '.'"
+    },
+    "javascript": {
+      "basic_lookup": "// GreyNoise Community API - FREE (50 lookups/week)\nconst checkIPNoise = async (ip) => {\n  const url = `https://api.greynoise.io/v3/community/${ip}`;\n  \n  try {\n    const response = await fetch(url);\n    \n    if (response.status === 429) {\n      return { error: 'Rate limit exceeded (50 lookups/week)' };\n    }\n    \n    const data = await response.json();\n    return data;\n    \n  } catch (error) {\n    return { error: error.message };\n  }\n};\n\n// Check an IP\nconst ip = '45.83.65.123';\ncheckIPNoise(ip).then(result => {\n  if (!result.error) {\n    console.log(`IP: ${result.ip}`);\n    console.log(`Is Internet Noise: ${result.noise}`);\n    console.log(`Classification: ${result.classification}`);\n    console.log(`Organization: ${result.name || 'Unknown'}`);\n    console.log(`Common Business Service: ${result.riot}`);\n    console.log(`Details: ${result.link}`);\n  } else {\n    console.error(`Error: ${result.error}`);\n  }\n});",
+      "quota_tracker": "// GreyNoise client with quota tracking\nclass GreyNoiseCommunity {\n  constructor() {\n    this.baseUrl = 'https://api.greynoise.io/v3/community';\n    this.weeklyLimit = 50;\n    this.storageKey = 'greynoise_usage';\n    this.usage = this.loadUsage();\n  }\n  \n  loadUsage() {\n    const stored = localStorage.getItem(this.storageKey);\n    if (stored) {\n      return JSON.parse(stored);\n    }\n    return { weekStart: null, lookups: 0, cache: {} };\n  }\n  \n  saveUsage() {\n    localStorage.setItem(this.storageKey, JSON.stringify(this.usage));\n  }\n  \n  resetIfNewWeek() {\n    const now = new Date();\n    const weekStart = new Date(now.setDate(now.getDate() - now.getDay()));\n    const weekStartStr = weekStart.toISOString().split('T')[0];\n    \n    if (this.usage.weekStart !== weekStartStr) {\n      this.usage = {\n        weekStart: weekStartStr,\n        lookups: 0,\n        cache: {}\n      };\n      this.saveUsage();\n    }\n  }\n  \n  async checkIP(ip, useCache = true) {\n    this.resetIfNewWeek();\n    \n    // Check cache\n    if (useCache && this.usage.cache[ip]) {\n      console.log(`\ud83d\udce6 Using cached result for ${ip}`);\n      return this.usage.cache[ip];\n    }\n    \n    // Check quota\n    if (this.usage.lookups >= this.weeklyLimit) {\n      return {\n        error: `Weekly limit reached (${this.weeklyLimit} lookups)`,\n        lookupsUsed: this.usage.lookups\n      };\n    }\n    \n    // Make API call\n    const response = await fetch(`${this.baseUrl}/${ip}`);\n    \n    if (response.ok) {\n      const data = await response.json();\n      this.usage.lookups++;\n      this.usage.cache[ip] = data;\n      this.saveUsage();\n      \n      console.log(`\u2705 Lookup ${this.usage.lookups}/${this.weeklyLimit}: ${ip}`);\n      return data;\n    }\n    \n    return { error: `API error: ${response.status}` };\n  }\n  \n  getRemainingQuota() {\n    this.resetIfNewWeek();\n    return this.weeklyLimit - this.usage.lookups;\n  }\n}\n\n// Usage\nconst client = new GreyNoiseCommunity();\nconsole.log(`Remaining quota: ${client.getRemainingQuota()} lookups`);\n\nclient.checkIP('8.8.8.8').then(result => {\n  if (!result.error) {\n    console.log(`Classification: ${result.classification}`);\n  }\n});"
+    },
+    "python": {
+      "basic_lookup": "import requests\n\n# GreyNoise Community API - FREE (50 lookups/week)\ndef check_ip_noise(ip_address):\n    url = f'https://api.greynoise.io/v3/community/{ip_address}'\n    \n    # Optional: Add API key header if you have one\n    headers = {}\n    # headers['key'] = 'YOUR_API_KEY'\n    \n    response = requests.get(url, headers=headers)\n    \n    if response.status_code == 200:\n        data = response.json()\n        return data\n    elif response.status_code == 429:\n        return {'error': 'Rate limit exceeded (50/week)'}\n    else:\n        return {'error': f'Error {response.status_code}'}\n\n# Check an IP\nip = '45.83.65.123'\nresult = check_ip_noise(ip)\n\nif 'error' not in result:\n    print(f\"IP: {result['ip']}\")\n    print(f\"Is Internet Noise: {result['noise']}\")\n    print(f\"Classification: {result['classification']}\")\n    if result.get('name'):\n        print(f\"Organization: {result['name']}\")\n    print(f\"Is RIOT (Common Business Service): {result['riot']}\")\n    print(f\"Details: {result['link']}\")\nelse:\n    print(f\"Error: {result['error']}\")",
+      "batch_check": "import requests\nimport time\nfrom typing import List, Dict\n\ndef batch_check_ips(ip_list: List[str], delay: float = 1.0) -> Dict[str, Dict]:\n    \"\"\"Check multiple IPs against GreyNoise Community API\n    \n    Note: Limited to 50 lookups per week in free tier!\n    \"\"\"\n    results = {}\n    lookups_performed = 0\n    max_free_lookups = 50  # Weekly limit\n    \n    for ip in ip_list:\n        if lookups_performed >= max_free_lookups:\n            print(f\"\u26a0\ufe0f Reached weekly limit of {max_free_lookups} lookups\")\n            break\n        \n        url = f'https://api.greynoise.io/v3/community/{ip}'\n        \n        try:\n            response = requests.get(url)\n            \n            if response.status_code == 200:\n                data = response.json()\n                results[ip] = data\n                \n                # Print summary\n                noise_indicator = '\ud83d\udd34' if data['noise'] else '\ud83d\udfe2'\n                print(f\"{noise_indicator} {ip}: {data['classification']}\")\n                \n                if data.get('name'):\n                    print(f\"   Organization: {data['name']}\")\n                \n                lookups_performed += 1\n                \n            elif response.status_code == 429:\n                print(f\"Rate limit hit after {lookups_performed} lookups\")\n                break\n            else:\n                results[ip] = {'error': f'HTTP {response.status_code}'}\n                \n        except Exception as e:\n            results[ip] = {'error': str(e)}\n        \n        # Be respectful with timing\n        if lookups_performed < len(ip_list):\n            time.sleep(delay)\n    \n    print(f\"\\nPerformed {lookups_performed} lookups (Weekly limit: 50)\")\n    return results\n\n# Example usage - BE MINDFUL OF LIMITS!\ntest_ips = [\n    '8.8.8.8',      # Google DNS\n    '1.1.1.1',      # Cloudflare\n    '45.83.65.123', # Potential scanner\n    '185.220.101.45' # Potential Tor exit\n]\n\nresults = batch_check_ips(test_ips[:4])  # Only check 4 to conserve quota",
+      "quota_aware": "import requests\nimport json\nfrom datetime import datetime, timedelta\nimport os\n\nclass GreyNoiseCommunity:\n    \"\"\"GreyNoise Community API client with quota tracking\"\"\"\n    \n    def __init__(self, cache_file='greynoise_usage.json'):\n        self.base_url = 'https://api.greynoise.io/v3/community'\n        self.weekly_limit = 50\n        self.cache_file = cache_file\n        self.usage = self.load_usage()\n    \n    def load_usage(self) -> dict:\n        \"\"\"Load usage tracking from file\"\"\"\n        if os.path.exists(self.cache_file):\n            with open(self.cache_file, 'r') as f:\n                return json.load(f)\n        return {'week_start': None, 'lookups': 0, 'cache': {}}\n    \n    def save_usage(self):\n        \"\"\"Save usage tracking\"\"\"\n        with open(self.cache_file, 'w') as f:\n            json.dump(self.usage, f)\n    \n    def reset_if_new_week(self):\n        \"\"\"Reset counter if it's a new week\"\"\"\n        now = datetime.now()\n        week_start = now - timedelta(days=now.weekday())\n        week_start_str = week_start.strftime('%Y-%m-%d')\n        \n        if self.usage['week_start'] != week_start_str:\n            self.usage = {\n                'week_start': week_start_str,\n                'lookups': 0,\n                'cache': {}\n            }\n            self.save_usage()\n    \n    def check_ip(self, ip: str, use_cache: bool = True) -> dict:\n        \"\"\"Check an IP with quota awareness\"\"\"\n        self.reset_if_new_week()\n        \n        # Check cache first\n        if use_cache and ip in self.usage['cache']:\n            print(f\"\ud83d\udce6 Using cached result for {ip}\")\n            return self.usage['cache'][ip]\n        \n        # Check quota\n        if self.usage['lookups'] >= self.weekly_limit:\n            return {\n                'error': f'Weekly limit reached ({self.weekly_limit} lookups)',\n                'lookups_used': self.usage['lookups']\n            }\n        \n        # Make API call\n        url = f'{self.base_url}/{ip}'\n        response = requests.get(url)\n        \n        if response.status_code == 200:\n            data = response.json()\n            self.usage['lookups'] += 1\n            self.usage['cache'][ip] = data\n            self.save_usage()\n            \n            print(f\"\u2705 Lookup {self.usage['lookups']}/{self.weekly_limit}: {ip}\")\n            return data\n        \n        return {'error': f'API error: {response.status_code}'}\n    \n    def get_remaining_quota(self) -> int:\n        \"\"\"Get remaining lookups for this week\"\"\"\n        self.reset_if_new_week()\n        return self.weekly_limit - self.usage['lookups']\n\n# Usage\nclient = GreyNoiseCommunity()\n\nprint(f\"Remaining quota: {client.get_remaining_quota()} lookups\\n\")\n\n# Check an IP\nresult = client.check_ip('8.8.8.8')\nif 'error' not in result:\n    print(f\"Result: {result['classification']} - {result.get('name', 'Unknown')}\")"
+    }
+  },
+  "last_updated": "2025-08-15T13:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "abuseipdb",
+      "shodan",
+      "censys"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Proprietary",
+    "maintainer": "GreyNoise Intelligence",
+    "upgrade_paths": {
+      "professional": "Higher tiers for enterprise use",
+      "starter": "$99/month - 10,000 lookups"
+    }
+  },
+  "name": "GreyNoise Community API",
+  "operational_guidance": {
+    "best_practices": [
+      "Cache results locally to conserve weekly quota",
+      "Track usage to avoid hitting limits",
+      "Use for filtering known scanners from alerts",
+      "Combine with other threat intel sources",
+      "Consider paid tier for production use",
+      "Check IPs before investigating as threats"
+    ],
+    "common_use_cases": [
+      "Filter benign internet scanners from SIEM alerts",
+      "Identify known research scanners",
+      "Check IPs before incident response",
+      "Reduce false positive security alerts",
+      "Identify common business services",
+      "Triage security events"
+    ],
+    "limitations": [
+      "Only 50 lookups per week in free tier",
+      "No bulk lookups in free tier",
+      "No advanced search capabilities",
+      "No real-time feed access",
+      "Limited to basic classification data"
+    ],
+    "recommended_update_frequency": "On-demand only due to strict quota limits",
+    "value_proposition": "Free tier useful for small-scale IP reputation checks and reducing alert fatigue"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required for basic use",
+    "api_stability": "Stable v3 API",
+    "completeness": "Limited data points in community API",
+    "cost": "FREE but very limited (50 lookups/week)",
+    "data_quality": "High-quality internet-wide scanning data",
+    "reliability": "good",
+    "update_speed": "Real-time data"
+  },
+  "quality_score": 84,
+  "subcategory": "noise",
+  "url": "https://www.greynoise.io"
+}

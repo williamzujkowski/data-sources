@@ -1,0 +1,229 @@
+{
+  "api": {
+    "base_url": "https://eprint.iacr.org",
+    "endpoints": [
+      {
+        "description": "Main RSS feed with latest papers",
+        "method": "GET",
+        "parameters": [],
+        "path": "/rss/rss.xml",
+        "rate_limit": {
+          "notes": "No rate limits! Responsible use encouraged",
+          "requests_per_second": null
+        }
+      },
+      {
+        "description": "Complete listing of all papers by year",
+        "example": "https://eprint.iacr.org/complete/2024",
+        "method": "GET",
+        "parameters": [],
+        "path": "/complete/"
+      },
+      {
+        "description": "Search interface for papers",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Search query",
+            "example": "post-quantum",
+            "name": "q",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Search in title",
+            "name": "title",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Search by author",
+            "name": "author",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Search keywords",
+            "name": "keywords",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/search"
+      },
+      {
+        "description": "Direct PDF download",
+        "example": "https://eprint.iacr.org/2024/001.pdf",
+        "method": "GET",
+        "parameters": [],
+        "path": "/{year}/{paper_id}.pdf"
+      },
+      {
+        "description": "Paper metadata page",
+        "example": "https://eprint.iacr.org/2024/001",
+        "method": "GET",
+        "parameters": [],
+        "path": "/{year}/{paper_id}"
+      }
+    ],
+    "oai_pmh": {
+      "available": true,
+      "base_url": "https://eprint.iacr.org/oai",
+      "description": "OAI-PMH protocol for metadata harvesting - FREE!",
+      "metadata_formats": [
+        "oai_dc",
+        "marc21"
+      ],
+      "sets": [
+        "yearly collections",
+        "subject categories"
+      ]
+    },
+    "rss_feeds": {
+      "atom": "https://eprint.iacr.org/rss/atom.xml",
+      "by_year": "https://eprint.iacr.org/{year}/rss.xml",
+      "description": "Multiple RSS/Atom feeds available - all FREE!",
+      "main": "https://eprint.iacr.org/rss/rss.xml"
+    },
+    "type": "RSS/OAI-PMH"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! No registration, no API key, no authentication required. All papers and metadata freely accessible.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 92,
+  "category": "research",
+  "coverage": 95,
+  "data_coverage": {
+    "annual_submissions": "1,500+",
+    "temporal": {
+      "historical_data": "1996-present",
+      "latency": "Papers appear immediately upon submission",
+      "update_frequency": "daily"
+    },
+    "topics": [
+      "Symmetric Cryptography",
+      "Public Key Cryptography",
+      "Post-Quantum Cryptography",
+      "Cryptographic Protocols",
+      "Hash Functions",
+      "Digital Signatures",
+      "Zero-Knowledge Proofs",
+      "Homomorphic Encryption",
+      "Secure Multi-Party Computation",
+      "Blockchain & Cryptocurrencies",
+      "Side-Channel Attacks",
+      "Formal Verification",
+      "Quantum Computing",
+      "Applied Cryptography",
+      "Theoretical Foundations"
+    ],
+    "total_papers": "20,000+"
+  },
+  "data_format": {
+    "bulk_download": {
+      "available": true,
+      "description": "Can harvest all metadata via OAI-PMH or download PDFs directly"
+    },
+    "encoding": "UTF-8",
+    "metadata_fields": {
+      "abstract": "Paper abstract",
+      "authors": "List of authors",
+      "bibtex": "BibTeX citation",
+      "category": "Cryptographic category",
+      "keywords": "Keywords/tags",
+      "note": "Additional notes",
+      "pdf_url": "Direct PDF download link",
+      "revised": "Revision dates",
+      "submitted": "Submission date",
+      "title": "Paper title"
+    },
+    "primary_formats": [
+      "PDF",
+      "HTML",
+      "BibTeX",
+      "XML"
+    ]
+  },
+  "description": "International Association for Cryptologic Research ePrint Archive - FREE repository of cryptographic research papers, preprints, and technical reports. No authentication required for full access.",
+  "documentation": "https://eprint.iacr.org/eprint-bin/search.pl",
+  "format": "rss/xml/pdf",
+  "id": "iacr-cryptology-eprint",
+  "integration_examples": {
+    "curl": {
+      "download_pdf": "# Download specific paper PDF - FREE!\ncurl -O https://eprint.iacr.org/2024/001.pdf",
+      "get_atom": "# Get Atom feed - FREE!\ncurl https://eprint.iacr.org/rss/atom.xml",
+      "get_rss": "# Get latest papers RSS feed - COMPLETELY FREE!\ncurl https://eprint.iacr.org/rss/rss.xml",
+      "oai_pmh": "# List records via OAI-PMH - FREE!\ncurl 'https://eprint.iacr.org/oai?verb=ListRecords&metadataPrefix=oai_dc&from=2024-01-01'",
+      "yearly_list": "# Get all papers from 2024 - FREE!\ncurl https://eprint.iacr.org/complete/2024"
+    },
+    "javascript": {
+      "download_pdf": "// Download paper PDF - FREE!\nconst fs = require('fs');\nconst https = require('https');\n\nconst downloadPaper = (year, paperId) => {\n  const paddedId = String(paperId).padStart(3, '0');\n  const url = `https://eprint.iacr.org/${year}/${paddedId}.pdf`;\n  const filename = `${year}_${paddedId}.pdf`;\n  \n  const file = fs.createWriteStream(filename);\n  \n  https.get(url, (response) => {\n    response.pipe(file);\n    \n    file.on('finish', () => {\n      file.close();\n      console.log(`Downloaded: ${filename}`);\n    });\n  }).on('error', (err) => {\n    fs.unlink(filename, () => {});\n    console.error(`Error downloading: ${err.message}`);\n  });\n};\n\n// Download paper 2024/001\ndownloadPaper(2024, 1);",
+      "fetch_rss": "// Fetch latest cryptography papers - COMPLETELY FREE!\nconst Parser = require('rss-parser');\nconst parser = new Parser();\n\nconst fetchLatestPapers = async () => {\n  const feed = await parser.parseURL('https://eprint.iacr.org/rss/rss.xml');\n  \n  console.log(`Latest ${feed.items.length} papers (FREE!)`);\n  \n  feed.items.slice(0, 10).forEach(item => {\n    console.log(`\\n${item.title}`);\n    console.log(`Link: ${item.link}`);\n    console.log(`Published: ${item.pubDate}`);\n  });\n  \n  return feed.items;\n};\n\nfetchLatestPapers();",
+      "parse_yearly": "// Get papers from specific year - FREE!\nconst axios = require('axios');\nconst cheerio = require('cheerio');\n\nconst getPapersByYear = async (year) => {\n  const url = `https://eprint.iacr.org/complete/${year}`;\n  const response = await axios.get(url);\n  const $ = cheerio.load(response.data);\n  \n  const papers = [];\n  \n  $('tr').each((i, row) => {\n    if (i === 0) return; // Skip header\n    \n    const cols = $(row).find('td');\n    if (cols.length >= 3) {\n      const paperLink = $(cols[0]).find('a');\n      const paperId = paperLink.text().trim();\n      const title = $(cols[1]).text().trim();\n      const authors = $(cols[2]).text().trim();\n      \n      if (paperId) {\n        papers.push({\n          id: paperId,\n          title,\n          authors,\n          url: `https://eprint.iacr.org/${paperId}`,\n          pdf: `https://eprint.iacr.org/${paperId}.pdf`\n        });\n      }\n    }\n  });\n  \n  return papers;\n};\n\n// Get all 2024 papers\ngetPapersByYear(2024).then(papers => {\n  console.log(`Found ${papers.length} papers in 2024`);\n  papers.slice(0, 5).forEach(p => {\n    console.log(`- ${p.title} by ${p.authors}`);\n  });\n});"
+    },
+    "python": {
+      "oai_harvester": "from sickle import Sickle\n\n# Harvest metadata via OAI-PMH - FREE!\nsickle = Sickle('https://eprint.iacr.org/oai')\n\n# List available sets\nsets = sickle.ListSets()\nfor s in sets:\n    print(f\"Set: {s.setName} ({s.setSpec})\")\n\n# Get records from 2024\nrecords = sickle.ListRecords(\n    metadataPrefix='oai_dc',\n    from_='2024-01-01',\n    until='2024-12-31'\n)\n\nfor record in records:\n    if record.deleted:\n        continue\n    \n    metadata = record.metadata\n    print(f\"\\nTitle: {metadata.get('title', [''])[0]}\")\n    print(f\"Authors: {', '.join(metadata.get('creator', []))}\")\n    print(f\"Date: {metadata.get('date', [''])[0]}\")\n    print(f\"Identifier: {metadata.get('identifier', [''])[0]}\")",
+      "pdf_downloader": "import requests\nimport re\nfrom bs4 import BeautifulSoup\n\ndef download_paper(year, paper_id, save_path=None):\n    \"\"\"Download a paper PDF - COMPLETELY FREE!\"\"\"\n    \n    # Construct PDF URL\n    pdf_url = f'https://eprint.iacr.org/{year}/{paper_id:03d}.pdf'\n    \n    # Download PDF\n    response = requests.get(pdf_url)\n    \n    if response.status_code == 200:\n        if save_path:\n            with open(save_path, 'wb') as f:\n                f.write(response.content)\n            print(f\"Saved to {save_path}\")\n        return response.content\n    else:\n        print(f\"Paper not found: {year}/{paper_id:03d}\")\n        return None\n\n# Download paper 2024/001\npdf_content = download_paper(2024, 1, 'crypto_paper.pdf')",
+      "rss_parser": "import feedparser\nimport requests\nfrom datetime import datetime\n\n# Parse latest papers RSS feed - COMPLETELY FREE!\nfeed_url = 'https://eprint.iacr.org/rss/rss.xml'\nfeed = feedparser.parse(feed_url)\n\nprint(f\"Latest {len(feed.entries)} cryptography papers (FREE!)\")\n\nfor entry in feed.entries[:10]:\n    print(f\"\\nTitle: {entry.title}\")\n    print(f\"Authors: {entry.author if hasattr(entry, 'author') else 'N/A'}\")\n    print(f\"Link: {entry.link}\")\n    print(f\"Published: {entry.published}\")\n    print(f\"Summary: {entry.summary[:200]}...\")",
+      "search_papers": "import requests\nfrom bs4 import BeautifulSoup\n\ndef search_iacr(query, search_type='title'):\n    \"\"\"Search IACR ePrint Archive - FREE!\"\"\"\n    \n    base_url = 'https://eprint.iacr.org/eprint-bin/search.pl'\n    \n    params = {\n        search_type: query,\n        'search': 'Search'\n    }\n    \n    response = requests.get(base_url, params=params)\n    soup = BeautifulSoup(response.text, 'html.parser')\n    \n    papers = []\n    # Parse search results\n    for link in soup.find_all('a', href=re.compile(r'/\\d{4}/\\d+')):\n        paper_url = f\"https://eprint.iacr.org{link['href']}\"\n        title = link.get_text(strip=True)\n        papers.append({\n            'title': title,\n            'url': paper_url,\n            'pdf': paper_url + '.pdf'\n        })\n    \n    return papers\n\n# Search for post-quantum papers\nresults = search_iacr('post-quantum', 'title')\nfor paper in results[:5]:\n    print(f\"- {paper['title']}\")\n    print(f\"  PDF: {paper['pdf']}\")",
+      "yearly_archive": "import requests\nfrom bs4 import BeautifulSoup\n\ndef get_papers_by_year(year):\n    \"\"\"Get all papers from a specific year - FREE!\"\"\"\n    \n    url = f'https://eprint.iacr.org/complete/{year}'\n    response = requests.get(url)\n    soup = BeautifulSoup(response.text, 'html.parser')\n    \n    papers = []\n    for row in soup.find_all('tr')[1:]:  # Skip header\n        cols = row.find_all('td')\n        if len(cols) >= 3:\n            paper_link = cols[0].find('a')\n            if paper_link:\n                paper_id = paper_link.text.strip()\n                title = cols[1].text.strip()\n                authors = cols[2].text.strip()\n                \n                papers.append({\n                    'id': paper_id,\n                    'title': title,\n                    'authors': authors,\n                    'url': f'https://eprint.iacr.org/{paper_id}',\n                    'pdf': f'https://eprint.iacr.org/{paper_id}.pdf'\n                })\n    \n    return papers\n\n# Get all 2024 papers\npapers_2024 = get_papers_by_year(2024)\nprint(f\"Found {len(papers_2024)} papers in 2024 (all FREE!)\")"
+    }
+  },
+  "last_updated": "2025-08-15T04:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "arxiv-cs-cryptography",
+      "dblp",
+      "google-scholar"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Open access - papers under author-specified licenses",
+    "maintainer": "International Association for Cryptologic Research (IACR)",
+    "related_conferences": [
+      "CRYPTO",
+      "EUROCRYPT",
+      "ASIACRYPT",
+      "PKC",
+      "TCC",
+      "CHES",
+      "FSE",
+      "RWC"
+    ]
+  },
+  "name": "IACR Cryptology ePrint Archive",
+  "operational_guidance": {
+    "best_practices": [
+      "Use RSS feeds for real-time monitoring of new papers",
+      "Implement OAI-PMH harvesting for bulk metadata collection",
+      "Cache paper metadata locally to reduce requests",
+      "Download PDFs during off-peak hours if downloading in bulk",
+      "Parse yearly archives for comprehensive historical data",
+      "No authentication needed - completely open access"
+    ],
+    "common_use_cases": [
+      "Cryptography research monitoring",
+      "Literature reviews in cryptography",
+      "Tracking post-quantum cryptography developments",
+      "Building cryptography paper databases",
+      "Academic research in security",
+      "Following specific cryptographic topics",
+      "Citation tracking for crypto papers"
+    ],
+    "recommended_update_frequency": "Daily for RSS feeds, weekly for comprehensive harvesting",
+    "value_proposition": "Complete free access to 20,000+ cryptography papers with no restrictions or authentication"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration or authentication required",
+    "api_stability": "Stable for 20+ years",
+    "completeness": "Most comprehensive cryptography preprint archive",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Peer-reviewed cryptographic research",
+    "reliability": "excellent",
+    "update_speed": "Papers available immediately upon submission"
+  },
+  "quality_score": 93,
+  "subcategory": "academic",
+  "url": "https://eprint.iacr.org"
+}
