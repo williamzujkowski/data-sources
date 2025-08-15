@@ -1,0 +1,182 @@
+{
+  "api": {
+    "base_url": "https://www.sans.org/tools",
+    "installation_methods": [
+      {
+        "command": "wget https://github.com/teamdfir/sift-cli/releases/download/v1.14.0-rc1/sift-cli-linux && chmod +x sift-cli-linux && sudo ./sift-cli-linux install",
+        "description": "Install SIFT Workstation",
+        "method": "SIFT VM"
+      },
+      {
+        "command": "wget https://REMnux.org/remnux-cli && chmod +x remnux-cli && sudo ./remnux-cli install",
+        "description": "Install REMnux toolkit",
+        "method": "REMnux VM"
+      },
+      {
+        "command": "docker pull remnux/remnux-distro",
+        "description": "REMnux Docker container",
+        "method": "Docker Images"
+      }
+    ],
+    "key_tools": [
+      {
+        "description": "Ubuntu-based forensics distribution",
+        "name": "SIFT Workstation",
+        "url": "https://www.sans.org/tools/sift-workstation/"
+      },
+      {
+        "description": "Linux toolkit for malware analysis",
+        "name": "REMnux",
+        "url": "https://remnux.org/"
+      },
+      {
+        "description": "Quick reference guides for DFIR",
+        "name": "Cheat Sheets",
+        "url": "https://www.sans.org/posters/"
+      },
+      {
+        "description": "Curated list of forensics tools",
+        "name": "DFIR Tools List",
+        "url": "https://www.sans.org/tools/"
+      }
+    ],
+    "tool_categories": [
+      "SIFT Workstation",
+      "REMnux",
+      "FOR508 Tools",
+      "Cheat Sheets",
+      "Posters",
+      "Scripts",
+      "Templates",
+      "Whitepapers"
+    ],
+    "type": "other"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All SANS community tools, cheat sheets, and resources are freely available. No registration required.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 96,
+  "category": "incident-response",
+  "coverage": 94,
+  "data_coverage": {
+    "cheat_sheets": [
+      "Windows Forensics",
+      "Linux Forensics",
+      "Memory Forensics",
+      "Network Forensics",
+      "Malware Analysis",
+      "Incident Response",
+      "Log Analysis",
+      "Registry Analysis",
+      "PowerShell",
+      "DFIR Commands"
+    ],
+    "content_types": [
+      "Forensics tools",
+      "Incident response utilities",
+      "Malware analysis tools",
+      "Memory forensics",
+      "Network forensics",
+      "Cheat sheets",
+      "Best practices",
+      "Training materials"
+    ],
+    "remnux_tools": [
+      "Static malware analysis",
+      "Dynamic malware analysis",
+      "Network monitoring",
+      "Memory forensics",
+      "Document analysis",
+      "JavaScript deobfuscation",
+      "Windows executables analysis",
+      "Linux malware analysis"
+    ],
+    "sift_tools": [
+      "Autopsy - Disk forensics",
+      "Volatility - Memory forensics",
+      "Sleuth Kit - File system tools",
+      "Timeline tools",
+      "Registry analysis",
+      "Log analysis",
+      "Network forensics",
+      "Mobile forensics",
+      "Cloud forensics"
+    ],
+    "temporal": {
+      "historical_data": "2007-present",
+      "latency": "Real-time access",
+      "update_frequency": "Regular updates"
+    }
+  },
+  "description": "SANS DFIR (Digital Forensics and Incident Response) - FREE tools and resources from the world's leading cybersecurity training organization for incident response and forensics.",
+  "format": "other",
+  "id": "sans-dfir-tools",
+  "integration_examples": {
+    "bash": {
+      "sift_setup": "#!/bin/bash\n# SIFT Workstation Setup - FREE!\n\necho \"[*] SIFT Workstation Setup (COMPLETELY FREE!)\"\necho \"============================================\"\necho \"\"\n\necho \"[+] Installation Methods:\"\necho \"    # Install on Ubuntu\"\necho \"    wget https://github.com/teamdfir/sift-cli/releases/download/v1.14.0-rc1/sift-cli-linux\"\necho \"    chmod +x sift-cli-linux\"\necho \"    sudo ./sift-cli-linux install\"\necho \"\"\necho \"    # Download VM\"\necho \"    https://github.com/teamdfir/sift/releases\"\necho \"\"\n\necho \"[+] Key Tools Included:\"\necho \"    - Autopsy - Disk forensics GUI\"\necho \"    - Volatility - Memory forensics\"\necho \"    - Sleuth Kit - File system tools\"\necho \"    - Timeline tools\"\necho \"    - Registry analyzers\"\necho \"    - Log parsers\"\necho \"    - Network forensics\"\necho \"\"\n\necho \"[+] REMnux Setup:\"\necho \"    wget https://REMnux.org/remnux-cli\"\necho \"    chmod +x remnux-cli\"\necho \"    sudo ./remnux-cli install\"\necho \"\"\n\necho \"[+] Resources:\"\necho \"    - SIFT: https://www.sans.org/tools/sift-workstation/\"\necho \"    - REMnux: https://remnux.org/\"\necho \"    - Cheat Sheets: https://www.sans.org/posters/\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "get_sift": "# Download SIFT CLI - FREE!\nwget https://github.com/teamdfir/sift-cli/releases/download/v1.14.0-rc1/sift-cli-linux\nchmod +x sift-cli-linux\nsudo ./sift-cli-linux install"
+    },
+    "python": {
+      "dfir_toolkit": "import os\nimport subprocess\nfrom typing import Dict, List\n\nclass SANSDFIRToolkit:\n    \"\"\"SANS DFIR Toolkit Guide - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.sift_url = 'https://github.com/teamdfir/sift'\n        self.remnux_url = 'https://remnux.org'\n        \n    def sift_tools_overview(self):\n        \"\"\"SIFT Workstation tools (FREE!)\"\"\"\n        print(\"== SIFT Workstation Tools (COMPLETELY FREE!)\\n\")\n        \n        categories = {\n            'Disk Forensics': [\n                'Autopsy - GUI forensics platform',\n                'Sleuth Kit - Command line tools',\n                'dc3dd - Advanced dd imaging',\n                'ewftools - E01 format support',\n                'qemu - Virtual machine support'\n            ],\n            'Memory Forensics': [\n                'Volatility 2 & 3 - Memory analysis',\n                'LiME - Linux memory acquisition',\n                'DumpIt - Windows memory acquisition',\n                'Rekall - Memory forensics framework'\n            ],\n            'Timeline Analysis': [\n                'log2timeline/plaso - Super timeline',\n                'Timesketch - Timeline analysis',\n                'mactime - MAC time analysis',\n                'fls - File listing with times'\n            ],\n            'Registry & Artifacts': [\n                'RegRipper - Registry analysis',\n                'ShimCacheParser - Shimcache parsing',\n                'AmcacheParser - Amcache analysis',\n                'USBDeviceForensics - USB history'\n            ],\n            'Network Forensics': [\n                'Wireshark - Packet analysis',\n                'NetworkMiner - Network forensics',\n                'tcpdump - Packet capture',\n                'tshark - Command line Wireshark'\n            ]\n        }\n        \n        for category, tools in categories.items():\n            print(f\"[+] {category}:\")\n            for tool in tools:\n                print(f\"    - {tool}\")\n            print()\n        \n        return categories\n    \n    def remnux_tools_overview(self):\n        \"\"\"REMnux malware analysis tools (FREE!)\"\"\"\n        print(\"== REMnux Malware Analysis Tools (FREE!)\\n\")\n        \n        categories = {\n            'Static Analysis': [\n                'PEfile - PE analysis',\n                'strings - Extract strings',\n                'hexdump - Hex viewer',\n                'binwalk - Firmware analysis',\n                'YARA - Pattern matching'\n            ],\n            'Dynamic Analysis': [\n                'Cuckoo Sandbox - Automated analysis',\n                'Fakenet-NG - Network simulation',\n                'Process Monitor - Process tracking',\n                'API Monitor - API call tracking'\n            ],\n            'Deobfuscation': [\n                'de4js - JavaScript deobfuscation',\n                'uncompyle6 - Python decompiler',\n                'jadx - Java/Android decompiler',\n                'dnSpy - .NET decompiler'\n            ],\n            'Document Analysis': [\n                'oledump - OLE file analysis',\n                'pdf-parser - PDF analysis',\n                'pdfid - PDF identification',\n                'rtfdump - RTF analysis'\n            ]\n        }\n        \n        for category, tools in categories.items():\n            print(f\"[+] {category}:\")\n            for tool in tools:\n                print(f\"    - {tool}\")\n            print()\n        \n        return categories\n    \n    def cheat_sheets_list(self):\n        \"\"\"SANS cheat sheets (FREE!)\"\"\"\n        print(\"== SANS DFIR Cheat Sheets (FREE!)\\n\")\n        \n        sheets = [\n            'DFIR Command Line',\n            'Windows Forensic Analysis',\n            'Linux Forensic Survival',\n            'Memory Forensics',\n            'Hex and Regex',\n            'PowerShell Cheat Sheet',\n            'SIFT Workstation Guide',\n            'REMnux Usage Guide',\n            'Malware Analysis',\n            'Network Forensics'\n        ]\n        \n        print(\"Available Cheat Sheets:\")\n        for sheet in sheets:\n            print(f\"  - {sheet}\")\n        \n        print(\"\\nDownload from: https://www.sans.org/posters/\")\n        \n        return sheets"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "kali-forensics",
+      "caine",
+      "deft"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Open source",
+    "maintainer": "SANS Institute",
+    "related_resources": [
+      "SANS FOR508",
+      "SANS FOR500",
+      "SANS FOR572",
+      "DFIR Blog"
+    ]
+  },
+  "name": "SANS DFIR Tools",
+  "operational_guidance": {
+    "best_practices": [
+      "Use SIFT for forensics",
+      "Use REMnux for malware",
+      "Document everything",
+      "Maintain chain of custody",
+      "Use write blockers",
+      "Create forensic images",
+      "Analyze in isolated environment",
+      "Keep tools updated"
+    ],
+    "common_use_cases": [
+      "Digital forensics investigations",
+      "Incident response operations",
+      "Malware analysis",
+      "Memory forensics",
+      "Disk forensics",
+      "Network forensics",
+      "Log analysis",
+      "Timeline analysis",
+      "Evidence collection",
+      "Training and education"
+    ],
+    "recommended_update_frequency": "Update tools before each investigation",
+    "value_proposition": "Industry-standard DFIR tools and resources from SANS, completely free for the community"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Comprehensive DFIR coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "SANS expert-verified",
+    "reliability": "excellent",
+    "update_speed": "Regular"
+  },
+  "quality_score": 95,
+  "subcategory": "sans",
+  "url": "https://www.sans.org/tools/"
+}

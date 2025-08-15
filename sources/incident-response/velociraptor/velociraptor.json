@@ -1,0 +1,174 @@
+{
+  "api": {
+    "api_features": [
+      "gRPC API",
+      "REST API",
+      "VQL queries",
+      "Hunt management",
+      "Artifact collection",
+      "Real-time monitoring",
+      "File collection",
+      "Remote forensics"
+    ],
+    "base_url": "https://localhost:8889/api",
+    "core_features": [
+      "Endpoint visibility",
+      "Digital forensics",
+      "Incident response",
+      "Threat hunting",
+      "File collection",
+      "Memory analysis",
+      "Live response",
+      "Artifact collection",
+      "Timeline generation",
+      "Offline collection"
+    ],
+    "deployment_methods": [
+      {
+        "command": "./velociraptor gui",
+        "description": "Standalone deployment",
+        "method": "Single Binary"
+      },
+      {
+        "command": "./velociraptor --config server.config.yaml frontend",
+        "description": "Multi-client deployment",
+        "method": "Server Mode"
+      },
+      {
+        "command": "docker run --rm -it velocidex/velociraptor gui",
+        "description": "Container deployment",
+        "method": "Docker"
+      },
+      {
+        "command": "Deploy on AWS/Azure/GCP",
+        "description": "Cloud deployment",
+        "method": "Cloud"
+      }
+    ],
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source tool. Download and deploy. No license fees, registration, or payment required.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 95,
+  "category": "incident-response",
+  "coverage": 93,
+  "data_coverage": {
+    "artifact_types": [
+      "Windows artifacts",
+      "Linux artifacts",
+      "macOS artifacts",
+      "Browser artifacts",
+      "Cloud artifacts",
+      "Container artifacts",
+      "Memory artifacts",
+      "Network artifacts"
+    ],
+    "content_types": [
+      "Endpoint forensics",
+      "File artifacts",
+      "Registry data",
+      "Event logs",
+      "Process information",
+      "Network connections",
+      "Memory dumps",
+      "Timeline data"
+    ],
+    "hunt_capabilities": [
+      "Scheduled hunts",
+      "Event monitoring",
+      "IOC detection",
+      "Anomaly detection",
+      "Baseline analysis",
+      "Threat detection",
+      "Compliance checking",
+      "Custom artifacts"
+    ],
+    "temporal": {
+      "historical_data": "2018-present",
+      "latency": "Real-time collection",
+      "update_frequency": "Monthly releases"
+    },
+    "vql_queries": [
+      "Process listing",
+      "File searches",
+      "Registry queries",
+      "WMI queries",
+      "Event log parsing",
+      "Network monitoring",
+      "Yara scanning",
+      "Hash lookups"
+    ]
+  },
+  "description": "Velociraptor - FREE, open source endpoint monitoring, digital forensics and incident response platform. Advanced tool for collecting and analyzing forensic data at scale.",
+  "format": "json",
+  "id": "velociraptor",
+  "integration_examples": {
+    "bash": {
+      "velociraptor_setup": "#!/bin/bash\n# Velociraptor Setup - FREE!\n\necho \"[*] Velociraptor Setup (COMPLETELY FREE!)\"\necho \"========================================\"\necho \"\"\n\necho \"[+] Download Latest Release:\"\necho \"    # Linux\"\necho \"    wget https://github.com/Velocidex/velociraptor/releases/latest/download/velociraptor-linux-amd64\"\necho \"    chmod +x velociraptor-linux-amd64\"\necho \"\"\necho \"    # Windows\"\necho \"    Download from: https://github.com/Velocidex/velociraptor/releases\"\necho \"\"\n\necho \"[+] Quick Start GUI:\"\necho \"    ./velociraptor gui\"\necho \"    # Access at: https://127.0.0.1:8889\"\necho \"    # User: admin\"\necho \"    # Password: (shown in console)\"\necho \"\"\n\necho \"[+] Server Deployment:\"\necho \"    # Generate config\"\necho \"    ./velociraptor config generate -i\"\necho \"\"\necho \"    # Start server\"\necho \"    ./velociraptor --config server.config.yaml frontend\"\necho \"\"\n\necho \"[+] Key Features:\"\necho \"    - VQL query language\"\necho \"    - Remote forensics\"\necho \"    - Hunt management\"\necho \"    - Artifact collection\"\necho \"    - Timeline generation\"\necho \"    - Offline collection\"\necho \"\"\n\necho \"[+] Resources:\"\necho \"    - Website: https://www.velocidex.com/\"\necho \"    - Docs: https://docs.velociraptor.app/\"\necho \"    - GitHub: https://github.com/Velocidex/velociraptor\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "download_velociraptor": "# Download Velociraptor - FREE!\nwget https://github.com/Velocidex/velociraptor/releases/latest/download/velociraptor-linux-amd64\nchmod +x velociraptor-linux-amd64\n./velociraptor-linux-amd64 gui"
+    },
+    "python": {
+      "velociraptor_vql": "import json\nimport grpc\nfrom typing import Dict, List\n\nclass VelociraptorClient:\n    \"\"\"Velociraptor VQL Client - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self, server='localhost:8889'):\n        self.server = server\n        self.artifacts = []\n        \n    def vql_examples(self):\n        \"\"\"VQL query examples (FREE!)\"\"\"\n        print(\"== Velociraptor VQL Examples (FREE!)\\n\")\n        \n        queries = {\n            'Process Listing': \n                'SELECT * FROM pslist()',\n            \n            'Network Connections': \n                'SELECT * FROM netstat()',\n            \n            'File Search': \n                'SELECT * FROM glob(globs=\"C:/Windows/System32/*.exe\")',\n            \n            'Registry Query': \n                'SELECT * FROM read_reg_key(globs=\"HKEY_LOCAL_MACHINE/Software/*\")',\n            \n            'Event Logs': \n                'SELECT * FROM parse_evtx(filename=\"C:/Windows/System32/winevt/Logs/Security.evtx\")',\n            \n            'Hash Files': \n                'SELECT FullPath, hash(path=FullPath) as Hash FROM glob(globs=\"C:/Users/*/Downloads/*\")',\n            \n            'Yara Scan': \n                'SELECT * FROM yara(rules=yaraRule, files=\"C:/Windows/System32/*.exe\")',\n            \n            'WMI Query': \n                'SELECT * FROM wmi(query=\"SELECT * FROM Win32_Process\")'\n        }\n        \n        for name, query in queries.items():\n            print(f\"[+] {name}:\")\n            print(f\"    {query}\\n\")\n        \n        return queries\n    \n    def artifact_examples(self):\n        \"\"\"Built-in artifact examples (FREE!)\"\"\"\n        print(\"== Velociraptor Artifacts (FREE!)\\n\")\n        \n        artifacts = {\n            'Windows': [\n                'Windows.System.Pslist',\n                'Windows.Registry.RecentDocs',\n                'Windows.Forensics.Prefetch',\n                'Windows.EventLogs.RDPAuth',\n                'Windows.Persistence.PermanentWMIEvents',\n                'Windows.Detection.Webshells'\n            ],\n            'Linux': [\n                'Linux.Sys.BashHistory',\n                'Linux.Sys.Crontab',\n                'Linux.Network.Netstat',\n                'Linux.Forensics.Journal',\n                'Linux.Detection.Yara.Process'\n            ],\n            'Generic': [\n                'Generic.Forensic.Timeline',\n                'Generic.Client.Info',\n                'Generic.Network.InterfaceAddresses',\n                'Generic.System.ProcessInfo'\n            ],\n            'Cloud': [\n                'Cloud.Metadata.AWS',\n                'Cloud.Metadata.Azure',\n                'Cloud.Metadata.GCP'\n            ]\n        }\n        \n        for category, artifact_list in artifacts.items():\n            print(f\"[+] {category} Artifacts:\")\n            for artifact in artifact_list:\n                print(f\"    - {artifact}\")\n            print()\n        \n        return artifacts\n    \n    def hunt_examples(self):\n        \"\"\"Hunt creation examples (FREE!)\"\"\"\n        print(\"== Velociraptor Hunt Examples (FREE!)\\n\")\n        \n        hunts = [\n            {\n                'name': 'Suspicious Processes',\n                'artifact': 'Windows.System.Pslist',\n                'parameters': {\n                    'processNameRegex': '.*\\\\\\\\(cmd|powershell|wscript|cscript)\\\\.exe$'\n                }\n            },\n            {\n                'name': 'Persistence Mechanisms',\n                'artifact': 'Windows.Persistence.PermanentWMIEvents',\n                'parameters': {}\n            },\n            {\n                'name': 'Webshell Detection',\n                'artifact': 'Windows.Detection.Webshells',\n                'parameters': {\n                    'webRoot': 'C:/inetpub/wwwroot'\n                }\n            }\n        ]\n        \n        for hunt in hunts:\n            print(f\"[+] Hunt: {hunt['name']}\")\n            print(f\"    Artifact: {hunt['artifact']}\")\n            if hunt['parameters']:\n                print(\"    Parameters:\")\n                for key, value in hunt['parameters'].items():\n                    print(f\"      {key}: {value}\")\n            print()\n        \n        return hunts"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "osquery",
+      "grr",
+      "wazuh"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "AGPL-3.0",
+    "maintainer": "Velocidex Enterprises",
+    "related_resources": [
+      "VQL Reference",
+      "Artifact Exchange",
+      "Velociraptor Blog",
+      "Training Videos"
+    ]
+  },
+  "name": "Velociraptor",
+  "operational_guidance": {
+    "best_practices": [
+      "Deploy server centrally",
+      "Use TLS encryption",
+      "Create custom artifacts",
+      "Schedule regular hunts",
+      "Monitor critical systems",
+      "Archive important data",
+      "Test in lab first",
+      "Document artifacts"
+    ],
+    "common_use_cases": [
+      "Incident response",
+      "Threat hunting",
+      "Digital forensics",
+      "Endpoint monitoring",
+      "IOC sweeping",
+      "Compliance auditing",
+      "Malware detection",
+      "Data collection",
+      "Remote forensics",
+      "Evidence preservation"
+    ],
+    "recommended_update_frequency": "Update monthly for latest artifacts",
+    "value_proposition": "Enterprise-grade endpoint visibility and digital forensics platform that's completely free and open source"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Comprehensive endpoint coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "High fidelity",
+    "reliability": "excellent",
+    "update_speed": "Monthly"
+  },
+  "quality_score": 94,
+  "subcategory": "velociraptor",
+  "url": "https://www.velocidex.com/"
+}

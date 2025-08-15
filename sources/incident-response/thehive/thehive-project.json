@@ -1,0 +1,178 @@
+{
+  "api": {
+    "api_features": [
+      "Full REST API",
+      "Case management",
+      "Observable analysis",
+      "Alert import",
+      "Task management",
+      "Template system",
+      "Custom fields",
+      "Webhook integration"
+    ],
+    "base_url": "http://localhost:9000/api",
+    "core_features": [
+      "Case Management",
+      "Alert Triage",
+      "Observable Analysis",
+      "Task Assignment",
+      "Collaboration Tools",
+      "Metrics & Reports",
+      "Custom Workflows",
+      "MISP Integration",
+      "Cortex Integration",
+      "Email Integration"
+    ],
+    "installation_methods": [
+      {
+        "command": "docker run -d --name thehive -p 9000:9000 thehiveproject/thehive",
+        "description": "Quick Docker deployment",
+        "method": "Docker"
+      },
+      {
+        "command": "docker-compose up -d",
+        "description": "Full stack with Elasticsearch",
+        "method": "Docker Compose"
+      },
+      {
+        "command": "wget https://download.thehive-project.org/thehive.deb && dpkg -i thehive.deb",
+        "description": "Debian/Ubuntu package",
+        "method": "Binary Installation"
+      },
+      {
+        "command": "yum install thehive",
+        "description": "RedHat/CentOS installation",
+        "method": "RPM Package"
+      }
+    ],
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source platform. Download and self-host. No license fees or registration required for community edition.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 94,
+  "category": "incident-response",
+  "coverage": 92,
+  "data_coverage": {
+    "content_types": [
+      "Security incidents",
+      "Case management",
+      "Observable analysis",
+      "Alert triage",
+      "Task tracking",
+      "Investigation notes",
+      "Metrics and reports",
+      "Threat intelligence"
+    ],
+    "incident_types": [
+      "Malware infections",
+      "Data breaches",
+      "Phishing attacks",
+      "Ransomware",
+      "Insider threats",
+      "DDoS attacks",
+      "Account compromise",
+      "Web application attacks",
+      "Network intrusions",
+      "Supply chain attacks"
+    ],
+    "integrations": [
+      "Cortex - Observable analysis",
+      "MISP - Threat intelligence",
+      "Elasticsearch - Data storage",
+      "MinIO - File storage",
+      "LDAP/AD - Authentication",
+      "Splunk - SIEM integration",
+      "QRadar - SIEM integration",
+      "Email - Alert import"
+    ],
+    "observable_types": [
+      "IP addresses",
+      "Domain names",
+      "URLs",
+      "Email addresses",
+      "File hashes",
+      "Registry keys",
+      "User agents",
+      "Mail subjects",
+      "Filenames",
+      "CVE numbers"
+    ],
+    "temporal": {
+      "historical_data": "2016-present",
+      "latency": "Real-time incident tracking",
+      "update_frequency": "Regular releases"
+    }
+  },
+  "description": "TheHive - FREE, open source Security Incident Response Platform. A scalable, collaborative platform for SOC analysts and incident responders to manage security incidents and investigations.",
+  "format": "json",
+  "id": "thehive-project",
+  "integration_examples": {
+    "bash": {
+      "thehive_setup": "#!/bin/bash\n# TheHive Quick Setup - FREE!\n\necho \"[*] TheHive Setup (COMPLETELY FREE!)\"\necho \"====================================\"\necho \"\"\n\necho \"[+] Docker Installation:\"\necho \"    # Quick start\"\necho \"    docker run -d --name thehive -p 9000:9000 thehiveproject/thehive\"\necho \"\"\necho \"    # With Elasticsearch\"\necho \"    docker-compose up -d\"\necho \"\"\n\necho \"[+] Access TheHive:\"\necho \"    URL: http://localhost:9000\"\necho \"    Default: admin@thehive.local / secret\"\necho \"\"\n\necho \"[+] Core Features:\"\necho \"    - Case Management\"\necho \"    - Alert Triage\"\necho \"    - Observable Analysis\"\necho \"    - Task Assignment\"\necho \"    - Custom Workflows\"\necho \"    - MISP Integration\"\necho \"    - Cortex Integration\"\necho \"\"\n\necho \"[+] API Usage:\"\necho \"    # Create API key in UI\"\necho \"    curl -H 'Authorization: Bearer API_KEY' http://localhost:9000/api/case\"\necho \"\"\n\necho \"[+] Resources:\"\necho \"    - Website: https://thehive-project.org/\"\necho \"    - Docs: https://docs.thehive-project.org/\"\necho \"    - GitHub: https://github.com/TheHive-Project/\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "create_case": "# Create case in TheHive - FREE!\ncurl -X POST http://localhost:9000/api/case \\\n  -H 'Authorization: Bearer YOUR_API_KEY' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"title\": \"Security Incident\", \"description\": \"Investigation required\", \"severity\": 2}'"
+    },
+    "python": {
+      "thehive_client": "from thehive4py import TheHiveApi\nimport json\nfrom typing import Dict, List\n\nclass TheHiveClient:\n    \"\"\"TheHive API Client - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self, url='http://localhost:9000', api_key='YOUR_API_KEY'):\n        self.api = TheHiveApi(url, api_key)\n        \n    def create_case_example(self):\n        \"\"\"Create a new incident case (FREE!)\"\"\"\n        print(\"== TheHive Case Creation (FREE!)\\n\")\n        \n        case = {\n            'title': 'Suspicious Network Activity',\n            'description': 'Unusual outbound connections detected',\n            'severity': 2,\n            'tlp': 2,\n            'tags': ['network', 'suspicious', 'investigation'],\n            'flag': False,\n            'status': 'Open'\n        }\n        \n        print(\"Creating case with details:\")\n        for key, value in case.items():\n            print(f\"  {key}: {value}\")\n        \n        # Example API call (simplified)\n        print(\"\\nAPI call: POST /api/case\")\n        print(f\"Payload: {json.dumps(case, indent=2)}\")\n        \n        return case\n    \n    def add_observable_example(self):\n        \"\"\"Add observable to case (FREE!)\"\"\"\n        print(\"== Adding Observable (FREE!)\\n\")\n        \n        observable = {\n            'dataType': 'ip',\n            'data': '192.168.1.100',\n            'tlp': 2,\n            'ioc': True,\n            'sighted': False,\n            'tags': ['suspicious', 'internal'],\n            'message': 'Suspicious IP detected in logs'\n        }\n        \n        print(\"Observable details:\")\n        for key, value in observable.items():\n            print(f\"  {key}: {value}\")\n        \n        return observable\n    \n    def case_templates(self):\n        \"\"\"Case template examples (FREE!)\"\"\"\n        print(\"== Case Templates (FREE!)\\n\")\n        \n        templates = [\n            {\n                'name': 'Phishing Investigation',\n                'tasks': [\n                    'Email header analysis',\n                    'URL/domain investigation',\n                    'User impact assessment',\n                    'Containment actions',\n                    'User notification'\n                ]\n            },\n            {\n                'name': 'Malware Incident',\n                'tasks': [\n                    'Isolate affected systems',\n                    'Collect artifacts',\n                    'Malware analysis',\n                    'Check lateral movement',\n                    'Remediation steps'\n                ]\n            },\n            {\n                'name': 'Data Breach',\n                'tasks': [\n                    'Identify affected data',\n                    'Determine exposure scope',\n                    'Legal notification',\n                    'Containment measures',\n                    'Root cause analysis'\n                ]\n            }\n        ]\n        \n        for template in templates:\n            print(f\"[+] {template['name']}:\")\n            for task in template['tasks']:\n                print(f\"    - {task}\")\n            print()\n        \n        return templates"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "cortex",
+      "misp",
+      "dfir-iris"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "AGPL-3.0",
+    "maintainer": "TheHive Project",
+    "related_resources": [
+      "Cortex",
+      "MISP",
+      "Elasticsearch",
+      "MinIO"
+    ]
+  },
+  "name": "TheHive Project",
+  "operational_guidance": {
+    "best_practices": [
+      "Define case templates",
+      "Create custom observables",
+      "Set up alert feeds",
+      "Configure Cortex analyzers",
+      "Integrate with MISP",
+      "Establish workflows",
+      "Train team members",
+      "Regular backups"
+    ],
+    "common_use_cases": [
+      "Security incident response",
+      "Alert triage and analysis",
+      "Case management",
+      "Collaborative investigations",
+      "Observable enrichment",
+      "Threat hunting",
+      "SOC operations",
+      "Forensic analysis coordination",
+      "Compliance reporting",
+      "Incident metrics tracking"
+    ],
+    "recommended_update_frequency": "Update monthly for latest features",
+    "value_proposition": "Enterprise-grade incident response platform that's completely free and open source, enabling efficient security operations"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Full incident lifecycle",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "User-defined",
+    "reliability": "excellent",
+    "update_speed": "Monthly"
+  },
+  "quality_score": 93,
+  "subcategory": "thehive",
+  "url": "https://thehive-project.org/"
+}
