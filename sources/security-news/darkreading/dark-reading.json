@@ -1,0 +1,138 @@
+{
+  "api": {
+    "base_url": "https://www.darkreading.com",
+    "content_sections": [
+      "Attacks/Breaches",
+      "Application Security",
+      "Cloud Security",
+      "Endpoint Security",
+      "IoT Security",
+      "Vulnerabilities/Threats",
+      "Risk Management",
+      "Security Operations"
+    ],
+    "endpoints": [
+      {
+        "description": "Main RSS feed with all articles",
+        "method": "GET",
+        "name": "Main RSS Feed",
+        "path": "/rss.xml"
+      },
+      {
+        "description": "Topic-specific RSS feeds",
+        "method": "GET",
+        "name": "Topic RSS",
+        "path": "/rss_simple.asp?f_n={topic}"
+      },
+      {
+        "description": "Search articles and resources",
+        "method": "GET",
+        "name": "Search",
+        "path": "/search"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! No registration required for articles. Optional free registration unlocks additional features like newsletters and personalization.",
+    "required": false,
+    "type": "optional"
+  },
+  "authority": 96,
+  "category": "security-news",
+  "coverage": 94,
+  "data_coverage": {
+    "content_types": [
+      "Enterprise security news",
+      "Threat intelligence",
+      "Vulnerability analysis",
+      "Industry research",
+      "Expert commentary",
+      "Security best practices",
+      "Technology reviews",
+      "Compliance guidance"
+    ],
+    "special_features": [
+      "Original research reports",
+      "Industry surveys",
+      "Expert columns",
+      "Webinars and virtual events",
+      "Whitepapers",
+      "Security analytics",
+      "Career resources",
+      "Community forums"
+    ],
+    "temporal": {
+      "historical_data": "2000-present",
+      "latency": "Real-time to hourly",
+      "update_frequency": "15-20 articles daily"
+    }
+  },
+  "description": "Dark Reading - FREE enterprise security news, analysis, and research. In-depth coverage of vulnerabilities, threats, risk management, and cybersecurity trends.",
+  "format": "other",
+  "id": "dark-reading",
+  "integration_examples": {
+    "bash": {
+      "dark_reading_feed": "#!/bin/bash\n# Dark Reading RSS Feed - FREE!\n\necho \"\ud83d\udcf0 Dark Reading Enterprise Security (COMPLETELY FREE!)\"\necho \"====================================================\"\necho \"\"\n\necho \"\ud83d\udd25 Latest Articles:\"\ncurl -s https://www.darkreading.com/rss.xml | \\\n    grep -E '<title>|<link>|<description>' | \\\n    head -30 | \\\n    sed 's/<[^>]*>//g' | \\\n    sed 's/^[[:space:]]*//'\n\necho \"\"\necho \"\ud83d\udcda Coverage Areas:\"\necho \"   \u2022 Attacks & Breaches\"\necho \"   \u2022 Cloud Security\"\necho \"   \u2022 Application Security\"\necho \"   \u2022 Endpoint Security\"\necho \"   \u2022 Vulnerabilities\"\necho \"   \u2022 Risk Management\"\necho \"   \u2022 Security Operations\"\necho \"   \u2022 Identity & Access\"\necho \"\"\n\necho \"\ud83d\udcca Resources:\"\necho \"   \u2022 Original Research Reports\"\necho \"   \u2022 Webinars & Virtual Events\"\necho \"   \u2022 Expert Columns\"\necho \"   \u2022 Security School\"\necho \"   \u2022 Career Resources\"\necho \"\"\n\necho \"\ud83d\udd17 Access:\"\necho \"   \u2022 Website: https://www.darkreading.com/\"\necho \"   \u2022 RSS: https://www.darkreading.com/rss.xml\"\necho \"   \u2022 Newsletter: Free subscription\"\necho \"   \u2022 Registration: Optional for extras\"\necho \"\"\n\necho \"\ud83c\udd93 All content FREE!\""
+    },
+    "curl": {
+      "get_headlines": "# Get Dark Reading headlines - FREE!\ncurl -s https://www.darkreading.com/rss.xml | grep '<title>' | head -10 | sed 's/<[^>]*>//g'"
+    },
+    "python": {
+      "dark_reading_client": "import feedparser\nimport requests\nfrom datetime import datetime\nfrom bs4 import BeautifulSoup\n\nclass DarkReadingClient:\n    \"\"\"Dark Reading Security News Client - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.darkreading.com'\n        self.feed_url = 'https://www.darkreading.com/rss.xml'\n        \n    def get_latest_articles(self, limit=10):\n        \"\"\"Get latest security articles (FREE!)\"\"\"\n        print(\"\ud83d\udcf0 Dark Reading - Latest Enterprise Security News (FREE!)\\n\")\n        \n        try:\n            feed = feedparser.parse(self.feed_url)\n            \n            if feed.entries:\n                print(f\"\ud83d\udd25 Latest {min(limit, len(feed.entries))} Articles:\\n\")\n                \n                for entry in feed.entries[:limit]:\n                    # Categorize by title keywords\n                    title_lower = entry.title.lower()\n                    if 'breach' in title_lower or 'attack' in title_lower:\n                        emoji = '\ud83d\udea8'\n                    elif 'vulnerability' in title_lower or 'flaw' in title_lower:\n                        emoji = '\u26a0\ufe0f'\n                    elif 'cloud' in title_lower:\n                        emoji = '\u2601\ufe0f'\n                    elif 'ai' in title_lower or 'machine learning' in title_lower:\n                        emoji = '\ud83e\udd16'\n                    elif 'ransomware' in title_lower:\n                        emoji = '\ud83d\udcb0'\n                    else:\n                        emoji = '\ud83d\udccc'\n                    \n                    print(f\"{emoji} {entry.title}\")\n                    print(f\"   \ud83d\udd17 {entry.link}\")\n                    print(f\"   \ud83d\udcc5 {entry.get('published', 'N/A')}\")\n                    \n                    # Author if available\n                    if hasattr(entry, 'author'):\n                        print(f\"   \u270d\ufe0f Author: {entry.author}\")\n                    \n                    # Summary\n                    if hasattr(entry, 'summary'):\n                        summary = BeautifulSoup(entry.summary, 'html.parser').text\n                        summary = summary[:200] + '...' if len(summary) > 200 else summary\n                        print(f\"   \ud83d\udcdd {summary}\")\n                    \n                    print()\n                \n                return feed.entries[:limit]\n            else:\n                print(\"No articles found\")\n                return []\n                \n        except Exception as e:\n            print(f\"Error fetching feed: {e}\")\n            return []\n    \n    def get_topic_coverage(self):\n        \"\"\"Get Dark Reading topic areas (FREE!)\"\"\"\n        print(\"\ud83d\udcda Dark Reading Topic Coverage (FREE!)\\n\")\n        \n        topics = {\n            'Attacks & Breaches': {\n                'description': 'Data breaches, cyber attacks, incident response',\n                'subtopics': ['Ransomware', 'APT Groups', 'DDoS', 'Insider Threats']\n            },\n            'Application Security': {\n                'description': 'Software vulnerabilities, secure development',\n                'subtopics': ['DevSecOps', 'API Security', 'Code Analysis', 'OWASP']\n            },\n            'Cloud Security': {\n                'description': 'Cloud infrastructure, SaaS security',\n                'subtopics': ['AWS', 'Azure', 'Google Cloud', 'Multi-cloud']\n            },\n            'Endpoint Security': {\n                'description': 'Device protection, EDR, antivirus',\n                'subtopics': ['Zero Trust', 'Mobile Security', 'IoT', 'BYOD']\n            },\n            'Vulnerabilities & Threats': {\n                'description': 'CVEs, zero-days, threat intelligence',\n                'subtopics': ['Exploits', 'Malware', 'Phishing', 'Supply Chain']\n            },\n            'Risk Management': {\n                'description': 'Enterprise risk, compliance, governance',\n                'subtopics': ['GRC', 'Third-party Risk', 'Cyber Insurance', 'Metrics']\n            },\n            'Security Operations': {\n                'description': 'SOC, SIEM, incident response',\n                'subtopics': ['Threat Hunting', 'Forensics', 'Automation', 'XDR']\n            },\n            'Identity & Access': {\n                'description': 'IAM, authentication, authorization',\n                'subtopics': ['MFA', 'Passwordless', 'PAM', 'SSO']\n            }\n        }\n        \n        for topic, details in topics.items():\n            print(f\"\ud83d\udcc2 {topic}\")\n            print(f\"   \ud83d\udcdd {details['description']}\")\n            print(f\"   \ud83d\udd0d Focus areas:\")\n            for subtopic in details['subtopics']:\n                print(f\"      \u2022 {subtopic}\")\n            print()\n        \n        return topics\n    \n    def enterprise_resources(self):\n        \"\"\"Enterprise security resources (FREE!)\"\"\"\n        print(\"\ud83c\udfe2 Dark Reading Enterprise Resources (FREE!)\\n\")\n        \n        print(\"\ud83d\udcca Original Research Reports:\\n\")\n        reports = [\n            \"Strategic Security Survey\",\n            \"Cloud Security Report\",\n            \"Endpoint Security Study\",\n            \"Application Security Trends\",\n            \"DevSecOps Adoption\",\n            \"Insider Threat Report\",\n            \"Ransomware Defense Study\",\n            \"Zero Trust Implementation\"\n        ]\n        \n        for report in reports:\n            print(f\"   \u2022 {report}\")\n        \n        print(\"\\n\ud83c\udf93 Educational Resources:\\n\")\n        education = [\n            \"Security School tutorials\",\n            \"Webinar archives\",\n            \"Virtual event recordings\",\n            \"Expert video interviews\",\n            \"Podcasts and audio\",\n            \"Career development guides\",\n            \"Certification resources\",\n            \"Best practices library\"\n        ]\n        \n        for resource in education:\n            print(f\"   \u2022 {resource}\")\n        \n        print(\"\\n\ud83d\udcbc Professional Tools:\\n\")\n        tools = [\n            \"Security product directory\",\n            \"Vendor comparison guides\",\n            \"RFP templates\",\n            \"Security frameworks\",\n            \"Compliance checklists\",\n            \"Incident response playbooks\",\n            \"Risk assessment templates\",\n            \"Budget planning tools\"\n        ]\n        \n        for tool in tools:\n            print(f\"   \u2022 {tool}\")\n        \n        return reports\n    \n    def expert_contributors(self):\n        \"\"\"Dark Reading expert contributors (FREE!)\"\"\"\n        print(\"\ud83d\udc65 Dark Reading Expert Contributors (FREE!)\\n\")\n        \n        print(\"\u270d\ufe0f Regular Columnists:\\n\")\n        columnists = [\n            \"Security industry veterans\",\n            \"CISO perspectives\",\n            \"Threat researchers\",\n            \"Compliance experts\",\n            \"Technology analysts\",\n            \"Academic researchers\",\n            \"Government advisors\",\n            \"Security architects\"\n        ]\n        \n        for columnist in columnists:\n            print(f\"   \u2022 {columnist}\")\n        \n        print(\"\\n\ud83c\udfa4 Content Types:\\n\")\n        content_types = [\n            \"Executive Insights\",\n            \"Technical Deep Dives\",\n            \"Threat Analysis\",\n            \"Industry Commentary\",\n            \"Future Predictions\",\n            \"Lessons Learned\",\n            \"Best Practices\",\n            \"Case Studies\"\n        ]\n        \n        for content_type in content_types:\n            print(f\"   \u2022 {content_type}\")\n        \n        print(\"\\n\ud83c\udf1f Special Series:\\n\")\n        series = [\n            \"CISO Strategy Sessions\",\n            \"Threat Hunter Chronicles\",\n            \"Cloud Security Journey\",\n            \"Zero Trust Transformation\",\n            \"AI in Cybersecurity\",\n            \"Ransomware Resilience\",\n            \"Supply Chain Security\",\n            \"Privacy & Compliance\"\n        ]\n        \n        for serie in series:\n            print(f\"   \u2022 {serie}\")\n        \n        return columnists\n    \n    def industry_events(self):\n        \"\"\"Dark Reading events and conferences (FREE!)\"\"\"\n        print(\"\ud83c\udfaf Dark Reading Events & Conferences (FREE!)\\n\")\n        \n        print(\"\ud83d\udcc5 Virtual Events:\\n\")\n        events = [\n            \"Dark Reading Virtual Events\",\n            \"Webinar Wednesdays\",\n            \"Expert Panels\",\n            \"Product Demos\",\n            \"Training Sessions\",\n            \"Roundtable Discussions\",\n            \"Q&A Sessions\",\n            \"Special Reports Launch\"\n        ]\n        \n        for event in events:\n            print(f\"   \u2022 {event}\")\n        \n        print(\"\\n\ud83c\udfc6 Annual Programs:\\n\")\n        programs = [\n            \"Top 20 Security Companies\",\n            \"Security Innovation Awards\",\n            \"CISO of the Year\",\n            \"Rising Stars in Security\",\n            \"Best Security Products\",\n            \"Excellence in Research\",\n            \"Community Leadership\",\n            \"Lifetime Achievement\"\n        ]\n        \n        for program in programs:\n            print(f\"   \u2022 {program}\")\n        \n        print(\"\\n\ud83e\udd1d Community Features:\\n\")\n        community = [\n            \"Discussion forums\",\n            \"Expert Q&A\",\n            \"Peer networking\",\n            \"Job board\",\n            \"Resource sharing\",\n            \"Polls and surveys\",\n            \"User groups\",\n            \"Mentorship programs\"\n        ]\n        \n        for feature in community:\n            print(f\"   \u2022 {feature}\")\n        \n        return events\n    \n    def newsletter_options(self):\n        \"\"\"Dark Reading newsletter options (FREE!)\"\"\"\n        print(\"\ud83d\udce7 Dark Reading Newsletters (ALL FREE!)\\n\")\n        \n        newsletters = {\n            'Dark Reading Daily': 'Top security news every weekday',\n            'Dark Reading Weekly': 'Week\\'s most important stories',\n            'Threat Intelligence': 'Latest threat landscape updates',\n            'Cloud Security': 'Cloud-specific security news',\n            'Application Security': 'DevSecOps and AppSec updates',\n            'Risk & Compliance': 'Governance and compliance news',\n            'Security Operations': 'SOC and incident response',\n            'Special Reports': 'Original research releases'\n        }\n        \n        print(\"\ud83d\udcec Available Newsletters:\\n\")\n        for newsletter, description in newsletters.items():\n            print(f\"   \ud83d\udcee {newsletter}\")\n            print(f\"      {description}\")\n            print()\n        \n        print(\"\u2705 Newsletter Benefits:\\n\")\n        benefits = [\n            \"Curated by security experts\",\n            \"No spam, quality content only\",\n            \"Customizable preferences\",\n            \"Mobile-optimized format\",\n            \"Exclusive content previews\",\n            \"Event invitations\",\n            \"Research report alerts\",\n            \"Breaking news notifications\"\n        ]\n        \n        for benefit in benefits:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83d\udd17 Subscribe (FREE): https://www.darkreading.com/newsletter-signup\\n\")\n        \n        return newsletters\n    \n    def why_dark_reading(self):\n        \"\"\"Why Dark Reading matters (FREE!)\"\"\"\n        print(\"\ud83c\udf1f Why Dark Reading Matters (FREE!)\\n\")\n        \n        print(\"\ud83c\udfc6 Industry Leadership:\\n\")\n        leadership = [\n            \"20+ years of security journalism\",\n            \"Part of Informa Tech\",\n            \"Trusted by Fortune 500 CISOs\",\n            \"Original research publisher\",\n            \"Award-winning journalism\",\n            \"Global readership\",\n            \"Enterprise focus\",\n            \"Vendor-neutral reporting\"\n        ]\n        \n        for point in leadership:\n            print(f\"   \u2022 {point}\")\n        \n        print(\"\\n\ud83d\udcc8 Unique Value:\\n\")\n        value = [\n            \"Enterprise security focus\",\n            \"Original research reports\",\n            \"Expert analysis and commentary\",\n            \"Comprehensive topic coverage\",\n            \"Professional development resources\",\n            \"Community and networking\",\n            \"Free access to premium content\",\n            \"No paywall for news\"\n        ]\n        \n        for item in value:\n            print(f\"   \u2022 {item}\")\n        \n        print(\"\\n\ud83d\udd17 Access Points:\\n\")\n        print(f\"   \u2022 Website: {self.base_url}\")\n        print(f\"   \u2022 RSS Feed: {self.feed_url}\")\n        print(\"   \u2022 Mobile: Responsive design\")\n        print(\"   \u2022 Social: LinkedIn, Twitter, Facebook\")\n        print(\"   \u2022 Email: Free newsletters\")\n        \n        return leadership\n\n# Usage\nclient = DarkReadingClient()\nclient.get_latest_articles(5)\nclient.get_topic_coverage()\nclient.enterprise_resources()\nclient.expert_contributors()\nclient.newsletter_options()\nclient.why_dark_reading()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "securityweek",
+      "infosecurity-magazine",
+      "scmagazine"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free access",
+    "maintainer": "Dark Reading (Informa Tech)",
+    "related_resources": [
+      "Black Hat",
+      "RSA Conference",
+      "Information Week",
+      "Network Computing"
+    ]
+  },
+  "name": "Dark Reading",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to topic-specific RSS",
+      "Register for free newsletters",
+      "Attend virtual events",
+      "Download research reports",
+      "Follow expert columnists",
+      "Participate in community",
+      "Use advanced search",
+      "Archive important articles"
+    ],
+    "common_use_cases": [
+      "Enterprise security monitoring",
+      "Threat landscape analysis",
+      "Security strategy planning",
+      "Compliance tracking",
+      "Technology evaluation",
+      "Industry benchmarking",
+      "Professional development",
+      "Risk assessment"
+    ],
+    "recommended_update_frequency": "Check daily or subscribe to RSS feeds",
+    "value_proposition": "Premier enterprise security publication providing comprehensive coverage, original research, and expert analysis for security professionals"
+  },
+  "quality_metrics": {
+    "accessibility": "Free, optional registration",
+    "completeness": "Comprehensive enterprise coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Professional journalism",
+    "reliability": "excellent",
+    "update_speed": "Multiple times daily"
+  },
+  "quality_score": 95,
+  "subcategory": "darkreading",
+  "url": "https://www.darkreading.com/"
+}

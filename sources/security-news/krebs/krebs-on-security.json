@@ -1,0 +1,138 @@
+{
+  "api": {
+    "base_url": "https://krebsonsecurity.com",
+    "content_categories": [
+      "Data Breaches",
+      "Cybercrime",
+      "Security Tools",
+      "Web Fraud",
+      "Latest Warnings",
+      "Ne'er-Do-Well News",
+      "The Coming Storm",
+      "Time to Patch"
+    ],
+    "endpoints": [
+      {
+        "description": "Main RSS feed with full articles",
+        "method": "GET",
+        "name": "RSS Feed",
+        "path": "/feed/"
+      },
+      {
+        "description": "Recent comments feed",
+        "method": "GET",
+        "name": "Comments RSS",
+        "path": "/comments/feed/"
+      },
+      {
+        "description": "Browse all articles by date",
+        "method": "GET",
+        "name": "Archives",
+        "path": "/archives/"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! No registration required. Full access to all articles, archives, and RSS feeds.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 97,
+  "category": "security-news",
+  "coverage": 92,
+  "data_coverage": {
+    "content_types": [
+      "Breaking security news",
+      "In-depth investigations",
+      "Data breach analysis",
+      "Cybercrime reporting",
+      "Threat actor profiles",
+      "Security research",
+      "Industry analysis",
+      "Technical deep-dives"
+    ],
+    "special_features": [
+      "Original investigative reporting",
+      "Exclusive breach disclosures",
+      "Criminal underground insights",
+      "Expert analysis",
+      "Source-based journalism",
+      "Technical accuracy",
+      "Historical context",
+      "Follow-up reporting"
+    ],
+    "temporal": {
+      "historical_data": "2009-present",
+      "latency": "Breaking news coverage",
+      "update_frequency": "2-3 articles per week"
+    }
+  },
+  "description": "Krebs on Security - FREE in-depth security news and investigation by Brian Krebs. Leading independent security journalism covering cybercrime, breaches, and threats.",
+  "format": "other",
+  "id": "krebs-on-security",
+  "integration_examples": {
+    "bash": {
+      "krebs_feed": "#!/bin/bash\n# Krebs on Security RSS Feed - FREE!\n\necho \"\ud83d\udcf0 Krebs on Security (COMPLETELY FREE!)\"\necho \"======================================\"\necho \"\"\n\necho \"\ud83d\udd25 Latest Articles:\"\ncurl -s https://krebsonsecurity.com/feed/ | \\\n    grep -E '<title>|<link>|<pubDate>' | \\\n    head -15 | \\\n    sed 's/<[^>]*>//g' | \\\n    sed 's/^[[:space:]]*//'\n\necho \"\"\necho \"\ud83d\udcda Content Categories:\"\necho \"   \u2022 Data Breaches\"\necho \"   \u2022 Cybercrime\"\necho \"   \u2022 Latest Warnings\"\necho \"   \u2022 Time to Patch\"\necho \"   \u2022 Web Fraud\"\necho \"   \u2022 Security Tools\"\necho \"\"\n\necho \"\ud83d\udd17 Resources:\"\necho \"   \u2022 Website: https://krebsonsecurity.com/\"\necho \"   \u2022 RSS Feed: https://krebsonsecurity.com/feed/\"\necho \"   \u2022 Archives: https://krebsonsecurity.com/archives/\"\necho \"   \u2022 Twitter: @briankrebs\"\necho \"\"\n\necho \"\ud83c\udd93 All content FREE, no registration!\""
+    },
+    "curl": {
+      "get_feed": "# Get Krebs RSS feed - FREE!\ncurl -s https://krebsonsecurity.com/feed/ | grep -E '<title>' | head -5"
+    },
+    "python": {
+      "krebs_reader": "import feedparser\nimport requests\nfrom datetime import datetime\nfrom bs4 import BeautifulSoup\n\nclass KrebsOnSecurityReader:\n    \"\"\"Krebs on Security RSS Reader - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://krebsonsecurity.com'\n        self.feed_url = 'https://krebsonsecurity.com/feed/'\n        \n    def get_latest_articles(self, limit=10):\n        \"\"\"Get latest articles from RSS feed (FREE!)\"\"\"\n        print(\"\ud83d\udcf0 Krebs on Security - Latest Articles (FREE!)\\n\")\n        \n        try:\n            feed = feedparser.parse(self.feed_url)\n            \n            if feed.entries:\n                print(f\"\ud83d\udd25 Latest {min(limit, len(feed.entries))} Articles:\\n\")\n                \n                for entry in feed.entries[:limit]:\n                    print(f\"\ud83d\udccc {entry.title}\")\n                    print(f\"   \ud83d\udd17 {entry.link}\")\n                    print(f\"   \ud83d\udcc5 {entry.get('published', 'N/A')}\")\n                    \n                    # Extract summary\n                    if hasattr(entry, 'summary'):\n                        summary = BeautifulSoup(entry.summary, 'html.parser').text\n                        summary = summary[:200] + '...' if len(summary) > 200 else summary\n                        print(f\"   \ud83d\udcdd {summary}\")\n                    \n                    # Categories/Tags\n                    if hasattr(entry, 'tags'):\n                        tags = [tag.term for tag in entry.tags]\n                        print(f\"   \ud83c\udff7\ufe0f Tags: {', '.join(tags)}\")\n                    \n                    print()\n                \n                return feed.entries[:limit]\n            else:\n                print(\"No articles found in feed\")\n                return []\n                \n        except Exception as e:\n            print(f\"Error fetching feed: {e}\")\n            return []\n    \n    def search_archives(self, search_term):\n        \"\"\"Search article archives (FREE!)\"\"\"\n        print(f\"\ud83d\udd0d Searching Krebs Archives for: {search_term}\\n\")\n        \n        search_url = f\"{self.base_url}/?s={search_term}\"\n        \n        print(\"\ud83d\udcda Search Categories:\\n\")\n        categories = [\n            \"Data Breaches\",\n            \"Cybercrime\",\n            \"Security Tools\",\n            \"Web Fraud\",\n            \"Latest Warnings\",\n            \"Ne'er-Do-Well News\",\n            \"Time to Patch\",\n            \"The Coming Storm\"\n        ]\n        \n        for category in categories:\n            print(f\"   \u2022 {category}\")\n        \n        print(f\"\\n\ud83d\udd17 Search URL: {search_url}\")\n        print(\"\\n\ud83d\udca1 Notable Investigation Series:\")\n        \n        series = [\n            \"Microsoft Exchange Hacks\",\n            \"SolarWinds Breach\",\n            \"Ransomware Gangs\",\n            \"Business Email Compromise\",\n            \"ATM Skimmers\",\n            \"Credit Card Fraud\",\n            \"Identity Theft Services\",\n            \"Dark Web Markets\"\n        ]\n        \n        for topic in series:\n            print(f\"   \u2022 {topic}\")\n        \n        return search_url\n    \n    def get_trending_topics(self):\n        \"\"\"Get trending security topics (FREE!)\"\"\"\n        print(\"\ud83d\udd25 Trending Topics on Krebs on Security (FREE!)\\n\")\n        \n        trending = {\n            'Ransomware': [\n                'REvil/Sodinokibi',\n                'DarkSide',\n                'Conti',\n                'LockBit',\n                'BlackCat/ALPHV'\n            ],\n            'Data Breaches': [\n                'Healthcare breaches',\n                'Retail compromises',\n                'Government incidents',\n                'Education sector',\n                'Financial services'\n            ],\n            'Cybercrime': [\n                'Business Email Compromise',\n                'SIM Swapping',\n                'Cryptocurrency theft',\n                'Account takeovers',\n                'Phishing campaigns'\n            ],\n            'Threat Actors': [\n                'Nation-state groups',\n                'Ransomware operators',\n                'Initial access brokers',\n                'Bulletproof hosting',\n                'Criminal marketplaces'\n            ]\n        }\n        \n        for category, topics in trending.items():\n            print(f\"\ud83d\udcca {category}:\")\n            for topic in topics:\n                print(f\"   \u2022 {topic}\")\n            print()\n        \n        return trending\n    \n    def exclusive_investigations(self):\n        \"\"\"Highlight exclusive Krebs investigations (FREE!)\"\"\"\n        print(\"\ud83d\udd0d Exclusive Krebs Investigations (FREE!)\\n\")\n        \n        investigations = [\n            {\n                'title': 'Who is Anna Senpai?',\n                'topic': 'Mirai Botnet Creator',\n                'impact': 'Revealed identity of major botnet author'\n            },\n            {\n                'title': 'The Great SIM Heist',\n                'topic': 'SIM Swapping Rings',\n                'impact': 'Exposed mobile carrier vulnerabilities'\n            },\n            {\n                'title': 'Target Breach Investigation',\n                'topic': 'Retail Data Breach',\n                'impact': 'First to report Target breach details'\n            },\n            {\n                'title': 'ATM Skimmer Series',\n                'topic': 'Financial Fraud',\n                'impact': 'Comprehensive skimmer technology analysis'\n            },\n            {\n                'title': 'Ransomware Economy',\n                'topic': 'Cybercrime Economics',\n                'impact': 'Deep dive into ransomware business model'\n            }\n        ]\n        \n        print(\"\ud83c\udfc6 Notable Investigations:\\n\")\n        for investigation in investigations:\n            print(f\"   \ud83d\udcc1 {investigation['title']}\")\n            print(f\"      Topic: {investigation['topic']}\")\n            print(f\"      Impact: {investigation['impact']}\")\n            print()\n        \n        print(\"\ud83d\udcd6 Why Krebs Matters:\\n\")\n        importance = [\n            \"Independent investigative journalism\",\n            \"Direct sources in criminal underground\",\n            \"Technical accuracy and depth\",\n            \"Breaking news on major breaches\",\n            \"Follow-through on stories\",\n            \"No paywall or registration\",\n            \"Trusted by security professionals\",\n            \"15+ years of archives\"\n        ]\n        \n        for point in importance:\n            print(f\"   \u2705 {point}\")\n        \n        return investigations\n    \n    def resources_and_tools(self):\n        \"\"\"Krebs resources and tools (FREE!)\"\"\"\n        print(\"\ud83d\udee0\ufe0f Krebs on Security Resources (ALL FREE!)\\n\")\n        \n        print(\"\ud83d\udcda Content Categories:\\n\")\n        categories = {\n            'Data Breaches': 'Major breach investigations',\n            'Cybercrime': 'Criminal operations analysis',\n            'Latest Warnings': 'Current threat alerts',\n            'Time to Patch': 'Critical vulnerability updates',\n            'Web Fraud': 'Online scam analysis',\n            'Security Tools': 'Tool reviews and guides',\n            \"Ne'er-Do-Well News\": 'Cybercriminal arrests/takedowns',\n            'The Coming Storm': 'Emerging threats'\n        }\n        \n        for category, description in categories.items():\n            print(f\"   \ud83d\udcc2 {category}\")\n            print(f\"      {description}\")\n        \n        print(\"\\n\ud83d\udd27 How to Use Krebs:\\n\")\n        usage = [\n            \"Subscribe to RSS for instant updates\",\n            \"Search archives for specific topics\",\n            \"Read comments for additional insights\",\n            \"Follow source links for verification\",\n            \"Check 'Further Reading' sections\",\n            \"Browse by category tags\",\n            \"Use for threat intelligence\",\n            \"Reference in security reports\"\n        ]\n        \n        for tip in usage:\n            print(f\"   \u2022 {tip}\")\n        \n        print(\"\\n\ud83d\udce1 RSS Feeds:\\n\")\n        print(f\"   \u2022 Main Feed: {self.feed_url}\")\n        print(f\"   \u2022 Comments: {self.base_url}/comments/feed/\")\n        \n        print(\"\\n\ud83c\udf10 Connect:\\n\")\n        print(f\"   \u2022 Website: {self.base_url}\")\n        print(\"   \u2022 Twitter: @briankrebs\")\n        print(\"   \u2022 About: https://krebsonsecurity.com/about/\")\n        \n        return categories\n\n# Usage\nreader = KrebsOnSecurityReader()\nreader.get_latest_articles(5)\nreader.get_trending_topics()\nreader.exclusive_investigations()\nreader.resources_and_tools()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "thehackernews",
+      "darkreading",
+      "bleepingcomputer"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free access",
+    "maintainer": "Brian Krebs",
+    "related_resources": [
+      "Security Week",
+      "Threatpost",
+      "Graham Cluley",
+      "Troy Hunt"
+    ]
+  },
+  "name": "Krebs on Security",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to RSS feed",
+      "Read full articles for context",
+      "Check comments for updates",
+      "Follow linked sources",
+      "Use search for specific topics",
+      "Browse archives for history",
+      "Share important articles",
+      "Support independent journalism"
+    ],
+    "common_use_cases": [
+      "Security news monitoring",
+      "Threat intelligence gathering",
+      "Breach impact analysis",
+      "Cybercrime tracking",
+      "Industry trend analysis",
+      "Security awareness",
+      "Research reference",
+      "Incident context"
+    ],
+    "recommended_update_frequency": "Check daily or subscribe to RSS",
+    "value_proposition": "Premier independent security journalism providing exclusive investigations and expert analysis of cybercrime and data breaches"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free, no registration",
+    "completeness": "In-depth coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Investigative journalism standard",
+    "reliability": "excellent",
+    "update_speed": "2-3 times per week"
+  },
+  "quality_score": 96,
+  "subcategory": "krebs",
+  "url": "https://krebsonsecurity.com/"
+}

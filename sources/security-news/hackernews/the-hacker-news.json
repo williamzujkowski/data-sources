@@ -1,0 +1,138 @@
+{
+  "api": {
+    "base_url": "https://thehackernews.com",
+    "content_sections": [
+      "Data Breach",
+      "Cyber Attack",
+      "Vulnerability",
+      "Malware",
+      "Security",
+      "Privacy",
+      "Hacking News",
+      "Technology"
+    ],
+    "endpoints": [
+      {
+        "description": "Main RSS feed with latest articles",
+        "method": "GET",
+        "name": "Main RSS Feed",
+        "path": "/feeds/posts/default"
+      },
+      {
+        "description": "Category-specific RSS feeds",
+        "method": "GET",
+        "name": "Category RSS",
+        "path": "/feeds/posts/default/-/{category}"
+      },
+      {
+        "description": "Search articles",
+        "method": "GET",
+        "name": "Search",
+        "path": "/search"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! No registration required. Full access to all articles, newsletters, and RSS feeds.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 95,
+  "category": "security-news",
+  "coverage": 95,
+  "data_coverage": {
+    "content_types": [
+      "Breaking security news",
+      "Vulnerability disclosures",
+      "Data breach reports",
+      "Malware analysis",
+      "Cyber attack coverage",
+      "Security research",
+      "Industry updates",
+      "Product security news"
+    ],
+    "temporal": {
+      "historical_data": "2010-present",
+      "latency": "Near real-time",
+      "update_frequency": "10-15 articles daily"
+    },
+    "update_features": [
+      "Multiple daily updates",
+      "Real-time threat coverage",
+      "Exclusive interviews",
+      "Expert analysis",
+      "Technical breakdowns",
+      "Mitigation advice",
+      "Industry impact analysis",
+      "Global coverage"
+    ]
+  },
+  "description": "The Hacker News - FREE cybersecurity news platform covering latest hacking news, cyber attacks, vulnerabilities, data breaches, and security research.",
+  "format": "other",
+  "id": "the-hacker-news",
+  "integration_examples": {
+    "bash": {
+      "thn_monitor": "#!/bin/bash\n# The Hacker News Monitor - FREE!\n\necho \"\ud83d\udcf0 The Hacker News (COMPLETELY FREE!)\"\necho \"=====================================\"\necho \"\"\n\necho \"\ud83d\udd25 Latest Security News:\"\ncurl -s https://thehackernews.com/feeds/posts/default | \\\n    grep -E '<title>|<link>' | \\\n    head -20 | \\\n    sed 's/<[^>]*>//g' | \\\n    sed 's/^[[:space:]]*//'\n\necho \"\"\necho \"\ud83d\udcc2 News Categories:\"\necho \"   \u2022 Vulnerability\"\necho \"   \u2022 Data Breach\"\necho \"   \u2022 Malware\"\necho \"   \u2022 Cyber Attack\"\necho \"   \u2022 Privacy\"\necho \"   \u2022 Security\"\necho \"\"\n\necho \"\ud83d\udcca Daily Coverage:\"\necho \"   \u2022 10-15 articles/day\"\necho \"   \u2022 Real-time updates\"\necho \"   \u2022 Global coverage\"\necho \"   \u2022 Expert analysis\"\necho \"\"\n\necho \"\ud83d\udd17 Resources:\"\necho \"   \u2022 Website: https://thehackernews.com/\"\necho \"   \u2022 RSS: https://thehackernews.com/feeds/posts/default\"\necho \"   \u2022 Newsletter: Free subscription\"\necho \"   \u2022 Mobile: iOS/Android apps\"\necho \"\"\n\necho \"\ud83c\udd93 All FREE, no registration!\""
+    },
+    "curl": {
+      "get_latest": "# Get latest news - FREE!\ncurl -s https://thehackernews.com/feeds/posts/default | grep '<title>' | head -10 | sed 's/<[^>]*>//g'"
+    },
+    "python": {
+      "thn_reader": "import feedparser\nimport requests\nfrom datetime import datetime, timedelta\nfrom bs4 import BeautifulSoup\n\nclass TheHackerNewsReader:\n    \"\"\"The Hacker News Reader - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://thehackernews.com'\n        self.feed_url = 'https://thehackernews.com/feeds/posts/default'\n        \n    def get_latest_news(self, limit=15):\n        \"\"\"Get latest security news (FREE!)\"\"\"\n        print(\"\ud83d\udcf0 The Hacker News - Latest Security News (FREE!)\\n\")\n        \n        try:\n            feed = feedparser.parse(self.feed_url)\n            \n            if feed.entries:\n                print(f\"\ud83d\udd25 Latest {min(limit, len(feed.entries))} Articles:\\n\")\n                \n                for entry in feed.entries[:limit]:\n                    # Determine article type\n                    title = entry.title.lower()\n                    if 'breach' in title or 'leaked' in title:\n                        emoji = '\ud83d\udea8'\n                    elif 'vulnerability' in title or 'cve' in title:\n                        emoji = '\u26a0\ufe0f'\n                    elif 'ransomware' in title or 'malware' in title:\n                        emoji = '\ud83e\udda0'\n                    elif 'patch' in title or 'update' in title:\n                        emoji = '\ud83d\udd27'\n                    else:\n                        emoji = '\ud83d\udccc'\n                    \n                    print(f\"{emoji} {entry.title}\")\n                    print(f\"   \ud83d\udd17 {entry.link}\")\n                    print(f\"   \ud83d\udcc5 {entry.get('published', 'N/A')}\")\n                    \n                    # Categories\n                    if hasattr(entry, 'tags'):\n                        categories = [tag.term for tag in entry.tags]\n                        print(f\"   \ud83c\udff7\ufe0f Categories: {', '.join(categories[:3])}\")\n                    \n                    # Summary\n                    if hasattr(entry, 'summary'):\n                        summary = BeautifulSoup(entry.summary, 'html.parser').text\n                        summary = summary[:150] + '...' if len(summary) > 150 else summary\n                        print(f\"   \ud83d\udcdd {summary}\")\n                    \n                    print()\n                \n                return feed.entries[:limit]\n            else:\n                print(\"No articles found\")\n                return []\n                \n        except Exception as e:\n            print(f\"Error fetching feed: {e}\")\n            return []\n    \n    def get_news_by_category(self, category='vulnerability'):\n        \"\"\"Get news by category (FREE!)\"\"\"\n        print(f\"\ud83d\udcc2 The Hacker News - {category.title()} News (FREE!)\\n\")\n        \n        categories = {\n            'vulnerability': 'Security vulnerabilities and CVEs',\n            'data-breach': 'Data breach incidents',\n            'malware': 'Malware and ransomware',\n            'cyber-attack': 'Cyber attacks and incidents',\n            'privacy': 'Privacy and surveillance',\n            'security': 'General security news',\n            'hacking': 'Hacking and exploits'\n        }\n        \n        if category in categories:\n            print(f\"\ud83d\udcca Category: {category.title()}\")\n            print(f\"   Description: {categories[category]}\")\n            \n            category_url = f\"{self.feed_url}/-/{category}\"\n            print(f\"   \ud83d\udd17 RSS Feed: {category_url}\\n\")\n            \n            # Get category feed\n            try:\n                feed = feedparser.parse(category_url)\n                if feed.entries:\n                    print(f\"Latest {category.title()} Articles:\\n\")\n                    for entry in feed.entries[:5]:\n                        print(f\"   \u2022 {entry.title}\")\n                        print(f\"     {entry.link}\")\n                        print()\n            except:\n                pass\n        \n        print(\"\ud83d\udcda Available Categories:\\n\")\n        for cat, desc in categories.items():\n            print(f\"   \u2022 {cat}: {desc}\")\n        \n        return categories\n    \n    def trending_threats(self):\n        \"\"\"Get trending security threats (FREE!)\"\"\"\n        print(\"\ud83d\udd25 Trending Security Threats (FREE!)\\n\")\n        \n        threats = {\n            'Critical Vulnerabilities': [\n                'Zero-day exploits',\n                'RCE vulnerabilities',\n                'Authentication bypass',\n                'Privilege escalation',\n                'Supply chain attacks'\n            ],\n            'Active Campaigns': [\n                'Ransomware attacks',\n                'APT campaigns',\n                'Phishing waves',\n                'Cryptojacking',\n                'DDoS attacks'\n            ],\n            'Emerging Threats': [\n                'AI-powered attacks',\n                'IoT vulnerabilities',\n                'Cloud security issues',\n                '5G security concerns',\n                'Quantum computing threats'\n            ],\n            'Data Breaches': [\n                'Healthcare breaches',\n                'Financial sector',\n                'Government leaks',\n                'Tech companies',\n                'Retail breaches'\n            ]\n        }\n        \n        for category, items in threats.items():\n            print(f\"\ud83c\udfaf {category}:\")\n            for item in items:\n                print(f\"   \u2022 {item}\")\n            print()\n        \n        return threats\n    \n    def security_resources(self):\n        \"\"\"THN security resources (FREE!)\"\"\"\n        print(\"\ud83d\udee0\ufe0f The Hacker News Resources (ALL FREE!)\\n\")\n        \n        print(\"\ud83d\udce7 Free Newsletters:\\n\")\n        newsletters = [\n            \"Daily Security News Digest\",\n            \"Weekly Threat Roundup\",\n            \"Monthly Security Report\",\n            \"Breaking News Alerts\",\n            \"Vulnerability Notifications\"\n        ]\n        \n        for newsletter in newsletters:\n            print(f\"   \u2022 {newsletter}\")\n        \n        print(\"\\n\ud83d\udcf1 Mobile Apps:\\n\")\n        print(\"   \u2022 Android App: Available on Google Play\")\n        print(\"   \u2022 iOS App: Available on App Store\")\n        print(\"   \u2022 Both apps are FREE\")\n        \n        print(\"\\n\ud83d\udd14 Alert Channels:\\n\")\n        channels = [\n            \"RSS Feeds (category-specific)\",\n            \"Email newsletters\",\n            \"Push notifications\",\n            \"Twitter: @TheHackersNews\",\n            \"Facebook updates\",\n            \"LinkedIn posts\",\n            \"Telegram channel\"\n        ]\n        \n        for channel in channels:\n            print(f\"   \u2022 {channel}\")\n        \n        print(\"\\n\ud83d\udcca Content Types:\\n\")\n        content = [\n            \"Breaking news (< 1 hour)\",\n            \"In-depth analysis\",\n            \"Technical breakdowns\",\n            \"Expert interviews\",\n            \"Industry reports\",\n            \"Security guides\",\n            \"Tool reviews\",\n            \"Webinar announcements\"\n        ]\n        \n        for type_content in content:\n            print(f\"   \u2022 {type_content}\")\n        \n        return newsletters\n    \n    def daily_digest(self):\n        \"\"\"Get daily security digest (FREE!)\"\"\"\n        print(\"\ud83d\udcc5 Daily Security Digest (FREE!)\\n\")\n        \n        print(\"\ud83c\udf05 Typical Daily Coverage:\\n\")\n        \n        schedule = {\n            'Morning (6-9 AM)': [\n                'Overnight breach disclosures',\n                'International security news',\n                'Patch Tuesday updates',\n                'Threat intelligence reports'\n            ],\n            'Midday (10 AM-2 PM)': [\n                'Vulnerability announcements',\n                'Security research findings',\n                'Industry news',\n                'Product updates'\n            ],\n            'Afternoon (2-6 PM)': [\n                'Breaking news coverage',\n                'Incident response updates',\n                'Expert analysis',\n                'Security tool releases'\n            ],\n            'Evening (6-10 PM)': [\n                'Daily roundup',\n                'Tomorrow\\'s threats',\n                'Weekly previews',\n                'Weekend reads'\n            ]\n        }\n        \n        for time_period, content in schedule.items():\n            print(f\"\u23f0 {time_period}:\")\n            for item in content:\n                print(f\"   \u2022 {item}\")\n            print()\n        \n        print(\"\ud83d\udcc8 Daily Statistics:\\n\")\n        stats = [\n            \"10-15 new articles\",\n            \"5-8 vulnerability reports\",\n            \"3-5 breach notifications\",\n            \"2-3 malware analyses\",\n            \"1-2 exclusive stories\",\n            \"Multiple updates on developing stories\"\n        ]\n        \n        for stat in stats:\n            print(f\"   \u2022 {stat}\")\n        \n        return schedule\n    \n    def why_thn_matters(self):\n        \"\"\"Why The Hacker News matters (FREE!)\"\"\"\n        print(\"\ud83c\udf1f Why The Hacker News Matters (FREE!)\\n\")\n        \n        print(\"\u2705 Key Strengths:\\n\")\n        strengths = [\n            \"15+ years of security journalism\",\n            \"24/7 global coverage\",\n            \"No paywall or registration\",\n            \"Multiple daily updates\",\n            \"Verified sources only\",\n            \"Technical accuracy\",\n            \"Mobile-friendly platform\",\n            \"Multi-language support\"\n        ]\n        \n        for strength in strengths:\n            print(f\"   \u2022 {strength}\")\n        \n        print(\"\\n\ud83c\udfaf Coverage Areas:\\n\")\n        coverage = [\n            \"Zero-day vulnerabilities\",\n            \"Nation-state attacks\",\n            \"Ransomware campaigns\",\n            \"Data breach notifications\",\n            \"Security tool releases\",\n            \"Compliance updates\",\n            \"Industry movements\",\n            \"Cybercrime arrests\"\n        ]\n        \n        for area in coverage:\n            print(f\"   \u2022 {area}\")\n        \n        print(\"\\n\ud83c\udfc6 Recognition:\\n\")\n        recognition = [\n            \"Trusted by millions of readers\",\n            \"Cited by security researchers\",\n            \"Referenced in academic papers\",\n            \"Used by SOC teams globally\",\n            \"Recommended by CISOs\",\n            \"Industry award winner\"\n        ]\n        \n        for item in recognition:\n            print(f\"   \u2022 {item}\")\n        \n        print(\"\\n\ud83d\udd17 Connect:\\n\")\n        print(f\"   \u2022 Website: {self.base_url}\")\n        print(f\"   \u2022 RSS: {self.feed_url}\")\n        print(\"   \u2022 Twitter: @TheHackersNews\")\n        print(\"   \u2022 Newsletter: Free subscription\")\n        \n        return strengths\n\n# Usage\nreader = TheHackerNewsReader()\nreader.get_latest_news(5)\nreader.trending_threats()\nreader.security_resources()\nreader.daily_digest()\nreader.why_thn_matters()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "krebsonsecurity",
+      "darkreading",
+      "bleepingcomputer"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free access",
+    "maintainer": "The Hacker News",
+    "related_resources": [
+      "SecurityWeek",
+      "CyberScoop",
+      "ThreatPost",
+      "InfoSecurity Magazine"
+    ]
+  },
+  "name": "The Hacker News",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to daily newsletter",
+      "Follow RSS feeds",
+      "Use category filters",
+      "Check multiple times daily",
+      "Read full articles",
+      "Verify with sources",
+      "Share critical updates",
+      "Archive important news"
+    ],
+    "common_use_cases": [
+      "Daily security news monitoring",
+      "Vulnerability tracking",
+      "Breach notification",
+      "Threat intelligence",
+      "Security awareness",
+      "Industry trends",
+      "Compliance updates",
+      "Risk assessment"
+    ],
+    "recommended_update_frequency": "Check multiple times daily or use RSS",
+    "value_proposition": "Leading cybersecurity news source providing comprehensive, timely coverage of security threats, vulnerabilities, and industry developments"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Comprehensive coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Verified news reporting",
+    "reliability": "excellent",
+    "update_speed": "Real-time to hourly"
+  },
+  "quality_score": 94,
+  "subcategory": "hackernews",
+  "url": "https://thehackernews.com/"
+}
