@@ -221,7 +221,8 @@
     "type": "api_key"
   },
   "category": "research",
-  "coverage": {
+  "coverage": 95,
+  "data_coverage": {
     "data_types": [
       "research_papers",
       "citations",

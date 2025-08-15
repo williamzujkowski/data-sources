@@ -104,7 +104,8 @@
     "type": "none"
   },
   "category": "threat-intelligence",
-  "coverage": {
+  "coverage": 95,
+  "data_coverage": {
     "ioc_types": [
       "Domains",
       "URLs",

@@ -177,7 +177,8 @@
     "type": "none"
   },
   "category": "research",
-  "coverage": {
+  "coverage": 95,
+  "data_coverage": {
     "data_types": [
       "research_papers",
       "code_implementations",

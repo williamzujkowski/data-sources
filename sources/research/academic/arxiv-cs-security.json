@@ -73,7 +73,8 @@
     "type": "none"
   },
   "category": "research",
-  "coverage": {
+  "coverage": 95,
+  "data_coverage": {
     "categories": {
       "cs.CR": "Cryptography and Security",
       "cs.CY": "Computers and Society",
