@@ -88,7 +88,7 @@
   },
   "description": "NIST's Computer Security Resource Center providing FREE access to cybersecurity standards, frameworks, Special Publications (SP 800 series), and guidance. No authentication required.",
   "documentation": "https://csrc.nist.gov/publications",
-  "format": "json/xml/pdf",
+  "format": "json",
   "id": "nist-csrc",
   "integration_examples": {
     "curl": {

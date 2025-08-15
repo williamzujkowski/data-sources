@@ -148,7 +148,7 @@
   },
   "description": "International Association for Cryptologic Research ePrint Archive - FREE repository of cryptographic research papers, preprints, and technical reports. No authentication required for full access.",
   "documentation": "https://eprint.iacr.org/eprint-bin/search.pl",
-  "format": "rss/xml/pdf",
+  "format": "xml",
   "id": "iacr-cryptology-eprint",
   "integration_examples": {
     "curl": {

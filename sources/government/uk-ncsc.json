@@ -105,7 +105,7 @@
   },
   "description": "UK's National Cyber Security Centre providing FREE security guidance, threat reports, advisories, and incident information. No authentication required for public resources.",
   "documentation": "https://www.ncsc.gov.uk/section/keep-up-to-date/rss-feeds",
-  "format": "rss/html/pdf",
+  "format": "rss",
   "id": "uk-ncsc",
   "integration_examples": {
     "curl": {
