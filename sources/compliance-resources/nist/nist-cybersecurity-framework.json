@@ -1,0 +1,158 @@
+{
+  "api": {
+    "base_url": "https://www.nist.gov",
+    "downloadable_content": [
+      {
+        "format": "PDF",
+        "name": "CSF 2.0 Framework",
+        "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf"
+      },
+      {
+        "format": "Excel",
+        "name": "CSF Reference Tool",
+        "url": "https://www.nist.gov/cyberframework/csf-reference-tool"
+      },
+      {
+        "format": "PDF",
+        "name": "Implementation Guidance",
+        "url": "https://www.nist.gov/cyberframework/implementation-guidance"
+      }
+    ],
+    "resources": [
+      {
+        "description": "Core functions, categories, and subcategories",
+        "name": "Framework Core",
+        "url": "https://www.nist.gov/cyberframework/framework"
+      },
+      {
+        "description": "Alignment of standards and practices",
+        "name": "Framework Profiles",
+        "url": "https://www.nist.gov/cyberframework/profiles"
+      },
+      {
+        "description": "Maturity levels for cybersecurity risk management",
+        "name": "Implementation Tiers",
+        "url": "https://www.nist.gov/cyberframework/implementation-tiers"
+      },
+      {
+        "description": "Latest version 2.0 of the framework",
+        "name": "CSF 2.0 Resources",
+        "url": "https://www.nist.gov/cyberframework/csf-20"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All NIST resources publicly available without registration.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "compliance-resources",
+  "coverage": 95,
+  "data_coverage": {
+    "content_types": [
+      "Framework Core Functions",
+      "Categories and Subcategories",
+      "Implementation Tiers",
+      "Framework Profiles",
+      "Informative References",
+      "Implementation Guides",
+      "Success Stories",
+      "Assessment Tools"
+    ],
+    "core_functions": [
+      "Identify (ID)",
+      "Protect (PR)",
+      "Detect (DE)",
+      "Respond (RS)",
+      "Recover (RC)",
+      "Govern (GV) - New in 2.0"
+    ],
+    "framework_components": [
+      "Asset Management",
+      "Business Environment",
+      "Governance",
+      "Risk Assessment",
+      "Risk Management Strategy",
+      "Supply Chain Risk Management",
+      "Identity Management",
+      "Access Control",
+      "Data Security",
+      "Continuous Monitoring",
+      "Incident Response",
+      "Recovery Planning"
+    ],
+    "temporal": {
+      "historical_data": "Version 1.0 (2014), 1.1 (2018), 2.0 (2024)",
+      "latency": "Stable framework with periodic updates",
+      "update_frequency": "Major revisions every 3-5 years"
+    }
+  },
+  "description": "NIST Cybersecurity Framework (CSF) - FREE comprehensive framework for improving critical infrastructure cybersecurity. Includes implementation guides, tools, and resources.",
+  "format": "other",
+  "id": "nist-cybersecurity-framework",
+  "integration_examples": {
+    "bash": {
+      "csf_quickstart": "#!/bin/bash\n# NIST CSF Quick Reference - FREE!\n\necho \"\ud83d\udee1\ufe0f NIST Cybersecurity Framework (FREE!)\"\necho \"=======================================\"\necho \"\"\n\necho \"\ud83d\udcca CSF 2.0 Core Functions:\"\necho \"   1. GOVERN (GV) - NEW!\"\necho \"   2. IDENTIFY (ID)\"\necho \"   3. PROTECT (PR)\"\necho \"   4. DETECT (DE)\"\necho \"   5. RESPOND (RS)\"\necho \"   6. RECOVER (RC)\"\necho \"\"\n\necho \"\ud83d\udcc8 Implementation Tiers:\"\necho \"   Tier 1: Partial\"\necho \"   Tier 2: Risk Informed\"\necho \"   Tier 3: Repeatable\"\necho \"   Tier 4: Adaptive\"\necho \"\"\n\necho \"\ud83d\udce5 Download Resources:\"\necho \"   Framework: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf\"\necho \"   Reference Tool: https://www.nist.gov/cyberframework/csf-reference-tool\"\necho \"   Quick Start: https://www.nist.gov/cyberframework/getting-started\"\necho \"\"\n\necho \"\ud83c\udd93 All NIST resources are FREE!\""
+    },
+    "curl": {
+      "download_framework": "# Download NIST CSF 2.0 - FREE!\ncurl -O https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf"
+    },
+    "python": {
+      "csf_assessor": "import json\nfrom datetime import datetime\nfrom typing import Dict, List\n\nclass NISTCSFAssessor:\n    \"\"\"NIST Cybersecurity Framework Assessor - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        # CSF 2.0 Core Functions\n        self.core_functions = {\n            'GOVERN': {\n                'name': 'Govern',\n                'description': 'Establish and monitor cybersecurity risk management strategy',\n                'categories': [\n                    'GV.OC: Organizational Context',\n                    'GV.RM: Risk Management Strategy',\n                    'GV.SC: Supply Chain Risk Management',\n                    'GV.PO: Policies and Procedures',\n                    'GV.OV: Oversight'\n                ]\n            },\n            'IDENTIFY': {\n                'name': 'Identify',\n                'description': 'Develop understanding to manage cybersecurity risk',\n                'categories': [\n                    'ID.AM: Asset Management',\n                    'ID.BE: Business Environment',\n                    'ID.RA: Risk Assessment',\n                    'ID.RM: Risk Management Strategy',\n                    'ID.SC: Supply Chain Risk Management'\n                ]\n            },\n            'PROTECT': {\n                'name': 'Protect',\n                'description': 'Develop and implement safeguards',\n                'categories': [\n                    'PR.AC: Identity Management and Access Control',\n                    'PR.AT: Awareness and Training',\n                    'PR.DS: Data Security',\n                    'PR.IP: Information Protection Processes',\n                    'PR.MA: Maintenance',\n                    'PR.PT: Protective Technology'\n                ]\n            },\n            'DETECT': {\n                'name': 'Detect',\n                'description': 'Develop and implement activities to identify cybersecurity events',\n                'categories': [\n                    'DE.AE: Anomalies and Events',\n                    'DE.CM: Security Continuous Monitoring',\n                    'DE.DP: Detection Processes'\n                ]\n            },\n            'RESPOND': {\n                'name': 'Respond',\n                'description': 'Develop and implement activities for detected events',\n                'categories': [\n                    'RS.RP: Response Planning',\n                    'RS.CO: Communications',\n                    'RS.AN: Analysis',\n                    'RS.MI: Mitigation',\n                    'RS.IM: Improvements'\n                ]\n            },\n            'RECOVER': {\n                'name': 'Recover',\n                'description': 'Develop and implement activities for resilience',\n                'categories': [\n                    'RC.RP: Recovery Planning',\n                    'RC.IM: Improvements',\n                    'RC.CO: Communications'\n                ]\n            }\n        }\n        \n        # Implementation Tiers\n        self.implementation_tiers = {\n            1: 'Partial - Ad hoc and reactive',\n            2: 'Risk Informed - Risk-aware but not organization-wide',\n            3: 'Repeatable - Formal policy exists',\n            4: 'Adaptive - Continuous improvement'\n        }\n    \n    def display_framework_overview(self):\n        \"\"\"Display NIST CSF overview (FREE!)\"\"\"\n        print(\"\ud83d\udee1\ufe0f NIST Cybersecurity Framework 2.0 (FREE!)\\n\")\n        \n        print(\"\ud83d\udcca Core Functions:\\n\")\n        for func_id, func_data in self.core_functions.items():\n            print(f\"   {func_id}: {func_data['name']}\")\n            print(f\"      {func_data['description']}\")\n            print(f\"      Categories: {len(func_data['categories'])}\")\n            print()\n        \n        print(\"\ud83d\udcc8 Implementation Tiers:\\n\")\n        for tier, description in self.implementation_tiers.items():\n            print(f\"   Tier {tier}: {description}\")\n        \n        return self.core_functions\n    \n    def assess_maturity(self, assessments: Dict[str, int]):\n        \"\"\"Assess cybersecurity maturity (FREE!)\"\"\"\n        print(\"\ud83d\udccb Cybersecurity Maturity Assessment (FREE!)\\n\")\n        \n        total_score = 0\n        function_scores = {}\n        \n        for function, score in assessments.items():\n            if function in self.core_functions:\n                function_scores[function] = score\n                total_score += score\n                \n                print(f\"   {function}: {self.core_functions[function]['name']}\")\n                print(f\"      Current Tier: {score}\")\n                print(f\"      Status: {self.implementation_tiers.get(score, 'Unknown')}\")\n                print()\n        \n        avg_score = total_score / len(function_scores) if function_scores else 0\n        \n        print(f\"\\n\ud83d\udcca Overall Maturity: {avg_score:.1f}\")\n        \n        if avg_score < 2:\n            print(\"   \u26a0\ufe0f Status: Needs Immediate Attention\")\n            print(\"   Recommendation: Develop formal risk management processes\")\n        elif avg_score < 3:\n            print(\"   \ud83d\udfe1 Status: Progressing\")\n            print(\"   Recommendation: Standardize practices organization-wide\")\n        elif avg_score < 4:\n            print(\"   \ud83d\udfe2 Status: Mature\")\n            print(\"   Recommendation: Focus on continuous improvement\")\n        else:\n            print(\"   \u2705 Status: Optimized\")\n            print(\"   Recommendation: Maintain and share best practices\")\n        \n        return function_scores\n    \n    def generate_implementation_plan(self, target_tier=3):\n        \"\"\"Generate implementation plan (FREE!)\"\"\"\n        print(f\"\ud83d\udcdd NIST CSF Implementation Plan (Target Tier: {target_tier})\\n\")\n        \n        phases = [\n            {\n                'phase': 'Phase 1: Establish Governance (0-3 months)',\n                'activities': [\n                    'Form cybersecurity team',\n                    'Define roles and responsibilities',\n                    'Establish risk management strategy',\n                    'Create cybersecurity policy',\n                    'Identify critical assets'\n                ]\n            },\n            {\n                'phase': 'Phase 2: Implement Core Controls (3-6 months)',\n                'activities': [\n                    'Deploy identity and access management',\n                    'Implement data protection controls',\n                    'Establish security monitoring',\n                    'Create incident response procedures',\n                    'Develop recovery plans'\n                ]\n            },\n            {\n                'phase': 'Phase 3: Enhance Detection (6-9 months)',\n                'activities': [\n                    'Deploy continuous monitoring',\n                    'Implement anomaly detection',\n                    'Establish threat intelligence',\n                    'Create detection processes',\n                    'Implement security analytics'\n                ]\n            },\n            {\n                'phase': 'Phase 4: Mature Response (9-12 months)',\n                'activities': [\n                    'Enhance incident response',\n                    'Establish communications protocols',\n                    'Implement forensics capabilities',\n                    'Create improvement processes',\n                    'Conduct regular exercises'\n                ]\n            }\n        ]\n        \n        for phase_data in phases:\n            print(f\"\ud83d\udcc5 {phase_data['phase']}\")\n            for activity in phase_data['activities']:\n                print(f\"   \u25a1 {activity}\")\n            print()\n        \n        return phases\n    \n    def map_to_standards(self):\n        \"\"\"Map CSF to other standards (FREE!)\"\"\"\n        print(\"\ud83d\udd17 NIST CSF Mapping to Standards (FREE!)\\n\")\n        \n        mappings = {\n            'ISO 27001/27002': [\n                'Comprehensive mapping available',\n                'Covers all CSF categories',\n                'Helps with dual compliance'\n            ],\n            'CIS Controls': [\n                'Direct mapping to CIS Controls v8',\n                'Prioritized implementation guidance',\n                'Technical control alignment'\n            ],\n            'COBIT': [\n                'Governance framework alignment',\n                'Process maturity mapping',\n                'IT management integration'\n            ],\n            'NIST 800-53': [\n                'Detailed control mapping',\n                'Federal compliance support',\n                'Security control catalog'\n            ],\n            'PCI DSS': [\n                'Payment card security alignment',\n                'Compliance requirement mapping',\n                'Gap analysis support'\n            ]\n        }\n        \n        for standard, benefits in mappings.items():\n            print(f\"\ud83d\udcda {standard}:\")\n            for benefit in benefits:\n                print(f\"   \u2022 {benefit}\")\n            print()\n        \n        return mappings\n    \n    def get_resources(self):\n        \"\"\"Get free NIST resources (FREE!)\"\"\"\n        print(\"\ud83d\udcda Free NIST CSF Resources (ALL FREE!)\\n\")\n        \n        resources = {\n            'Core Documents': [\n                ('Framework Core', 'https://www.nist.gov/cyberframework/framework'),\n                ('CSF 2.0 PDF', 'https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf'),\n                ('Quick Start Guide', 'https://www.nist.gov/cyberframework/getting-started'),\n                ('Reference Tool', 'https://www.nist.gov/cyberframework/csf-reference-tool')\n            ],\n            'Implementation': [\n                ('Small Business Guide', 'https://www.nist.gov/cyberframework/small-business'),\n                ('Success Stories', 'https://www.nist.gov/cyberframework/success-stories'),\n                ('Industry Resources', 'https://www.nist.gov/cyberframework/industry-resources'),\n                ('International Resources', 'https://www.nist.gov/cyberframework/international-resources')\n            ],\n            'Assessment Tools': [\n                ('Self-Assessment', 'Available from NIST'),\n                ('Maturity Models', 'Multiple free options'),\n                ('Gap Analysis Templates', 'Downloadable'),\n                ('Crosswalk Tools', 'Standards mapping')\n            ],\n            'Training': [\n                ('NIST Training', 'https://www.nist.gov/cyberframework/training'),\n                ('Online Learning', 'Free courses available'),\n                ('Webinars', 'Regular free sessions'),\n                ('Workshops', 'Regional events')\n            ]\n        }\n        \n        for category, items in resources.items():\n            print(f\"\ud83d\udcc2 {category}:\")\n            for name, description in items:\n                print(f\"   \u2022 {name}: {description}\")\n            print()\n        \n        return resources\n\n# Usage\nassessor = NISTCSFAssessor()\nassessor.display_framework_overview()\n# Example assessment\nassessments = {\n    'GOVERN': 2,\n    'IDENTIFY': 3,\n    'PROTECT': 2,\n    'DETECT': 2,\n    'RESPOND': 3,\n    'RECOVER': 2\n}\nassessor.assess_maturity(assessments)\nassessor.generate_implementation_plan()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "iso-27001",
+      "cis-controls",
+      "cobit"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Public Domain",
+    "maintainer": "National Institute of Standards and Technology",
+    "related_resources": [
+      "NIST 800-53",
+      "NIST 800-171",
+      "NIST Privacy Framework",
+      "NIST AI Risk Management Framework"
+    ]
+  },
+  "name": "NIST Cybersecurity Framework",
+  "operational_guidance": {
+    "best_practices": [
+      "Start with current state assessment",
+      "Define target maturity levels",
+      "Prioritize based on risk",
+      "Align with business objectives",
+      "Use profiles for customization",
+      "Regular maturity reviews",
+      "Integrate with existing standards"
+    ],
+    "common_use_cases": [
+      "Risk management framework",
+      "Security program development",
+      "Compliance alignment",
+      "Maturity assessment",
+      "Gap analysis",
+      "Vendor risk management",
+      "Board reporting",
+      "Incident response planning"
+    ],
+    "recommended_update_frequency": "Annual assessment and profile review",
+    "value_proposition": "Industry-standard cybersecurity framework providing comprehensive risk management guidance - completely free from NIST"
+  },
+  "quality_metrics": {
+    "accessibility": "All resources freely available",
+    "completeness": "Comprehensive cybersecurity coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Authoritative government standard",
+    "reliability": "excellent",
+    "update_speed": "Stable with periodic major updates"
+  },
+  "quality_score": 96,
+  "subcategory": "nist",
+  "url": "https://www.nist.gov/cyberframework"
+}

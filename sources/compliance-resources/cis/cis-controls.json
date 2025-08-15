@@ -1,0 +1,166 @@
+{
+  "api": {
+    "base_url": "https://www.cisecurity.org",
+    "downloadable_content": [
+      {
+        "access": "Free with registration",
+        "format": "PDF",
+        "name": "CIS Controls v8 PDF"
+      },
+      {
+        "access": "Free download",
+        "format": "Excel",
+        "name": "CIS Controls Navigator"
+      },
+      {
+        "access": "Free with registration",
+        "format": "PDF",
+        "name": "Implementation Guide"
+      },
+      {
+        "access": "Free download",
+        "format": "Excel",
+        "name": "Assessment Tool"
+      }
+    ],
+    "resources": [
+      {
+        "description": "Latest version of the controls",
+        "name": "CIS Controls v8",
+        "url": "https://www.cisecurity.org/controls/v8"
+      },
+      {
+        "description": "IG1, IG2, IG3 guidance",
+        "name": "Implementation Groups",
+        "url": "https://www.cisecurity.org/controls/implementation-groups"
+      },
+      {
+        "description": "Risk Assessment Method",
+        "name": "CIS RAM",
+        "url": "https://www.cisecurity.org/controls/cis-ram"
+      },
+      {
+        "description": "Mapping to other frameworks",
+        "name": "Mappings",
+        "url": "https://www.cisecurity.org/controls/mappings"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "FREE Community membership provides access to CIS Controls documents, tools, and resources. Registration required but completely free.",
+    "required": true,
+    "type": "registration"
+  },
+  "authority": 95,
+  "category": "compliance-resources",
+  "coverage": 93,
+  "data_coverage": {
+    "content_types": [
+      "18 Critical Security Controls",
+      "153 Safeguards",
+      "Implementation Groups (IG1, IG2, IG3)",
+      "Asset types coverage",
+      "Control mappings",
+      "Implementation guidance",
+      "Assessment tools",
+      "Metrics and measurements"
+    ],
+    "controls_v8": [
+      "Control 1: Inventory and Control of Enterprise Assets",
+      "Control 2: Inventory and Control of Software Assets",
+      "Control 3: Data Protection",
+      "Control 4: Secure Configuration of Enterprise Assets and Software",
+      "Control 5: Account Management",
+      "Control 6: Access Control Management",
+      "Control 7: Continuous Vulnerability Management",
+      "Control 8: Audit Log Management",
+      "Control 9: Email and Web Browser Protections",
+      "Control 10: Malware Defenses",
+      "Control 11: Data Recovery",
+      "Control 12: Network Infrastructure Management",
+      "Control 13: Network Monitoring and Defense",
+      "Control 14: Security Awareness and Skills Training",
+      "Control 15: Service Provider Management",
+      "Control 16: Application Software Security",
+      "Control 17: Incident Response Management",
+      "Control 18: Penetration Testing"
+    ],
+    "implementation_groups": {
+      "IG1": "Basic cyber hygiene - 56 safeguards",
+      "IG2": "Enhanced protections - 74 additional safeguards",
+      "IG3": "Advanced protections - 23 additional safeguards"
+    },
+    "temporal": {
+      "historical_data": "v1 (2008) through v8 (2021)",
+      "latency": "Stable with periodic updates",
+      "update_frequency": "Major versions every 2-3 years"
+    }
+  },
+  "description": "CIS Critical Security Controls v8 - FREE prioritized set of actions to protect against the most prevalent cyber attacks. Community version available with implementation guides.",
+  "format": "other",
+  "id": "cis-controls",
+  "integration_examples": {
+    "bash": {
+      "cis_quickref": "#!/bin/bash\n# CIS Controls Quick Reference - FREE!\n\necho \"\ud83d\udee1\ufe0f CIS Critical Security Controls v8 (FREE!)\"\necho \"==========================================\"\necho \"\"\n\necho \"\ud83d\udcca 18 Controls | 153 Safeguards\"\necho \"\"\n\necho \"\ud83c\udfaf Implementation Groups:\"\necho \"   IG1: Basic Cyber Hygiene (56 safeguards)\"\necho \"   IG2: Enhanced Protections (130 safeguards)\"\necho \"   IG3: Advanced Security (153 safeguards)\"\necho \"\"\n\necho \"\u26a1 Top 5 Quick Wins:\"\necho \"   1. Asset Inventory\"\necho \"   2. Software Inventory\"\necho \"   3. Data Protection\"\necho \"   4. Access Control\"\necho \"   5. Malware Defenses\"\necho \"\"\n\necho \"\ud83d\udce5 Free Resources:\"\necho \"   \u2022 Register: https://www.cisecurity.org/create-account\"\necho \"   \u2022 Controls: https://www.cisecurity.org/controls\"\necho \"   \u2022 Navigator: Free Excel tool\"\necho \"   \u2022 CIS-CAT Lite: Free assessment\"\necho \"\"\n\necho \"\ud83c\udd93 All resources FREE with registration!\""
+    },
+    "curl": {
+      "get_info": "# Access CIS Controls info - FREE!\ncurl -s https://www.cisecurity.org/controls | grep -o 'Control [0-9]*' | head -10"
+    },
+    "python": {
+      "cis_implementation": "import json\nfrom datetime import datetime\nfrom typing import Dict, List, Tuple\n\nclass CISControlsImplementation:\n    \"\"\"CIS Controls v8 Implementation Guide - FREE Resources!\"\"\"\n    \n    def __init__(self):\n        # CIS Controls v8 with Implementation Groups\n        self.controls = {\n            1: {\n                'title': 'Inventory and Control of Enterprise Assets',\n                'safeguards': 5,\n                'ig1': 3,\n                'ig2': 2,\n                'ig3': 0,\n                'priority': 'Foundational'\n            },\n            2: {\n                'title': 'Inventory and Control of Software Assets',\n                'safeguards': 7,\n                'ig1': 3,\n                'ig2': 3,\n                'ig3': 1,\n                'priority': 'Foundational'\n            },\n            3: {\n                'title': 'Data Protection',\n                'safeguards': 14,\n                'ig1': 6,\n                'ig2': 6,\n                'ig3': 2,\n                'priority': 'Foundational'\n            },\n            4: {\n                'title': 'Secure Configuration',\n                'safeguards': 12,\n                'ig1': 4,\n                'ig2': 7,\n                'ig3': 1,\n                'priority': 'Foundational'\n            },\n            5: {\n                'title': 'Account Management',\n                'safeguards': 6,\n                'ig1': 4,\n                'ig2': 1,\n                'ig3': 1,\n                'priority': 'Foundational'\n            },\n            6: {\n                'title': 'Access Control Management',\n                'safeguards': 8,\n                'ig1': 3,\n                'ig2': 4,\n                'ig3': 1,\n                'priority': 'Foundational'\n            },\n            7: {\n                'title': 'Continuous Vulnerability Management',\n                'safeguards': 7,\n                'ig1': 2,\n                'ig2': 3,\n                'ig3': 2,\n                'priority': 'Critical'\n            },\n            8: {\n                'title': 'Audit Log Management',\n                'safeguards': 13,\n                'ig1': 3,\n                'ig2': 7,\n                'ig3': 3,\n                'priority': 'Critical'\n            },\n            9: {\n                'title': 'Email and Web Browser Protections',\n                'safeguards': 7,\n                'ig1': 4,\n                'ig2': 3,\n                'ig3': 0,\n                'priority': 'Critical'\n            },\n            10: {\n                'title': 'Malware Defenses',\n                'safeguards': 7,\n                'ig1': 3,\n                'ig2': 3,\n                'ig3': 1,\n                'priority': 'Critical'\n            },\n            11: {\n                'title': 'Data Recovery',\n                'safeguards': 5,\n                'ig1': 3,\n                'ig2': 1,\n                'ig3': 1,\n                'priority': 'Critical'\n            },\n            12: {\n                'title': 'Network Infrastructure Management',\n                'safeguards': 8,\n                'ig1': 3,\n                'ig2': 3,\n                'ig3': 2,\n                'priority': 'Important'\n            },\n            13: {\n                'title': 'Network Monitoring and Defense',\n                'safeguards': 11,\n                'ig1': 0,\n                'ig2': 7,\n                'ig3': 4,\n                'priority': 'Important'\n            },\n            14: {\n                'title': 'Security Awareness and Skills Training',\n                'safeguards': 9,\n                'ig1': 4,\n                'ig2': 4,\n                'ig3': 1,\n                'priority': 'Important'\n            },\n            15: {\n                'title': 'Service Provider Management',\n                'safeguards': 7,\n                'ig1': 2,\n                'ig2': 3,\n                'ig3': 2,\n                'priority': 'Important'\n            },\n            16: {\n                'title': 'Application Software Security',\n                'safeguards': 14,\n                'ig1': 2,\n                'ig2': 8,\n                'ig3': 4,\n                'priority': 'Advanced'\n            },\n            17: {\n                'title': 'Incident Response Management',\n                'safeguards': 9,\n                'ig1': 3,\n                'ig2': 4,\n                'ig3': 2,\n                'priority': 'Advanced'\n            },\n            18: {\n                'title': 'Penetration Testing',\n                'safeguards': 5,\n                'ig1': 0,\n                'ig2': 2,\n                'ig3': 3,\n                'priority': 'Advanced'\n            }\n        }\n    \n    def display_controls_overview(self):\n        \"\"\"Display CIS Controls overview (FREE!)\"\"\"\n        print(\"\ud83d\udee1\ufe0f CIS Critical Security Controls v8 (FREE!)\\n\")\n        \n        print(\"\ud83d\udcca 18 Controls, 153 Safeguards:\\n\")\n        \n        for control_id, control_data in self.controls.items():\n            print(f\"   Control {control_id}: {control_data['title']}\")\n            print(f\"      Total Safeguards: {control_data['safeguards']}\")\n            print(f\"      Priority: {control_data['priority']}\")\n            print()\n        \n        return self.controls\n    \n    def implementation_group_guidance(self, ig_level=1):\n        \"\"\"Get Implementation Group guidance (FREE!)\"\"\"\n        print(f\"\ud83d\udccb Implementation Group {ig_level} Guidance (FREE!)\\n\")\n        \n        ig_descriptions = {\n            1: {\n                'name': 'IG1 - Basic Cyber Hygiene',\n                'description': 'Essential protections for small businesses',\n                'safeguard_count': 56,\n                'focus': 'Basic safeguards with limited resources',\n                'target': 'Small businesses, low complexity'\n            },\n            2: {\n                'name': 'IG2 - Enhanced Protections',\n                'description': 'For organizations with moderate resources',\n                'safeguard_count': 130,\n                'focus': 'Comprehensive security program',\n                'target': 'Medium enterprises, moderate complexity'\n            },\n            3: {\n                'name': 'IG3 - Advanced Security',\n                'description': 'For sophisticated cyber defense',\n                'safeguard_count': 153,\n                'focus': 'Advanced threats and APTs',\n                'target': 'Large enterprises, critical infrastructure'\n            }\n        }\n        \n        if ig_level in ig_descriptions:\n            ig_info = ig_descriptions[ig_level]\n            print(f\"\ud83c\udfaf {ig_info['name']}\")\n            print(f\"   Description: {ig_info['description']}\")\n            print(f\"   Safeguards: {ig_info['safeguard_count']}\")\n            print(f\"   Focus: {ig_info['focus']}\")\n            print(f\"   Target: {ig_info['target']}\\n\")\n            \n            # Show applicable controls\n            print(f\"\ud83d\udccc Controls for IG{ig_level}:\\n\")\n            \n            for control_id, control_data in self.controls.items():\n                ig_key = f'ig{ig_level}'\n                safeguard_count = control_data.get(ig_key, 0)\n                \n                if ig_level == 1 and safeguard_count > 0:\n                    print(f\"   Control {control_id}: {control_data['title']}\")\n                    print(f\"      IG1 Safeguards: {safeguard_count}\")\n                elif ig_level == 2:\n                    total = control_data['ig1'] + control_data['ig2']\n                    if total > 0:\n                        print(f\"   Control {control_id}: {control_data['title']}\")\n                        print(f\"      IG1+IG2 Safeguards: {total}\")\n                elif ig_level == 3:\n                    total = control_data['ig1'] + control_data['ig2'] + control_data['ig3']\n                    if total > 0:\n                        print(f\"   Control {control_id}: {control_data['title']}\")\n                        print(f\"      All Safeguards: {total}\")\n        \n        return ig_descriptions\n    \n    def prioritized_implementation(self):\n        \"\"\"Get prioritized implementation plan (FREE!)\"\"\"\n        print(\"\ud83c\udfaf Prioritized Implementation Plan (FREE!)\\n\")\n        \n        priority_phases = {\n            'Phase 1: Foundational (0-6 months)': [\n                'Control 1: Asset Inventory',\n                'Control 2: Software Inventory',\n                'Control 3: Data Protection',\n                'Control 4: Secure Configuration',\n                'Control 5: Account Management',\n                'Control 6: Access Control'\n            ],\n            'Phase 2: Critical (6-12 months)': [\n                'Control 7: Vulnerability Management',\n                'Control 8: Audit Logs',\n                'Control 9: Email/Web Protection',\n                'Control 10: Malware Defenses',\n                'Control 11: Data Recovery'\n            ],\n            'Phase 3: Important (12-18 months)': [\n                'Control 12: Network Management',\n                'Control 13: Network Monitoring',\n                'Control 14: Security Training',\n                'Control 15: Service Providers'\n            ],\n            'Phase 4: Advanced (18-24 months)': [\n                'Control 16: Application Security',\n                'Control 17: Incident Response',\n                'Control 18: Penetration Testing'\n            ]\n        }\n        \n        for phase, controls in priority_phases.items():\n            print(f\"\ud83d\udcc5 {phase}\")\n            for control in controls:\n                print(f\"   \u25a1 {control}\")\n            print()\n        \n        return priority_phases\n    \n    def quick_wins(self):\n        \"\"\"Identify quick win safeguards (FREE!)\"\"\"\n        print(\"\u26a1 CIS Controls Quick Wins (FREE!)\\n\")\n        \n        quick_wins = [\n            {\n                'safeguard': '1.1',\n                'control': 'Asset Inventory',\n                'action': 'Establish authorized asset inventory',\n                'effort': 'Low',\n                'impact': 'High'\n            },\n            {\n                'safeguard': '3.3',\n                'control': 'Data Protection',\n                'action': 'Configure data access control lists',\n                'effort': 'Low',\n                'impact': 'High'\n            },\n            {\n                'safeguard': '4.1',\n                'control': 'Secure Configuration',\n                'action': 'Establish secure configurations',\n                'effort': 'Medium',\n                'impact': 'High'\n            },\n            {\n                'safeguard': '5.1',\n                'control': 'Account Management',\n                'action': 'Establish account inventory',\n                'effort': 'Low',\n                'impact': 'High'\n            },\n            {\n                'safeguard': '9.4',\n                'control': 'Email Protection',\n                'action': 'Block unnecessary attachments',\n                'effort': 'Low',\n                'impact': 'High'\n            },\n            {\n                'safeguard': '10.1',\n                'control': 'Malware Defenses',\n                'action': 'Deploy anti-malware software',\n                'effort': 'Low',\n                'impact': 'High'\n            },\n            {\n                'safeguard': '11.1',\n                'control': 'Data Recovery',\n                'action': 'Establish recovery process',\n                'effort': 'Medium',\n                'impact': 'Critical'\n            },\n            {\n                'safeguard': '14.1',\n                'control': 'Security Training',\n                'action': 'Security awareness program',\n                'effort': 'Low',\n                'impact': 'High'\n            }\n        ]\n        \n        print(\"\ud83d\ude80 High-Impact, Low-Effort Safeguards:\\n\")\n        \n        for win in quick_wins:\n            print(f\"   \ud83d\udccc Safeguard {win['safeguard']}: {win['action']}\")\n            print(f\"      Control: {win['control']}\")\n            print(f\"      Effort: {win['effort']} | Impact: {win['impact']}\")\n            print()\n        \n        return quick_wins\n    \n    def free_resources(self):\n        \"\"\"List free CIS resources (FREE!)\"\"\"\n        print(\"\ud83d\udcda Free CIS Resources (ALL FREE!)\\n\")\n        \n        resources = {\n            'Core Documents': [\n                'CIS Controls v8 PDF (with registration)',\n                'CIS Controls Navigator Excel',\n                'Implementation Guide',\n                'Assessment Tool'\n            ],\n            'Mappings': [\n                'NIST CSF Mapping',\n                'NIST 800-53 Mapping',\n                'ISO 27001 Mapping',\n                'PCI DSS Mapping'\n            ],\n            'Tools': [\n                'CIS-CAT Lite (free assessment tool)',\n                'CIS Controls Assessment Module',\n                'CIS RAM (Risk Assessment Method)',\n                'Implementation Workbook'\n            ],\n            'Community': [\n                'CIS Community (free membership)',\n                'CIS WorkBench (free benchmarks)',\n                'Discussion forums',\n                'Implementation stories'\n            ]\n        }\n        \n        for category, items in resources.items():\n            print(f\"\ud83d\udcc2 {category}:\")\n            for item in items:\n                print(f\"   \u2022 {item}\")\n            print()\n        \n        print(\"\ud83d\udd17 Access at: https://www.cisecurity.org/controls\")\n        \n        return resources\n\n# Usage\nimplementation = CISControlsImplementation()\nimplementation.display_controls_overview()\nimplementation.implementation_group_guidance(1)\nimplementation.prioritized_implementation()\nimplementation.quick_wins()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "nist-csf",
+      "iso-27001",
+      "nist-800-53"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free for use with registration",
+    "maintainer": "Center for Internet Security",
+    "related_resources": [
+      "CIS Benchmarks",
+      "CIS-CAT Tools",
+      "CIS RAM",
+      "CIS Community"
+    ]
+  },
+  "name": "CIS Critical Security Controls",
+  "operational_guidance": {
+    "best_practices": [
+      "Start with IG1 safeguards",
+      "Use implementation groups for sizing",
+      "Focus on quick wins first",
+      "Map to existing controls",
+      "Regular assessment cycles",
+      "Measure implementation progress",
+      "Align with business risk"
+    ],
+    "common_use_cases": [
+      "Security program development",
+      "Risk prioritization",
+      "Compliance mapping",
+      "Security maturity assessment",
+      "Budget justification",
+      "Vendor requirements",
+      "Incident response improvement",
+      "Security roadmap creation"
+    ],
+    "recommended_update_frequency": "Annual assessment and progress review",
+    "value_proposition": "Prioritized, actionable security controls developed by global community of practitioners - free access with registration"
+  },
+  "quality_metrics": {
+    "accessibility": "Free with registration",
+    "completeness": "Comprehensive security coverage",
+    "cost": "FREE with registration",
+    "data_quality": "Community-validated best practices",
+    "reliability": "excellent",
+    "update_speed": "Regular updates based on threat landscape"
+  },
+  "quality_score": 94,
+  "subcategory": "cis",
+  "url": "https://www.cisecurity.org/controls"
+}
