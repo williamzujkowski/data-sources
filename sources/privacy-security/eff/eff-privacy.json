@@ -1,0 +1,184 @@
+{
+  "api": {
+    "base_url": "https://www.eff.org",
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Comprehensive guides for protecting privacy and security online",
+        "format": "HTML",
+        "name": "Surveillance Self-Defense",
+        "url": "https://ssd.eff.org/"
+      },
+      {
+        "access": "free",
+        "description": "Browser extension that blocks invisible trackers",
+        "format": "Software",
+        "name": "Privacy Badger",
+        "url": "https://privacybadger.org/"
+      },
+      {
+        "access": "free",
+        "description": "Test your browser's tracking protection",
+        "format": "Web Tool",
+        "name": "Cover Your Tracks",
+        "url": "https://coveryourtracks.eff.org/"
+      },
+      {
+        "access": "free",
+        "description": "Browser extension for secure connections",
+        "format": "Software",
+        "name": "HTTPS Everywhere",
+        "url": "https://www.eff.org/https-everywhere"
+      }
+    ],
+    "rss_feeds": [
+      {
+        "description": "Latest EFF news and updates",
+        "name": "EFF Updates",
+        "update_frequency": "Daily",
+        "url": "https://www.eff.org/rss/updates.xml"
+      },
+      {
+        "description": "In-depth analysis of digital rights issues",
+        "name": "Deeplinks Blog",
+        "update_frequency": "Weekly",
+        "url": "https://www.eff.org/rss/deeplinks.xml"
+      }
+    ],
+    "tools": [
+      {
+        "description": "Automatic tracker blocking browser extension",
+        "license": "GPL-3.0",
+        "name": "Privacy Badger",
+        "platforms": [
+          "Chrome",
+          "Firefox",
+          "Edge",
+          "Opera"
+        ],
+        "source_code": "https://github.com/EFForg/privacybadger"
+      },
+      {
+        "description": "Free SSL/TLS certificate automation",
+        "license": "Apache-2.0",
+        "name": "Certbot",
+        "platforms": [
+          "Linux",
+          "macOS",
+          "Windows"
+        ],
+        "source_code": "https://github.com/certbot/certbot"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All EFF privacy resources, tools, guides, and software available without authentication. Open source tools and comprehensive privacy guides.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 96,
+  "category": "privacy-security",
+  "coverage": 91,
+  "data_coverage": {
+    "content_types": [
+      "Privacy protection guides",
+      "Security tutorials and tools",
+      "Digital rights resources",
+      "Surveillance resistance techniques",
+      "Encryption guides and tools",
+      "Privacy legislation analysis",
+      "Privacy-enhancing technologies",
+      "Threat modeling resources"
+    ],
+    "guide_categories": [
+      "Basics of online privacy",
+      "Secure communications",
+      "Device security",
+      "Network security",
+      "Identity protection",
+      "Protest and activism security",
+      "Journalist security",
+      "Academic security"
+    ],
+    "temporal": {
+      "historical_data": "1990-present",
+      "latency": "Real-time for breaking privacy issues",
+      "update_frequency": "Regular updates to guides and tools"
+    },
+    "tools_provided": [
+      "Privacy Badger (tracker blocking)",
+      "HTTPS Everywhere (secure browsing)",
+      "Cover Your Tracks (fingerprint testing)",
+      "Certbot (SSL certificates)",
+      "Surveillance Self-Defense guides"
+    ]
+  },
+  "description": "Electronic Frontier Foundation (EFF) privacy resources including Surveillance Self-Defense guides, Privacy Badger, and digital rights advocacy. COMPLETELY FREE access to privacy tools, guides, and resources.",
+  "documentation": "https://ssd.eff.org/",
+  "format": "other",
+  "id": "eff-privacy",
+  "integration_examples": {
+    "bash": {
+      "eff_privacy_setup": "#!/bin/bash\n# EFF Privacy Tools Setup - COMPLETELY FREE!\n\necho \"\ud83d\udd10 EFF Privacy Toolkit Setup (FREE!)\"\necho \"=====================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Privacy Badger\necho \"\ud83e\udda1 Privacy Badger Browser Extension:\"\necho \"   Chrome: https://chrome.google.com/webstore/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp\"\necho \"   Firefox: https://addons.mozilla.org/firefox/addon/privacy-badger17/\"\necho \"   Edge: https://microsoftedge.microsoft.com/addons/detail/privacy-badger/mkejgcgkdlddbggjhhflekkondicpnop\"\necho \"\"\n\n# Cover Your Tracks\necho \"\ud83d\udd0d Test Your Browser Privacy:\"\necho \"   \ud83d\udd17 https://coveryourtracks.eff.org/\"\necho \"   Tests: Fingerprinting, Tracking, Supercookies\"\necho \"\"\n\n# Surveillance Self-Defense\necho \"\ud83d\udee1\ufe0f Surveillance Self-Defense Guides:\"\necho \"   \ud83d\udd17 https://ssd.eff.org/\"\necho \"   \u2022 Basics: Online privacy fundamentals\"\necho \"   \u2022 Tools: Tor, Signal, PGP, VPN guides\"\necho \"   \u2022 Scenarios: Journalist, activist, travel security\"\necho \"\"\n\n# Certbot installation\necho \"\ud83d\udd12 Certbot SSL/TLS Setup:\"\nif command -v certbot &> /dev/null; then\n    echo \"   \u2705 Certbot is installed\"\n    certbot --version\nelse\n    echo \"   \u274c Certbot not installed\"\n    echo \"   Install with:\"\n    echo \"   Ubuntu/Debian: sudo apt-get install certbot\"\n    echo \"   CentOS/RHEL: sudo yum install certbot\"\n    echo \"   macOS: brew install certbot\"\nfi\necho \"\"\n\n# Additional tools\necho \"\ud83d\udd27 Additional EFF Tools:\"\necho \"   \u2022 HTTPS Everywhere: Force secure connections\"\necho \"   \u2022 Atlas of Surveillance: Police tech database\"\necho \"   \u2022 Crocodile Hunter: Fake cell tower detection\"\necho \"   \u2022 TOSBack: Terms of Service tracking\"\necho \"\"\n\n# Privacy checklist\necho \"\u2705 Privacy Checklist:\"\necho \"   [ ] Install Privacy Badger\"\necho \"   [ ] Test browser with Cover Your Tracks\"\necho \"   [ ] Read SSD guides for your threat model\"\necho \"   [ ] Enable HTTPS on your sites\"\necho \"   [ ] Use encrypted messaging (Signal)\"\necho \"   [ ] Set up password manager\"\necho \"   [ ] Enable 2FA everywhere\"\necho \"   [ ] Review privacy settings\"\necho \"\"\n\n# Resources\necho \"\ud83d\udcda EFF Resources:\"\necho \"   \ud83d\udcf0 News: https://www.eff.org/updates\"\necho \"   \ud83d\udcd6 Deeplinks: https://www.eff.org/deeplinks\"\necho \"   \ud83c\udfaf Action: https://act.eff.org/\"\necho \"   \ud83d\udcb0 Donate: https://supporters.eff.org/donate\"\necho \"\"\n\necho \"\ud83d\udcc5 Setup guide generated: $(date)\""
+    },
+    "curl": {
+      "get_eff_updates": "# Get EFF updates RSS feed - FREE!\ncurl -s 'https://www.eff.org/rss/updates.xml' | head -100",
+      "test_https": "# Test HTTPS support on a domain\ncurl -I https://example.com 2>&1 | grep -E 'HTTP|SSL'"
+    },
+    "python": {
+      "eff_privacy_tools": "import requests\nimport json\nfrom datetime import datetime\nimport subprocess\n\nclass EFFPrivacyToolkit:\n    \"\"\"EFF Privacy Tools and Resources - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.eff.org'\n        self.ssd_url = 'https://ssd.eff.org'\n        self.tools = {\n            'privacy_badger': 'https://privacybadger.org',\n            'cover_your_tracks': 'https://coveryourtracks.eff.org',\n            'https_everywhere': 'https://www.eff.org/https-everywhere'\n        }\n    \n    def test_browser_privacy(self):\n        \"\"\"Test browser privacy using Cover Your Tracks\"\"\"\n        print(\"\ud83d\udd0d EFF Cover Your Tracks (FREE!)\\n\")\n        print(\"Test your browser's privacy protection:\")\n        print(f\"\ud83d\udd17 {self.tools['cover_your_tracks']}\\n\")\n        \n        print(\"\ud83d\udcca What Cover Your Tracks Tests:\")\n        tests = [\n            \"Browser fingerprinting resistance\",\n            \"Tracking protection effectiveness\",\n            \"Ad blocker detection\",\n            \"Canvas fingerprinting\",\n            \"WebGL fingerprinting\",\n            \"Font fingerprinting\",\n            \"Do Not Track compliance\",\n            \"Supercookie protection\"\n        ]\n        \n        for test in tests:\n            print(f\"   \u2022 {test}\")\n        \n        print(\"\\n\ud83d\udca1 Privacy Recommendations:\")\n        print(\"   1. Install Privacy Badger extension\")\n        print(\"   2. Enable tracking protection in browser\")\n        print(\"   3. Use VPN or Tor for anonymity\")\n        print(\"   4. Disable third-party cookies\")\n        print(\"   5. Use privacy-focused browser (Firefox, Brave)\")\n        \n        return self.tools['cover_your_tracks']\n    \n    def get_surveillance_self_defense(self, scenario='general'):\n        \"\"\"Get Surveillance Self-Defense guides\"\"\"\n        print(\"\ud83d\udee1\ufe0f EFF Surveillance Self-Defense (FREE!)\\n\")\n        \n        scenarios = {\n            'general': 'Everyday privacy protection',\n            'journalist': 'Journalist and source protection',\n            'activist': 'Protest and activism security',\n            'academic': 'Academic and researcher privacy',\n            'lgbtq': 'LGBTQ+ community safety',\n            'travel': 'Border crossing and travel security'\n        }\n        \n        print(f\"\ud83d\udcda SSD Guide: {scenarios.get(scenario, 'General')}\")\n        print(f\"\ud83d\udd17 {self.ssd_url}\\n\")\n        \n        print(\"\ud83d\udcd6 Available Guide Categories:\")\n        for key, desc in scenarios.items():\n            print(f\"   \u2022 {desc}\")\n        \n        print(\"\\n\ud83d\udd27 Key Privacy Tools Covered:\")\n        tools = [\n            \"Signal - Encrypted messaging\",\n            \"Tor Browser - Anonymous browsing\",\n            \"PGP/GPG - Email encryption\",\n            \"Full disk encryption\",\n            \"Password managers\",\n            \"2FA/MFA authentication\",\n            \"VPN services\",\n            \"Secure file deletion\"\n        ]\n        \n        for tool in tools:\n            print(f\"   \u2022 {tool}\")\n        \n        print(\"\\n\ud83d\udccb Security Practices:\")\n        practices = [\n            \"Threat modeling\",\n            \"Operational security (OpSec)\",\n            \"Device security hardening\",\n            \"Secure communications\",\n            \"Safe social media usage\",\n            \"Metadata minimization\",\n            \"Physical security\",\n            \"Emergency planning\"\n        ]\n        \n        for practice in practices:\n            print(f\"   \u2022 {practice}\")\n        \n        return f\"{self.ssd_url}/module-categories\"\n    \n    def install_privacy_badger(self):\n        \"\"\"Guide for installing Privacy Badger\"\"\"\n        print(\"\ud83e\udda1 Privacy Badger Installation (FREE!)\\n\")\n        \n        print(\"\ud83d\udce5 Download Links:\")\n        browsers = {\n            'Chrome': 'https://chrome.google.com/webstore/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp',\n            'Firefox': 'https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/',\n            'Edge': 'https://microsoftedge.microsoft.com/addons/detail/privacy-badger/mkejgcgkdlddbggjhhflekkondicpnop',\n            'Opera': 'https://addons.opera.com/en/extensions/details/privacy-badger/'\n        }\n        \n        for browser, url in browsers.items():\n            print(f\"   \u2022 {browser}: {url}\")\n        \n        print(\"\\n\ud83d\udd30 What Privacy Badger Does:\")\n        features = [\n            \"Automatically learns to block invisible trackers\",\n            \"Stops advertisers from tracking your browsing\",\n            \"Blocks third-party tracking cookies\",\n            \"Prevents canvas fingerprinting\",\n            \"Removes tracking from social media buttons\",\n            \"Works without configuration needed\",\n            \"Open source and transparent\"\n        ]\n        \n        for feature in features:\n            print(f\"   \u2713 {feature}\")\n        \n        print(\"\\n\ud83d\udcca Privacy Badger Statistics:\")\n        print(\"   \u2022 1+ million users\")\n        print(\"   \u2022 Blocks 1000s of trackers\")\n        print(\"   \u2022 No browsing history collected\")\n        print(\"   \u2022 Developed by EFF nonprofit\")\n        \n        return self.tools['privacy_badger']\n    \n    def setup_certbot(self):\n        \"\"\"Guide for setting up Certbot for SSL/TLS\"\"\"\n        print(\"\ud83d\udd10 Certbot SSL/TLS Setup (FREE!)\\n\")\n        \n        print(\"\ud83d\udce6 Installation Commands:\")\n        install_cmds = {\n            'Ubuntu/Debian': 'sudo apt-get install certbot',\n            'CentOS/RHEL': 'sudo yum install certbot',\n            'macOS': 'brew install certbot',\n            'Docker': 'docker run -it certbot/certbot'\n        }\n        \n        for platform, cmd in install_cmds.items():\n            print(f\"   {platform}:\")\n            print(f\"   $ {cmd}\\n\")\n        \n        print(\"\ud83d\udd27 Basic Usage:\")\n        print(\"   # Obtain certificate\")\n        print(\"   $ sudo certbot certonly --webroot -w /var/www/html -d example.com\\n\")\n        print(\"   # Auto-renewal\")\n        print(\"   $ sudo certbot renew --dry-run\\n\")\n        \n        print(\"\u2705 Benefits:\")\n        print(\"   \u2022 Free SSL/TLS certificates\")\n        print(\"   \u2022 Automatic renewal\")\n        print(\"   \u2022 Easy integration\")\n        print(\"   \u2022 Let's Encrypt backed\")\n        print(\"   \u2022 Industry standard security\")\n        \n        return \"https://certbot.eff.org/\"\n    \n    def generate_privacy_report(self):\n        \"\"\"Generate comprehensive EFF privacy report\"\"\"\n        print(f\"\ud83d\udd10 EFF Privacy Toolkit Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udee1\ufe0f SURVEILLANCE SELF-DEFENSE\")\n        print(\"=\" * 50)\n        self.get_surveillance_self_defense()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd0d BROWSER PRIVACY TESTING\")\n        print(\"=\" * 50)\n        self.test_browser_privacy()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83e\udda1 PRIVACY BADGER PROTECTION\")\n        print(\"=\" * 50)\n        self.install_privacy_badger()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd12 SSL/TLS CERTIFICATES\")\n        print(\"=\" * 50)\n        self.setup_certbot()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udcda ADDITIONAL EFF RESOURCES\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udd27 More FREE EFF Tools:\")\n        print(\"   \u2022 Crocodile Hunter - Detect fake cell towers\")\n        print(\"   \u2022 Encrypt the Web Report - HTTPS adoption tracking\")\n        print(\"   \u2022 Atlas of Surveillance - Police tech database\")\n        print(\"   \u2022 TOSBack - Terms of Service tracking\")\n        \n        print(\"\\n\ud83d\udcd6 EFF Campaigns:\")\n        print(\"   \u2022 Encrypt the Web\")\n        print(\"   \u2022 Fix It Already (security vulnerabilities)\")\n        print(\"   \u2022 Who Has Your Back? (corporate transparency)\")\n        print(\"   \u2022 Coders' Rights Project\")\n        \n        print(\"\\n\ud83d\udca1 Privacy Action Items:\")\n        print(\"   1. Install Privacy Badger and HTTPS Everywhere\")\n        print(\"   2. Test browser privacy with Cover Your Tracks\")\n        print(\"   3. Review Surveillance Self-Defense guides\")\n        print(\"   4. Enable SSL/TLS on your websites\")\n        print(\"   5. Support EFF's digital rights work\")\n        \n        print(\"\\n\ud83d\udce7 Stay Informed:\")\n        print(\"   \u2022 EFF Newsletter: https://www.eff.org/subscribe\")\n        print(\"   \u2022 Action Alerts: https://act.eff.org/\")\n        print(\"   \u2022 Deeplinks Blog: https://www.eff.org/deeplinks\")\n        \n        return True\n\n# Usage\ntoolkit = EFFPrivacyToolkit()\ntoolkit.generate_privacy_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "privacy-tools-io",
+      "prism-break",
+      "restore-privacy"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Various open source licenses (GPL, Apache, etc.)",
+    "maintainer": "Electronic Frontier Foundation",
+    "related_resources": [
+      "EFF Encrypt the Web",
+      "EFF Atlas of Surveillance",
+      "EFF Coders' Rights Project",
+      "Let's Encrypt"
+    ]
+  },
+  "name": "Electronic Frontier Foundation Privacy",
+  "operational_guidance": {
+    "best_practices": [
+      "Install Privacy Badger on all browsers",
+      "Test browser privacy with Cover Your Tracks",
+      "Follow Surveillance Self-Defense guides",
+      "Use Certbot for free SSL certificates",
+      "Subscribe to EFF alerts for privacy news",
+      "Support open source privacy tools",
+      "Implement recommended security practices"
+    ],
+    "common_use_cases": [
+      "Browser privacy protection and tracking prevention",
+      "Secure communications setup",
+      "Digital security education",
+      "SSL/TLS certificate automation",
+      "Privacy tool deployment",
+      "Threat modeling and risk assessment",
+      "Journalist and activist security"
+    ],
+    "recommended_update_frequency": "Check monthly for tool updates, review guides quarterly",
+    "value_proposition": "Leading digital rights organization providing free, open source privacy tools and comprehensive security guides backed by decades of expertise"
+  },
+  "quality_metrics": {
+    "accessibility": "All resources freely available without registration",
+    "completeness": "Comprehensive coverage of digital privacy topics",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Expert-curated privacy and security guidance",
+    "reliability": "excellent",
+    "update_speed": "Regular updates to tools and guides"
+  },
+  "quality_score": 94,
+  "subcategory": "eff",
+  "url": "https://www.eff.org/issues/privacy"
+}

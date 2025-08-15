@@ -1,0 +1,155 @@
+{
+  "api": {
+    "base_url": "https://privacyrights.org",
+    "datasets": [
+      {
+        "access": "free",
+        "description": "Historical record of data breaches since 2005",
+        "format": "CSV",
+        "name": "Data Breach Chronology",
+        "url": "https://privacyrights.org/data-breaches"
+      }
+    ],
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Comprehensive database of data breaches affecting US residents",
+        "format": "HTML/CSV",
+        "name": "Data Breach Database",
+        "url": "https://privacyrights.org/data-breaches"
+      },
+      {
+        "access": "free",
+        "description": "Practical guides for protecting personal privacy",
+        "format": "HTML",
+        "name": "Consumer Privacy Guides",
+        "url": "https://privacyrights.org/consumer-guides"
+      },
+      {
+        "access": "free",
+        "description": "Regular podcast on privacy issues and rights",
+        "format": "Audio/RSS",
+        "name": "Privacy Today Podcast",
+        "url": "https://privacyrights.org/resources/privacy-today-podcast"
+      },
+      {
+        "access": "free",
+        "description": "Comprehensive privacy resources and tools",
+        "format": "HTML",
+        "name": "Privacy Resources",
+        "url": "https://privacyrights.org/resources"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All Privacy Rights Clearinghouse resources including data breach database, consumer guides, and privacy tools available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 88,
+  "category": "privacy-security",
+  "coverage": 87,
+  "data_coverage": {
+    "breach_categories": [
+      "Payment card fraud",
+      "Insider breach",
+      "Hacking or malware",
+      "Physical loss",
+      "Portable device loss",
+      "Stationary device loss",
+      "Unintended disclosure",
+      "Unknown breach type"
+    ],
+    "content_types": [
+      "Data breach notifications and analysis",
+      "Consumer privacy guides and tips",
+      "Privacy rights information",
+      "Identity theft resources",
+      "Privacy complaint templates",
+      "Opt-out guides and tools",
+      "Privacy legislation tracking",
+      "Consumer protection resources"
+    ],
+    "sectors_covered": [
+      "Healthcare",
+      "Financial services",
+      "Retail",
+      "Government",
+      "Education",
+      "Technology",
+      "Non-profit",
+      "Business services"
+    ],
+    "temporal": {
+      "historical_data": "2005-present for breach data",
+      "latency": "Near real-time for major breaches",
+      "update_frequency": "Continuous breach database updates"
+    }
+  },
+  "description": "Privacy Rights Clearinghouse nonprofit providing consumer privacy information, data breach database, and privacy rights guidance. COMPLETELY FREE access to privacy resources, breach notifications, and consumer guides.",
+  "documentation": "https://privacyrights.org/resources",
+  "format": "other",
+  "id": "privacy-rights-clearinghouse",
+  "integration_examples": {
+    "bash": {
+      "check_breaches": "#!/bin/bash\n# Privacy Rights Clearinghouse Breach Monitor - FREE!\n\necho \"\ud83d\udd10 PRC Data Breach Monitor (FREE!)\"\necho \"===================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Display breach database information\necho \"\ud83d\udcca Data Breach Database:\"\necho \"   \ud83d\udd17 https://privacyrights.org/data-breaches\"\necho \"   \ud83d\udcc5 Coverage: 2005-present\"\necho \"   \ud83d\udcc8 8,000+ breaches documented\"\necho \"   \ud83d\udcbe Billions of records tracked\"\necho \"\"\n\n# Breach categories\necho \"\ud83d\udccb Breach Types Monitored:\"\necho \"   \u2022 HACK - Hacking or Malware\"\necho \"   \u2022 CARD - Payment Card Fraud\"\necho \"   \u2022 INSD - Insider Breach\"\necho \"   \u2022 PHYS - Physical Loss\"\necho \"   \u2022 PORT - Portable Device\"\necho \"   \u2022 STAT - Stationary Device\"\necho \"   \u2022 DISC - Unintended Disclosure\"\necho \"   \u2022 UNKN - Unknown\"\necho \"\"\n\n# Consumer guides\necho \"\ud83d\udcda Consumer Privacy Guides:\"\necho \"   \ud83d\udd17 https://privacyrights.org/consumer-guides\"\necho \"   \u2022 Online Privacy\"\necho \"   \u2022 Financial Privacy\"\necho \"   \u2022 Medical Privacy\"\necho \"   \u2022 Identity Theft Protection\"\necho \"   \u2022 Opt-Out Instructions\"\necho \"\"\n\n# Privacy tools\necho \"\ud83d\udee0\ufe0f FREE Privacy Tools:\"\necho \"   \u2022 Data Broker Opt-Out Guide\"\necho \"   \u2022 Privacy Complaint Templates\"\necho \"   \u2022 CCPA Request Forms\"\necho \"   \u2022 Credit Freeze Instructions\"\necho \"   \u2022 Privacy Rights Fact Sheets\"\necho \"\"\n\n# Resources\necho \"\ud83d\udcd6 Additional Resources:\"\necho \"   \ud83c\udfa7 Privacy Today Podcast\"\necho \"   \ud83d\udcf0 Privacy News & Updates\"\necho \"   \ud83d\udccb Sample Privacy Policies\"\necho \"   \u2696\ufe0f Privacy Laws Database\"\necho \"   \ud83d\udd0d Privacy Research Reports\"\necho \"\"\n\necho \"\ud83d\udca1 Quick Privacy Tips:\"\necho \"   1. Check if your data was breached\"\necho \"   2. Freeze your credit reports\"\necho \"   3. Opt out of data brokers\"\necho \"   4. Review privacy settings regularly\"\necho \"   5. Minimize data sharing\"\necho \"\"\n\necho \"\ud83d\udcc5 Report generated: $(date)\"\necho \"\ud83d\udd17 Visit: https://privacyrights.org\""
+    },
+    "curl": {
+      "access_resources": "# Access PRC resources - FREE!\ncurl -s 'https://privacyrights.org/' | grep -o '<a href=\"[^\"]*\"' | grep -E 'guide|breach|privacy' | head -20"
+    },
+    "python": {
+      "breach_database_monitor": "import requests\nfrom bs4 import BeautifulSoup\nimport csv\nfrom datetime import datetime, timedelta\nimport json\n\nclass PRCBreachMonitor:\n    \"\"\"Monitor Privacy Rights Clearinghouse breach database - FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://privacyrights.org'\n        self.breach_url = f'{self.base_url}/data-breaches'\n    \n    def search_recent_breaches(self, days_back=30):\n        \"\"\"Search for recent data breaches\"\"\"\n        print(f\"\ud83d\udd0d Privacy Rights Clearinghouse Breach Monitor (FREE!)\\n\")\n        print(f\"Searching breaches from last {days_back} days...\\n\")\n        \n        try:\n            # Note: Actual implementation would require parsing the website\n            # This is a demonstration of the structure\n            response = requests.get(self.breach_url)\n            \n            if response.status_code == 200:\n                print(\"\u2705 Connected to PRC breach database\")\n                \n                # Sample breach categories\n                categories = {\n                    'HACK': 'Hacking or Malware',\n                    'CARD': 'Payment Card Fraud',\n                    'INSD': 'Insider Breach',\n                    'PHYS': 'Physical Loss',\n                    'PORT': 'Portable Device',\n                    'STAT': 'Stationary Device',\n                    'DISC': 'Unintended Disclosure',\n                    'UNKN': 'Unknown'\n                }\n                \n                print(\"\ud83d\udcca Breach Categories Tracked:\")\n                for code, desc in categories.items():\n                    print(f\"   \u2022 {code}: {desc}\")\n                \n                print(\"\\n\ud83d\udd17 Access full breach database at:\")\n                print(f\"   {self.breach_url}\")\n                \n                return True\n            else:\n                print(f\"\u274c Failed to connect: {response.status_code}\")\n                return False\n                \n        except Exception as e:\n            print(f\"Error accessing breach database: {e}\")\n            return False\n    \n    def get_breach_statistics(self):\n        \"\"\"Get breach statistics and trends\"\"\"\n        print(\"\ud83d\udcc8 PRC Breach Statistics (FREE!)\\n\")\n        \n        # Provide information about available statistics\n        print(\"\ud83d\udcca Available Breach Metrics:\")\n        print(\"   \u2022 Total breaches since 2005\")\n        print(\"   \u2022 Records exposed by year\")\n        print(\"   \u2022 Breaches by organization type\")\n        print(\"   \u2022 Breach methods and causes\")\n        print(\"   \u2022 Geographic distribution\")\n        print(\"   \u2022 Industry sector analysis\")\n        \n        print(\"\\n\ud83d\udca1 Key Insights Available:\")\n        print(\"   \u2022 Trending breach types\")\n        print(\"   \u2022 Most affected industries\")\n        print(\"   \u2022 Common attack vectors\")\n        print(\"   \u2022 Prevention recommendations\")\n        \n        print(f\"\\n\ud83d\udd17 View detailed statistics at: {self.breach_url}\")\n        \n        return self.breach_url\n    \n    def get_privacy_guides(self):\n        \"\"\"Get consumer privacy guides\"\"\"\n        guides_url = f\"{self.base_url}/consumer-guides\"\n        \n        print(\"\ud83d\udcda PRC Consumer Privacy Guides (FREE!)\\n\")\n        \n        # Categories of guides available\n        guide_categories = [\n            \"Online Privacy & Technology\",\n            \"Financial Privacy\",\n            \"Medical Privacy\",\n            \"Workplace Privacy\",\n            \"Identity Theft\",\n            \"Government Records\",\n            \"Marketing & Telemarketing\",\n            \"Privacy Rights & Laws\"\n        ]\n        \n        print(\"\ud83d\udcd6 Available Guide Categories:\")\n        for category in guide_categories:\n            print(f\"   \u2022 {category}\")\n        \n        print(\"\\n\ud83d\udee1\ufe0f Popular Privacy Guides:\")\n        popular_guides = [\n            \"How to Opt Out of Data Broker Sites\",\n            \"Protecting Your Social Security Number\",\n            \"Freezing Your Credit\",\n            \"California Privacy Rights (CCPA)\",\n            \"HIPAA Medical Privacy Rights\",\n            \"Workplace Surveillance and Privacy\",\n            \"Smart Home Device Privacy\",\n            \"Children's Online Privacy\"\n        ]\n        \n        for guide in popular_guides:\n            print(f\"   \u2022 {guide}\")\n        \n        print(f\"\\n\ud83d\udd17 Access all guides at: {guides_url}\")\n        \n        return guides_url\n    \n    def generate_privacy_report(self):\n        \"\"\"Generate comprehensive privacy intelligence report\"\"\"\n        print(f\"\ud83d\udd10 Privacy Rights Clearinghouse Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        # Search recent breaches\n        print(\"=\" * 50)\n        print(\"\ud83d\udcca DATA BREACH INTELLIGENCE\")\n        print(\"=\" * 50)\n        self.search_recent_breaches()\n        \n        # Get statistics\n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udcc8 BREACH TRENDS & STATISTICS\")\n        print(\"=\" * 50)\n        self.get_breach_statistics()\n        \n        # Get privacy guides\n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udcda CONSUMER PRIVACY RESOURCES\")\n        print(\"=\" * 50)\n        self.get_privacy_guides()\n        \n        # Additional resources\n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd27 PRIVACY TOOLS & RESOURCES\")\n        print(\"=\" * 50)\n        print(\"\\n\ud83d\udee0\ufe0f FREE Privacy Tools:\")\n        print(\"   \u2022 Opt-Out Guide: https://privacyrights.org/consumer-guides/opt-out-guides\")\n        print(\"   \u2022 Privacy Complaint Letter Generator\")\n        print(\"   \u2022 Data Broker List and Removal Instructions\")\n        print(\"   \u2022 Privacy Rights Fact Sheets\")\n        print(\"   \u2022 Sample CCPA Request Letters\")\n        \n        print(\"\\n\ud83c\udfa7 Privacy Today Podcast:\")\n        print(\"   \u2022 Weekly privacy news and tips\")\n        print(\"   \u2022 Expert interviews\")\n        print(\"   \u2022 Consumer privacy advice\")\n        print(\"   \u2022 Available on all podcast platforms\")\n        \n        print(\"\\n\ud83d\udca1 Privacy Best Practices:\")\n        print(\"   1. Monitor breach notifications for your data\")\n        print(\"   2. Freeze credit with all three bureaus\")\n        print(\"   3. Opt out of data broker databases\")\n        print(\"   4. Use privacy-focused tools and services\")\n        print(\"   5. Know your privacy rights under state/federal law\")\n        print(\"   6. Regularly review privacy settings\")\n        print(\"   7. Minimize data sharing\")\n        \n        print(\"\\n\ud83d\udce7 Stay Updated:\")\n        print(\"   \u2022 Subscribe to PRC newsletter\")\n        print(\"   \u2022 Follow @PrivacyToday on social media\")\n        print(\"   \u2022 Check breach database regularly\")\n        \n        return True\n\n# Usage\nmonitor = PRCBreachMonitor()\nmonitor.generate_privacy_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "haveibeenpwned",
+      "identity-theft-resource-center",
+      "eff-privacy"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Public access nonprofit resource",
+    "maintainer": "Privacy Rights Clearinghouse (nonprofit)",
+    "related_resources": [
+      "Identity Theft Resource Center",
+      "Electronic Frontier Foundation",
+      "EPIC Privacy Resources",
+      "Consumer Reports Privacy"
+    ]
+  },
+  "name": "Privacy Rights Clearinghouse",
+  "operational_guidance": {
+    "best_practices": [
+      "Regularly check the breach database for exposures",
+      "Use consumer guides for privacy protection",
+      "Follow opt-out guides for data brokers",
+      "Leverage complaint templates for privacy violations",
+      "Stay informed through the Privacy Today podcast",
+      "Reference fact sheets for privacy rights"
+    ],
+    "common_use_cases": [
+      "Data breach monitoring and research",
+      "Consumer privacy education",
+      "Identity theft prevention",
+      "Privacy rights advocacy",
+      "Opt-out procedures and guides",
+      "Privacy complaint filing",
+      "Regulatory compliance guidance"
+    ],
+    "recommended_update_frequency": "Check weekly for breach updates, monthly for new guides",
+    "value_proposition": "Nonprofit consumer advocacy organization providing free, comprehensive privacy resources and the most extensive public data breach database"
+  },
+  "quality_metrics": {
+    "accessibility": "Full public access without registration",
+    "completeness": "Extensive coverage of US data breaches since 2005",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Comprehensive breach tracking with detailed categorization",
+    "reliability": "good",
+    "update_speed": "Regular updates as breaches are disclosed"
+  },
+  "quality_score": 89,
+  "subcategory": "prc",
+  "url": "https://privacyrights.org/"
+}

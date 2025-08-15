@@ -1,0 +1,158 @@
+{
+  "api": {
+    "base_url": "https://iapp.org",
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Daily privacy news and analysis",
+        "format": "HTML/RSS",
+        "name": "Privacy News",
+        "url": "https://iapp.org/news/"
+      },
+      {
+        "access": "free",
+        "description": "Comprehensive global privacy law directory",
+        "format": "HTML",
+        "name": "Privacy Law Database",
+        "url": "https://iapp.org/resources/global-privacy-directory/"
+      },
+      {
+        "access": "free",
+        "description": "Privacy technology vendor directory",
+        "format": "HTML/PDF",
+        "name": "Privacy Tech Vendor Report",
+        "url": "https://iapp.org/resources/privacy-tech-vendor-report/"
+      },
+      {
+        "access": "free",
+        "description": "Comprehensive privacy terminology glossary",
+        "format": "HTML",
+        "name": "Privacy Glossary",
+        "url": "https://iapp.org/resources/glossary/"
+      }
+    ],
+    "rss_feeds": [
+      {
+        "description": "Daily privacy news RSS feed",
+        "name": "IAPP Daily Dashboard",
+        "update_frequency": "Daily",
+        "url": "https://iapp.org/news/rss/"
+      },
+      {
+        "description": "Privacy thought leadership and analysis",
+        "name": "Privacy Perspectives",
+        "update_frequency": "Weekly",
+        "url": "https://iapp.org/news/privacy-perspectives/rss/"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Core IAPP resources including privacy news, regulatory database, glossary, and educational materials available without authentication. Some premium content requires membership.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 95,
+  "category": "privacy-security",
+  "coverage": 90,
+  "data_coverage": {
+    "content_types": [
+      "Privacy regulations and laws",
+      "Data protection news and updates",
+      "Privacy technology vendor information",
+      "Compliance frameworks and standards",
+      "Privacy professional resources",
+      "Case law and enforcement actions",
+      "Privacy glossary and terminology",
+      "Best practices and guidance"
+    ],
+    "frameworks_covered": [
+      "GDPR (General Data Protection Regulation)",
+      "CCPA/CPRA (California Privacy Laws)",
+      "LGPD (Brazil)",
+      "PIPEDA (Canada)",
+      "Privacy Shield frameworks",
+      "ISO 27701",
+      "APEC Privacy Framework"
+    ],
+    "geographic_coverage": [
+      "Global privacy regulations",
+      "EU/GDPR",
+      "US state privacy laws",
+      "Asia-Pacific privacy laws",
+      "Latin America privacy regulations",
+      "Middle East and Africa privacy laws"
+    ],
+    "temporal": {
+      "historical_data": "2000-present",
+      "latency": "Real-time for breaking privacy news",
+      "update_frequency": "Daily news updates, regular resource additions"
+    }
+  },
+  "description": "International Association of Privacy Professionals (IAPP) resources including privacy news, regulations database, and professional guidance. FREE access to extensive privacy resources, news, and regulatory information.",
+  "documentation": "https://iapp.org/resources/",
+  "format": "other",
+  "id": "iapp-privacy-resources",
+  "integration_examples": {
+    "bash": {
+      "fetch_privacy_news": "#!/bin/bash\n# IAPP Privacy News Monitor - COMPLETELY FREE!\n\necho \"\ud83d\udd10 IAPP Privacy News Monitor (FREE!)\"\necho \"=====================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Fetch IAPP RSS feed\necho \"\ud83d\udcf0 Fetching latest privacy news...\"\ncurl -s \"https://iapp.org/news/rss/\" -o iapp_news.xml\n\nif [ -f iapp_news.xml ]; then\n  echo \"\u2705 News feed downloaded successfully\"\n  \n  # Parse RSS feed (requires xmllint)\n  if command -v xmllint &> /dev/null; then\n    echo \"\"\n    echo \"\ud83d\udccb Latest Privacy News:\"\n    echo \"-----------------------\"\n    \n    # Extract titles and links\n    xmllint --format iapp_news.xml | \\\n      grep -E \"<title>|<link>|<pubDate>\" | \\\n      sed 's/<[^>]*>//g' | \\\n      sed 's/^[[:space:]]*//' | \\\n      head -30\n  else\n    echo \"   (Install xmllint for feed parsing)\"\n  fi\n  \n  echo \"\"\nelse\n  echo \"\u274c Failed to download news feed\"\nfi\n\n# Display resource links\necho \"\ud83d\udcda IAPP FREE Resources:\"\necho \"   \ud83c\udf0d Global Privacy Directory: https://iapp.org/resources/global-privacy-directory/\"\necho \"   \ud83d\udcd6 Privacy Glossary: https://iapp.org/resources/glossary/\"\necho \"   \ud83d\udee0\ufe0f Privacy Tech Vendors: https://iapp.org/resources/privacy-tech-vendor-report/\"\necho \"   \ud83d\udcf0 Privacy Tracker: https://iapp.org/news/privacy-tracker/\"\necho \"   \ud83d\udcad Privacy Perspectives: https://iapp.org/news/privacy-perspectives/\"\necho \"\"\n\necho \"\ud83d\udca1 Privacy Quick Links:\"\necho \"   \u2022 GDPR Resources: https://iapp.org/resources/article/gdpr-resources/\"\necho \"   \u2022 CCPA Resources: https://iapp.org/resources/article/ccpa-resources/\"\necho \"   \u2022 Privacy Training: https://iapp.org/training/\"\necho \"\"\n\necho \"\ud83d\udcc5 Report generated: $(date)\""
+    },
+    "curl": {
+      "get_rss_feed": "# Get IAPP privacy news RSS feed - FREE!\ncurl -s 'https://iapp.org/news/rss/' | head -100",
+      "search_resources": "# Access IAPP resource pages\ncurl -s 'https://iapp.org/resources/' | grep -o '<a href=\"[^\"]*\"' | head -20"
+    },
+    "python": {
+      "fetch_privacy_news": "import requests\nfrom bs4 import BeautifulSoup\nimport feedparser\nfrom datetime import datetime\n\nclass IAPPPrivacyMonitor:\n    \"\"\"Monitor IAPP privacy resources - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://iapp.org'\n        self.news_feed = 'https://iapp.org/news/rss/'\n    \n    def get_privacy_news(self):\n        \"\"\"Fetch latest privacy news from IAPP RSS feed\"\"\"\n        try:\n            feed = feedparser.parse(self.news_feed)\n            \n            print(\"\ud83d\udd10 IAPP Privacy News (FREE!)\\n\")\n            print(f\"Feed: {feed.feed.get('title', 'IAPP News')}\")\n            print(f\"Updated: {feed.feed.get('updated', 'Unknown')}\\n\")\n            \n            news_items = []\n            \n            for entry in feed.entries[:10]:\n                news_item = {\n                    'title': entry.title,\n                    'link': entry.link,\n                    'published': entry.published,\n                    'summary': entry.get('summary', ''),\n                    'tags': [tag.term for tag in entry.get('tags', [])]\n                }\n                \n                news_items.append(news_item)\n                \n                print(f\"\ud83d\udcf0 {news_item['title']}\")\n                print(f\"   \ud83d\udcc5 {news_item['published']}\")\n                print(f\"   \ud83d\udd17 {news_item['link']}\")\n                \n                if news_item['tags']:\n                    print(f\"   \ud83c\udff7\ufe0f  {', '.join(news_item['tags'])}\")\n                \n                print()\n            \n            return news_items\n            \n        except Exception as e:\n            print(f\"Error fetching IAPP news: {e}\")\n            return []\n    \n    def search_privacy_laws(self, region=None):\n        \"\"\"Search global privacy law directory\"\"\"\n        directory_url = f\"{self.base_url}/resources/global-privacy-directory/\"\n        \n        print(f\"\ud83c\udf0d IAPP Global Privacy Law Directory (FREE!)\\n\")\n        print(f\"Access comprehensive privacy law information at:\")\n        print(f\"\ud83d\udd17 {directory_url}\\n\")\n        \n        # Provide guidance on available resources\n        regions = [\n            \"Europe (GDPR and national laws)\",\n            \"United States (federal and state laws)\",\n            \"Asia-Pacific (comprehensive coverage)\",\n            \"Latin America (emerging privacy laws)\",\n            \"Middle East & Africa (developing frameworks)\"\n        ]\n        \n        print(\"\ud83d\udcda Available Regional Coverage:\")\n        for region in regions:\n            print(f\"   \u2022 {region}\")\n        \n        print(\"\\n\ud83d\udca1 Each jurisdiction includes:\")\n        print(\"   \u2022 Key privacy laws and regulations\")\n        print(\"   \u2022 Regulatory authorities\")\n        print(\"   \u2022 Enforcement mechanisms\")\n        print(\"   \u2022 Recent updates and changes\")\n        \n        return directory_url\n    \n    def get_privacy_tech_vendors(self):\n        \"\"\"Get privacy technology vendor information\"\"\"\n        vendor_url = f\"{self.base_url}/resources/privacy-tech-vendor-report/\"\n        \n        print(f\"\ud83d\udee0\ufe0f  IAPP Privacy Tech Vendor Report (FREE!)\\n\")\n        print(f\"Access the comprehensive vendor directory at:\")\n        print(f\"\ud83d\udd17 {vendor_url}\\n\")\n        \n        # Categories of vendors\n        categories = [\n            \"Consent Management Platforms\",\n            \"Data Mapping and Inventory\",\n            \"Privacy Management Software\",\n            \"Data Subject Request Tools\",\n            \"Cookie Management Solutions\",\n            \"Privacy Impact Assessment Tools\",\n            \"Data Loss Prevention\",\n            \"Privacy Training Platforms\"\n        ]\n        \n        print(\"\ud83d\udcca Vendor Categories:\")\n        for category in categories:\n            print(f\"   \u2022 {category}\")\n        \n        print(\"\\n\ud83d\udca1 Vendor Report Features:\")\n        print(\"   \u2022 Detailed vendor profiles\")\n        print(\"   \u2022 Feature comparisons\")\n        print(\"   \u2022 Market analysis\")\n        print(\"   \u2022 Implementation guidance\")\n        \n        return vendor_url\n    \n    def generate_privacy_report(self):\n        \"\"\"Generate comprehensive privacy intelligence report\"\"\"\n        print(f\"\ud83d\udd10 IAPP Privacy Intelligence Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        # Get latest news\n        print(\"\ud83d\udcf0 Latest Privacy News:\")\n        news = self.get_privacy_news()\n        \n        # Provide law directory info\n        print(\"\\n\ud83c\udf0d Global Privacy Laws:\")\n        self.search_privacy_laws()\n        \n        # Provide vendor info\n        print(\"\\n\ud83d\udee0\ufe0f  Privacy Technology:\")\n        self.get_privacy_tech_vendors()\n        \n        print(\"\\n\ud83d\udcda Additional FREE Resources:\")\n        print(\"   \u2022 Privacy Glossary: https://iapp.org/resources/glossary/\")\n        print(\"   \u2022 Privacy Tracker: https://iapp.org/news/privacy-tracker/\")\n        print(\"   \u2022 Resource Center: https://iapp.org/resources/\")\n        print(\"   \u2022 Privacy Perspectives Blog: https://iapp.org/news/privacy-perspectives/\")\n        \n        print(\"\\n\ud83d\udca1 Privacy Compliance Tips:\")\n        print(\"   1. Stay updated with daily privacy news\")\n        print(\"   2. Monitor regulatory changes in your jurisdictions\")\n        print(\"   3. Assess privacy technology solutions\")\n        print(\"   4. Implement privacy by design principles\")\n        print(\"   5. Maintain current privacy documentation\")\n\n# Usage\nmonitor = IAPPPrivacyMonitor()\nmonitor.generate_privacy_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "privacy-rights-clearinghouse",
+      "eff-privacy",
+      "epic-privacy"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Public access with attribution",
+    "maintainer": "International Association of Privacy Professionals",
+    "related_resources": [
+      "IAPP Training and Certification",
+      "IAPP Privacy Engineering",
+      "IAPP Research Reports",
+      "IAPP Community Forums"
+    ]
+  },
+  "name": "IAPP Privacy Resources",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to IAPP Daily Dashboard for regular updates",
+      "Use the Global Privacy Directory for jurisdiction research",
+      "Leverage the Privacy Tech Vendor Report for tool selection",
+      "Reference the Privacy Glossary for terminology",
+      "Monitor Privacy Tracker for enforcement actions",
+      "Follow Privacy Perspectives for thought leadership"
+    ],
+    "common_use_cases": [
+      "Privacy regulation monitoring and compliance",
+      "Privacy news and updates tracking",
+      "Privacy technology vendor research",
+      "Privacy professional education and training",
+      "Data protection impact assessments",
+      "Privacy program development",
+      "Cross-border data transfer compliance"
+    ],
+    "recommended_update_frequency": "Check daily for news, weekly for resource updates",
+    "value_proposition": "Comprehensive, authoritative privacy resources from the world's largest privacy professional association, with extensive free content"
+  },
+  "quality_metrics": {
+    "accessibility": "Public access without registration for most resources",
+    "completeness": "Comprehensive global privacy law coverage",
+    "cost": "COMPLETELY FREE for core resources",
+    "data_quality": "Authoritative privacy information from leading professional association",
+    "reliability": "excellent",
+    "update_speed": "Daily news updates, regular resource additions"
+  },
+  "quality_score": 92,
+  "subcategory": "iapp",
+  "url": "https://iapp.org/resources/"
+}

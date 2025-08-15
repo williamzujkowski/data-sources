@@ -1,0 +1,160 @@
+{
+  "api": {
+    "base_url": "https://github.com/OWASP",
+    "github_repos": [
+      {
+        "description": "Mobile Security Testing Guide source",
+        "name": "owasp-mstg",
+        "url": "https://github.com/OWASP/owasp-mstg"
+      },
+      {
+        "description": "Mobile Application Security Verification Standard source",
+        "name": "owasp-masvs",
+        "url": "https://github.com/OWASP/owasp-masvs"
+      }
+    ],
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Comprehensive guide for mobile app penetration testing",
+        "format": "GitBook/PDF/EPUB",
+        "name": "Mobile Security Testing Guide (MSTG)",
+        "url": "https://mobile-security.gitbook.io/mobile-security-testing-guide/"
+      },
+      {
+        "access": "free",
+        "description": "Security requirements for mobile apps",
+        "format": "GitBook/PDF",
+        "name": "Mobile App Security Verification Standard (MASVS)",
+        "url": "https://mobile-security.gitbook.io/masvs/"
+      },
+      {
+        "access": "free",
+        "description": "Quick reference security checklists",
+        "format": "Excel/PDF",
+        "name": "Mobile Security Checklist",
+        "url": "https://github.com/OWASP/owasp-mstg/releases"
+      },
+      {
+        "access": "free",
+        "description": "Top 10 mobile application security risks",
+        "format": "HTML/PDF",
+        "name": "OWASP Mobile Top 10",
+        "url": "https://owasp.org/www-project-mobile-top-10/"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All OWASP Mobile Security resources including MSTG, MASVS, tools, and checklists available without authentication. Open source community project.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 97,
+  "category": "mobile-security",
+  "coverage": 94,
+  "data_coverage": {
+    "content_types": [
+      "Mobile penetration testing methodologies",
+      "Security requirements and standards",
+      "Platform-specific security guidance",
+      "Reverse engineering techniques",
+      "Cryptography implementation",
+      "Authentication and session management",
+      "Network communication security",
+      "Data storage security"
+    ],
+    "platforms_covered": [
+      "Android security testing",
+      "iOS security testing",
+      "React Native security",
+      "Flutter security",
+      "Xamarin security",
+      "Cordova/PhoneGap security",
+      "Progressive Web Apps (PWA)",
+      "Hybrid applications"
+    ],
+    "temporal": {
+      "historical_data": "2016-present",
+      "latency": "Regular community contributions",
+      "update_frequency": "Quarterly updates to guides"
+    },
+    "testing_areas": [
+      "Static Application Security Testing (SAST)",
+      "Dynamic Application Security Testing (DAST)",
+      "Reverse engineering and tampering",
+      "Authentication and authorization",
+      "Cryptography validation",
+      "Network communication analysis",
+      "Platform interaction testing",
+      "Code quality and build settings"
+    ]
+  },
+  "description": "OWASP Mobile Security Testing Guide (MSTG) and Mobile Application Security Verification Standard (MASVS) providing comprehensive mobile app security resources. COMPLETELY FREE access to testing guides, standards, and tools.",
+  "documentation": "https://mobile-security.gitbook.io/mobile-security-testing-guide/",
+  "format": "other",
+  "id": "owasp-mobile-security",
+  "integration_examples": {
+    "bash": {
+      "mobile_security_setup": "#!/bin/bash\n# OWASP Mobile Security Testing Setup - FREE!\n\necho \"\ud83d\udcf1 OWASP Mobile Security Setup (FREE!)\"\necho \"=======================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Download MSTG\necho \"\ud83d\udcda Downloading Mobile Security Testing Guide...\"\nmkdir -p owasp-mobile\ncd owasp-mobile\n\n# Get latest release\necho \"\ud83d\udce5 Getting latest MSTG release...\"\ncurl -s https://api.github.com/repos/OWASP/owasp-mstg/releases/latest | \\\n  grep browser_download_url | \\\n  grep pdf | \\\n  cut -d '\"' -f 4 | \\\n  xargs -I {} curl -L -o MSTG.pdf {}\n\nif [ -f MSTG.pdf ]; then\n    echo \"\u2705 MSTG downloaded successfully\"\nelse\n    echo \"\u274c Failed to download MSTG\"\nfi\n\n# Install MobSF\necho \"\"\necho \"\ud83d\udd27 Mobile Security Framework (MobSF) Setup:\"\nif command -v docker &> /dev/null; then\n    echo \"   Docker detected. Pull MobSF image:\"\n    echo \"   $ docker pull opensecurity/mobile-security-framework-mobsf\"\n    echo \"   $ docker run -it -p 8000:8000 opensecurity/mobile-security-framework-mobsf\"\nelse\n    echo \"   \u274c Docker not found. Install Docker first.\"\nfi\n\n# Install Frida\necho \"\"\necho \"\ud83d\udd2c Frida Dynamic Instrumentation:\"\nif command -v pip &> /dev/null; then\n    echo \"   Install Frida:\"\n    echo \"   $ pip install frida-tools\"\n    echo \"   $ pip install objection\"\nelse\n    echo \"   \u274c pip not found. Install Python first.\"\nfi\n\n# Android tools\necho \"\"\necho \"\ud83e\udd16 Android Security Tools:\"\necho \"   \u2022 apktool - APK reverse engineering\"\necho \"   \u2022 jadx - Dex to Java decompiler\"\necho \"   \u2022 dex2jar - Convert dex to jar\"\necho \"   \u2022 Drozer - Security assessment\"\necho \"   \u2022 QARK - Quick Android Review Kit\"\n\n# iOS tools\necho \"\"\necho \"\ud83c\udf4e iOS Security Tools:\"\necho \"   \u2022 otool - Object file displaying\"\necho \"   \u2022 class-dump - Objective-C headers\"\necho \"   \u2022 Cycript - Runtime manipulation\"\necho \"   \u2022 SSL Kill Switch - Cert bypass\"\necho \"   \u2022 Needle - iOS testing framework\"\n\n# OWASP resources\necho \"\"\necho \"\ud83d\udcd6 OWASP Mobile Resources:\"\necho \"   \ud83d\udcda MSTG: https://mobile-security.gitbook.io/mobile-security-testing-guide/\"\necho \"   \ud83d\udccb MASVS: https://mobile-security.gitbook.io/masvs/\"\necho \"   \ud83d\udd1d Mobile Top 10: https://owasp.org/www-project-mobile-top-10/\"\necho \"   \ud83d\udcbb GitHub: https://github.com/OWASP/owasp-mstg\"\n\n# Testing checklist\necho \"\"\necho \"\u2705 Mobile Security Testing Checklist:\"\necho \"   [ ] Setup testing environment\"\necho \"   [ ] Install security tools\"\necho \"   [ ] Download MSTG/MASVS\"\necho \"   [ ] Configure proxy (Burp/ZAP)\"\necho \"   [ ] Setup device/emulator\"\necho \"   [ ] Enable developer options\"\necho \"   [ ] Install Frida server\"\necho \"   [ ] Test sample app\"\n\necho \"\"\necho \"\ud83d\udcc5 Setup completed: $(date)\""
+    },
+    "curl": {
+      "download_checklist": "# Download MASVS checklist\ncurl -L -o masvs-checklist.xlsx https://github.com/OWASP/owasp-masvs/releases/latest/download/OWASP_MASVS_Checklist.xlsx",
+      "get_latest_mstg": "# Get latest MSTG release info - FREE!\ncurl -s https://api.github.com/repos/OWASP/owasp-mstg/releases/latest | jq '{tag_name, name, published_at, assets: [.assets[] | {name, download_url: .browser_download_url}]}'"
+    },
+    "python": {
+      "mobile_security_analyzer": "import requests\nimport json\nfrom datetime import datetime\nimport subprocess\nimport os\n\nclass OWASPMobileSecurityAnalyzer:\n    \"\"\"OWASP Mobile Security Testing Framework - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.mstg_url = 'https://mobile-security.gitbook.io/mobile-security-testing-guide/'\n        self.masvs_url = 'https://mobile-security.gitbook.io/masvs/'\n        self.github_base = 'https://raw.githubusercontent.com/OWASP'\n        \n        # OWASP Mobile Top 10 Risks\n        self.mobile_top_10 = [\n            \"M1: Improper Platform Usage\",\n            \"M2: Insecure Data Storage\",\n            \"M3: Insecure Communication\",\n            \"M4: Insecure Authentication\",\n            \"M5: Insufficient Cryptography\",\n            \"M6: Insecure Authorization\",\n            \"M7: Client Code Quality\",\n            \"M8: Code Tampering\",\n            \"M9: Reverse Engineering\",\n            \"M10: Extraneous Functionality\"\n        ]\n    \n    def get_masvs_requirements(self, level='L1'):\n        \"\"\"Get MASVS security requirements\"\"\"\n        print(f\"\ud83d\udcf1 OWASP MASVS Requirements - Level {level} (FREE!)\\n\")\n        \n        requirements = {\n            'V1': 'Architecture, Design and Threat Modeling',\n            'V2': 'Data Storage and Privacy',\n            'V3': 'Cryptography',\n            'V4': 'Authentication and Session Management',\n            'V5': 'Network Communication',\n            'V6': 'Platform Interaction',\n            'V7': 'Code Quality and Build Settings',\n            'V8': 'Resilience Against Reverse Engineering'\n        }\n        \n        print(f\"\ud83d\udccb MASVS Verification Areas:\")\n        for req_id, description in requirements.items():\n            print(f\"   {req_id}: {description}\")\n        \n        print(f\"\\n\ud83d\udd12 Security Levels:\")\n        print(\"   \u2022 L1: Standard Security (all mobile apps)\")\n        print(\"   \u2022 L2: Defense-in-Depth (sensitive data)\")\n        print(\"   \u2022 R: Resilience (reverse engineering protection)\")\n        \n        if level == 'L1':\n            print(\"\\n\u2705 L1 Requirements (Standard Security):\")\n            l1_reqs = [\n                \"Secure data storage\",\n                \"Secure communication\",\n                \"Proper authentication\",\n                \"Session management\",\n                \"Input validation\",\n                \"Error handling\"\n            ]\n            for req in l1_reqs:\n                print(f\"   \u2022 {req}\")\n        \n        elif level == 'L2':\n            print(\"\\n\ud83d\udee1\ufe0f L2 Requirements (Defense-in-Depth):\")\n            l2_reqs = [\n                \"All L1 requirements\",\n                \"Advanced cryptography\",\n                \"Certificate pinning\",\n                \"Anti-debugging measures\",\n                \"Integrity checks\",\n                \"Runtime protection\"\n            ]\n            for req in l2_reqs:\n                print(f\"   \u2022 {req}\")\n        \n        print(f\"\\n\ud83d\udcd6 Full MASVS: {self.masvs_url}\")\n        return requirements\n    \n    def mobile_top_10_assessment(self):\n        \"\"\"Assess against OWASP Mobile Top 10\"\"\"\n        print(\"\ud83d\udd1d OWASP Mobile Top 10 Assessment (FREE!)\\n\")\n        \n        for risk in self.mobile_top_10:\n            print(f\"\u26a0\ufe0f {risk}\")\n        \n        print(\"\\n\ud83d\udcca Risk Assessment Checklist:\\n\")\n        \n        checklist = {\n            'M1': [\n                \"Platform permissions properly configured?\",\n                \"Platform features used securely?\",\n                \"KeyStore/Keychain used correctly?\"\n            ],\n            'M2': [\n                \"Sensitive data encrypted at rest?\",\n                \"No sensitive data in shared storage?\",\n                \"Secure deletion implemented?\"\n            ],\n            'M3': [\n                \"TLS/SSL properly implemented?\",\n                \"Certificate pinning enabled?\",\n                \"Sensitive data encrypted in transit?\"\n            ],\n            'M4': [\n                \"Strong authentication required?\",\n                \"Biometric authentication secure?\",\n                \"Session tokens properly managed?\"\n            ],\n            'M5': [\n                \"Strong algorithms used?\",\n                \"Keys properly managed?\",\n                \"Random numbers cryptographically secure?\"\n            ]\n        }\n        \n        for risk_id, checks in list(checklist.items())[:5]:\n            risk_name = next(r for r in self.mobile_top_10 if r.startswith(risk_id))\n            print(f\"{risk_name}:\")\n            for check in checks:\n                print(f\"   [ ] {check}\")\n            print()\n        \n        return self.mobile_top_10\n    \n    def get_testing_tools(self, platform='android'):\n        \"\"\"Get recommended mobile security testing tools\"\"\"\n        print(f\"\ud83d\udd27 Mobile Security Testing Tools - {platform.title()} (FREE!)\\n\")\n        \n        android_tools = {\n            'Static Analysis': [\n                'MobSF - Mobile Security Framework',\n                'QARK - Quick Android Review Kit',\n                'AndroBugs Framework',\n                'Android Lint',\n                'Androguard'\n            ],\n            'Dynamic Analysis': [\n                'Frida - Dynamic instrumentation',\n                'Objection - Runtime mobile exploration',\n                'Drozer - Android security assessment',\n                'OWASP ZAP - Proxy testing',\n                'Burp Suite - Web proxy'\n            ],\n            'Reverse Engineering': [\n                'apktool - APK reverse engineering',\n                'jadx - Dex to Java decompiler',\n                'dex2jar - Dex conversion',\n                'JD-GUI - Java decompiler',\n                'Ghidra - NSA reverse engineering'\n            ]\n        }\n        \n        ios_tools = {\n            'Static Analysis': [\n                'MobSF - Mobile Security Framework',\n                'Needle - iOS testing framework',\n                'iMAS - iOS security controls',\n                'iOS App Analyzer'\n            ],\n            'Dynamic Analysis': [\n                'Frida - Dynamic instrumentation',\n                'Objection - Runtime exploration',\n                'Cycript - Runtime manipulation',\n                'SSL Kill Switch - Certificate bypass',\n                'FLEX - In-app debugging'\n            ],\n            'Reverse Engineering': [\n                'otool - Object file display',\n                'class-dump - Objective-C headers',\n                'Hopper Disassembler',\n                'IDA Pro - Disassembler',\n                'radare2 - Reverse engineering'\n            ]\n        }\n        \n        tools = android_tools if platform.lower() == 'android' else ios_tools\n        \n        for category, tool_list in tools.items():\n            print(f\"\ud83d\udce6 {category}:\")\n            for tool in tool_list:\n                print(f\"   \u2022 {tool}\")\n            print()\n        \n        print(\"\ud83d\udca1 Tool Installation:\")\n        if platform.lower() == 'android':\n            print(\"   # Install MobSF (Docker)\")\n            print(\"   docker pull opensecurity/mobile-security-framework-mobsf\")\n            print(\"   docker run -it -p 8000:8000 opensecurity/mobile-security-framework-mobsf\")\n        else:\n            print(\"   # Install Frida\")\n            print(\"   pip install frida-tools\")\n            print(\"   # Install Objection\")\n            print(\"   pip install objection\")\n        \n        return tools\n    \n    def generate_security_report(self, app_name=\"MyApp\", platform=\"android\"):\n        \"\"\"Generate comprehensive mobile security report\"\"\"\n        print(f\"\ud83d\udcf1 OWASP Mobile Security Report (FREE!)\")\n        print(f\"App: {app_name} | Platform: {platform.title()}\")\n        print(f\"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udccb SECURITY REQUIREMENTS (MASVS)\")\n        print(\"=\" * 50)\n        self.get_masvs_requirements('L1')\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\u26a0\ufe0f RISK ASSESSMENT (Mobile Top 10)\")\n        print(\"=\" * 50)\n        self.mobile_top_10_assessment()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd27 TESTING TOOLS\")\n        print(\"=\" * 50)\n        self.get_testing_tools(platform)\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udcda TESTING METHODOLOGY\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udd0d Testing Phases:\")\n        phases = [\n            \"1. Information Gathering\",\n            \"2. Static Analysis\",\n            \"3. Dynamic Analysis\",\n            \"4. Network Analysis\",\n            \"5. Reverse Engineering\",\n            \"6. Reporting\"\n        ]\n        \n        for phase in phases:\n            print(f\"   {phase}\")\n        \n        print(\"\\n\ud83d\udcdd Testing Checklist:\")\n        print(\"   [ ] Review app permissions\")\n        print(\"   [ ] Analyze data storage\")\n        print(\"   [ ] Test authentication\")\n        print(\"   [ ] Verify encryption\")\n        print(\"   [ ] Check network communications\")\n        print(\"   [ ] Test input validation\")\n        print(\"   [ ] Assess code obfuscation\")\n        print(\"   [ ] Verify certificate pinning\")\n        \n        print(\"\\n\ud83d\udcd6 Resources:\")\n        print(f\"   \u2022 MSTG: {self.mstg_url}\")\n        print(f\"   \u2022 MASVS: {self.masvs_url}\")\n        print(\"   \u2022 GitHub: https://github.com/OWASP/owasp-mstg\")\n        print(\"   \u2022 Checklist: https://github.com/OWASP/owasp-mstg/releases\")\n        \n        print(\"\\n\ud83d\udca1 Next Steps:\")\n        print(\"   1. Download MSTG and MASVS guides\")\n        print(\"   2. Set up testing environment\")\n        print(\"   3. Install recommended tools\")\n        print(\"   4. Follow MSTG methodology\")\n        print(\"   5. Document findings\")\n        \n        return True\n\n# Usage\nanalyzer = OWASPMobileSecurityAnalyzer()\nanalyzer.generate_security_report(\"MyApp\", \"android\")"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "android-security-bulletins",
+      "ios-security-guide",
+      "mobile-security-framework"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Creative Commons Attribution-ShareAlike 4.0",
+    "maintainer": "OWASP Mobile Security Project",
+    "related_resources": [
+      "OWASP Mobile Top 10",
+      "OWASP Mobile Security Testing Guide",
+      "OWASP MASVS",
+      "OWASP Mobile Security Checklist"
+    ]
+  },
+  "name": "OWASP Mobile Security",
+  "operational_guidance": {
+    "best_practices": [
+      "Follow MSTG testing methodology",
+      "Use MASVS for requirements definition",
+      "Implement security from design phase",
+      "Regular security testing cycles",
+      "Automate security checks in CI/CD",
+      "Document all findings thoroughly",
+      "Keep testing tools updated"
+    ],
+    "common_use_cases": [
+      "Mobile application penetration testing",
+      "Security requirements definition",
+      "Secure development guidelines",
+      "Compliance verification",
+      "Security architecture review",
+      "Vulnerability assessment",
+      "Code review and analysis"
+    ],
+    "recommended_update_frequency": "Review quarterly for guide updates, check monthly for tool updates",
+    "value_proposition": "Industry-standard mobile application security testing methodology and verification standard, completely free and community-driven"
+  },
+  "quality_metrics": {
+    "accessibility": "All resources freely available on GitHub and GitBook",
+    "completeness": "Comprehensive coverage of mobile security topics",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Industry-standard mobile security guidance",
+    "reliability": "excellent",
+    "update_speed": "Regular community updates and contributions"
+  },
+  "quality_score": 95,
+  "subcategory": "owasp",
+  "url": "https://owasp.org/www-project-mobile-security-testing-guide/"
+}
