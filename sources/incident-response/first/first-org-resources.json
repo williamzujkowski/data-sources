@@ -1,0 +1,157 @@
+{
+  "api": {
+    "base_url": "https://www.first.org",
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Common Vulnerability Scoring System calculator and documentation",
+        "format": "HTML/JS",
+        "name": "CVSS Calculator",
+        "url": "https://www.first.org/cvss/calculator/"
+      },
+      {
+        "access": "free",
+        "description": "Product Security Incident Response Team framework and maturity model",
+        "format": "PDF",
+        "name": "PSIRT Services Framework",
+        "url": "https://www.first.org/standards/frameworks/psirts/"
+      },
+      {
+        "access": "free",
+        "description": "Computer Security Incident Response Team services and capabilities",
+        "format": "PDF",
+        "name": "CSIRT Services Framework",
+        "url": "https://www.first.org/standards/frameworks/csirts/"
+      },
+      {
+        "access": "free",
+        "description": "Traffic Light Protocol for information sharing",
+        "format": "HTML/PDF",
+        "name": "TLP Protocol",
+        "url": "https://www.first.org/tlp/"
+      }
+    ],
+    "resources": [
+      {
+        "description": "Collection of incident response methodologies and procedures",
+        "name": "Incident Response Best Practices",
+        "url": "https://www.first.org/resources/guides/"
+      },
+      {
+        "description": "Security standards and frameworks developed by FIRST",
+        "name": "FIRST Standards",
+        "url": "https://www.first.org/standards/"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All FIRST resources including CVSS calculator, PSIRT framework, and incident response guides available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 93,
+  "category": "incident-response",
+  "coverage": 90,
+  "data_coverage": {
+    "content_types": [
+      "CVSS scoring methodology",
+      "Incident response frameworks",
+      "CSIRT/PSIRT best practices",
+      "Information sharing protocols",
+      "Vulnerability coordination",
+      "Security standards",
+      "Incident classification",
+      "Response team building"
+    ],
+    "frameworks": [
+      "CVSS (Common Vulnerability Scoring System)",
+      "CSIRT Services Framework",
+      "PSIRT Services Framework",
+      "Traffic Light Protocol (TLP)",
+      "IEP (Information Exchange Policy)",
+      "Vulnerability Disclosure"
+    ],
+    "services": [
+      "Incident response coordination",
+      "Vulnerability scoring",
+      "Information sharing",
+      "Standards development",
+      "Training and education",
+      "Global CSIRT directory",
+      "Security advisories",
+      "Best practice guides"
+    ],
+    "temporal": {
+      "historical_data": "1990-present",
+      "latency": "Real-time CVSS updates",
+      "update_frequency": "Continuous updates to frameworks and standards"
+    }
+  },
+  "description": "Forum of Incident Response and Security Teams (FIRST) providing incident response resources, CVSS scoring, and CSIRT services. COMPLETELY FREE access to incident response frameworks, best practices, and vulnerability scoring.",
+  "format": "other",
+  "id": "first-org-resources",
+  "integration_examples": {
+    "bash": {
+      "check_resources": "#!/bin/bash\n# FIRST.org Resources Check - FREE!\n\necho \"\ud83c\udf10 FIRST.org Resources (FREE!)\"\necho \"================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# FIRST Resources\necho \"\ud83d\udcda Available Resources:\"\necho \"   \u2022 CVSS Calculator: https://www.first.org/cvss/calculator/\"\necho \"   \u2022 CSIRT Framework: https://www.first.org/standards/frameworks/csirts/\"\necho \"   \u2022 PSIRT Framework: https://www.first.org/standards/frameworks/psirts/\"\necho \"   \u2022 TLP Protocol: https://www.first.org/tlp/\"\necho \"   \u2022 IEP Framework: https://www.first.org/iep/\"\necho \"\"\n\n# CVSS Information\necho \"\ud83d\udd22 CVSS Scoring:\"\necho \"   Severity Levels:\"\necho \"      \u2022 0.0: None\"\necho \"      \u2022 0.1-3.9: Low\"\necho \"      \u2022 4.0-6.9: Medium\"\necho \"      \u2022 7.0-8.9: High\"\necho \"      \u2022 9.0-10.0: Critical\"\necho \"\"\n\n# TLP Levels\necho \"\ud83d\udea6 Traffic Light Protocol:\"\necho \"   \ud83d\udd34 TLP:RED - Eyes only\"\necho \"   \ud83d\udfe0 TLP:AMBER - Limited sharing\"\necho \"   \ud83d\udfe2 TLP:GREEN - Community only\"\necho \"   \u26aa TLP:WHITE - Public\"\necho \"\"\n\n# Incident Response Phases\necho \"\ud83d\udea8 Incident Response Phases:\"\necho \"   1. Preparation\"\necho \"   2. Detection & Analysis\"\necho \"   3. Containment\"\necho \"   4. Eradication\"\necho \"   5. Recovery\"\necho \"   6. Lessons Learned\"\necho \"\"\n\necho \"\ud83d\udcc5 Generated: $(date)\""
+    },
+    "curl": {
+      "check_cvss": "# Check CVSS calculator page - FREE!\ncurl -s https://www.first.org/cvss/ | grep -o 'CVSS v[0-9]\\.[0-9]' | head -5"
+    },
+    "python": {
+      "cvss_calculator": "import json\nfrom datetime import datetime\nimport math\n\nclass FIRSTResourcesAnalyzer:\n    \"\"\"FIRST.org Resources and CVSS Calculator - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.first.org'\n        self.cvss_url = f'{self.base_url}/cvss/'\n        \n        # CVSS v3.1 Base Metrics\n        self.cvss_metrics = {\n            'AV': {'N': 0.85, 'A': 0.62, 'L': 0.55, 'P': 0.2},  # Attack Vector\n            'AC': {'L': 0.77, 'H': 0.44},  # Attack Complexity\n            'PR': {  # Privileges Required\n                'N': {'unchanged': 0.85, 'changed': 0.85},\n                'L': {'unchanged': 0.62, 'changed': 0.68},\n                'H': {'unchanged': 0.27, 'changed': 0.5}\n            },\n            'UI': {'N': 0.85, 'R': 0.62},  # User Interaction\n            'S': {'U': 'unchanged', 'C': 'changed'},  # Scope\n            'C': {'H': 0.56, 'L': 0.22, 'N': 0},  # Confidentiality\n            'I': {'H': 0.56, 'L': 0.22, 'N': 0},  # Integrity\n            'A': {'H': 0.56, 'L': 0.22, 'N': 0}   # Availability\n        }\n    \n    def calculate_cvss_score(self, av='N', ac='L', pr='N', ui='N', s='U', c='H', i='H', a='H'):\n        \"\"\"Calculate CVSS v3.1 Base Score\"\"\"\n        print(\"\ud83d\udd22 CVSS v3.1 Calculator (FREE!)\\n\")\n        \n        # Determine scope\n        scope = self.cvss_metrics['S'][s]\n        \n        # Calculate Impact Sub Score (ISS)\n        iss_base = 1 - ((1 - self.cvss_metrics['C'][c]) * \n                        (1 - self.cvss_metrics['I'][i]) * \n                        (1 - self.cvss_metrics['A'][a]))\n        \n        if scope == 'unchanged':\n            impact = 6.42 * iss_base\n        else:\n            impact = 7.52 * (iss_base - 0.029) - 3.25 * pow(iss_base - 0.02, 15)\n        \n        # Calculate Exploitability\n        exploitability = 8.22 * self.cvss_metrics['AV'][av] * \\\n                        self.cvss_metrics['AC'][ac] * \\\n                        self.cvss_metrics['PR'][pr][scope] * \\\n                        self.cvss_metrics['UI'][ui]\n        \n        # Calculate Base Score\n        if impact <= 0:\n            base_score = 0\n        elif scope == 'unchanged':\n            base_score = min(impact + exploitability, 10)\n        else:\n            base_score = min(1.08 * (impact + exploitability), 10)\n        \n        # Round to one decimal place\n        base_score = round(base_score, 1)\n        \n        # Determine severity\n        if base_score == 0:\n            severity = 'None'\n        elif base_score < 4:\n            severity = 'Low'\n        elif base_score < 7:\n            severity = 'Medium'\n        elif base_score < 9:\n            severity = 'High'\n        else:\n            severity = 'Critical'\n        \n        print(f\"\ud83d\udcca CVSS Base Score: {base_score}\")\n        print(f\"\u26a0\ufe0f Severity: {severity}\\n\")\n        \n        print(\"Vector String Components:\")\n        print(f\"  AV:{av} - Attack Vector\")\n        print(f\"  AC:{ac} - Attack Complexity\")\n        print(f\"  PR:{pr} - Privileges Required\")\n        print(f\"  UI:{ui} - User Interaction\")\n        print(f\"  S:{s} - Scope\")\n        print(f\"  C:{c} - Confidentiality Impact\")\n        print(f\"  I:{i} - Integrity Impact\")\n        print(f\"  A:{a} - Availability Impact\")\n        \n        vector = f\"CVSS:3.1/AV:{av}/AC:{ac}/PR:{pr}/UI:{ui}/S:{s}/C:{c}/I:{i}/A:{a}\"\n        print(f\"\\n\ud83d\udd17 Vector String: {vector}\")\n        \n        return base_score, severity, vector\n    \n    def get_incident_response_framework(self):\n        \"\"\"Get FIRST incident response framework information\"\"\"\n        print(\"\ud83d\udea8 FIRST Incident Response Framework (FREE!)\\n\")\n        \n        print(\"\ud83d\udccb CSIRT Services Framework:\")\n        services = [\n            \"Incident Management\",\n            \"Vulnerability Management\",\n            \"Artifact Analysis\",\n            \"Security Event Management\",\n            \"Situational Awareness\",\n            \"Knowledge Transfer\"\n        ]\n        \n        for service in services:\n            print(f\"   \u2022 {service}\")\n        \n        print(\"\\n\ud83c\udfe2 PSIRT Services Framework:\")\n        psirt_services = [\n            \"Vulnerability Discovery\",\n            \"Vulnerability Report Intake\",\n            \"Stakeholder Ecosystem Management\",\n            \"Vulnerability Disclosure\",\n            \"Vulnerability Training & Education\",\n            \"Product Security Incident Response\"\n        ]\n        \n        for service in psirt_services:\n            print(f\"   \u2022 {service}\")\n        \n        print(\"\\n\ud83d\udea6 Traffic Light Protocol (TLP):\")\n        tlp_levels = {\n            \"TLP:RED\": \"\ud83d\udd34 Not for disclosure, restricted to participants only\",\n            \"TLP:AMBER\": \"\ud83d\udfe0 Limited disclosure, restricted to participants' organizations\",\n            \"TLP:GREEN\": \"\ud83d\udfe2 Limited disclosure, restricted to the community\",\n            \"TLP:WHITE\": \"\u26aa Disclosure is not limited\"\n        }\n        \n        for level, description in tlp_levels.items():\n            print(f\"   {level}: {description}\")\n        \n        return services, psirt_services, tlp_levels\n    \n    def incident_response_checklist(self):\n        \"\"\"Generate incident response checklist\"\"\"\n        print(\"\u2705 Incident Response Checklist (FREE!)\\n\")\n        \n        phases = {\n            \"1. Preparation\": [\n                \"Establish incident response team\",\n                \"Define incident response procedures\",\n                \"Set up monitoring and detection tools\",\n                \"Create communication plans\",\n                \"Prepare incident tracking system\"\n            ],\n            \"2. Detection & Analysis\": [\n                \"Monitor security events\",\n                \"Analyze alerts and indicators\",\n                \"Determine incident scope\",\n                \"Classify incident severity\",\n                \"Document initial findings\"\n            ],\n            \"3. Containment\": [\n                \"Isolate affected systems\",\n                \"Preserve evidence\",\n                \"Implement temporary fixes\",\n                \"Monitor for spread\",\n                \"Update security controls\"\n            ],\n            \"4. Eradication\": [\n                \"Remove malware/threats\",\n                \"Patch vulnerabilities\",\n                \"Update security measures\",\n                \"Verify threat removal\",\n                \"Strengthen defenses\"\n            ],\n            \"5. Recovery\": [\n                \"Restore systems to production\",\n                \"Monitor for reinfection\",\n                \"Verify system integrity\",\n                \"Test functionality\",\n                \"Document recovery steps\"\n            ],\n            \"6. Lessons Learned\": [\n                \"Conduct post-incident review\",\n                \"Document improvements\",\n                \"Update response procedures\",\n                \"Share threat intelligence\",\n                \"Train team on findings\"\n            ]\n        }\n        \n        for phase, tasks in phases.items():\n            print(f\"\ud83d\udccc {phase}:\")\n            for task in tasks:\n                print(f\"   [ ] {task}\")\n            print()\n        \n        return phases\n    \n    def generate_report(self):\n        \"\"\"Generate comprehensive FIRST resources report\"\"\"\n        print(f\"\ud83c\udf10 FIRST.org Resources Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udd22 CVSS SCORING EXAMPLE\")\n        print(\"=\" * 50)\n        # Example: Critical vulnerability\n        self.calculate_cvss_score(av='N', ac='L', pr='N', ui='N', s='C', c='H', i='H', a='H')\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udea8 INCIDENT RESPONSE FRAMEWORK\")\n        print(\"=\" * 50)\n        self.get_incident_response_framework()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\u2705 RESPONSE CHECKLIST\")\n        print(\"=\" * 50)\n        self.incident_response_checklist()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd17 RESOURCES\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udcda Key Resources:\")\n        print(f\"   \u2022 CVSS Calculator: {self.cvss_url}calculator/\")\n        print(f\"   \u2022 CSIRT Framework: {self.base_url}/standards/frameworks/csirts/\")\n        print(f\"   \u2022 PSIRT Framework: {self.base_url}/standards/frameworks/psirts/\")\n        print(f\"   \u2022 TLP Protocol: {self.base_url}/tlp/\")\n        print(f\"   \u2022 Best Practices: {self.base_url}/resources/guides/\")\n        \n        print(\"\\n\ud83d\udca1 Recommendations:\")\n        print(\"   1. Use CVSS for consistent vulnerability scoring\")\n        print(\"   2. Implement CSIRT/PSIRT frameworks\")\n        print(\"   3. Adopt TLP for information sharing\")\n        print(\"   4. Follow incident response best practices\")\n        print(\"   5. Participate in FIRST community\")\n        \n        return True\n\n# Usage\nanalyzer = FIRSTResourcesAnalyzer()\nanalyzer.generate_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "nist-incident-response",
+      "sans-incident-response",
+      "cisa-incident-response"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free to use",
+    "maintainer": "FIRST.org",
+    "related_resources": [
+      "MITRE ATT&CK Framework",
+      "NIST Incident Response Guide",
+      "SANS Incident Handler's Handbook",
+      "ISO/IEC 27035"
+    ]
+  },
+  "name": "FIRST.org Resources",
+  "operational_guidance": {
+    "best_practices": [
+      "Use CVSS for consistent vulnerability scoring",
+      "Implement structured incident response",
+      "Follow TLP for information sharing",
+      "Adopt CSIRT/PSIRT frameworks",
+      "Maintain incident documentation",
+      "Conduct regular training",
+      "Participate in information sharing"
+    ],
+    "common_use_cases": [
+      "CVSS vulnerability scoring",
+      "Incident response planning",
+      "CSIRT team building",
+      "PSIRT implementation",
+      "Information sharing protocols",
+      "Security standards adoption",
+      "Vulnerability coordination",
+      "Response team training"
+    ],
+    "recommended_update_frequency": "Check monthly for framework updates",
+    "value_proposition": "Global forum providing standardized incident response frameworks, vulnerability scoring, and security team coordination resources"
+  },
+  "quality_metrics": {
+    "accessibility": "All resources freely available",
+    "completeness": "Comprehensive incident response coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Industry-standard frameworks and methodologies",
+    "reliability": "excellent",
+    "update_speed": "Regular framework and standard updates"
+  },
+  "quality_score": 91,
+  "subcategory": "first",
+  "url": "https://www.first.org/"
+}

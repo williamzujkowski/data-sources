@@ -1,0 +1,155 @@
+{
+  "api": {
+    "base_url": "https://www.sans.org",
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Free online tutorials for cybersecurity fundamentals",
+        "format": "Video/Text",
+        "name": "Cyber Aces Tutorials",
+        "url": "https://www.sans.org/cyberaces/"
+      },
+      {
+        "access": "free",
+        "description": "Free security research papers and whitepapers",
+        "format": "PDF",
+        "name": "SANS Reading Room",
+        "url": "https://www.sans.org/white-papers/"
+      },
+      {
+        "access": "free",
+        "description": "Free threat intelligence and security news",
+        "format": "HTML/RSS",
+        "name": "Internet Storm Center",
+        "url": "https://isc.sans.edu/"
+      },
+      {
+        "access": "free with registration",
+        "description": "Free security webcasts and presentations",
+        "format": "Video",
+        "name": "SANS Webcasts",
+        "url": "https://www.sans.org/webcasts/"
+      }
+    ],
+    "resources": [
+      {
+        "description": "Free security awareness materials and posters",
+        "name": "Security Awareness Resources",
+        "url": "https://www.sans.org/security-awareness-training/resources/"
+      },
+      {
+        "description": "Quick reference guides for various security topics",
+        "name": "SANS Cheat Sheets",
+        "url": "https://www.sans.org/blog/the-ultimate-list-of-sans-cheat-sheets/"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All SANS Cyber Aces tutorials and educational content available without authentication or registration.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 95,
+  "category": "education-training",
+  "coverage": 85,
+  "data_coverage": {
+    "content_types": [
+      "Operating systems fundamentals",
+      "Networking basics",
+      "Security principles",
+      "Linux essentials",
+      "Windows security",
+      "PowerShell basics",
+      "Network protocols",
+      "Security best practices"
+    ],
+    "course_topics": [
+      "Operating Systems Basics",
+      "Linux Fundamentals",
+      "Windows Security Basics",
+      "Networking Essentials",
+      "TCP/IP Deep Dive",
+      "Security Foundations",
+      "PowerShell for Security",
+      "Command Line Basics"
+    ],
+    "skill_levels": [
+      "Beginner",
+      "Intermediate",
+      "Foundation",
+      "Entry-level"
+    ],
+    "temporal": {
+      "historical_data": "2010-present",
+      "latency": "Self-paced learning",
+      "update_frequency": "Regular content updates"
+    }
+  },
+  "description": "SANS Cyber Aces providing free cybersecurity tutorials and educational resources covering operating systems, networking, and security basics. COMPLETELY FREE access to foundational cybersecurity training.",
+  "format": "other",
+  "id": "sans-cyber-aces",
+  "integration_examples": {
+    "bash": {
+      "check_resources": "#!/bin/bash\n# SANS Cyber Aces Resources Check - FREE!\n\necho \"\ud83c\udf93 SANS Cyber Aces Resources (FREE!)\"\necho \"=====================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Available modules\necho \"\ud83d\udcda Free Learning Modules:\"\necho \"   \u2022 Operating Systems\"\necho \"   \u2022 Networking\"\necho \"   \u2022 Security Basics\"\necho \"   \u2022 Linux Essentials\"\necho \"   \u2022 Windows Security\"\necho \"   \u2022 PowerShell\"\necho \"\"\n\n# Resources\necho \"\ud83c\udd93 Free SANS Resources:\"\necho \"   \u2022 Cyber Aces: https://www.sans.org/cyberaces/\"\necho \"   \u2022 Reading Room: https://www.sans.org/white-papers/\"\necho \"   \u2022 ISC: https://isc.sans.edu/\"\necho \"   \u2022 Webcasts: https://www.sans.org/webcasts/\"\necho \"   \u2022 Cheat Sheets: Available on blog\"\necho \"\"\n\n# Learning path\necho \"\ud83d\udcc8 Recommended Learning Path:\"\necho \"   1. Start with OS Basics\"\necho \"   2. Learn Networking Fundamentals\"\necho \"   3. Study Security Principles\"\necho \"   4. Practice with Labs\"\necho \"   5. Read White Papers\"\necho \"   6. Attend Webcasts\"\necho \"\"\n\n# Study tips\necho \"\ud83d\udca1 Study Tips:\"\necho \"   [ ] Set regular study schedule\"\necho \"   [ ] Take notes during tutorials\"\necho \"   [ ] Practice commands hands-on\"\necho \"   [ ] Join community discussions\"\necho \"   [ ] Complete all exercises\"\necho \"\"\n\necho \"\ud83d\udcc5 Generated: $(date)\""
+    },
+    "curl": {
+      "check_isc": "# Check Internet Storm Center - FREE!\ncurl -s https://isc.sans.edu/api/infocon?json | jq '.status'"
+    },
+    "python": {
+      "learning_path": "import json\nfrom datetime import datetime\n\nclass SANSCyberAcesLearning:\n    \"\"\"SANS Cyber Aces Learning Path - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.sans.org/cyberaces/'\n        \n        # Learning modules\n        self.modules = {\n            'Operating Systems': {\n                'topics': [\n                    'Operating System Basics',\n                    'Windows Fundamentals',\n                    'Linux Essentials',\n                    'macOS Security',\n                    'File Systems',\n                    'Process Management',\n                    'Memory Management',\n                    'Security Features'\n                ],\n                'duration': '8-10 hours',\n                'level': 'Beginner'\n            },\n            'Networking': {\n                'topics': [\n                    'OSI Model',\n                    'TCP/IP Stack',\n                    'IP Addressing and Subnetting',\n                    'Routing and Switching',\n                    'DNS and DHCP',\n                    'Network Protocols',\n                    'Packet Analysis',\n                    'Network Security Basics'\n                ],\n                'duration': '10-12 hours',\n                'level': 'Beginner'\n            },\n            'Security Basics': {\n                'topics': [\n                    'CIA Triad',\n                    'Authentication and Authorization',\n                    'Cryptography Fundamentals',\n                    'Security Policies',\n                    'Risk Management',\n                    'Incident Response Basics',\n                    'Security Tools',\n                    'Best Practices'\n                ],\n                'duration': '8-10 hours',\n                'level': 'Beginner'\n            }\n        }\n    \n    def get_learning_path(self):\n        \"\"\"Generate recommended learning path\"\"\"\n        print(\"\ud83c\udf93 SANS Cyber Aces Learning Path (FREE!)\\n\")\n        \n        print(\"\ud83d\udcda Recommended Learning Order:\\n\")\n        \n        learning_order = [\n            ('1. Operating Systems', 'Foundation for all cybersecurity'),\n            ('2. Networking', 'Understanding how systems communicate'),\n            ('3. Security Basics', 'Core security principles and practices'),\n            ('4. Hands-on Labs', 'Practice with virtual environments'),\n            ('5. Advanced Topics', 'Specialized security domains')\n        ]\n        \n        for step, description in learning_order:\n            print(f\"   {step}\")\n            print(f\"      {description}\")\n        \n        print(\"\\n\ud83d\udcd6 Module Details:\\n\")\n        \n        for module_name, module_info in self.modules.items():\n            print(f\"\ud83d\udd38 {module_name}:\")\n            print(f\"   Duration: {module_info['duration']}\")\n            print(f\"   Level: {module_info['level']}\")\n            print(f\"   Topics:\")\n            for topic in module_info['topics']:\n                print(f\"      \u2022 {topic}\")\n            print()\n        \n        return self.modules\n    \n    def get_free_resources(self):\n        \"\"\"List all free SANS resources\"\"\"\n        print(\"\ud83c\udd93 Free SANS Resources (COMPLETELY FREE!)\\n\")\n        \n        resources = {\n            'Training': [\n                ('Cyber Aces Tutorials', 'https://www.sans.org/cyberaces/', 'Free foundational tutorials'),\n                ('SANS Webcasts', 'https://www.sans.org/webcasts/', 'Live and recorded webcasts'),\n                ('Community Presentations', 'https://www.sans.org/presentations/', 'Conference presentations')\n            ],\n            'Reading Materials': [\n                ('Reading Room', 'https://www.sans.org/white-papers/', 'Security research papers'),\n                ('InfoSec Glossary', 'https://www.sans.org/security-resources/glossary-of-terms/', 'Security terminology'),\n                ('Cheat Sheets', 'Various', 'Quick reference guides')\n            ],\n            'Threat Intelligence': [\n                ('Internet Storm Center', 'https://isc.sans.edu/', 'Daily security news'),\n                ('DShield', 'https://www.dshield.org/', 'Collaborative defense'),\n                ('Handler Diaries', 'https://isc.sans.edu/diary/', 'Security analysis')\n            ],\n            'Tools': [\n                ('SIFT Workstation', 'https://www.sans.org/tools/sift-workstation/', 'Forensics toolkit'),\n                ('REMnux', 'https://remnux.org/', 'Malware analysis distro'),\n                ('Security Tools', 'https://www.sans.org/tools/', 'Various free tools')\n            ]\n        }\n        \n        for category, items in resources.items():\n            print(f\"\ud83d\udcc2 {category}:\")\n            for name, url, description in items:\n                print(f\"   \u2022 {name}\")\n                print(f\"     {description}\")\n                print(f\"     \ud83d\udd17 {url}\")\n            print()\n        \n        return resources\n    \n    def study_plan(self, hours_per_week=5):\n        \"\"\"Create personalized study plan\"\"\"\n        print(f\"\ud83d\udcc5 Personalized Study Plan ({hours_per_week} hours/week) - FREE!\\n\")\n        \n        total_hours = sum([10, 11, 9])  # Average hours for all modules\n        weeks_needed = total_hours // hours_per_week\n        \n        print(f\"\u23f1\ufe0f Time Commitment:\")\n        print(f\"   \u2022 Total content: ~30 hours\")\n        print(f\"   \u2022 Your pace: {hours_per_week} hours/week\")\n        print(f\"   \u2022 Estimated completion: {weeks_needed} weeks\\n\")\n        \n        weekly_plan = [\n            'Week 1-2: Operating Systems Basics',\n            'Week 3-4: Networking Fundamentals',\n            'Week 5-6: Security Principles',\n            'Week 7: Review and Practice',\n            'Week 8: Capstone Exercises'\n        ]\n        \n        print(\"\ud83d\udcc6 Weekly Schedule:\")\n        for week in weekly_plan:\n            print(f\"   {week}\")\n        \n        print(\"\\n\u2705 Daily Activities:\")\n        daily_activities = [\n            'Watch tutorial videos (30-45 min)',\n            'Read documentation (30 min)',\n            'Practice exercises (30 min)',\n            'Review notes (15 min)',\n            'Join community discussions (15 min)'\n        ]\n        \n        for activity in daily_activities:\n            print(f\"   \u2022 {activity}\")\n        \n        return weeks_needed\n    \n    def certification_path(self):\n        \"\"\"SANS certification preparation path\"\"\"\n        print(\"\ud83c\udfc6 SANS Certification Path (After Free Training)\\n\")\n        \n        print(\"\ud83d\udcc8 Progression Path:\")\n        \n        certs = [\n            ('GSEC', 'GIAC Security Essentials', 'Entry-level', 'General security'),\n            ('GCIH', 'GIAC Certified Incident Handler', 'Intermediate', 'Incident response'),\n            ('GPEN', 'GIAC Penetration Tester', 'Intermediate', 'Penetration testing'),\n            ('GCFA', 'GIAC Certified Forensic Analyst', 'Advanced', 'Digital forensics'),\n            ('GCIA', 'GIAC Certified Intrusion Analyst', 'Advanced', 'Network monitoring')\n        ]\n        \n        print(\"After completing free Cyber Aces tutorials, consider:\\n\")\n        \n        for cert, name, level, focus in certs:\n            print(f\"   \ud83d\udcdc {cert} - {name}\")\n            print(f\"      Level: {level}\")\n            print(f\"      Focus: {focus}\")\n        \n        print(\"\\n\ud83d\udca1 Preparation Tips:\")\n        tips = [\n            'Complete all free Cyber Aces modules first',\n            'Join SANS community for networking',\n            'Attend free SANS webcasts',\n            'Read SANS white papers in your area',\n            'Practice with hands-on labs',\n            'Consider SANS Work-Study program for discounts'\n        ]\n        \n        for tip in tips:\n            print(f\"   \u2022 {tip}\")\n        \n        return certs\n    \n    def generate_learning_report(self):\n        \"\"\"Generate comprehensive learning report\"\"\"\n        print(f\"\ud83c\udf93 SANS Cyber Aces Learning Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcda LEARNING PATH\")\n        print(\"=\" * 50)\n        self.get_learning_path()\n        \n        print(\"=\" * 50)\n        print(\"\ud83c\udd93 FREE RESOURCES\")\n        print(\"=\" * 50)\n        self.get_free_resources()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcc5 STUDY PLAN\")\n        print(\"=\" * 50)\n        self.study_plan()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83c\udfc6 CERTIFICATION PATH\")\n        print(\"=\" * 50)\n        self.certification_path()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd17 QUICK LINKS\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udcf1 Essential Links:\")\n        print(f\"   \u2022 Cyber Aces: {self.base_url}\")\n        print(\"   \u2022 ISC: https://isc.sans.edu/\")\n        print(\"   \u2022 Reading Room: https://www.sans.org/white-papers/\")\n        print(\"   \u2022 Webcasts: https://www.sans.org/webcasts/\")\n        print(\"   \u2022 Tools: https://www.sans.org/tools/\")\n        \n        print(\"\\n\ud83c\udfaf Next Steps:\")\n        print(\"   1. Start with Operating Systems module\")\n        print(\"   2. Set a consistent study schedule\")\n        print(\"   3. Join SANS community forums\")\n        print(\"   4. Practice with hands-on exercises\")\n        print(\"   5. Track your progress\")\n        print(\"   6. Share knowledge with peers\")\n        \n        return True\n\n# Usage\nlearning = SANSCyberAcesLearning()\nlearning.generate_learning_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "cybrary-free-courses",
+      "professor-messer",
+      "coursera-cybersecurity"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free for personal use",
+    "maintainer": "SANS Institute",
+    "related_resources": [
+      "SANS SEC401",
+      "SANS Foundations",
+      "GIAC Certifications",
+      "SANS OnDemand"
+    ]
+  },
+  "name": "SANS Cyber Aces",
+  "operational_guidance": {
+    "best_practices": [
+      "Complete modules in order",
+      "Practice with hands-on exercises",
+      "Join SANS community",
+      "Attend free webcasts",
+      "Read white papers",
+      "Set consistent study schedule",
+      "Track learning progress"
+    ],
+    "common_use_cases": [
+      "Cybersecurity fundamentals training",
+      "Career transition to security",
+      "Skills foundation building",
+      "Pre-certification preparation",
+      "Security awareness training",
+      "Self-paced learning",
+      "Team training resources",
+      "Knowledge refresh"
+    ],
+    "recommended_update_frequency": "Check monthly for new content and webcasts",
+    "value_proposition": "Industry-leading cybersecurity training organization providing free foundational tutorials and resources for security professionals"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free without registration",
+    "completeness": "Comprehensive foundational coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Professional training content from SANS instructors",
+    "reliability": "excellent",
+    "update_speed": "Regular content updates"
+  },
+  "quality_score": 90,
+  "subcategory": "sans",
+  "url": "https://www.sans.org/cyberaces/"
+}

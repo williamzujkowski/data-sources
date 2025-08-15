@@ -1,0 +1,146 @@
+{
+  "api": {
+    "base_url": "https://www.cybrary.it",
+    "public_sources": [
+      {
+        "access": "free with registration",
+        "description": "Collection of free cybersecurity courses and content",
+        "format": "Video/Labs",
+        "name": "Free Content Library",
+        "url": "https://www.cybrary.it/free-content"
+      },
+      {
+        "access": "partial free access",
+        "description": "Structured learning paths for cybersecurity careers",
+        "format": "Courses",
+        "name": "Career Paths",
+        "url": "https://www.cybrary.it/career-path/"
+      },
+      {
+        "access": "limited free content",
+        "description": "Certification preparation courses",
+        "format": "Video/Practice",
+        "name": "Certification Prep",
+        "url": "https://www.cybrary.it/certifications/"
+      },
+      {
+        "access": "some free challenges",
+        "description": "Hands-on security challenges and CTFs",
+        "format": "Interactive",
+        "name": "Cybrary Challenges",
+        "url": "https://www.cybrary.it/challenges/"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "FREE tier available! Registration required for free courses. No credit card needed for basic free content access.",
+    "required": true,
+    "type": "registration"
+  },
+  "authority": 85,
+  "category": "education-training",
+  "coverage": 80,
+  "data_coverage": {
+    "career_paths": [
+      "SOC Analyst",
+      "Penetration Tester",
+      "Incident Handler",
+      "Security Engineer",
+      "Cloud Security",
+      "Network Security",
+      "Forensics Analyst",
+      "Security Architect"
+    ],
+    "content_types": [
+      "Video courses",
+      "Hands-on labs",
+      "Practice tests",
+      "Career paths",
+      "Skill assessments",
+      "Virtual labs",
+      "Certification prep",
+      "Security challenges"
+    ],
+    "free_courses": [
+      "Introduction to IT and Cybersecurity",
+      "CompTIA A+ Basics",
+      "Network+ Fundamentals",
+      "Security+ Essentials",
+      "Linux Basics",
+      "Python for Security",
+      "Penetration Testing Basics",
+      "Cybersecurity Fundamentals"
+    ],
+    "temporal": {
+      "historical_data": "2015-present",
+      "latency": "Self-paced learning",
+      "update_frequency": "Regular course updates"
+    }
+  },
+  "description": "Cybrary providing free cybersecurity training courses, career paths, and hands-on labs for beginners to advanced practitioners. COMPLETELY FREE tier with access to foundational security courses.",
+  "format": "other",
+  "id": "cybrary-free-courses",
+  "integration_examples": {
+    "bash": {
+      "check_free": "#!/bin/bash\n# Cybrary Free Content Check\n\necho \"\ud83c\udf93 Cybrary Free Tier Resources\"\necho \"================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Free content\necho \"\ud83d\udcda Free Course Categories:\"\necho \"   \u2022 IT & Cybersecurity Fundamentals\"\necho \"   \u2022 CompTIA Basics (A+, Network+, Security+)\"\necho \"   \u2022 Programming (Python, PowerShell)\"\necho \"   \u2022 Linux Essentials\"\necho \"   \u2022 Security Foundations\"\necho \"\"\n\n# Career paths\necho \"\ud83d\udcbc Career Paths (Partial Free):\"\necho \"   \u2022 SOC Analyst\"\necho \"   \u2022 Penetration Tester\"\necho \"   \u2022 Security Engineer\"\necho \"   \u2022 Incident Handler\"\necho \"\"\n\n# Features\necho \"\ud83c\udd93 Free Tier Features:\"\necho \"   \u2713 Video courses\"\necho \"   \u2713 Some hands-on labs\"\necho \"   \u2713 Basic assessments\"\necho \"   \u2713 Community access\"\necho \"   \u2713 Progress tracking\"\necho \"   \u2713 Completion certificates\"\necho \"\"\n\n# Getting started\necho \"\ud83d\ude80 Getting Started:\"\necho \"   1. Register at cybrary.it\"\necho \"   2. Browse free content\"\necho \"   3. Start with fundamentals\"\necho \"   4. Join community\"\necho \"   5. Track progress\"\necho \"\"\n\necho \"\ud83d\udcc5 Generated: $(date)\""
+    },
+    "curl": {
+      "check_site": "# Check Cybrary site status\ncurl -s -o /dev/null -w \"%{http_code}\" https://www.cybrary.it/free-content"
+    },
+    "python": {
+      "learning_tracker": "import json\nfrom datetime import datetime, timedelta\n\nclass CybraryFreeLearning:\n    \"\"\"Cybrary Free Courses Learning Tracker - FREE TIER!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.cybrary.it'\n        \n        # Free course categories\n        self.free_courses = {\n            'Foundations': [\n                'Introduction to IT and Cybersecurity',\n                'Computer and Network Security',\n                'Cybersecurity Basics',\n                'Operating System Security',\n                'Network Fundamentals'\n            ],\n            'CompTIA Prep': [\n                'CompTIA A+ Core 1 Basics',\n                'CompTIA Network+ Introduction',\n                'CompTIA Security+ Fundamentals',\n                'CompTIA Linux+ Essentials',\n                'CompTIA Cloud+ Basics'\n            ],\n            'Programming': [\n                'Python for Beginners',\n                'Python for Cybersecurity',\n                'PowerShell Basics',\n                'Bash Scripting',\n                'SQL Fundamentals'\n            ],\n            'Security Domains': [\n                'Ethical Hacking Basics',\n                'Web Application Security',\n                'Network Security Fundamentals',\n                'Cloud Security Basics',\n                'Mobile Security Introduction'\n            ]\n        }\n        \n        # Career paths with free content\n        self.career_paths = {\n            'SOC Analyst Level 1': {\n                'duration': '3-4 months',\n                'free_content': ['Security Fundamentals', 'SIEM Basics', 'Incident Response Overview'],\n                'skills': ['Log Analysis', 'Alert Triage', 'Incident Documentation', 'SIEM Tools']\n            },\n            'Junior Penetration Tester': {\n                'duration': '4-6 months',\n                'free_content': ['Network Scanning', 'Web App Testing Basics', 'Report Writing'],\n                'skills': ['Nmap', 'Burp Suite Basics', 'OWASP Top 10', 'Vulnerability Assessment']\n            },\n            'IT Security Specialist': {\n                'duration': '3-4 months',\n                'free_content': ['Security Controls', 'Risk Management Basics', 'Compliance Overview'],\n                'skills': ['Security Policies', 'Access Control', 'Audit Preparation', 'Security Awareness']\n            }\n        }\n    \n    def list_free_courses(self):\n        \"\"\"List available free courses\"\"\"\n        print(\"\ud83d\udcda Cybrary Free Courses (FREE TIER!)\\n\")\n        \n        total_free = 0\n        for category, courses in self.free_courses.items():\n            print(f\"\ud83d\udcc2 {category}:\")\n            for course in courses:\n                print(f\"   \u2022 {course}\")\n                total_free += 1\n            print()\n        \n        print(f\"Total Free Courses Available: {total_free}+\\n\")\n        \n        return self.free_courses\n    \n    def career_path_guide(self):\n        \"\"\"Guide for career paths with free content\"\"\"\n        print(\"\ud83c\udfaf Career Paths with Free Content (FREE TIER!)\\n\")\n        \n        for path_name, path_info in self.career_paths.items():\n            print(f\"\ud83d\udcbc {path_name}:\")\n            print(f\"   Duration: {path_info['duration']}\")\n            print(f\"   Free Modules:\")\n            for module in path_info['free_content']:\n                print(f\"      \u2022 {module}\")\n            print(f\"   Skills Developed:\")\n            for skill in path_info['skills']:\n                print(f\"      \u2022 {skill}\")\n            print()\n        \n        return self.career_paths\n    \n    def learning_schedule(self, hours_per_week=10):\n        \"\"\"Create learning schedule for free content\"\"\"\n        print(f\"\ud83d\udcc5 Free Content Learning Schedule ({hours_per_week} hrs/week)\\n\")\n        \n        schedule = {\n            'Month 1': {\n                'focus': 'Foundations',\n                'courses': [\n                    'Introduction to IT and Cybersecurity',\n                    'Computer and Network Security',\n                    'Network Fundamentals'\n                ],\n                'hours': 40\n            },\n            'Month 2': {\n                'focus': 'Core Skills',\n                'courses': [\n                    'Python for Beginners',\n                    'Linux Basics',\n                    'Security+ Fundamentals'\n                ],\n                'hours': 40\n            },\n            'Month 3': {\n                'focus': 'Specialization',\n                'courses': [\n                    'Ethical Hacking Basics',\n                    'SIEM Fundamentals',\n                    'Incident Response Overview'\n                ],\n                'hours': 40\n            }\n        }\n        \n        for month, details in schedule.items():\n            print(f\"\ud83d\udcc6 {month} - {details['focus']}:\")\n            print(f\"   Time commitment: {details['hours']} hours\")\n            print(f\"   Courses:\")\n            for course in details['courses']:\n                print(f\"      \u2022 {course}\")\n            print()\n        \n        print(\"\u23f1\ufe0f Daily Schedule:\")\n        daily_plan = [\n            '30 min - Video lectures',\n            '30 min - Hands-on practice',\n            '20 min - Note review',\n            '20 min - Community forums',\n            '20 min - Additional reading'\n        ]\n        \n        for activity in daily_plan:\n            print(f\"   \u2022 {activity}\")\n        \n        return schedule\n    \n    def free_resources(self):\n        \"\"\"List additional free Cybrary resources\"\"\"\n        print(\"\ud83c\udd93 Additional Free Resources (FREE TIER!)\\n\")\n        \n        resources = {\n            'Learning Tools': [\n                'Skill assessments',\n                'Career path explorer',\n                'Learning tracker',\n                'Progress badges',\n                'Course certificates (completion)'\n            ],\n            'Community Features': [\n                'Discussion forums',\n                'Study groups',\n                'Mentor connect (limited)',\n                'Career advice',\n                'Peer networking'\n            ],\n            'Practice Resources': [\n                'Some virtual labs',\n                'Basic challenges',\n                'Practice questions',\n                'Flashcards',\n                'Cheat sheets'\n            ]\n        }\n        \n        for category, items in resources.items():\n            print(f\"\ud83d\udd27 {category}:\")\n            for item in items:\n                print(f\"   \u2022 {item}\")\n            print()\n        \n        return resources\n    \n    def certification_prep_free(self):\n        \"\"\"Free certification preparation resources\"\"\"\n        print(\"\ud83d\udcdc Free Certification Prep Content (LIMITED)\\n\")\n        \n        cert_prep = {\n            'CompTIA A+': {\n                'free_content': 'Basic concepts, practice questions',\n                'estimated_hours': '20-30',\n                'coverage': 'Partial'\n            },\n            'CompTIA Network+': {\n                'free_content': 'Networking fundamentals, basic labs',\n                'estimated_hours': '25-35',\n                'coverage': 'Partial'\n            },\n            'CompTIA Security+': {\n                'free_content': 'Security basics, some practice tests',\n                'estimated_hours': '30-40',\n                'coverage': 'Partial'\n            },\n            'Linux Essentials': {\n                'free_content': 'Linux basics, command line intro',\n                'estimated_hours': '15-20',\n                'coverage': 'Good for basics'\n            }\n        }\n        \n        for cert, info in cert_prep.items():\n            print(f\"\ud83c\udf93 {cert}:\")\n            print(f\"   Free Content: {info['free_content']}\")\n            print(f\"   Study Hours: {info['estimated_hours']}\")\n            print(f\"   Coverage: {info['coverage']}\")\n            print()\n        \n        print(\"\ud83d\udca1 Tips for Free Tier Users:\")\n        tips = [\n            'Focus on foundational courses first',\n            'Complete all free content in a category',\n            'Join study groups for peer support',\n            'Use free assessments to track progress',\n            'Supplement with other free resources',\n            'Consider upgrading for full cert prep'\n        ]\n        \n        for tip in tips:\n            print(f\"   \u2022 {tip}\")\n        \n        return cert_prep\n    \n    def generate_learning_report(self):\n        \"\"\"Generate comprehensive free tier learning report\"\"\"\n        print(f\"\ud83c\udf93 Cybrary Free Tier Learning Report\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcda FREE COURSES\")\n        print(\"=\" * 50)\n        self.list_free_courses()\n        \n        print(\"=\" * 50)\n        print(\"\ud83c\udfaf CAREER PATHS\")\n        print(\"=\" * 50)\n        self.career_path_guide()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcc5 LEARNING SCHEDULE\")\n        print(\"=\" * 50)\n        self.learning_schedule()\n        \n        print(\"=\" * 50)\n        print(\"\ud83c\udd93 FREE RESOURCES\")\n        print(\"=\" * 50)\n        self.free_resources()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcdc CERTIFICATION PREP\")\n        print(\"=\" * 50)\n        self.certification_prep_free()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\ude80 GETTING STARTED\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udcdd Quick Start Guide:\")\n        print(\"   1. Sign up for free account at cybrary.it\")\n        print(\"   2. Complete skill assessment\")\n        print(\"   3. Choose a career path or course\")\n        print(\"   4. Start with foundations\")\n        print(\"   5. Practice with available labs\")\n        print(\"   6. Join community forums\")\n        print(\"   7. Track your progress\")\n        \n        print(\"\\n\ud83d\udd17 Important Links:\")\n        print(f\"   \u2022 Free Content: {self.base_url}/free-content\")\n        print(f\"   \u2022 Sign Up: {self.base_url}/signup\")\n        print(f\"   \u2022 Career Paths: {self.base_url}/career-path/\")\n        print(f\"   \u2022 Community: {self.base_url}/forums/\")\n        \n        return True\n\n# Usage\nlearning = CybraryFreeLearning()\nlearning.generate_learning_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "sans-cyber-aces",
+      "professor-messer",
+      "coursera-cybersecurity"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free tier with limitations",
+    "maintainer": "Cybrary, Inc.",
+    "related_resources": [
+      "Cybrary Insider Pro",
+      "Cybrary for Teams",
+      "Career Path Certifications"
+    ]
+  },
+  "name": "Cybrary Free Courses",
+  "operational_guidance": {
+    "best_practices": [
+      "Complete foundations first",
+      "Follow structured paths",
+      "Practice with labs",
+      "Engage with community",
+      "Track progress regularly",
+      "Complete assessments",
+      "Join study groups"
+    ],
+    "common_use_cases": [
+      "Career transition to cybersecurity",
+      "Skill development",
+      "Certification preparation",
+      "Hands-on practice",
+      "Career path exploration",
+      "Team training",
+      "Continuous learning",
+      "Entry-level preparation"
+    ],
+    "recommended_update_frequency": "Check weekly for new free content",
+    "value_proposition": "Online cybersecurity training platform offering free foundational courses and limited access to career paths and hands-on labs"
+  },
+  "quality_metrics": {
+    "accessibility": "Free tier with registration",
+    "completeness": "Good foundational coverage in free tier",
+    "cost": "FREE TIER AVAILABLE",
+    "data_quality": "Professional video courses and labs",
+    "reliability": "good",
+    "update_speed": "Regular content updates"
+  },
+  "quality_score": 82,
+  "subcategory": "cybrary",
+  "url": "https://www.cybrary.it/free-content"
+}

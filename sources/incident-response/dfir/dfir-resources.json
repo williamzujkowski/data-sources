@@ -1,0 +1,169 @@
+{
+  "api": {
+    "base_url": "https://github.com",
+    "github_repos": [
+      {
+        "description": "Curated list of incident response tools and resources",
+        "name": "awesome-incident-response",
+        "url": "https://github.com/meirwah/awesome-incident-response"
+      },
+      {
+        "description": "Scalable incident response platform",
+        "name": "TheHive",
+        "url": "https://github.com/TheHive-Project/TheHive"
+      },
+      {
+        "description": "Google Rapid Response remote live forensics",
+        "name": "GRR",
+        "url": "https://github.com/google/grr"
+      },
+      {
+        "description": "Advanced digital forensics and incident response tool",
+        "name": "Velociraptor",
+        "url": "https://github.com/Velocidex/velociraptor"
+      }
+    ],
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Free SANS digital forensics and incident response tools",
+        "format": "Various",
+        "name": "SANS DFIR Resources",
+        "url": "https://www.sans.org/tools/"
+      },
+      {
+        "access": "free",
+        "description": "Community-driven DFIR training resources",
+        "format": "HTML",
+        "name": "DFIR Training",
+        "url": "https://www.dfir.training/"
+      },
+      {
+        "access": "free",
+        "description": "Digital forensics knowledge base",
+        "format": "Wiki",
+        "name": "Forensics Wiki",
+        "url": "https://forensicswiki.xyz/"
+      },
+      {
+        "access": "free",
+        "description": "Catalog of forensic tools with validation data",
+        "format": "HTML",
+        "name": "NIST Computer Forensics Tool Catalog",
+        "url": "https://www.nist.gov/itl/ssd/software-quality-group/computer-forensics-tool-catalog"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All DFIR community resources, tools, and guides available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 88,
+  "category": "incident-response",
+  "coverage": 92,
+  "data_coverage": {
+    "content_types": [
+      "Forensic analysis tools",
+      "Incident response platforms",
+      "Memory forensics utilities",
+      "Network forensics tools",
+      "Log analysis software",
+      "Malware analysis frameworks",
+      "Timeline analysis tools",
+      "Evidence collection utilities"
+    ],
+    "frameworks": [
+      "NIST Incident Response",
+      "SANS Incident Handler's Handbook",
+      "PICERL Framework",
+      "CREST Incident Response",
+      "ISO/IEC 27035",
+      "ENISA Incident Handling",
+      "Diamond Model",
+      "Kill Chain Analysis"
+    ],
+    "temporal": {
+      "historical_data": "2010-present",
+      "latency": "Real-time tool updates",
+      "update_frequency": "Continuous community contributions"
+    },
+    "tool_categories": [
+      "Disk Forensics",
+      "Memory Forensics",
+      "Network Forensics",
+      "Log Analysis",
+      "Malware Analysis",
+      "Mobile Forensics",
+      "Cloud Forensics",
+      "Container Forensics"
+    ]
+  },
+  "description": "Digital Forensics and Incident Response community resources including free tools, frameworks, and guides for incident handling and forensic analysis. COMPLETELY FREE access to DFIR tools and methodologies.",
+  "format": "other",
+  "id": "dfir-resources",
+  "integration_examples": {
+    "bash": {
+      "dfir_checklist": "#!/bin/bash\n# DFIR Quick Reference - FREE!\n\necho \"\ud83d\udd2c DFIR Quick Reference Guide (FREE!)\"\necho \"======================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# DFIR Tools\necho \"\ud83d\udee0\ufe0f Essential DFIR Tools:\"\necho \"   Disk Forensics:\"\necho \"      \u2022 Autopsy/Sleuth Kit\"\necho \"      \u2022 FTK Imager\"\necho \"      \u2022 dd/dcfldd\"\necho \"   Memory Forensics:\"\necho \"      \u2022 Volatility\"\necho \"      \u2022 Rekall\"\necho \"      \u2022 LiME\"\necho \"   Network Forensics:\"\necho \"      \u2022 Wireshark\"\necho \"      \u2022 NetworkMiner\"\necho \"      \u2022 tcpdump\"\necho \"   Log Analysis:\"\necho \"      \u2022 ELK Stack\"\necho \"      \u2022 Splunk Free\"\necho \"      \u2022 Graylog\"\necho \"\"\n\n# Quick Commands\necho \"\ud83d\udcbb Quick Analysis Commands:\"\necho \"   # Check running processes\"\necho \"   ps aux | grep suspicious\"\necho \"   \"\necho \"   # Network connections\"\necho \"   netstat -antp\"\necho \"   \"\necho \"   # Open files\"\necho \"   lsof -i\"\necho \"   \"\necho \"   # Calculate file hash\"\necho \"   sha256sum suspicious_file\"\necho \"   \"\necho \"   # Find recently modified files\"\necho \"   find / -mtime -1 -type f 2>/dev/null\"\necho \"\"\n\n# Evidence Collection\necho \"\ud83d\udce6 Evidence Collection:\"\necho \"   [ ] Memory dump\"\necho \"   [ ] Disk image\"\necho \"   [ ] Network captures\"\necho \"   [ ] System logs\"\necho \"   [ ] Registry/config files\"\necho \"   [ ] Browser artifacts\"\necho \"   [ ] User artifacts\"\necho \"\"\n\n# Resources\necho \"\ud83d\udcda DFIR Resources:\"\necho \"   \u2022 GitHub: https://github.com/meirwah/awesome-incident-response\"\necho \"   \u2022 SANS: https://www.sans.org/tools/\"\necho \"   \u2022 Training: https://www.dfir.training/\"\necho \"\"\n\necho \"\ud83d\udcc5 Generated: $(date)\""
+    },
+    "curl": {
+      "get_tools": "# Get DFIR tool list - FREE!\ncurl -s https://api.github.com/repos/meirwah/awesome-incident-response/readme | jq -r '.content' | base64 -d | grep -E '^\\*' | head -20"
+    },
+    "python": {
+      "dfir_toolkit": "import os\nimport json\nfrom datetime import datetime\nimport subprocess\nimport hashlib\n\nclass DFIRToolkit:\n    \"\"\"Digital Forensics and Incident Response Toolkit - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.tools = {\n            'disk_forensics': [\n                {'name': 'Autopsy', 'url': 'https://www.autopsy.com/', 'description': 'Digital forensics platform'},\n                {'name': 'Sleuth Kit', 'url': 'https://www.sleuthkit.org/', 'description': 'File system forensics'},\n                {'name': 'FTK Imager', 'url': 'https://www.exterro.com/ftk-imager', 'description': 'Disk imaging tool'},\n                {'name': 'dd/dcfldd', 'url': 'Built-in Linux', 'description': 'Disk imaging utilities'}\n            ],\n            'memory_forensics': [\n                {'name': 'Volatility', 'url': 'https://www.volatilityfoundation.org/', 'description': 'Memory forensics framework'},\n                {'name': 'Rekall', 'url': 'http://www.rekall-forensic.com/', 'description': 'Memory analysis framework'},\n                {'name': 'LiME', 'url': 'https://github.com/504ensicsLabs/LiME', 'description': 'Linux memory extraction'},\n                {'name': 'DumpIt', 'url': 'https://www.comae.com/', 'description': 'Windows memory dumper'}\n            ],\n            'network_forensics': [\n                {'name': 'Wireshark', 'url': 'https://www.wireshark.org/', 'description': 'Network protocol analyzer'},\n                {'name': 'NetworkMiner', 'url': 'https://www.netresec.com/', 'description': 'Network forensic analysis'},\n                {'name': 'tcpdump', 'url': 'Built-in', 'description': 'Packet capture tool'},\n                {'name': 'Zeek (Bro)', 'url': 'https://zeek.org/', 'description': 'Network security monitor'}\n            ],\n            'log_analysis': [\n                {'name': 'Splunk Free', 'url': 'https://www.splunk.com/en_us/download.html', 'description': 'Log analysis platform'},\n                {'name': 'ELK Stack', 'url': 'https://www.elastic.co/', 'description': 'Elasticsearch, Logstash, Kibana'},\n                {'name': 'Graylog', 'url': 'https://www.graylog.org/', 'description': 'Log management platform'},\n                {'name': 'OSSEC', 'url': 'https://www.ossec.net/', 'description': 'Host intrusion detection'}\n            ],\n            'malware_analysis': [\n                {'name': 'REMnux', 'url': 'https://remnux.org/', 'description': 'Linux distro for malware analysis'},\n                {'name': 'Cuckoo Sandbox', 'url': 'https://cuckoosandbox.org/', 'description': 'Automated malware analysis'},\n                {'name': 'YARA', 'url': 'https://virustotal.github.io/yara/', 'description': 'Pattern matching for malware'},\n                {'name': 'PEStudio', 'url': 'https://www.winitor.com/', 'description': 'PE file analysis'}\n            ],\n            'incident_response': [\n                {'name': 'TheHive', 'url': 'https://thehive-project.org/', 'description': 'Incident response platform'},\n                {'name': 'Cortex', 'url': 'https://github.com/TheHive-Project/Cortex', 'description': 'Observable analysis engine'},\n                {'name': 'GRR', 'url': 'https://github.com/google/grr', 'description': 'Remote live forensics'},\n                {'name': 'Velociraptor', 'url': 'https://www.velocidex.com/', 'description': 'Endpoint visibility tool'}\n            ]\n        }\n    \n    def list_tools_by_category(self, category=None):\n        \"\"\"List DFIR tools by category\"\"\"\n        print(\"\ud83d\udee0\ufe0f DFIR Tools Catalog (FREE!)\\n\")\n        \n        categories = [category] if category else self.tools.keys()\n        \n        for cat in categories:\n            if cat in self.tools:\n                print(f\"\ud83d\udcc1 {cat.replace('_', ' ').title()}:\")\n                for tool in self.tools[cat]:\n                    print(f\"   \u2022 {tool['name']}\")\n                    print(f\"     {tool['description']}\")\n                    print(f\"     \ud83d\udd17 {tool['url']}\")\n                print()\n        \n        return self.tools\n    \n    def incident_response_checklist(self):\n        \"\"\"Generate incident response checklist\"\"\"\n        print(\"\u2705 DFIR Incident Response Checklist (FREE!)\\n\")\n        \n        phases = {\n            \"1. Initial Response\": [\n                \"Verify the incident\",\n                \"Assess incident severity\",\n                \"Activate incident response team\",\n                \"Begin incident documentation\",\n                \"Preserve volatile evidence\"\n            ],\n            \"2. Evidence Collection\": [\n                \"Capture memory dumps\",\n                \"Collect network traffic\",\n                \"Preserve system logs\",\n                \"Image affected systems\",\n                \"Document chain of custody\"\n            ],\n            \"3. Analysis\": [\n                \"Timeline reconstruction\",\n                \"Malware analysis\",\n                \"Network traffic analysis\",\n                \"Log correlation\",\n                \"Root cause analysis\"\n            ],\n            \"4. Containment\": [\n                \"Isolate affected systems\",\n                \"Block malicious IPs/domains\",\n                \"Reset compromised credentials\",\n                \"Patch vulnerabilities\",\n                \"Monitor for persistence\"\n            ],\n            \"5. Remediation\": [\n                \"Remove malware/backdoors\",\n                \"Rebuild compromised systems\",\n                \"Update security controls\",\n                \"Verify system integrity\",\n                \"Test recovery procedures\"\n            ],\n            \"6. Recovery\": [\n                \"Restore normal operations\",\n                \"Monitor for reinfection\",\n                \"Validate security controls\",\n                \"Update documentation\",\n                \"Conduct lessons learned\"\n            ]\n        }\n        \n        for phase, tasks in phases.items():\n            print(f\"\ud83d\udccc {phase}:\")\n            for task in tasks:\n                print(f\"   [ ] {task}\")\n            print()\n        \n        return phases\n    \n    def forensic_artifacts(self):\n        \"\"\"List common forensic artifacts to collect\"\"\"\n        print(\"\ud83d\udd0d Forensic Artifacts Collection Guide (FREE!)\\n\")\n        \n        artifacts = {\n            \"Windows Artifacts\": [\n                \"Registry hives (SAM, SYSTEM, SOFTWARE, SECURITY)\",\n                \"Event logs (Security, System, Application)\",\n                \"Prefetch files\",\n                \"$MFT (Master File Table)\",\n                \"USN Journal\",\n                \"Browser history/cache\",\n                \"Windows.edb (search database)\",\n                \"Amcache.hve\"\n            ],\n            \"Linux Artifacts\": [\n                \"/var/log/* (system logs)\",\n                \"~/.bash_history\",\n                \"/etc/passwd and /etc/shadow\",\n                \"cron jobs\",\n                \"systemd journal\",\n                \"wtmp/btmp/lastlog\",\n                \"Package manager logs\",\n                \"Network configuration\"\n            ],\n            \"Memory Artifacts\": [\n                \"Running processes\",\n                \"Network connections\",\n                \"Loaded drivers/modules\",\n                \"Registry keys in memory\",\n                \"Encryption keys\",\n                \"Malware signatures\",\n                \"Command history\",\n                \"Clipboard contents\"\n            ],\n            \"Network Artifacts\": [\n                \"Packet captures (PCAP)\",\n                \"Netflow data\",\n                \"DNS logs\",\n                \"Proxy logs\",\n                \"Firewall logs\",\n                \"IDS/IPS alerts\",\n                \"VPN logs\",\n                \"DHCP logs\"\n            ]\n        }\n        \n        for category, items in artifacts.items():\n            print(f\"\ud83d\udcc2 {category}:\")\n            for item in items:\n                print(f\"   \u2022 {item}\")\n            print()\n        \n        return artifacts\n    \n    def analysis_commands(self):\n        \"\"\"Common DFIR analysis commands\"\"\"\n        print(\"\ud83d\udcbb DFIR Analysis Commands (FREE!)\\n\")\n        \n        commands = {\n            \"Live System Analysis\": [\n                \"ps aux - List running processes\",\n                \"netstat -antp - Network connections\",\n                \"lsof -i - Open network files\",\n                \"ss -tulpn - Socket statistics\",\n                \"last -f /var/log/wtmp - Login history\"\n            ],\n            \"File Analysis\": [\n                \"file <filename> - Identify file type\",\n                \"strings <file> - Extract strings\",\n                \"md5sum/sha256sum - Calculate hashes\",\n                \"stat <file> - File metadata\",\n                \"exiftool <file> - Extract metadata\"\n            ],\n            \"Memory Analysis (Volatility)\": [\n                \"volatility -f memory.dmp imageinfo\",\n                \"volatility -f memory.dmp pslist\",\n                \"volatility -f memory.dmp netscan\",\n                \"volatility -f memory.dmp malfind\",\n                \"volatility -f memory.dmp dumpfiles\"\n            ],\n            \"Log Analysis\": [\n                \"grep -E 'failed|error|critical' /var/log/*\",\n                \"awk '{print $1}' access.log | sort | uniq -c\",\n                \"tail -f /var/log/syslog\",\n                \"journalctl -xe\",\n                \"aureport --summary\"\n            ]\n        }\n        \n        for category, cmds in commands.items():\n            print(f\"\ud83d\udd27 {category}:\")\n            for cmd in cmds:\n                print(f\"   $ {cmd}\")\n            print()\n        \n        return commands\n    \n    def generate_dfir_report(self):\n        \"\"\"Generate comprehensive DFIR report\"\"\"\n        print(f\"\ud83d\udd2c DFIR Resources Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udee0\ufe0f TOOLS CATALOG\")\n        print(\"=\" * 50)\n        self.list_tools_by_category()\n        \n        print(\"=\" * 50)\n        print(\"\u2705 INCIDENT RESPONSE PROCESS\")\n        print(\"=\" * 50)\n        self.incident_response_checklist()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udd0d FORENSIC ARTIFACTS\")\n        print(\"=\" * 50)\n        self.forensic_artifacts()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcbb ANALYSIS COMMANDS\")\n        print(\"=\" * 50)\n        self.analysis_commands()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcda RESOURCES\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83c\udf10 Key DFIR Resources:\")\n        print(\"   \u2022 Awesome IR: https://github.com/meirwah/awesome-incident-response\")\n        print(\"   \u2022 SANS DFIR: https://www.sans.org/tools/\")\n        print(\"   \u2022 DFIR Training: https://www.dfir.training/\")\n        print(\"   \u2022 Forensics Wiki: https://forensicswiki.xyz/\")\n        print(\"   \u2022 NIST Tools: https://www.nist.gov/itl/ssd/software-quality-group/computer-forensics-tool-catalog\")\n        \n        print(\"\\n\ud83d\udca1 Best Practices:\")\n        print(\"   1. Maintain chain of custody\")\n        print(\"   2. Document everything\")\n        print(\"   3. Preserve evidence integrity\")\n        print(\"   4. Use validated tools\")\n        print(\"   5. Follow legal requirements\")\n        print(\"   6. Practice incident response\")\n        print(\"   7. Continuous learning\")\n        \n        return True\n\n# Usage\ntoolkit = DFIRToolkit()\ntoolkit.generate_dfir_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "sans-forensics-tools",
+      "nist-forensics-catalog",
+      "open-source-dfir"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Various open source licenses",
+    "maintainer": "DFIR Community",
+    "related_resources": [
+      "SANS DFIR",
+      "FIRST Incident Response",
+      "CISA Incident Response",
+      "ENISA Incident Handling"
+    ]
+  },
+  "name": "DFIR Community Resources",
+  "operational_guidance": {
+    "best_practices": [
+      "Maintain proper chain of custody",
+      "Document all actions thoroughly",
+      "Use validated forensic tools",
+      "Preserve evidence integrity",
+      "Follow legal requirements",
+      "Practice incident response procedures",
+      "Keep tools and skills updated"
+    ],
+    "common_use_cases": [
+      "Incident response coordination",
+      "Digital forensics analysis",
+      "Malware investigation",
+      "Network forensics",
+      "Log analysis and correlation",
+      "Evidence collection and preservation",
+      "Timeline reconstruction",
+      "Root cause analysis"
+    ],
+    "recommended_update_frequency": "Check monthly for tool updates and new resources",
+    "value_proposition": "Comprehensive community-driven collection of free DFIR tools, methodologies, and resources for incident response and forensic analysis"
+  },
+  "quality_metrics": {
+    "accessibility": "All tools freely available",
+    "completeness": "Extensive DFIR tool coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community-validated tools and methodologies",
+    "reliability": "good",
+    "update_speed": "Regular community contributions"
+  },
+  "quality_score": 90,
+  "subcategory": "dfir",
+  "url": "https://github.com/meirwah/awesome-incident-response"
+}

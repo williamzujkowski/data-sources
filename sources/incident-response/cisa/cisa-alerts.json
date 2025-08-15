@@ -1,0 +1,170 @@
+{
+  "api": {
+    "base_url": "https://www.cisa.gov",
+    "datasets": [
+      {
+        "access": "free",
+        "description": "Known Exploited Vulnerabilities in JSON format",
+        "format": "JSON",
+        "name": "KEV Catalog",
+        "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+      }
+    ],
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Real-time cybersecurity alerts and current threats",
+        "format": "HTML/RSS",
+        "name": "Current Activity",
+        "url": "https://www.cisa.gov/news-events/cybersecurity-advisories"
+      },
+      {
+        "access": "free",
+        "description": "Catalog of actively exploited vulnerabilities",
+        "format": "JSON/CSV",
+        "name": "Known Exploited Vulnerabilities",
+        "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      },
+      {
+        "access": "free",
+        "description": "Critical security directives for federal agencies",
+        "format": "HTML",
+        "name": "Emergency Directives",
+        "url": "https://www.cisa.gov/emergency-directives"
+      },
+      {
+        "access": "free",
+        "description": "Federal incident response playbooks and guidance",
+        "format": "PDF",
+        "name": "Incident Response Playbooks",
+        "url": "https://www.cisa.gov/cyber-incident-response"
+      }
+    ],
+    "rss_feeds": [
+      {
+        "description": "Latest cybersecurity alerts and advisories",
+        "name": "CISA Cybersecurity Advisories",
+        "update_frequency": "Real-time",
+        "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/feed"
+      },
+      {
+        "description": "Industrial Control Systems security advisories",
+        "name": "ICS-CERT Advisories",
+        "update_frequency": "As needed",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/feed"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All CISA alerts, advisories, and incident response resources available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "incident-response",
+  "coverage": 92,
+  "data_coverage": {
+    "alert_types": [
+      "Current Activity Alerts",
+      "ICS-CERT Advisories",
+      "Emergency Directives",
+      "Binding Operational Directives",
+      "Vulnerability Notes",
+      "Malware Analysis Reports",
+      "Joint Cybersecurity Advisories",
+      "Threat Hunting Guidance"
+    ],
+    "content_types": [
+      "Security alerts and advisories",
+      "Vulnerability bulletins",
+      "Threat actor information",
+      "Malware analysis reports",
+      "Incident response guidance",
+      "Mitigation strategies",
+      "Security best practices",
+      "Emergency directives"
+    ],
+    "sectors": [
+      "Critical Infrastructure",
+      "Government",
+      "Healthcare",
+      "Financial Services",
+      "Energy",
+      "Transportation",
+      "Communications",
+      "Manufacturing"
+    ],
+    "temporal": {
+      "historical_data": "2008-present (legacy US-CERT)",
+      "latency": "Immediate for critical threats",
+      "update_frequency": "Real-time alerts, daily updates"
+    }
+  },
+  "description": "CISA (Cybersecurity and Infrastructure Security Agency) providing real-time security alerts, advisories, and incident response guidance. COMPLETELY FREE access to threat intelligence, vulnerability alerts, and mitigation strategies.",
+  "format": "other",
+  "id": "cisa-alerts",
+  "integration_examples": {
+    "bash": {
+      "check_alerts": "#!/bin/bash\n# CISA Alert Monitor - FREE!\n\necho \"\ud83d\udea8 CISA Cybersecurity Alerts (FREE!)\"\necho \"=====================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# CISA Resources\necho \"\ud83d\udce2 CISA Alert Sources:\"\necho \"   \u2022 Advisories: https://www.cisa.gov/news-events/cybersecurity-advisories\"\necho \"   \u2022 KEV Catalog: https://www.cisa.gov/known-exploited-vulnerabilities-catalog\"\necho \"   \u2022 Emergency Directives: https://www.cisa.gov/emergency-directives\"\necho \"   \u2022 ICS-CERT: https://www.cisa.gov/news-events/ics-advisories\"\necho \"\"\n\n# Check KEV catalog\necho \"\ud83d\udd34 Fetching Known Exploited Vulnerabilities...\"\nKEV_COUNT=$(curl -s https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json | grep -o '\"cveID\"' | wc -l)\necho \"   Total KEVs in catalog: $KEV_COUNT\"\necho \"\"\n\n# Alert categories\necho \"\ud83d\udcca Alert Categories:\"\necho \"   \u2022 AA - Alert (highest severity)\"\necho \"   \u2022 AC - Current Activity\"\necho \"   \u2022 TA - Threat Actor\"\necho \"   \u2022 MA - Malware Analysis\"\necho \"   \u2022 ST - Security Tip\"\necho \"\"\n\n# Free services\necho \"\ud83c\udd93 Free CISA Services:\"\necho \"   \u2022 Cyber Hygiene Scanning\"\necho \"   \u2022 Phishing Campaign Assessment\"\necho \"   \u2022 Vulnerability Scanning\"\necho \"   \u2022 Security Architecture Review\"\necho \"   \u2022 Incident Response Assistance\"\necho \"\"\n\n# Response checklist\necho \"\u2705 Incident Response Quick Actions:\"\necho \"   [ ] Check CISA alerts for related threats\"\necho \"   [ ] Review KEV catalog for exploited vulns\"\necho \"   [ ] Apply emergency directives if applicable\"\necho \"   [ ] Implement recommended mitigations\"\necho \"   [ ] Report incidents to CISA\"\necho \"\"\n\necho \"\ud83d\udcc5 Generated: $(date)\""
+    },
+    "curl": {
+      "get_kev_count": "# Get KEV catalog count - FREE!\ncurl -s https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json | jq '.count'"
+    },
+    "python": {
+      "alert_monitor": "import requests\nimport json\nfrom datetime import datetime, timedelta\nimport feedparser\n\nclass CISAAlertMonitor:\n    \"\"\"Monitor CISA cybersecurity alerts and advisories - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.cisa.gov'\n        self.kev_url = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json'\n        self.advisory_feed = 'https://www.cisa.gov/news-events/cybersecurity-advisories/feed'\n        \n    def get_known_exploited_vulnerabilities(self, days_back=7):\n        \"\"\"Get Known Exploited Vulnerabilities from CISA KEV catalog\"\"\"\n        print(\"\ud83d\udea8 CISA Known Exploited Vulnerabilities (FREE!)\\n\")\n        \n        try:\n            response = requests.get(self.kev_url)\n            if response.status_code == 200:\n                kev_data = response.json()\n                \n                print(f\"\ud83d\udcca KEV Catalog Statistics:\")\n                print(f\"   Total vulnerabilities: {kev_data.get('count', 'N/A')}\")\n                print(f\"   Last updated: {kev_data.get('dateReleased', 'N/A')}\\n\")\n                \n                # Get recent vulnerabilities\n                vulnerabilities = kev_data.get('vulnerabilities', [])\n                cutoff_date = datetime.now() - timedelta(days=days_back)\n                \n                recent_vulns = []\n                for vuln in vulnerabilities:\n                    date_added = datetime.strptime(vuln.get('dateAdded', '2000-01-01'), '%Y-%m-%d')\n                    if date_added >= cutoff_date:\n                        recent_vulns.append(vuln)\n                \n                print(f\"\ud83d\udd34 Recent KEVs (last {days_back} days): {len(recent_vulns)}\\n\")\n                \n                for vuln in recent_vulns[:5]:  # Show first 5\n                    print(f\"   CVE: {vuln.get('cveID', 'N/A')}\")\n                    print(f\"   Vendor: {vuln.get('vendorProject', 'N/A')}\")\n                    print(f\"   Product: {vuln.get('product', 'N/A')}\")\n                    print(f\"   Name: {vuln.get('vulnerabilityName', 'N/A')}\")\n                    print(f\"   Due Date: {vuln.get('dueDate', 'N/A')}\")\n                    print(f\"   Action: {vuln.get('requiredAction', 'N/A')}\")\n                    print()\n                \n                return recent_vulns\n            else:\n                print(f\"\u274c Failed to fetch KEV catalog: {response.status_code}\")\n                return []\n        except Exception as e:\n            print(f\"Error fetching KEV data: {e}\")\n            return []\n    \n    def get_latest_advisories(self):\n        \"\"\"Get latest CISA cybersecurity advisories\"\"\"\n        print(\"\ud83d\udce2 CISA Cybersecurity Advisories (FREE!)\\n\")\n        \n        try:\n            feed = feedparser.parse(self.advisory_feed)\n            \n            if feed.entries:\n                print(f\"\ud83d\udcf0 Latest Advisories ({len(feed.entries)} available):\\n\")\n                \n                for entry in feed.entries[:5]:  # Show first 5\n                    print(f\"   \ud83d\udd38 {entry.title}\")\n                    print(f\"      Date: {entry.get('published', 'N/A')}\")\n                    print(f\"      Link: {entry.link}\")\n                    if hasattr(entry, 'summary'):\n                        summary = entry.summary[:150] + '...' if len(entry.summary) > 150 else entry.summary\n                        print(f\"      Summary: {summary}\")\n                    print()\n                \n                return feed.entries\n            else:\n                print(\"No advisories found in feed\")\n                return []\n        except Exception as e:\n            print(f\"Error fetching advisories: {e}\")\n            return []\n    \n    def get_incident_response_resources(self):\n        \"\"\"Get CISA incident response resources\"\"\"\n        print(\"\ud83d\udee1\ufe0f CISA Incident Response Resources (FREE!)\\n\")\n        \n        resources = {\n            \"Incident Response Playbooks\": \"https://www.cisa.gov/cyber-incident-response\",\n            \"Federal Incident Response\": \"https://www.cisa.gov/federal-incident-response\",\n            \"Ransomware Guide\": \"https://www.cisa.gov/stopransomware\",\n            \"Phishing Guidance\": \"https://www.cisa.gov/phishing\",\n            \"Free Cybersecurity Services\": \"https://www.cisa.gov/cyber-hygiene-services\",\n            \"Vulnerability Scanning\": \"https://www.cisa.gov/cyber-essentials\"\n        }\n        \n        print(\"\ud83d\udcda Available Resources:\")\n        for name, url in resources.items():\n            print(f\"   \u2022 {name}\")\n            print(f\"     \ud83d\udd17 {url}\")\n        \n        print(\"\\n\ud83c\udd93 Free CISA Services:\")\n        services = [\n            \"Cyber Hygiene Vulnerability Scanning\",\n            \"Web Application Scanning\",\n            \"Phishing Campaign Assessment\",\n            \"Remote Penetration Testing\",\n            \"Validated Architecture Design Review\",\n            \"Hunt and Incident Response\"\n        ]\n        \n        for service in services:\n            print(f\"   \u2022 {service}\")\n        \n        return resources\n    \n    def threat_actor_alerts(self):\n        \"\"\"Get threat actor and campaign information\"\"\"\n        print(\"\ud83d\udc65 Threat Actor Alerts (FREE!)\\n\")\n        \n        # Common threat actors tracked by CISA\n        threat_actors = [\n            \"APT28 (Fancy Bear) - Russia\",\n            \"APT29 (Cozy Bear) - Russia\",\n            \"Lazarus Group - North Korea\",\n            \"APT1 - China\",\n            \"Sandworm - Russia\",\n            \"FIN7 - Financially motivated\",\n            \"Carbanak - Financial crimes\",\n            \"DarkHydrus - Middle East\"\n        ]\n        \n        print(\"\ud83c\udfaf Tracked Threat Actors:\")\n        for actor in threat_actors:\n            print(f\"   \u2022 {actor}\")\n        \n        print(\"\\n\ud83d\udcca Common Attack Techniques:\")\n        techniques = [\n            \"Phishing/Spear-phishing\",\n            \"Supply Chain Compromise\",\n            \"Zero-Day Exploitation\",\n            \"Living off the Land\",\n            \"Ransomware Deployment\",\n            \"Data Exfiltration\"\n        ]\n        \n        for technique in techniques:\n            print(f\"   \u2022 {technique}\")\n        \n        return threat_actors\n    \n    def generate_alert_report(self):\n        \"\"\"Generate comprehensive CISA alert report\"\"\"\n        print(f\"\ud83d\udea8 CISA Security Alert Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udd34 KNOWN EXPLOITED VULNERABILITIES\")\n        print(\"=\" * 50)\n        self.get_known_exploited_vulnerabilities()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udce2 LATEST ADVISORIES\")\n        print(\"=\" * 50)\n        self.get_latest_advisories()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udee1\ufe0f INCIDENT RESPONSE\")\n        print(\"=\" * 50)\n        self.get_incident_response_resources()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udc65 THREAT INTELLIGENCE\")\n        print(\"=\" * 50)\n        self.threat_actor_alerts()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\u2705 RECOMMENDED ACTIONS\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83c\udfaf Immediate Actions:\")\n        actions = [\n            \"Review and patch all KEV catalog vulnerabilities\",\n            \"Subscribe to CISA alerts and advisories\",\n            \"Implement CISA's cybersecurity best practices\",\n            \"Join CISA's information sharing programs\",\n            \"Utilize free CISA cybersecurity services\",\n            \"Review emergency directives if applicable\",\n            \"Implement recommended mitigations\"\n        ]\n        \n        for action in actions:\n            print(f\"   [ ] {action}\")\n        \n        print(\"\\n\ud83d\udcf1 Stay Connected:\")\n        print(f\"   \u2022 Alerts: {self.base_url}/news-events/cybersecurity-advisories\")\n        print(f\"   \u2022 KEV Catalog: {self.base_url}/known-exploited-vulnerabilities-catalog\")\n        print(f\"   \u2022 RSS Feed: {self.advisory_feed}\")\n        print(f\"   \u2022 Email Updates: Sign up at CISA.gov\")\n        \n        return True\n\n# Usage\nmonitor = CISAAlertMonitor()\nmonitor.generate_alert_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "cert-coordination-center",
+      "sans-isc",
+      "mitre-attack"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Public domain",
+    "maintainer": "Cybersecurity and Infrastructure Security Agency",
+    "related_resources": [
+      "FBI Cyber Division",
+      "NSA Cybersecurity",
+      "DHS Cybersecurity",
+      "US-CERT Archives"
+    ]
+  },
+  "name": "CISA Cybersecurity Alerts",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to CISA alert feeds",
+      "Prioritize KEV catalog patching",
+      "Implement emergency directives immediately",
+      "Use CISA's free security services",
+      "Share threat intelligence with CISA",
+      "Follow incident response playbooks",
+      "Participate in information sharing"
+    ],
+    "common_use_cases": [
+      "Real-time threat monitoring",
+      "Vulnerability prioritization",
+      "Incident response coordination",
+      "Threat intelligence gathering",
+      "Security directive compliance",
+      "Risk assessment",
+      "Patch management prioritization",
+      "Threat hunting"
+    ],
+    "recommended_update_frequency": "Check daily for new alerts, continuous KEV monitoring",
+    "value_proposition": "Official US government cybersecurity agency providing authoritative threat intelligence, vulnerability information, and free security services"
+  },
+  "quality_metrics": {
+    "accessibility": "All resources publicly available",
+    "completeness": "Comprehensive US threat landscape coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Authoritative government threat intelligence",
+    "reliability": "excellent",
+    "update_speed": "Real-time critical alerts"
+  },
+  "quality_score": 95,
+  "subcategory": "cisa",
+  "url": "https://www.cisa.gov/news-events/cybersecurity-advisories"
+}
