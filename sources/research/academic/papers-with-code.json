@@ -1,240 +1,190 @@
 {
-  "id": "papers-with-code",
-  "name": "Papers with Code",
-  "description": "Free access to machine learning papers with implementation code, benchmarks, and leaderboards. Tracks state-of-the-art results across ML tasks including adversarial robustness, privacy-preserving ML, and AI security.",
-  "category": "research",
-  "subcategory": "academic", 
-  "website": "https://paperswithcode.com",
-  "documentation": "https://paperswithcode.com/api/v1/docs/",
-  
   "api": {
-    "type": "REST",
     "base_url": "https://paperswithcode.com/api/v1",
     "endpoints": [
       {
-        "path": "/papers/",
-        "method": "GET",
         "description": "Search and retrieve papers - COMPLETELY FREE!",
+        "method": "GET",
         "parameters": [
           {
-            "name": "q",
-            "type": "string",
-            "required": false,
             "description": "Search query for papers",
-            "example": "adversarial robustness"
+            "example": "adversarial robustness",
+            "name": "q",
+            "required": false,
+            "type": "string"
           },
           {
-            "name": "arxiv_id",
-            "type": "string",
-            "required": false,
             "description": "Filter by arXiv ID",
-            "example": "2001.08361"
+            "example": "2001.08361",
+            "name": "arxiv_id",
+            "required": false,
+            "type": "string"
           },
           {
-            "name": "title",
-            "type": "string",
-            "required": false,
             "description": "Filter by paper title",
-            "example": "BERT"
+            "example": "BERT",
+            "name": "title",
+            "required": false,
+            "type": "string"
           },
           {
-            "name": "abstract",
-            "type": "string",
-            "required": false,
             "description": "Search in abstract",
-            "example": "privacy"
+            "example": "privacy",
+            "name": "abstract",
+            "required": false,
+            "type": "string"
           },
           {
-            "name": "page",
-            "type": "integer",
-            "required": false,
             "description": "Page number for pagination",
-            "example": "1"
+            "example": "1",
+            "name": "page",
+            "required": false,
+            "type": "integer"
           },
           {
-            "name": "ordering",
-            "type": "string",
-            "required": false,
             "description": "Sort order: paper_date, stars, title",
-            "example": "-paper_date"
+            "example": "-paper_date",
+            "name": "ordering",
+            "required": false,
+            "type": "string"
           }
         ],
+        "path": "/papers/",
+        "rate_limit": {
+          "notes": "No authentication required - COMPLETELY FREE! No API key needed!",
+          "requests_per_second": 10
+        },
         "response_format": {
-          "type": "JSON",
           "example": {
             "count": 1000,
             "next": "https://paperswithcode.com/api/v1/papers/?page=2",
             "results": [
               {
-                "id": "paper-id",
-                "title": "Paper Title",
                 "abstract": "Abstract text",
                 "arxiv_id": "2001.12345",
-                "url_pdf": "https://arxiv.org/pdf/2001.12345.pdf",
-                "authors": ["Author 1", "Author 2"],
+                "authors": [
+                  "Author 1",
+                  "Author 2"
+                ],
+                "conference": "NeurIPS 2024",
+                "id": "paper-id",
                 "published": "2024-01-15",
-                "conference": "NeurIPS 2024"
+                "title": "Paper Title",
+                "url_pdf": "https://arxiv.org/pdf/2001.12345.pdf"
               }
             ]
-          }
-        },
-        "rate_limit": {
-          "requests_per_second": 10,
-          "notes": "No authentication required - COMPLETELY FREE! No API key needed!"
+          },
+          "type": "JSON"
         }
       },
       {
-        "path": "/repos/",
-        "method": "GET",
         "description": "Get code implementations for papers - FREE!",
+        "method": "GET",
         "parameters": [
           {
-            "name": "paper",
-            "type": "string",
-            "required": false,
             "description": "Filter by paper ID",
-            "example": "paper-id"
+            "example": "paper-id",
+            "name": "paper",
+            "required": false,
+            "type": "string"
           },
           {
-            "name": "owner",
-            "type": "string",
-            "required": false,
             "description": "GitHub repository owner",
-            "example": "pytorch"
+            "example": "pytorch",
+            "name": "owner",
+            "required": false,
+            "type": "string"
           },
           {
-            "name": "name",
-            "type": "string",
-            "required": false,
             "description": "Repository name",
-            "example": "fairseq"
+            "example": "fairseq",
+            "name": "name",
+            "required": false,
+            "type": "string"
           }
-        ]
+        ],
+        "path": "/repos/"
       },
       {
-        "path": "/tasks/",
-        "method": "GET",
         "description": "Browse ML tasks and benchmarks - FREE!",
+        "method": "GET",
         "parameters": [
           {
-            "name": "q",
-            "type": "string",
-            "required": false,
             "description": "Search tasks",
-            "example": "adversarial defense"
-          },
-          {
-            "name": "area",
-            "type": "string",
-            "required": false,
-            "description": "Filter by area",
-            "example": "computer-vision"
-          }
-        ]
-      },
-      {
-        "path": "/sota/",
-        "method": "GET",
-        "description": "Get state-of-the-art results - FREE!",
-        "parameters": [
-          {
-            "name": "task",
-            "type": "string",
-            "required": false,
-            "description": "Task ID",
-            "example": "adversarial-robustness"
-          },
-          {
-            "name": "dataset",
-            "type": "string",
-            "required": false,
-            "description": "Dataset name",
-            "example": "imagenet"
-          }
-        ]
-      },
-      {
-        "path": "/datasets/",
-        "method": "GET",
-        "description": "Browse datasets - FREE!",
-        "parameters": [
-          {
+            "example": "adversarial defense",
             "name": "q",
-            "type": "string",
             "required": false,
-            "description": "Search datasets",
-            "example": "security"
+            "type": "string"
           },
           {
-            "name": "modality",
-            "type": "string",
+            "description": "Filter by area",
+            "example": "computer-vision",
+            "name": "area",
             "required": false,
-            "description": "Data modality",
-            "example": "texts"
+            "type": "string"
           }
-        ]
+        ],
+        "path": "/tasks/"
+      },
+      {
+        "description": "Get state-of-the-art results - FREE!",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Task ID",
+            "example": "adversarial-robustness",
+            "name": "task",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Dataset name",
+            "example": "imagenet",
+            "name": "dataset",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/sota/"
+      },
+      {
+        "description": "Browse datasets - FREE!",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Search datasets",
+            "example": "security",
+            "name": "q",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Data modality",
+            "example": "texts",
+            "name": "modality",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/datasets/"
       }
-    ]
+    ],
+    "type": "REST"
   },
-  
   "authentication": {
-    "type": "none",
+    "notes": "Papers with Code is COMPLETELY FREE! No API key or authentication required. All data is publicly accessible.",
     "required": false,
-    "notes": "Papers with Code is COMPLETELY FREE! No API key or authentication required. All data is publicly accessible."
+    "type": "none"
   },
-  
-  "integration_examples": {
-    "python": {
-      "basic_search": "import requests\nimport json\n\n# Search for adversarial ML papers - COMPLETELY FREE!\nurl = 'https://paperswithcode.com/api/v1/papers/'\nparams = {\n    'q': 'adversarial robustness',\n    'ordering': '-paper_date',  # Most recent first\n    'page': 1\n}\n\nresponse = requests.get(url, params=params)\ndata = response.json()\n\nprint(f\"Found {data['count']} papers on adversarial robustness (FREE!)\")\n\n# Display results\nfor paper in data['results'][:10]:\n    print(f\"\\n📄 {paper['title']}\")\n    print(f\"   Authors: {', '.join(paper['authors'][:3]) if paper['authors'] else 'N/A'}\")\n    print(f\"   PDF: {paper.get('url_pdf', 'N/A')}\")\n    print(f\"   Published: {paper.get('published', 'N/A')}\")\n    \n    # Check if implementation exists\n    if paper.get('is_official', False):\n        print(f\"   ✅ Has official implementation!\")",
-      
-      "full_client": "#!/usr/bin/env python3\n\"\"\"\nPapers with Code Client - FREE Access to ML Security Research\nNo API key needed - Everything is free!\n\"\"\"\n\nimport requests\nimport json\nfrom typing import List, Dict, Optional\nfrom datetime import datetime, timedelta\nimport time\n\nclass PapersWithCodeClient:\n    def __init__(self):\n        self.base_url = 'https://paperswithcode.com/api/v1'\n        self.session = requests.Session()\n        # Add headers to be respectful\n        self.session.headers.update({\n            'User-Agent': 'Security Research Bot 1.0'\n        })\n    \n    def search_papers(self, query: str, limit: int = 50) -> List[Dict]:\n        \"\"\"Search for papers - COMPLETELY FREE!\"\"\"\n        papers = []\n        page = 1\n        \n        while len(papers) < limit:\n            response = self.session.get(\n                f'{self.base_url}/papers/',\n                params={\n                    'q': query,\n                    'page': page,\n                    'ordering': '-paper_date'\n                }\n            )\n            \n            if response.status_code != 200:\n                break\n                \n            data = response.json()\n            papers.extend(data['results'])\n            \n            if not data.get('next'):\n                break\n            \n            page += 1\n            time.sleep(0.1)  # Be respectful\n        \n        return papers[:limit]\n    \n    def get_paper_implementations(self, paper_id: str) -> List[Dict]:\n        \"\"\"Get code implementations for a paper - FREE!\"\"\"\n        response = self.session.get(\n            f'{self.base_url}/repos/',\n            params={'paper': paper_id}\n        )\n        \n        if response.status_code == 200:\n            return response.json().get('results', [])\n        return []\n    \n    def get_security_benchmarks(self) -> List[Dict]:\n        \"\"\"Get security-related ML benchmarks - FREE!\"\"\"\n        security_tasks = [\n            'adversarial-robustness',\n            'backdoor-detection',\n            'certified-defense',\n            'privacy-preserving-machine-learning',\n            'differential-privacy',\n            'federated-learning',\n            'model-extraction',\n            'membership-inference',\n            'data-poisoning'\n        ]\n        \n        benchmarks = []\n        for task in security_tasks:\n            response = self.session.get(\n                f'{self.base_url}/tasks/',\n                params={'q': task}\n            )\n            \n            if response.status_code == 200:\n                data = response.json()\n                benchmarks.extend(data.get('results', []))\n            \n            time.sleep(0.1)\n        \n        return benchmarks\n    \n    def get_sota_results(self, task: str, dataset: str = None) -> Dict:\n        \"\"\"Get state-of-the-art results - FREE!\"\"\"\n        params = {'task': task}\n        if dataset:\n            params['dataset'] = dataset\n        \n        response = self.session.get(\n            f'{self.base_url}/sota/',\n            params=params\n        )\n        \n        if response.status_code == 200:\n            return response.json()\n        return {}\n    \n    def find_papers_with_code(self, topic: str) -> List[Dict]:\n        \"\"\"Find papers that have implementations - FREE!\"\"\"\n        papers = self.search_papers(topic, limit=100)\n        papers_with_code = []\n        \n        for paper in papers:\n            # Check if paper has implementations\n            repos = self.get_paper_implementations(paper.get('id', ''))\n            if repos:\n                paper['implementations'] = repos\n                papers_with_code.append(paper)\n            \n            time.sleep(0.1)  # Rate limiting\n        \n        return papers_with_code\n    \n    def get_trending_papers(self, days: int = 7) -> List[Dict]:\n        \"\"\"Get trending papers based on GitHub stars - FREE!\"\"\"\n        response = self.session.get(\n            f'{self.base_url}/papers/',\n            params={\n                'ordering': '-stars',\n                'page': 1\n            }\n        )\n        \n        if response.status_code == 200:\n            return response.json().get('results', [])\n        return []\n    \n    def search_by_venue(self, conference: str, year: int = None) -> List[Dict]:\n        \"\"\"Search papers by conference/venue - FREE!\"\"\"\n        query = conference\n        if year:\n            query += f\" {year}\"\n        \n        response = self.session.get(\n            f'{self.base_url}/papers/',\n            params={\n                'q': query,\n                'ordering': '-paper_date'\n            }\n        )\n        \n        if response.status_code == 200:\n            data = response.json()\n            # Filter by conference in results\n            return [p for p in data['results'] \n                   if conference.lower() in (p.get('conference', '') or '').lower()]\n        return []\n\n# Example usage - ALL FREE!\nif __name__ == '__main__':\n    client = PapersWithCodeClient()\n    \n    # Search for adversarial ML papers\n    print(\"\\n=== Adversarial ML Papers (FREE) ===\")\n    papers = client.search_papers('adversarial examples', limit=5)\n    for paper in papers:\n        print(f\"- {paper['title']}\")\n        if paper.get('url_pdf'):\n            print(f\"  PDF: {paper['url_pdf']}\")\n    \n    # Find papers with implementations\n    print(\"\\n=== Security Papers with Code ===\")\n    papers_with_code = client.find_papers_with_code('backdoor attack')\n    for paper in papers_with_code[:3]:\n        print(f\"\\n📄 {paper['title']}\")\n        print(f\"   Implementations: {len(paper.get('implementations', []))}\")\n        for repo in paper.get('implementations', [])[:2]:\n            print(f\"   - {repo.get('url', 'N/A')}\")\n    \n    # Get security benchmarks\n    print(\"\\n=== ML Security Benchmarks ===\")\n    benchmarks = client.get_security_benchmarks()\n    for benchmark in benchmarks[:5]:\n        print(f\"- {benchmark.get('name', 'Unknown')}: {benchmark.get('description', '')[:100]}\")\n    \n    # Get trending papers\n    print(\"\\n=== Trending Papers (by GitHub stars) ===\")\n    trending = client.get_trending_papers()\n    for paper in trending[:5]:\n        print(f\"- ⭐ {paper.get('stars', 0)} - {paper['title']}\")",
-      
-      "monitor_new": "import requests\nimport json\nfrom datetime import datetime, timedelta\n\ndef monitor_security_papers():\n    \"\"\"Monitor for new ML security papers - FREE!\"\"\"\n    \n    security_topics = [\n        'adversarial examples',\n        'model poisoning',\n        'backdoor attacks',\n        'privacy attacks',\n        'differential privacy',\n        'federated learning security',\n        'model extraction',\n        'membership inference'\n    ]\n    \n    base_url = 'https://paperswithcode.com/api/v1/papers/'\n    \n    # Get papers from last 7 days\n    cutoff_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')\n    \n    all_papers = {}\n    \n    for topic in security_topics:\n        response = requests.get(base_url, params={\n            'q': topic,\n            'ordering': '-paper_date',\n            'page': 1\n        })\n        \n        if response.status_code == 200:\n            data = response.json()\n            \n            for paper in data['results']:\n                paper_date = paper.get('published', '')\n                \n                # Check if paper is recent\n                if paper_date and paper_date >= cutoff_date:\n                    paper_id = paper.get('id')\n                    if paper_id not in all_papers:\n                        all_papers[paper_id] = paper\n                        all_papers[paper_id]['topics'] = [topic]\n                    else:\n                        all_papers[paper_id]['topics'].append(topic)\n    \n    # Display results\n    if all_papers:\n        print(f\"\\n🔔 Found {len(all_papers)} new security papers this week!\\n\")\n        for paper in all_papers.values():\n            print(f\"📄 {paper['title']}\")\n            print(f\"   Topics: {', '.join(paper['topics'])}\")\n            print(f\"   Date: {paper.get('published', 'Unknown')}\")\n            print(f\"   PDF: {paper.get('url_pdf', 'N/A')}\")\n            print()\n    else:\n        print(\"No new security papers found this week.\")\n\n# Run monitoring\nmonitor_security_papers()"
-    },
-    
-    "curl": {
-      "search": "# Search for adversarial ML papers - FREE!\ncurl 'https://paperswithcode.com/api/v1/papers/?q=adversarial%20robustness&ordering=-paper_date'",
-      
-      "get_implementations": "# Get code for a specific paper - FREE!\ncurl 'https://paperswithcode.com/api/v1/repos/?paper=paper-id-here'",
-      
-      "benchmarks": "# Get ML benchmarks - FREE!\ncurl 'https://paperswithcode.com/api/v1/tasks/?q=adversarial'",
-      
-      "sota": "# Get state-of-the-art results - FREE!\ncurl 'https://paperswithcode.com/api/v1/sota/?task=adversarial-robustness&dataset=cifar-10'",
-      
-      "trending": "# Get trending papers by stars - FREE!\ncurl 'https://paperswithcode.com/api/v1/papers/?ordering=-stars&page=1'"
-    },
-    
-    "javascript": {
-      "client": "// Papers with Code JavaScript Client - FREE!\nclass PapersWithCodeClient {\n  constructor() {\n    this.baseUrl = 'https://paperswithcode.com/api/v1';\n  }\n  \n  async searchPapers(query, limit = 20) {\n    const params = new URLSearchParams({\n      q: query,\n      ordering: '-paper_date',\n      page: 1\n    });\n    \n    const response = await fetch(`${this.baseUrl}/papers/?${params}`);\n    const data = await response.json();\n    \n    return data.results.slice(0, limit);\n  }\n  \n  async getPaperImplementations(paperId) {\n    const response = await fetch(`${this.baseUrl}/repos/?paper=${paperId}`);\n    const data = await response.json();\n    return data.results;\n  }\n  \n  async getSecurityBenchmarks() {\n    const tasks = [\n      'adversarial-robustness',\n      'backdoor-detection',\n      'privacy-preserving-machine-learning'\n    ];\n    \n    const benchmarks = [];\n    \n    for (const task of tasks) {\n      const response = await fetch(`${this.baseUrl}/tasks/?q=${task}`);\n      const data = await response.json();\n      benchmarks.push(...data.results);\n    }\n    \n    return benchmarks;\n  }\n  \n  async getTrendingPapers() {\n    const response = await fetch(`${this.baseUrl}/papers/?ordering=-stars`);\n    const data = await response.json();\n    return data.results;\n  }\n}\n\n// Usage - ALL FREE!\nconst client = new PapersWithCodeClient();\n\n// Search for papers\nclient.searchPapers('federated learning attacks').then(papers => {\n  console.log(`Found ${papers.length} papers`);\n  papers.forEach(p => {\n    console.log(`- ${p.title}`);\n    if (p.url_pdf) console.log(`  PDF: ${p.url_pdf}`);\n  });\n});\n\n// Get trending papers\nclient.getTrendingPapers().then(papers => {\n  console.log('\\nTrending Papers:');\n  papers.slice(0, 5).forEach(p => {\n    console.log(`⭐ ${p.stars || 0} - ${p.title}`);\n  });\n});"
-    }
-  },
-  
-  "data_format": {
-    "primary_format": "JSON",
-    "encoding": "UTF-8",
-    "field_descriptions": {
-      "id": "Unique paper identifier",
-      "title": "Paper title",
-      "abstract": "Paper abstract",
-      "authors": "List of authors",
-      "arxiv_id": "ArXiv identifier if available",
-      "url_pdf": "Direct PDF download link",
-      "url_abs": "Abstract page URL",
-      "published": "Publication date",
-      "conference": "Conference/venue name",
-      "conference_url_abs": "Conference page URL",
-      "conference_url_pdf": "Conference PDF URL",
-      "proceeding": "Proceeding information",
-      "is_official": "Has official implementation",
-      "stars": "GitHub stars for implementations",
-      "tasks": "Associated ML tasks",
-      "datasets": "Datasets used",
-      "methods": "Methods implemented"
-    }
-  },
-  
+  "category": "research",
   "coverage": {
-    "data_types": ["research_papers", "code_implementations", "benchmarks", "leaderboards", "datasets"],
+    "data_types": [
+      "research_papers",
+      "code_implementations",
+      "benchmarks",
+      "leaderboards",
+      "datasets"
+    ],
     "focus_areas": [
       "Adversarial machine learning",
       "Model security and robustness",
@@ -246,20 +196,59 @@
       "Data poisoning",
       "Certified defenses"
     ],
-    "volume": "200,000+ papers with 400,000+ code implementations",
-    "update_frequency": "Real-time as papers are published"
+    "update_frequency": "Real-time as papers are published",
+    "volume": "200,000+ papers with 400,000+ code implementations"
   },
-  
-  "quality_metrics": {
-    "cost": "COMPLETELY FREE",
-    "accessibility": "No registration or API key required",
-    "reliability": "Excellent - maintained by Meta AI",
-    "data_quality": "High - curated implementations and verified results",
-    "api_stability": "Stable public API"
+  "data_format": {
+    "encoding": "UTF-8",
+    "field_descriptions": {
+      "abstract": "Paper abstract",
+      "arxiv_id": "ArXiv identifier if available",
+      "authors": "List of authors",
+      "conference": "Conference/venue name",
+      "conference_url_abs": "Conference page URL",
+      "conference_url_pdf": "Conference PDF URL",
+      "datasets": "Datasets used",
+      "id": "Unique paper identifier",
+      "is_official": "Has official implementation",
+      "methods": "Methods implemented",
+      "proceeding": "Proceeding information",
+      "published": "Publication date",
+      "stars": "GitHub stars for implementations",
+      "tasks": "Associated ML tasks",
+      "title": "Paper title",
+      "url_abs": "Abstract page URL",
+      "url_pdf": "Direct PDF download link"
+    },
+    "primary_format": "JSON"
   },
-  
+  "description": "Free access to machine learning papers with implementation code, benchmarks, and leaderboards. Tracks state-of-the-art results across ML tasks including adversarial robustness, privacy-preserving ML, and AI security.",
+  "documentation": "https://paperswithcode.com/api/v1/docs/",
+  "id": "papers-with-code",
+  "integration_examples": {
+    "curl": {
+      "benchmarks": "# Get ML benchmarks - FREE!\ncurl 'https://paperswithcode.com/api/v1/tasks/?q=adversarial'",
+      "get_implementations": "# Get code for a specific paper - FREE!\ncurl 'https://paperswithcode.com/api/v1/repos/?paper=paper-id-here'",
+      "search": "# Search for adversarial ML papers - FREE!\ncurl 'https://paperswithcode.com/api/v1/papers/?q=adversarial%20robustness&ordering=-paper_date'",
+      "sota": "# Get state-of-the-art results - FREE!\ncurl 'https://paperswithcode.com/api/v1/sota/?task=adversarial-robustness&dataset=cifar-10'",
+      "trending": "# Get trending papers by stars - FREE!\ncurl 'https://paperswithcode.com/api/v1/papers/?ordering=-stars&page=1'"
+    },
+    "javascript": {
+      "client": "// Papers with Code JavaScript Client - FREE!\nclass PapersWithCodeClient {\n  constructor() {\n    this.baseUrl = 'https://paperswithcode.com/api/v1';\n  }\n  \n  async searchPapers(query, limit = 20) {\n    const params = new URLSearchParams({\n      q: query,\n      ordering: '-paper_date',\n      page: 1\n    });\n    \n    const response = await fetch(`${this.baseUrl}/papers/?${params}`);\n    const data = await response.json();\n    \n    return data.results.slice(0, limit);\n  }\n  \n  async getPaperImplementations(paperId) {\n    const response = await fetch(`${this.baseUrl}/repos/?paper=${paperId}`);\n    const data = await response.json();\n    return data.results;\n  }\n  \n  async getSecurityBenchmarks() {\n    const tasks = [\n      'adversarial-robustness',\n      'backdoor-detection',\n      'privacy-preserving-machine-learning'\n    ];\n    \n    const benchmarks = [];\n    \n    for (const task of tasks) {\n      const response = await fetch(`${this.baseUrl}/tasks/?q=${task}`);\n      const data = await response.json();\n      benchmarks.push(...data.results);\n    }\n    \n    return benchmarks;\n  }\n  \n  async getTrendingPapers() {\n    const response = await fetch(`${this.baseUrl}/papers/?ordering=-stars`);\n    const data = await response.json();\n    return data.results;\n  }\n}\n\n// Usage - ALL FREE!\nconst client = new PapersWithCodeClient();\n\n// Search for papers\nclient.searchPapers('federated learning attacks').then(papers => {\n  console.log(`Found ${papers.length} papers`);\n  papers.forEach(p => {\n    console.log(`- ${p.title}`);\n    if (p.url_pdf) console.log(`  PDF: ${p.url_pdf}`);\n  });\n});\n\n// Get trending papers\nclient.getTrendingPapers().then(papers => {\n  console.log('\\nTrending Papers:');\n  papers.slice(0, 5).forEach(p => {\n    console.log(`\u2b50 ${p.stars || 0} - ${p.title}`);\n  });\n});"
+    },
+    "python": {
+      "basic_search": "import requests\nimport json\n\n# Search for adversarial ML papers - COMPLETELY FREE!\nurl = 'https://paperswithcode.com/api/v1/papers/'\nparams = {\n    'q': 'adversarial robustness',\n    'ordering': '-paper_date',  # Most recent first\n    'page': 1\n}\n\nresponse = requests.get(url, params=params)\ndata = response.json()\n\nprint(f\"Found {data['count']} papers on adversarial robustness (FREE!)\")\n\n# Display results\nfor paper in data['results'][:10]:\n    print(f\"\\n\ud83d\udcc4 {paper['title']}\")\n    print(f\"   Authors: {', '.join(paper['authors'][:3]) if paper['authors'] else 'N/A'}\")\n    print(f\"   PDF: {paper.get('url_pdf', 'N/A')}\")\n    print(f\"   Published: {paper.get('published', 'N/A')}\")\n    \n    # Check if implementation exists\n    if paper.get('is_official', False):\n        print(f\"   \u2705 Has official implementation!\")",
+      "full_client": "#!/usr/bin/env python3\n\"\"\"\nPapers with Code Client - FREE Access to ML Security Research\nNo API key needed - Everything is free!\n\"\"\"\n\nimport requests\nimport json\nfrom typing import List, Dict, Optional\nfrom datetime import datetime, timedelta\nimport time\n\nclass PapersWithCodeClient:\n    def __init__(self):\n        self.base_url = 'https://paperswithcode.com/api/v1'\n        self.session = requests.Session()\n        # Add headers to be respectful\n        self.session.headers.update({\n            'User-Agent': 'Security Research Bot 1.0'\n        })\n    \n    def search_papers(self, query: str, limit: int = 50) -> List[Dict]:\n        \"\"\"Search for papers - COMPLETELY FREE!\"\"\"\n        papers = []\n        page = 1\n        \n        while len(papers) < limit:\n            response = self.session.get(\n                f'{self.base_url}/papers/',\n                params={\n                    'q': query,\n                    'page': page,\n                    'ordering': '-paper_date'\n                }\n            )\n            \n            if response.status_code != 200:\n                break\n                \n            data = response.json()\n            papers.extend(data['results'])\n            \n            if not data.get('next'):\n                break\n            \n            page += 1\n            time.sleep(0.1)  # Be respectful\n        \n        return papers[:limit]\n    \n    def get_paper_implementations(self, paper_id: str) -> List[Dict]:\n        \"\"\"Get code implementations for a paper - FREE!\"\"\"\n        response = self.session.get(\n            f'{self.base_url}/repos/',\n            params={'paper': paper_id}\n        )\n        \n        if response.status_code == 200:\n            return response.json().get('results', [])\n        return []\n    \n    def get_security_benchmarks(self) -> List[Dict]:\n        \"\"\"Get security-related ML benchmarks - FREE!\"\"\"\n        security_tasks = [\n            'adversarial-robustness',\n            'backdoor-detection',\n            'certified-defense',\n            'privacy-preserving-machine-learning',\n            'differential-privacy',\n            'federated-learning',\n            'model-extraction',\n            'membership-inference',\n            'data-poisoning'\n        ]\n        \n        benchmarks = []\n        for task in security_tasks:\n            response = self.session.get(\n                f'{self.base_url}/tasks/',\n                params={'q': task}\n            )\n            \n            if response.status_code == 200:\n                data = response.json()\n                benchmarks.extend(data.get('results', []))\n            \n            time.sleep(0.1)\n        \n        return benchmarks\n    \n    def get_sota_results(self, task: str, dataset: str = None) -> Dict:\n        \"\"\"Get state-of-the-art results - FREE!\"\"\"\n        params = {'task': task}\n        if dataset:\n            params['dataset'] = dataset\n        \n        response = self.session.get(\n            f'{self.base_url}/sota/',\n            params=params\n        )\n        \n        if response.status_code == 200:\n            return response.json()\n        return {}\n    \n    def find_papers_with_code(self, topic: str) -> List[Dict]:\n        \"\"\"Find papers that have implementations - FREE!\"\"\"\n        papers = self.search_papers(topic, limit=100)\n        papers_with_code = []\n        \n        for paper in papers:\n            # Check if paper has implementations\n            repos = self.get_paper_implementations(paper.get('id', ''))\n            if repos:\n                paper['implementations'] = repos\n                papers_with_code.append(paper)\n            \n            time.sleep(0.1)  # Rate limiting\n        \n        return papers_with_code\n    \n    def get_trending_papers(self, days: int = 7) -> List[Dict]:\n        \"\"\"Get trending papers based on GitHub stars - FREE!\"\"\"\n        response = self.session.get(\n            f'{self.base_url}/papers/',\n            params={\n                'ordering': '-stars',\n                'page': 1\n            }\n        )\n        \n        if response.status_code == 200:\n            return response.json().get('results', [])\n        return []\n    \n    def search_by_venue(self, conference: str, year: int = None) -> List[Dict]:\n        \"\"\"Search papers by conference/venue - FREE!\"\"\"\n        query = conference\n        if year:\n            query += f\" {year}\"\n        \n        response = self.session.get(\n            f'{self.base_url}/papers/',\n            params={\n                'q': query,\n                'ordering': '-paper_date'\n            }\n        )\n        \n        if response.status_code == 200:\n            data = response.json()\n            # Filter by conference in results\n            return [p for p in data['results'] \n                   if conference.lower() in (p.get('conference', '') or '').lower()]\n        return []\n\n# Example usage - ALL FREE!\nif __name__ == '__main__':\n    client = PapersWithCodeClient()\n    \n    # Search for adversarial ML papers\n    print(\"\\n=== Adversarial ML Papers (FREE) ===\")\n    papers = client.search_papers('adversarial examples', limit=5)\n    for paper in papers:\n        print(f\"- {paper['title']}\")\n        if paper.get('url_pdf'):\n            print(f\"  PDF: {paper['url_pdf']}\")\n    \n    # Find papers with implementations\n    print(\"\\n=== Security Papers with Code ===\")\n    papers_with_code = client.find_papers_with_code('backdoor attack')\n    for paper in papers_with_code[:3]:\n        print(f\"\\n\ud83d\udcc4 {paper['title']}\")\n        print(f\"   Implementations: {len(paper.get('implementations', []))}\")\n        for repo in paper.get('implementations', [])[:2]:\n            print(f\"   - {repo.get('url', 'N/A')}\")\n    \n    # Get security benchmarks\n    print(\"\\n=== ML Security Benchmarks ===\")\n    benchmarks = client.get_security_benchmarks()\n    for benchmark in benchmarks[:5]:\n        print(f\"- {benchmark.get('name', 'Unknown')}: {benchmark.get('description', '')[:100]}\")\n    \n    # Get trending papers\n    print(\"\\n=== Trending Papers (by GitHub stars) ===\")\n    trending = client.get_trending_papers()\n    for paper in trending[:5]:\n        print(f\"- \u2b50 {paper.get('stars', 0)} - {paper['title']}\")",
+      "monitor_new": "import requests\nimport json\nfrom datetime import datetime, timedelta\n\ndef monitor_security_papers():\n    \"\"\"Monitor for new ML security papers - FREE!\"\"\"\n    \n    security_topics = [\n        'adversarial examples',\n        'model poisoning',\n        'backdoor attacks',\n        'privacy attacks',\n        'differential privacy',\n        'federated learning security',\n        'model extraction',\n        'membership inference'\n    ]\n    \n    base_url = 'https://paperswithcode.com/api/v1/papers/'\n    \n    # Get papers from last 7 days\n    cutoff_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')\n    \n    all_papers = {}\n    \n    for topic in security_topics:\n        response = requests.get(base_url, params={\n            'q': topic,\n            'ordering': '-paper_date',\n            'page': 1\n        })\n        \n        if response.status_code == 200:\n            data = response.json()\n            \n            for paper in data['results']:\n                paper_date = paper.get('published', '')\n                \n                # Check if paper is recent\n                if paper_date and paper_date >= cutoff_date:\n                    paper_id = paper.get('id')\n                    if paper_id not in all_papers:\n                        all_papers[paper_id] = paper\n                        all_papers[paper_id]['topics'] = [topic]\n                    else:\n                        all_papers[paper_id]['topics'].append(topic)\n    \n    # Display results\n    if all_papers:\n        print(f\"\\n\ud83d\udd14 Found {len(all_papers)} new security papers this week!\\n\")\n        for paper in all_papers.values():\n            print(f\"\ud83d\udcc4 {paper['title']}\")\n            print(f\"   Topics: {', '.join(paper['topics'])}\")\n            print(f\"   Date: {paper.get('published', 'Unknown')}\")\n            print(f\"   PDF: {paper.get('url_pdf', 'N/A')}\")\n            print()\n    else:\n        print(\"No new security papers found this week.\")\n\n# Run monitoring\nmonitor_security_papers()"
+    }
+  },
+  "metadata": {
+    "last_updated": "2024-01-15",
+    "license": "Free to use, papers have individual licenses",
+    "maintainer": "Meta AI (formerly Facebook AI)"
+  },
+  "name": "Papers with Code",
   "operational_guidance": {
-    "recommended_update_frequency": "Daily for new papers, weekly for comprehensive updates",
     "best_practices": [
       "No authentication needed - just start using it!",
       "Be respectful with request rate (10 req/sec is fine)",
@@ -267,7 +256,7 @@
       "Use pagination for large result sets",
       "Combine with arXiv for full paper access"
     ],
-    "value_proposition": "FREE access to ML papers WITH working code implementations, benchmarks, and state-of-the-art tracking",
+    "recommended_update_frequency": "Daily for new papers, weekly for comprehensive updates",
     "use_cases": [
       "Find reproducible ML security research",
       "Track state-of-the-art in adversarial ML",
@@ -275,12 +264,16 @@
       "Monitor ML security benchmarks",
       "Find datasets for security research",
       "Track trending security papers"
-    ]
+    ],
+    "value_proposition": "FREE access to ML papers WITH working code implementations, benchmarks, and state-of-the-art tracking"
   },
-  
-  "metadata": {
-    "last_updated": "2024-01-15",
-    "maintainer": "Meta AI (formerly Facebook AI)",
-    "license": "Free to use, papers have individual licenses"
-  }
+  "quality_metrics": {
+    "accessibility": "No registration or API key required",
+    "api_stability": "Stable public API",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "High - curated implementations and verified results",
+    "reliability": "Excellent - maintained by Meta AI"
+  },
+  "subcategory": "academic",
+  "url": "https://paperswithcode.com"
 }

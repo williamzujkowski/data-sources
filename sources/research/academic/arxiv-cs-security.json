@@ -1,162 +1,145 @@
 {
-  "id": "arxiv-cs-security",
-  "name": "arXiv Computer Science - Cryptography and Security",
-  "description": "Free access to cryptography and security research papers from arXiv, Cornell University's open-access repository. Covers topics including network security, cryptographic protocols, privacy, malware analysis, and cybersecurity research.",
-  "category": "research",
-  "subcategory": "academic",
-  "website": "https://arxiv.org/list/cs.CR/recent",
-  "documentation": "https://info.arxiv.org/help/api/index.html",
-  
   "api": {
-    "type": "REST",
     "base_url": "http://export.arxiv.org/api",
     "endpoints": [
       {
-        "path": "/query",
-        "method": "GET",
         "description": "Search and retrieve papers from arXiv categories",
-        "parameters": [
-          {
-            "name": "search_query",
-            "type": "string",
-            "required": true,
-            "description": "Search query using arXiv API syntax",
-            "example": "cat:cs.CR"
-          },
-          {
-            "name": "start",
-            "type": "integer",
-            "required": false,
-            "description": "Starting index for results (0-based)",
-            "example": "0"
-          },
-          {
-            "name": "max_results",
-            "type": "integer",
-            "required": false,
-            "description": "Maximum number of results to return (default 10, max 30000)",
-            "example": "100"
-          },
-          {
-            "name": "sortBy",
-            "type": "string",
-            "required": false,
-            "description": "Sort order: relevance, lastUpdatedDate, submittedDate",
-            "example": "submittedDate"
-          },
-          {
-            "name": "sortOrder",
-            "type": "string",
-            "required": false,
-            "description": "Sort direction: ascending or descending",
-            "example": "descending"
-          }
-        ],
         "headers": {
           "Accept": "application/atom+xml"
         },
-        "response_format": {
-          "type": "Atom/XML",
-          "example": "<?xml version=\"1.0\"?><feed>...</feed>"
-        },
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Search query using arXiv API syntax",
+            "example": "cat:cs.CR",
+            "name": "search_query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Starting index for results (0-based)",
+            "example": "0",
+            "name": "start",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Maximum number of results to return (default 10, max 30000)",
+            "example": "100",
+            "name": "max_results",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Sort order: relevance, lastUpdatedDate, submittedDate",
+            "example": "submittedDate",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Sort direction: ascending or descending",
+            "example": "descending",
+            "name": "sortOrder",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/query",
         "rate_limit": {
-          "requests_per_second": 1,
           "burst_limit": 3,
-          "notes": "Respect 3-second delay between requests for large result sets. No authentication required - completely FREE!"
+          "notes": "Respect 3-second delay between requests for large result sets. No authentication required - completely FREE!",
+          "requests_per_second": 1
+        },
+        "response_format": {
+          "example": "<?xml version=\"1.0\"?><feed>...</feed>",
+          "type": "Atom/XML"
         }
       }
     ],
     "search_syntax": {
-      "category_search": "cat:cs.CR OR cat:cs.DC",
-      "author_search": "au:lastname_firstname",
-      "title_search": "ti:\"machine learning security\"",
       "abstract_search": "abs:\"adversarial examples\"",
+      "author_search": "au:lastname_firstname",
+      "category_search": "cat:cs.CR OR cat:cs.DC",
+      "combined": "cat:cs.CR AND (ti:privacy OR abs:differential)",
       "date_range": "submittedDate:[202401010000 TO 202412312359]",
-      "combined": "cat:cs.CR AND (ti:privacy OR abs:differential)"
-    }
+      "title_search": "ti:\"machine learning security\""
+    },
+    "type": "REST"
   },
-  
   "authentication": {
-    "type": "none",
+    "notes": "arXiv is completely FREE with no authentication required. All papers are open access.",
     "required": false,
-    "notes": "arXiv is completely FREE with no authentication required. All papers are open access."
+    "type": "none"
   },
-  
-  "integration_examples": {
-    "python": {
-      "basic_fetch": "import requests\nimport xml.etree.ElementTree as ET\nfrom datetime import datetime, timedelta\nimport time\n\n# Fetch recent security papers - COMPLETELY FREE!\nurl = 'http://export.arxiv.org/api/query'\nparams = {\n    'search_query': 'cat:cs.CR',  # Cryptography and Security\n    'sortBy': 'submittedDate',\n    'sortOrder': 'descending',\n    'max_results': 50\n}\n\nresponse = requests.get(url, params=params)\nroot = ET.fromstring(response.content)\n\n# Parse Atom feed\nnamespace = {'atom': 'http://www.w3.org/2005/Atom'}\nfor entry in root.findall('atom:entry', namespace):\n    title = entry.find('atom:title', namespace).text.strip()\n    authors = [author.find('atom:name', namespace).text \n               for author in entry.findall('atom:author', namespace)]\n    abstract = entry.find('atom:summary', namespace).text.strip()\n    pdf_link = None\n    for link in entry.findall('atom:link', namespace):\n        if link.get('type') == 'application/pdf':\n            pdf_link = link.get('href')\n    \n    print(f\"Title: {title}\")\n    print(f\"Authors: {', '.join(authors)}\")\n    print(f\"PDF: {pdf_link}\")\n    print(f\"Abstract: {abstract[:200]}...\\n\")",
-      
-      "advanced_search": "#!/usr/bin/env python3\n\"\"\"\narXiv Security Papers Fetcher - FREE Academic Research\nNo API key needed - Completely free access to all papers!\n\"\"\"\n\nimport requests\nimport xml.etree.ElementTree as ET\nfrom datetime import datetime, timedelta\nimport time\nimport json\nfrom typing import List, Dict, Optional\nimport re\n\nclass ArXivSecurityClient:\n    def __init__(self):\n        self.base_url = 'http://export.arxiv.org/api/query'\n        self.categories = {\n            'security': 'cs.CR',\n            'distributed': 'cs.DC',\n            'networking': 'cs.NI',\n            'ai_security': 'cs.AI',\n            'crypto': 'cs.CR'\n        }\n        self.last_request = 0\n        self.min_delay = 3  # Respect rate limits\n    \n    def _rate_limit(self):\n        \"\"\"Ensure we don't overwhelm the FREE API\"\"\"\n        elapsed = time.time() - self.last_request\n        if elapsed < self.min_delay:\n            time.sleep(self.min_delay - elapsed)\n        self.last_request = time.time()\n    \n    def search_papers(self, \n                     query: str = None,\n                     category: str = 'security',\n                     days_back: int = 7,\n                     max_results: int = 100) -> List[Dict]:\n        \"\"\"Search for security papers - ALL FREE!\"\"\"\n        \n        # Build search query\n        if query:\n            search_query = f'cat:{self.categories[category]} AND all:{query}'\n        else:\n            search_query = f'cat:{self.categories[category]}'\n        \n        # Add date filter for recent papers\n        if days_back:\n            start_date = (datetime.now() - timedelta(days=days_back)).strftime('%Y%m%d0000')\n            search_query += f' AND submittedDate:[{start_date} TO 999912312359]'\n        \n        params = {\n            'search_query': search_query,\n            'sortBy': 'submittedDate',\n            'sortOrder': 'descending',\n            'max_results': max_results\n        }\n        \n        self._rate_limit()\n        response = requests.get(self.base_url, params=params)\n        \n        if response.status_code != 200:\n            raise Exception(f\"API error: {response.status_code}\")\n        \n        return self._parse_response(response.content)\n    \n    def _parse_response(self, xml_content: bytes) -> List[Dict]:\n        \"\"\"Parse arXiv Atom feed response\"\"\"\n        root = ET.fromstring(xml_content)\n        namespace = {'atom': 'http://www.w3.org/2005/Atom',\n                    'arxiv': 'http://arxiv.org/schemas/atom'}\n        \n        papers = []\n        for entry in root.findall('atom:entry', namespace):\n            # Extract paper metadata\n            paper = {\n                'id': entry.find('atom:id', namespace).text.split('/')[-1],\n                'title': entry.find('atom:title', namespace).text.strip().replace('\\n', ' '),\n                'authors': [author.find('atom:name', namespace).text \n                          for author in entry.findall('atom:author', namespace)],\n                'abstract': entry.find('atom:summary', namespace).text.strip(),\n                'published': entry.find('atom:published', namespace).text,\n                'updated': entry.find('atom:updated', namespace).text,\n                'categories': [cat.get('term') \n                             for cat in entry.findall('atom:category', namespace)],\n                'links': {}\n            }\n            \n            # Extract links\n            for link in entry.findall('atom:link', namespace):\n                if link.get('type') == 'application/pdf':\n                    paper['links']['pdf'] = link.get('href')\n                elif link.get('type') == 'text/html':\n                    paper['links']['html'] = link.get('href')\n            \n            # Extract comment if present (often contains paper metadata)\n            comment = entry.find('arxiv:comment', namespace)\n            if comment is not None:\n                paper['comment'] = comment.text\n            \n            papers.append(paper)\n        \n        return papers\n    \n    def get_trending_topics(self, days: int = 30, min_papers: int = 3) -> Dict[str, int]:\n        \"\"\"Analyze trending security research topics\"\"\"\n        papers = self.search_papers(days_back=days, max_results=500)\n        \n        # Extract keywords from titles and abstracts\n        keywords = {}\n        security_terms = ['attack', 'defense', 'vulnerability', 'exploit', 'malware',\n                         'privacy', 'authentication', 'cryptography', 'blockchain',\n                         'machine learning', 'adversarial', 'backdoor', 'ransomware',\n                         'phishing', 'zero-day', 'patch', 'fuzzing', 'reverse engineering']\n        \n        for paper in papers:\n            text = (paper['title'] + ' ' + paper['abstract']).lower()\n            for term in security_terms:\n                if term in text:\n                    keywords[term] = keywords.get(term, 0) + 1\n        \n        # Filter by minimum occurrence\n        return {k: v for k, v in keywords.items() if v >= min_papers}\n    \n    def get_author_papers(self, author_name: str) -> List[Dict]:\n        \"\"\"Get all papers by a specific author in security\"\"\"\n        search_query = f'au:{author_name} AND cat:cs.CR'\n        params = {\n            'search_query': search_query,\n            'sortBy': 'submittedDate',\n            'sortOrder': 'descending',\n            'max_results': 100\n        }\n        \n        self._rate_limit()\n        response = requests.get(self.base_url, params=params)\n        return self._parse_response(response.content)\n    \n    def monitor_new_papers(self, keywords: List[str], callback=None):\n        \"\"\"Monitor for new papers matching keywords (run daily)\"\"\"\n        query = ' OR '.join([f'all:{kw}' for kw in keywords])\n        results = self.search_papers(query=query, days_back=1)\n        \n        if callback and results:\n            callback(results)\n        return results\n\n# Example usage - ALL FREE!\nif __name__ == '__main__':\n    client = ArXivSecurityClient()\n    \n    # Get recent security papers\n    print(\"\\n=== Recent Security Papers (FREE) ===\")\n    papers = client.search_papers(days_back=7, max_results=10)\n    for paper in papers:\n        print(f\"\\n📄 {paper['title']}\")\n        print(f\"   Authors: {', '.join(paper['authors'][:3])}\")\n        print(f\"   PDF: {paper['links'].get('pdf', 'N/A')}\")\n        print(f\"   Categories: {', '.join(paper['categories'])}\")\n    \n    # Search for specific topics\n    print(\"\\n=== Ransomware Research ===\")\n    ransomware_papers = client.search_papers(query='ransomware', max_results=5)\n    for paper in ransomware_papers:\n        print(f\"- {paper['title']}\")\n    \n    # Get trending topics\n    print(\"\\n=== Trending Security Topics (Last 30 Days) ===\")\n    trends = client.get_trending_topics()\n    for topic, count in sorted(trends.items(), key=lambda x: x[1], reverse=True)[:10]:\n        print(f\"  {topic}: {count} papers\")",
-      
-      "bulk_download": "import requests\nimport xml.etree.ElementTree as ET\nimport time\nimport os\nfrom pathlib import Path\n\ndef download_security_papers_bulk(year=2024, month=None, download_pdfs=False):\n    \"\"\"\n    Bulk download security papers metadata (and optionally PDFs)\n    COMPLETELY FREE - No limits on downloads!\n    \"\"\"\n    \n    # Create download directory\n    download_dir = Path(f'arxiv_security_{year}')\n    download_dir.mkdir(exist_ok=True)\n    \n    # Build date query\n    if month:\n        date_query = f'submittedDate:[{year}{month:02d}01 TO {year}{month:02d}31]'\n    else:\n        date_query = f'submittedDate:[{year}0101 TO {year}1231]'\n    \n    # Fetch papers in batches (max 1000 per request for efficiency)\n    all_papers = []\n    start = 0\n    batch_size = 1000\n    \n    while True:\n        url = 'http://export.arxiv.org/api/query'\n        params = {\n            'search_query': f'cat:cs.CR AND {date_query}',\n            'start': start,\n            'max_results': batch_size,\n            'sortBy': 'submittedDate',\n            'sortOrder': 'ascending'\n        }\n        \n        print(f\"Fetching papers {start} to {start + batch_size}...\")\n        response = requests.get(url, params=params)\n        \n        # Parse response\n        root = ET.fromstring(response.content)\n        namespace = {'atom': 'http://www.w3.org/2005/Atom'}\n        entries = root.findall('atom:entry', namespace)\n        \n        if not entries:\n            break\n        \n        for entry in entries:\n            paper_id = entry.find('atom:id', namespace).text.split('/')[-1]\n            title = entry.find('atom:title', namespace).text.strip()\n            \n            # Save metadata\n            metadata_file = download_dir / f'{paper_id}_metadata.txt'\n            with open(metadata_file, 'w', encoding='utf-8') as f:\n                f.write(f\"Title: {title}\\n\")\n                f.write(f\"ID: {paper_id}\\n\")\n                f.write(f\"Abstract: {entry.find('atom:summary', namespace).text}\\n\")\n            \n            # Optionally download PDF\n            if download_pdfs:\n                for link in entry.findall('atom:link', namespace):\n                    if link.get('type') == 'application/pdf':\n                        pdf_url = link.get('href')\n                        pdf_file = download_dir / f'{paper_id}.pdf'\n                        if not pdf_file.exists():\n                            print(f\"  Downloading PDF: {paper_id}\")\n                            pdf_response = requests.get(pdf_url)\n                            pdf_file.write_bytes(pdf_response.content)\n                            time.sleep(1)  # Be respectful\n        \n        start += batch_size\n        time.sleep(3)  # Rate limiting\n        \n        if len(entries) < batch_size:\n            break\n    \n    print(f\"Downloaded {start} papers to {download_dir}\")\n\n# Download all 2024 security papers (metadata only)\ndownload_security_papers_bulk(2024, download_pdfs=False)"
-    },
-    
-    "curl": {
-      "recent_papers": "# Get 10 most recent security papers - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=cat:cs.CR&sortBy=submittedDate&sortOrder=descending&max_results=10'",
-      
-      "search_keyword": "# Search for 'ransomware' papers - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=cat:cs.CR+AND+all:ransomware&max_results=20'",
-      
-      "date_range": "# Get papers from last week - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=cat:cs.CR+AND+submittedDate:[20240101+TO+20241231]&max_results=50'",
-      
-      "multiple_categories": "# Security + AI papers - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=(cat:cs.CR+OR+cat:cs.AI)+AND+all:adversarial&max_results=30'",
-      
-      "rss_feed": "# RSS feed for new papers (updated daily) - FREE!\ncurl 'http://arxiv.org/rss/cs.CR'"
-    },
-    
-    "javascript": {
-      "fetch_papers": "// Fetch recent security papers - COMPLETELY FREE!\nconst fetchArxivPapers = async (category = 'cs.CR', maxResults = 20) => {\n  const baseUrl = 'http://export.arxiv.org/api/query';\n  const params = new URLSearchParams({\n    search_query: `cat:${category}`,\n    sortBy: 'submittedDate',\n    sortOrder: 'descending',\n    max_results: maxResults\n  });\n  \n  const response = await fetch(`${baseUrl}?${params}`);\n  const xmlText = await response.text();\n  \n  // Parse XML response\n  const parser = new DOMParser();\n  const doc = parser.parseFromString(xmlText, 'text/xml');\n  \n  const papers = [];\n  const entries = doc.getElementsByTagName('entry');\n  \n  for (let entry of entries) {\n    const title = entry.getElementsByTagName('title')[0]?.textContent.trim();\n    const abstract = entry.getElementsByTagName('summary')[0]?.textContent.trim();\n    const id = entry.getElementsByTagName('id')[0]?.textContent.split('/').pop();\n    \n    // Get PDF link\n    const links = entry.getElementsByTagName('link');\n    let pdfUrl = null;\n    for (let link of links) {\n      if (link.getAttribute('type') === 'application/pdf') {\n        pdfUrl = link.getAttribute('href');\n      }\n    }\n    \n    papers.push({ id, title, abstract, pdfUrl });\n  }\n  \n  return papers;\n};\n\n// Monitor for new papers on specific topics\nconst monitorSecurityPapers = async (keywords) => {\n  const query = keywords.map(k => `all:${k}`).join('+OR+');\n  const url = `http://export.arxiv.org/api/query?search_query=cat:cs.CR+AND+(${query})&max_results=10`;\n  \n  const response = await fetch(url);\n  const xmlText = await response.text();\n  \n  // Parse and process papers\n  console.log('New papers found:', xmlText.match(/<entry>/g)?.length || 0);\n  return xmlText;\n};\n\n// Usage - ALL FREE!\nfetchArxivPapers('cs.CR', 10).then(papers => {\n  papers.forEach(p => {\n    console.log(`${p.title}`);\n    console.log(`PDF: ${p.pdfUrl}`);\n  });\n});"
-    }
-  },
-  
-  "data_format": {
-    "primary_format": "Atom/XML",
-    "encoding": "UTF-8",
-    "schemas": {
-      "atom": "http://www.w3.org/2005/Atom",
-      "documentation": "https://info.arxiv.org/help/api/user-manual.html#31-calling-the-api"
-    },
-    "field_descriptions": {
-      "id": "Unique arXiv identifier (e.g., 2401.12345)",
-      "title": "Paper title",
-      "authors": "List of paper authors",
-      "summary": "Paper abstract",
-      "published": "First submission date",
-      "updated": "Last update date",
-      "category": "arXiv categories (primary and cross-listed)",
-      "link[@type='application/pdf']": "Direct PDF download link",
-      "comment": "Author comments (pages, conference, etc.)"
-    }
-  },
-  
+  "category": "research",
   "coverage": {
-    "data_types": ["research_papers", "preprints", "technical_reports"],
+    "categories": {
+      "cs.CR": "Cryptography and Security",
+      "cs.CY": "Computers and Society",
+      "cs.DC": "Distributed, Parallel, and Cluster Computing",
+      "cs.NI": "Networking and Internet Architecture",
+      "cs.SE": "Software Engineering"
+    },
+    "data_types": [
+      "research_papers",
+      "preprints",
+      "technical_reports"
+    ],
     "geographical": "global",
     "temporal": {
       "historical_data": "1991-present",
-      "update_frequency": "daily",
-      "latency": "Papers appear immediately after submission"
-    },
-    "categories": {
-      "cs.CR": "Cryptography and Security",
-      "cs.DC": "Distributed, Parallel, and Cluster Computing",
-      "cs.NI": "Networking and Internet Architecture",
-      "cs.SE": "Software Engineering",
-      "cs.CY": "Computers and Society"
+      "latency": "Papers appear immediately after submission",
+      "update_frequency": "daily"
     },
     "volume": "Over 100,000 security papers and growing daily"
   },
-  
-  "quality_metrics": {
-    "reliability": "excellent",
-    "cost": "COMPLETELY FREE",
-    "accessibility": "No registration required",
-    "data_quality": "Preprints - not peer-reviewed yet",
-    "update_speed": "Real-time after submission",
-    "api_stability": "Excellent - maintained by Cornell University"
+  "data_format": {
+    "encoding": "UTF-8",
+    "field_descriptions": {
+      "authors": "List of paper authors",
+      "category": "arXiv categories (primary and cross-listed)",
+      "comment": "Author comments (pages, conference, etc.)",
+      "id": "Unique arXiv identifier (e.g., 2401.12345)",
+      "link[@type='application/pdf']": "Direct PDF download link",
+      "published": "First submission date",
+      "summary": "Paper abstract",
+      "title": "Paper title",
+      "updated": "Last update date"
+    },
+    "primary_format": "Atom/XML",
+    "schemas": {
+      "atom": "http://www.w3.org/2005/Atom",
+      "documentation": "https://info.arxiv.org/help/api/user-manual.html#31-calling-the-api"
+    }
   },
-  
+  "description": "Free access to cryptography and security research papers from arXiv, Cornell University's open-access repository. Covers topics including network security, cryptographic protocols, privacy, malware analysis, and cybersecurity research.",
+  "documentation": "https://info.arxiv.org/help/api/index.html",
+  "id": "arxiv-cs-security",
+  "integration_examples": {
+    "curl": {
+      "date_range": "# Get papers from last week - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=cat:cs.CR+AND+submittedDate:[20240101+TO+20241231]&max_results=50'",
+      "multiple_categories": "# Security + AI papers - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=(cat:cs.CR+OR+cat:cs.AI)+AND+all:adversarial&max_results=30'",
+      "recent_papers": "# Get 10 most recent security papers - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=cat:cs.CR&sortBy=submittedDate&sortOrder=descending&max_results=10'",
+      "rss_feed": "# RSS feed for new papers (updated daily) - FREE!\ncurl 'http://arxiv.org/rss/cs.CR'",
+      "search_keyword": "# Search for 'ransomware' papers - FREE!\ncurl 'http://export.arxiv.org/api/query?search_query=cat:cs.CR+AND+all:ransomware&max_results=20'"
+    },
+    "javascript": {
+      "fetch_papers": "// Fetch recent security papers - COMPLETELY FREE!\nconst fetchArxivPapers = async (category = 'cs.CR', maxResults = 20) => {\n  const baseUrl = 'http://export.arxiv.org/api/query';\n  const params = new URLSearchParams({\n    search_query: `cat:${category}`,\n    sortBy: 'submittedDate',\n    sortOrder: 'descending',\n    max_results: maxResults\n  });\n  \n  const response = await fetch(`${baseUrl}?${params}`);\n  const xmlText = await response.text();\n  \n  // Parse XML response\n  const parser = new DOMParser();\n  const doc = parser.parseFromString(xmlText, 'text/xml');\n  \n  const papers = [];\n  const entries = doc.getElementsByTagName('entry');\n  \n  for (let entry of entries) {\n    const title = entry.getElementsByTagName('title')[0]?.textContent.trim();\n    const abstract = entry.getElementsByTagName('summary')[0]?.textContent.trim();\n    const id = entry.getElementsByTagName('id')[0]?.textContent.split('/').pop();\n    \n    // Get PDF link\n    const links = entry.getElementsByTagName('link');\n    let pdfUrl = null;\n    for (let link of links) {\n      if (link.getAttribute('type') === 'application/pdf') {\n        pdfUrl = link.getAttribute('href');\n      }\n    }\n    \n    papers.push({ id, title, abstract, pdfUrl });\n  }\n  \n  return papers;\n};\n\n// Monitor for new papers on specific topics\nconst monitorSecurityPapers = async (keywords) => {\n  const query = keywords.map(k => `all:${k}`).join('+OR+');\n  const url = `http://export.arxiv.org/api/query?search_query=cat:cs.CR+AND+(${query})&max_results=10`;\n  \n  const response = await fetch(url);\n  const xmlText = await response.text();\n  \n  // Parse and process papers\n  console.log('New papers found:', xmlText.match(/<entry>/g)?.length || 0);\n  return xmlText;\n};\n\n// Usage - ALL FREE!\nfetchArxivPapers('cs.CR', 10).then(papers => {\n  papers.forEach(p => {\n    console.log(`${p.title}`);\n    console.log(`PDF: ${p.pdfUrl}`);\n  });\n});"
+    },
+    "python": {
+      "advanced_search": "#!/usr/bin/env python3\n\"\"\"\narXiv Security Papers Fetcher - FREE Academic Research\nNo API key needed - Completely free access to all papers!\n\"\"\"\n\nimport requests\nimport xml.etree.ElementTree as ET\nfrom datetime import datetime, timedelta\nimport time\nimport json\nfrom typing import List, Dict, Optional\nimport re\n\nclass ArXivSecurityClient:\n    def __init__(self):\n        self.base_url = 'http://export.arxiv.org/api/query'\n        self.categories = {\n            'security': 'cs.CR',\n            'distributed': 'cs.DC',\n            'networking': 'cs.NI',\n            'ai_security': 'cs.AI',\n            'crypto': 'cs.CR'\n        }\n        self.last_request = 0\n        self.min_delay = 3  # Respect rate limits\n    \n    def _rate_limit(self):\n        \"\"\"Ensure we don't overwhelm the FREE API\"\"\"\n        elapsed = time.time() - self.last_request\n        if elapsed < self.min_delay:\n            time.sleep(self.min_delay - elapsed)\n        self.last_request = time.time()\n    \n    def search_papers(self, \n                     query: str = None,\n                     category: str = 'security',\n                     days_back: int = 7,\n                     max_results: int = 100) -> List[Dict]:\n        \"\"\"Search for security papers - ALL FREE!\"\"\"\n        \n        # Build search query\n        if query:\n            search_query = f'cat:{self.categories[category]} AND all:{query}'\n        else:\n            search_query = f'cat:{self.categories[category]}'\n        \n        # Add date filter for recent papers\n        if days_back:\n            start_date = (datetime.now() - timedelta(days=days_back)).strftime('%Y%m%d0000')\n            search_query += f' AND submittedDate:[{start_date} TO 999912312359]'\n        \n        params = {\n            'search_query': search_query,\n            'sortBy': 'submittedDate',\n            'sortOrder': 'descending',\n            'max_results': max_results\n        }\n        \n        self._rate_limit()\n        response = requests.get(self.base_url, params=params)\n        \n        if response.status_code != 200:\n            raise Exception(f\"API error: {response.status_code}\")\n        \n        return self._parse_response(response.content)\n    \n    def _parse_response(self, xml_content: bytes) -> List[Dict]:\n        \"\"\"Parse arXiv Atom feed response\"\"\"\n        root = ET.fromstring(xml_content)\n        namespace = {'atom': 'http://www.w3.org/2005/Atom',\n                    'arxiv': 'http://arxiv.org/schemas/atom'}\n        \n        papers = []\n        for entry in root.findall('atom:entry', namespace):\n            # Extract paper metadata\n            paper = {\n                'id': entry.find('atom:id', namespace).text.split('/')[-1],\n                'title': entry.find('atom:title', namespace).text.strip().replace('\\n', ' '),\n                'authors': [author.find('atom:name', namespace).text \n                          for author in entry.findall('atom:author', namespace)],\n                'abstract': entry.find('atom:summary', namespace).text.strip(),\n                'published': entry.find('atom:published', namespace).text,\n                'updated': entry.find('atom:updated', namespace).text,\n                'categories': [cat.get('term') \n                             for cat in entry.findall('atom:category', namespace)],\n                'links': {}\n            }\n            \n            # Extract links\n            for link in entry.findall('atom:link', namespace):\n                if link.get('type') == 'application/pdf':\n                    paper['links']['pdf'] = link.get('href')\n                elif link.get('type') == 'text/html':\n                    paper['links']['html'] = link.get('href')\n            \n            # Extract comment if present (often contains paper metadata)\n            comment = entry.find('arxiv:comment', namespace)\n            if comment is not None:\n                paper['comment'] = comment.text\n            \n            papers.append(paper)\n        \n        return papers\n    \n    def get_trending_topics(self, days: int = 30, min_papers: int = 3) -> Dict[str, int]:\n        \"\"\"Analyze trending security research topics\"\"\"\n        papers = self.search_papers(days_back=days, max_results=500)\n        \n        # Extract keywords from titles and abstracts\n        keywords = {}\n        security_terms = ['attack', 'defense', 'vulnerability', 'exploit', 'malware',\n                         'privacy', 'authentication', 'cryptography', 'blockchain',\n                         'machine learning', 'adversarial', 'backdoor', 'ransomware',\n                         'phishing', 'zero-day', 'patch', 'fuzzing', 'reverse engineering']\n        \n        for paper in papers:\n            text = (paper['title'] + ' ' + paper['abstract']).lower()\n            for term in security_terms:\n                if term in text:\n                    keywords[term] = keywords.get(term, 0) + 1\n        \n        # Filter by minimum occurrence\n        return {k: v for k, v in keywords.items() if v >= min_papers}\n    \n    def get_author_papers(self, author_name: str) -> List[Dict]:\n        \"\"\"Get all papers by a specific author in security\"\"\"\n        search_query = f'au:{author_name} AND cat:cs.CR'\n        params = {\n            'search_query': search_query,\n            'sortBy': 'submittedDate',\n            'sortOrder': 'descending',\n            'max_results': 100\n        }\n        \n        self._rate_limit()\n        response = requests.get(self.base_url, params=params)\n        return self._parse_response(response.content)\n    \n    def monitor_new_papers(self, keywords: List[str], callback=None):\n        \"\"\"Monitor for new papers matching keywords (run daily)\"\"\"\n        query = ' OR '.join([f'all:{kw}' for kw in keywords])\n        results = self.search_papers(query=query, days_back=1)\n        \n        if callback and results:\n            callback(results)\n        return results\n\n# Example usage - ALL FREE!\nif __name__ == '__main__':\n    client = ArXivSecurityClient()\n    \n    # Get recent security papers\n    print(\"\\n=== Recent Security Papers (FREE) ===\")\n    papers = client.search_papers(days_back=7, max_results=10)\n    for paper in papers:\n        print(f\"\\n\ud83d\udcc4 {paper['title']}\")\n        print(f\"   Authors: {', '.join(paper['authors'][:3])}\")\n        print(f\"   PDF: {paper['links'].get('pdf', 'N/A')}\")\n        print(f\"   Categories: {', '.join(paper['categories'])}\")\n    \n    # Search for specific topics\n    print(\"\\n=== Ransomware Research ===\")\n    ransomware_papers = client.search_papers(query='ransomware', max_results=5)\n    for paper in ransomware_papers:\n        print(f\"- {paper['title']}\")\n    \n    # Get trending topics\n    print(\"\\n=== Trending Security Topics (Last 30 Days) ===\")\n    trends = client.get_trending_topics()\n    for topic, count in sorted(trends.items(), key=lambda x: x[1], reverse=True)[:10]:\n        print(f\"  {topic}: {count} papers\")",
+      "basic_fetch": "import requests\nimport xml.etree.ElementTree as ET\nfrom datetime import datetime, timedelta\nimport time\n\n# Fetch recent security papers - COMPLETELY FREE!\nurl = 'http://export.arxiv.org/api/query'\nparams = {\n    'search_query': 'cat:cs.CR',  # Cryptography and Security\n    'sortBy': 'submittedDate',\n    'sortOrder': 'descending',\n    'max_results': 50\n}\n\nresponse = requests.get(url, params=params)\nroot = ET.fromstring(response.content)\n\n# Parse Atom feed\nnamespace = {'atom': 'http://www.w3.org/2005/Atom'}\nfor entry in root.findall('atom:entry', namespace):\n    title = entry.find('atom:title', namespace).text.strip()\n    authors = [author.find('atom:name', namespace).text \n               for author in entry.findall('atom:author', namespace)]\n    abstract = entry.find('atom:summary', namespace).text.strip()\n    pdf_link = None\n    for link in entry.findall('atom:link', namespace):\n        if link.get('type') == 'application/pdf':\n            pdf_link = link.get('href')\n    \n    print(f\"Title: {title}\")\n    print(f\"Authors: {', '.join(authors)}\")\n    print(f\"PDF: {pdf_link}\")\n    print(f\"Abstract: {abstract[:200]}...\\n\")",
+      "bulk_download": "import requests\nimport xml.etree.ElementTree as ET\nimport time\nimport os\nfrom pathlib import Path\n\ndef download_security_papers_bulk(year=2024, month=None, download_pdfs=False):\n    \"\"\"\n    Bulk download security papers metadata (and optionally PDFs)\n    COMPLETELY FREE - No limits on downloads!\n    \"\"\"\n    \n    # Create download directory\n    download_dir = Path(f'arxiv_security_{year}')\n    download_dir.mkdir(exist_ok=True)\n    \n    # Build date query\n    if month:\n        date_query = f'submittedDate:[{year}{month:02d}01 TO {year}{month:02d}31]'\n    else:\n        date_query = f'submittedDate:[{year}0101 TO {year}1231]'\n    \n    # Fetch papers in batches (max 1000 per request for efficiency)\n    all_papers = []\n    start = 0\n    batch_size = 1000\n    \n    while True:\n        url = 'http://export.arxiv.org/api/query'\n        params = {\n            'search_query': f'cat:cs.CR AND {date_query}',\n            'start': start,\n            'max_results': batch_size,\n            'sortBy': 'submittedDate',\n            'sortOrder': 'ascending'\n        }\n        \n        print(f\"Fetching papers {start} to {start + batch_size}...\")\n        response = requests.get(url, params=params)\n        \n        # Parse response\n        root = ET.fromstring(response.content)\n        namespace = {'atom': 'http://www.w3.org/2005/Atom'}\n        entries = root.findall('atom:entry', namespace)\n        \n        if not entries:\n            break\n        \n        for entry in entries:\n            paper_id = entry.find('atom:id', namespace).text.split('/')[-1]\n            title = entry.find('atom:title', namespace).text.strip()\n            \n            # Save metadata\n            metadata_file = download_dir / f'{paper_id}_metadata.txt'\n            with open(metadata_file, 'w', encoding='utf-8') as f:\n                f.write(f\"Title: {title}\\n\")\n                f.write(f\"ID: {paper_id}\\n\")\n                f.write(f\"Abstract: {entry.find('atom:summary', namespace).text}\\n\")\n            \n            # Optionally download PDF\n            if download_pdfs:\n                for link in entry.findall('atom:link', namespace):\n                    if link.get('type') == 'application/pdf':\n                        pdf_url = link.get('href')\n                        pdf_file = download_dir / f'{paper_id}.pdf'\n                        if not pdf_file.exists():\n                            print(f\"  Downloading PDF: {paper_id}\")\n                            pdf_response = requests.get(pdf_url)\n                            pdf_file.write_bytes(pdf_response.content)\n                            time.sleep(1)  # Be respectful\n        \n        start += batch_size\n        time.sleep(3)  # Rate limiting\n        \n        if len(entries) < batch_size:\n            break\n    \n    print(f\"Downloaded {start} papers to {download_dir}\")\n\n# Download all 2024 security papers (metadata only)\ndownload_security_papers_bulk(2024, download_pdfs=False)"
+    }
+  },
+  "metadata": {
+    "last_updated": "2024-01-15",
+    "license": "Papers have individual licenses, API is free to use",
+    "maintainer": "Cornell University"
+  },
+  "name": "arXiv Computer Science - Cryptography and Security",
   "operational_guidance": {
-    "recommended_update_frequency": "Daily for new papers, weekly for comprehensive updates",
     "best_practices": [
       "Respect rate limits (3 seconds between large requests)",
       "Cache results locally to avoid repeated queries",
@@ -172,12 +155,17 @@
       "Competitive intelligence on research",
       "Early warning on new attack techniques"
     ],
+    "recommended_update_frequency": "Daily for new papers, weekly for comprehensive updates",
     "value_proposition": "Access to cutting-edge security research before formal publication, completely FREE with no restrictions"
   },
-  
-  "metadata": {
-    "last_updated": "2024-01-15",
-    "maintainer": "Cornell University",
-    "license": "Papers have individual licenses, API is free to use"
-  }
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "api_stability": "Excellent - maintained by Cornell University",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Preprints - not peer-reviewed yet",
+    "reliability": "excellent",
+    "update_speed": "Real-time after submission"
+  },
+  "subcategory": "academic",
+  "url": "https://arxiv.org/list/cs.CR/recent"
 }
