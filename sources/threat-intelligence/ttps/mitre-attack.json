@@ -86,7 +86,7 @@
     ],
     "type": "none"
   },
-  "authority": "official",
+  "authority": 100,
   "category": "threat-intelligence",
   "coverage": 95,
   "data_coverage": {
