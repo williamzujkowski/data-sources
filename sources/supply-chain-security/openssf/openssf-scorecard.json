@@ -1,0 +1,200 @@
+{
+  "api": {
+    "base_url": "https://api.scorecard.dev",
+    "bigquery_dataset": {
+      "access": "free",
+      "dataset": "scorecardcron",
+      "description": "Public BigQuery dataset with scorecard results",
+      "notes": "Historical data and bulk access via Google BigQuery",
+      "project": "openssf"
+    },
+    "cli_access": {
+      "basic_commands": [
+        "scorecard --repo=github.com/owner/repo - Get scorecard for repository",
+        "scorecard --repo=github.com/owner/repo --format=json - JSON output",
+        "scorecard --repo=github.com/owner/repo --checks=Branch-Protection,Signed-Releases - Specific checks"
+      ],
+      "installation": "go install github.com/ossf/scorecard/v4/cmd/scorecard@latest",
+      "tool": "scorecard"
+    },
+    "endpoints": [
+      {
+        "auth_required": false,
+        "description": "Get scorecard for a specific project",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Source platform",
+            "example": "github.com",
+            "name": "platform",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Organization/owner name",
+            "example": "kubernetes",
+            "name": "org",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Repository name",
+            "example": "kubernetes",
+            "name": "repo",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/projects/{platform}/{org}/{repo}"
+      }
+    ],
+    "public_database": {
+      "access": "free",
+      "coverage": "Popular open source projects on GitHub",
+      "description": "Searchable database of project scorecards",
+      "name": "OpenSSF Scorecard Database",
+      "url": "https://scorecard.dev/"
+    },
+    "rate_limit": {
+      "anonymous": "5000 requests per hour",
+      "authenticated": "30000 requests per hour with GitHub token",
+      "notes": "GitHub token recommended for extensive usage"
+    },
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! No authentication required for public project scorecards. Optional GitHub token for higher rate limits when using CLI/API extensively.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 92,
+  "category": "supply-chain-security",
+  "coverage": 89,
+  "data_coverage": {
+    "content_types": [
+      "Security practice assessments",
+      "Branch protection analysis",
+      "Code review requirements",
+      "Dependency update automation",
+      "Binary artifact security",
+      "Vulnerability disclosure processes",
+      "Signed releases verification",
+      "License compliance checks",
+      "Maintainer security practices",
+      "CI/CD security configurations"
+    ],
+    "scoring_system": {
+      "methodology": "Weighted average of security check results",
+      "scale": "0-10",
+      "transparency": "Open source scoring algorithm"
+    },
+    "security_checks": [
+      "Binary-Artifacts - Checks for committed binary artifacts",
+      "Branch-Protection - Checks branch protection settings",
+      "CI-Tests - Checks for continuous integration tests",
+      "CII-Best-Practices - Checks CII best practices badge",
+      "Code-Review - Checks code review requirements",
+      "Contributors - Checks contributor diversity",
+      "Dangerous-Workflow - Checks for dangerous GitHub workflows",
+      "Dependency-Update-Tool - Checks for dependency update tools",
+      "Fuzzing - Checks for fuzzing integration",
+      "License - Checks for license file",
+      "Maintained - Checks project maintenance activity",
+      "Packaging - Checks packaging and distribution",
+      "Pinned-Dependencies - Checks for pinned dependencies",
+      "SAST - Checks for static analysis security testing",
+      "Security-Policy - Checks for security policy file",
+      "Signed-Releases - Checks for signed releases",
+      "Token-Permissions - Checks GitHub token permissions",
+      "Vulnerabilities - Checks for known vulnerabilities"
+    ],
+    "supported_platforms": [
+      "GitHub",
+      "GitLab (limited)",
+      "Other Git platforms (via local analysis)"
+    ],
+    "temporal": {
+      "historical_data": "2020-present",
+      "latency": "Real-time for on-demand requests",
+      "update_frequency": "Daily automated runs for popular projects"
+    }
+  },
+  "description": "OpenSSF Scorecard is a FREE tool that evaluates open source projects for security best practices and provides automated security health metrics. Completely free API and CLI access for assessing supply chain security of open source dependencies.",
+  "documentation": "https://github.com/ossf/scorecard",
+  "format": "json",
+  "id": "openssf-scorecard",
+  "integration_examples": {
+    "bash": {
+      "bulk_analysis": "#!/bin/bash\n# Bulk OpenSSF Scorecard analysis - COMPLETELY FREE!\n\necho \"\ud83d\udd0d OpenSSF Scorecard Bulk Analysis (FREE!)\"\necho \"==========================================\"\n\n# Configuration\nINPUT_FILE=\"repositories.txt\"\nOUTPUT_DIR=\"scorecard-results\"\nFORMAT=\"json\"\nRPM_LIMIT=100  # Requests per minute limit\n\n# Create output directory\nmkdir -p \"$OUTPUT_DIR\"\n\n# Check if input file exists\nif [ ! -f \"$INPUT_FILE\" ]; then\n    echo \"Creating sample repositories.txt file...\"\n    cat > \"$INPUT_FILE\" << EOF\ngithub.com/kubernetes/kubernetes\ngithub.com/prometheus/prometheus\ngithub.com/grafana/grafana\ngithub.com/docker/docker\ngithub.com/hashicorp/terraform\ngithub.com/ansible/ansible\ngithub.com/elastic/elasticsearch\ngithub.com/apache/kafka\nEOF\nfi\n\necho \"\ud83d\udccb Analyzing repositories from $INPUT_FILE\"\necho \"\ud83d\udcc1 Results will be saved to $OUTPUT_DIR\"\necho \"\"\n\n# Counter for rate limiting\nrequest_count=0\nstart_time=$(date +%s)\n\n# Read repositories and analyze\nwhile IFS= read -r repo || [ -n \"$repo\" ]; do\n    # Skip empty lines and comments\n    if [[ -z \"$repo\" || \"$repo\" == \\#* ]]; then\n        continue\n    fi\n    \n    echo \"\ud83d\udd0d Analyzing: $repo\"\n    \n    # Extract repository name for filename\n    repo_name=$(basename \"$repo\")\n    output_file=\"$OUTPUT_DIR/${repo_name}-scorecard.json\"\n    \n    # Skip if already analyzed\n    if [ -f \"$output_file\" ]; then\n        echo \"   \u2705 Already analyzed (skipping)\"\n        continue\n    fi\n    \n    # Run scorecard analysis\n    if scorecard --repo=\"$repo\" --format=\"$FORMAT\" > \"$output_file\" 2>/dev/null; then\n        # Extract and display score\n        score=$(cat \"$output_file\" | jq -r '.score // \"N/A\"')\n        echo \"   \ud83d\udcca Score: $score/10\"\n        \n        # Extract key security indicators\n        branch_protection=$(cat \"$output_file\" | jq -r '.checks[] | select(.name==\"Branch-Protection\") | .score')\n        signed_releases=$(cat \"$output_file\" | jq -r '.checks[] | select(.name==\"Signed-Releases\") | .score')\n        security_policy=$(cat \"$output_file\" | jq -r '.checks[] | select(.name==\"Security-Policy\") | .score')\n        \n        echo \"   \ud83d\udee1\ufe0f  Branch Protection: $branch_protection/10\"\n        echo \"   \ud83d\udd0f Signed Releases: $signed_releases/10\"\n        echo \"   \ud83d\udccb Security Policy: $security_policy/10\"\n    else\n        echo \"   \u274c Analysis failed\"\n        rm -f \"$output_file\"  # Remove empty/invalid file\n    fi\n    \n    echo \"\"\n    \n    # Rate limiting: sleep if approaching limit\n    request_count=$((request_count + 1))\n    current_time=$(date +%s)\n    elapsed=$((current_time - start_time))\n    \n    if [ $elapsed -lt 60 ] && [ $request_count -ge $RPM_LIMIT ]; then\n        sleep_time=$((60 - elapsed))\n        echo \"\u23f3 Rate limiting: sleeping $sleep_time seconds...\"\n        sleep $sleep_time\n        start_time=$(date +%s)\n        request_count=0\n    elif [ $elapsed -ge 60 ]; then\n        start_time=$(date +%s)\n        request_count=0\n    fi\n    \n    # Small delay between requests\n    sleep 1\n    \ndone < \"$INPUT_FILE\"\n\n# Generate summary report\necho \"\ud83d\udcca Generating Summary Report\"\necho \"===========================\"\n\ntotal_analyzed=0\ntotal_score=0\nhigh_scores=0\nlow_scores=0\n\necho \"\ud83d\udccb Analysis Summary:\" > \"$OUTPUT_DIR/summary-report.txt\"\necho \"==================\" >> \"$OUTPUT_DIR/summary-report.txt\"\necho \"Date: $(date)\" >> \"$OUTPUT_DIR/summary-report.txt\"\necho \"\" >> \"$OUTPUT_DIR/summary-report.txt\"\n\nfor result_file in \"$OUTPUT_DIR\"/*-scorecard.json; do\n    if [ -f \"$result_file\" ]; then\n        repo_name=$(basename \"$result_file\" -scorecard.json)\n        score=$(cat \"$result_file\" | jq -r '.score // 0')\n        \n        if [ \"$score\" != \"0\" ] && [ \"$score\" != \"null\" ]; then\n            total_analyzed=$((total_analyzed + 1))\n            total_score=$(echo \"$total_score + $score\" | bc -l)\n            \n            echo \"$repo_name: $score/10\" >> \"$OUTPUT_DIR/summary-report.txt\"\n            \n            # Categorize scores\n            if (( $(echo \"$score >= 7\" | bc -l) )); then\n                high_scores=$((high_scores + 1))\n            elif (( $(echo \"$score < 4\" | bc -l) )); then\n                low_scores=$((low_scores + 1))\n            fi\n        fi\n    fi\ndone\n\nif [ $total_analyzed -gt 0 ]; then\n    average_score=$(echo \"scale=1; $total_score / $total_analyzed\" | bc -l)\n    \n    echo \"\" >> \"$OUTPUT_DIR/summary-report.txt\"\n    echo \"Statistics:\" >> \"$OUTPUT_DIR/summary-report.txt\"\n    echo \"- Total Analyzed: $total_analyzed\" >> \"$OUTPUT_DIR/summary-report.txt\"\n    echo \"- Average Score: $average_score/10\" >> \"$OUTPUT_DIR/summary-report.txt\"\n    echo \"- High Scores (>=7): $high_scores\" >> \"$OUTPUT_DIR/summary-report.txt\"\n    echo \"- Low Scores (<4): $low_scores\" >> \"$OUTPUT_DIR/summary-report.txt\"\n    \n    echo \"\\n\ud83d\udcca Final Summary:\"\n    echo \"Total Repositories Analyzed: $total_analyzed\"\n    echo \"Average Security Score: $average_score/10\"\n    echo \"High Performing (>=7): $high_scores\"\n    echo \"Needs Attention (<4): $low_scores\"\nelse\n    echo \"No repositories were successfully analyzed.\"\nfi\n\necho \"\\n\u2705 Analysis complete!\"\necho \"\ud83d\udcc1 Results saved in: $OUTPUT_DIR/\"\necho \"\ud83d\udccb Summary report: $OUTPUT_DIR/summary-report.txt\"",
+      "ci_integration": "#!/bin/bash\n# CI/CD integration for OpenSSF Scorecard - FREE!\n\nset -e\n\necho \"\ud83d\udd12 OpenSSF Scorecard CI/CD Integration (FREE!)\"\necho \"==============================================\"\n\n# Configuration\nMIN_SCORE=${SCORECARD_MIN_SCORE:-6.0}\nCURRENT_REPO=${GITHUB_REPOSITORY:-\"current-repo\"}\nOUTPUT_FILE=\"scorecard-results.json\"\nSUMMARY_FILE=\"scorecard-summary.txt\"\n\n# Function to check if scorecard CLI is available\ncheck_scorecard_cli() {\n    if ! command -v scorecard &> /dev/null; then\n        echo \"\ud83d\udce5 Installing OpenSSF Scorecard CLI...\"\n        \n        # Install Go if not available\n        if ! command -v go &> /dev/null; then\n            echo \"Installing Go...\"\n            wget -q https://go.dev/dl/go1.21.0.linux-amd64.tar.gz\n            sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz\n            export PATH=$PATH:/usr/local/go/bin\n        fi\n        \n        # Install scorecard\n        go install github.com/ossf/scorecard/v4/cmd/scorecard@latest\n        export PATH=$PATH:$(go env GOPATH)/bin\n        \n        if command -v scorecard &> /dev/null; then\n            echo \"\u2705 Scorecard CLI installed successfully\"\n        else\n            echo \"\u274c Failed to install Scorecard CLI\"\n            exit 1\n        fi\n    else\n        echo \"\u2705 Scorecard CLI already available\"\n    fi\n}\n\n# Function to run scorecard analysis\nrun_scorecard_analysis() {\n    local repo_url=\"$1\"\n    \n    echo \"\ud83d\udd0d Running scorecard analysis for: $repo_url\"\n    \n    # Run scorecard with JSON output\n    if scorecard --repo=\"$repo_url\" --format=json > \"$OUTPUT_FILE\" 2>/dev/null; then\n        echo \"\u2705 Scorecard analysis completed\"\n        return 0\n    else\n        echo \"\u274c Scorecard analysis failed\"\n        return 1\n    fi\n}\n\n# Function to parse and validate results\nparse_results() {\n    if [ ! -f \"$OUTPUT_FILE\" ]; then\n        echo \"\u274c Results file not found\"\n        return 1\n    fi\n    \n    # Extract overall score\n    overall_score=$(cat \"$OUTPUT_FILE\" | jq -r '.score // 0')\n    scan_date=$(cat \"$OUTPUT_FILE\" | jq -r '.date // \"unknown\"')\n    commit_sha=$(cat \"$OUTPUT_FILE\" | jq -r '.commit // \"unknown\"')\n    \n    echo \"\ud83d\udcca Analysis Results:\"\n    echo \"==================\"\n    echo \"Repository: $CURRENT_REPO\"\n    echo \"Overall Score: $overall_score/10\"\n    echo \"Scan Date: $scan_date\"\n    echo \"Commit: $commit_sha\"\n    echo \"\"\n    \n    # Generate detailed summary\n    {\n        echo \"OpenSSF Scorecard Analysis Summary\"\n        echo \"==================================\"\n        echo \"Repository: $CURRENT_REPO\"\n        echo \"Overall Score: $overall_score/10\"\n        echo \"Minimum Required: $MIN_SCORE/10\"\n        echo \"Scan Date: $scan_date\"\n        echo \"Commit: $commit_sha\"\n        echo \"\"\n        echo \"Individual Check Results:\"\n        echo \"========================\"\n    } > \"$SUMMARY_FILE\"\n    \n    # Parse individual checks\n    cat \"$OUTPUT_FILE\" | jq -r '.checks[] | \"\\(.name): \\(.score)/10 - \\(.reason)\"' | while read -r line; do\n        echo \"$line\"\n        echo \"$line\" >> \"$SUMMARY_FILE\"\n    done\n    \n    # Security assessment\n    critical_checks=(\n        \"Branch-Protection\"\n        \"Code-Review\"\n        \"Signed-Releases\"\n        \"Security-Policy\"\n        \"Vulnerabilities\"\n    )\n    \n    echo \"\"\n    echo \"\ud83d\udd0d Critical Security Checks:\"\n    echo \"============================\"\n    \n    failed_critical=0\n    \n    for check in \"${critical_checks[@]}\"; do\n        check_score=$(cat \"$OUTPUT_FILE\" | jq -r \".checks[] | select(.name==\\\"$check\\\") | .score\")\n        check_reason=$(cat \"$OUTPUT_FILE\" | jq -r \".checks[] | select(.name==\\\"$check\\\") | .reason\")\n        \n        if [ \"$check_score\" != \"null\" ] && [ \"$check_score\" != \"\" ]; then\n            if (( $(echo \"$check_score < 5\" | bc -l) )); then\n                echo \"\u274c $check: $check_score/10 - $check_reason\"\n                failed_critical=$((failed_critical + 1))\n            else\n                echo \"\u2705 $check: $check_score/10\"\n            fi\n        else\n            echo \"\u26aa $check: Not evaluated\"\n        fi\n    done\n    \n    # Determine pass/fail status\n    echo \"\"\n    echo \"\ud83c\udfaf Assessment:\"\n    echo \"==============\"\n    \n    if (( $(echo \"$overall_score >= $MIN_SCORE\" | bc -l) )); then\n        if [ $failed_critical -eq 0 ]; then\n            echo \"\u2705 PASS: Repository meets security requirements\"\n            echo \"   Overall score ($overall_score) >= minimum ($MIN_SCORE)\"\n            echo \"   All critical security checks passed\"\n            return 0\n        else\n            echo \"\u26a0\ufe0f  CONDITIONAL PASS: Score meets minimum but critical issues found\"\n            echo \"   Overall score ($overall_score) >= minimum ($MIN_SCORE)\"\n            echo \"   However, $failed_critical critical security checks failed\"\n            return 2  # Warning status\n        fi\n    else\n        echo \"\u274c FAIL: Repository does not meet security requirements\"\n        echo \"   Overall score ($overall_score) < minimum required ($MIN_SCORE)\"\n        echo \"   $failed_critical critical security checks failed\"\n        return 1\n    fi\n}\n\n# Function to set CI environment variables\nset_ci_outputs() {\n    if [ -f \"$OUTPUT_FILE\" ]; then\n        overall_score=$(cat \"$OUTPUT_FILE\" | jq -r '.score // 0')\n        \n        # GitHub Actions outputs\n        if [ -n \"$GITHUB_OUTPUT\" ]; then\n            echo \"scorecard-score=$overall_score\" >> \"$GITHUB_OUTPUT\"\n            echo \"scorecard-file=$OUTPUT_FILE\" >> \"$GITHUB_OUTPUT\"\n            echo \"scorecard-summary=$SUMMARY_FILE\" >> \"$GITHUB_OUTPUT\"\n        fi\n        \n        # GitLab CI outputs\n        if [ -n \"$CI_PROJECT_DIR\" ]; then\n            echo \"SCORECARD_SCORE=$overall_score\" >> build.env\n            echo \"SCORECARD_FILE=$OUTPUT_FILE\" >> build.env\n        fi\n    fi\n}\n\n# Main execution\nmain() {\n    # Determine repository URL\n    if [ -n \"$GITHUB_REPOSITORY\" ]; then\n        repo_url=\"github.com/$GITHUB_REPOSITORY\"\n    elif [ -n \"$CI_PROJECT_PATH\" ]; then\n        # GitLab\n        repo_url=\"gitlab.com/$CI_PROJECT_PATH\"\n    else\n        echo \"\u274c Unable to determine repository URL\"\n        echo \"Set GITHUB_REPOSITORY or CI_PROJECT_PATH environment variable\"\n        exit 1\n    fi\n    \n    # Check CLI availability\n    check_scorecard_cli\n    \n    # Run analysis\n    if run_scorecard_analysis \"$repo_url\"; then\n        # Parse and validate results\n        parse_results\n        result_code=$?\n        \n        # Set CI outputs\n        set_ci_outputs\n        \n        # Exit with appropriate code\n        case $result_code in\n            0)\n                echo \"\\n\ud83c\udf89 Security assessment: PASSED\"\n                exit 0\n                ;;\n            1)\n                echo \"\\n\ud83d\udca5 Security assessment: FAILED\"\n                exit 1\n                ;;\n            2)\n                echo \"\\n\u26a0\ufe0f  Security assessment: CONDITIONAL PASS\"\n                exit 0  # Don't fail build, but log warning\n                ;;\n            *)\n                echo \"\\n\u2753 Security assessment: UNKNOWN\"\n                exit 1\n                ;;\n        esac\n    else\n        echo \"\u274c Failed to complete scorecard analysis\"\n        exit 1\n    fi\n}\n\n# Run main function\nmain \"$@\""
+    },
+    "cli": {
+      "basic_usage": "# Install OpenSSF Scorecard CLI - COMPLETELY FREE!\n# Install via Go\ngo install github.com/ossf/scorecard/v4/cmd/scorecard@latest\n\n# Basic scorecard check\nscorecard --repo=github.com/kubernetes/kubernetes\n\n# JSON output for automation\nscorecard --repo=github.com/kubernetes/kubernetes --format=json\n\n# Specific security checks\nscorecard --repo=github.com/kubernetes/kubernetes --checks=Branch-Protection,Signed-Releases,Security-Policy\n\n# Save results to file\nscorecard --repo=github.com/kubernetes/kubernetes --format=json > scorecard-results.json",
+      "bulk_analysis": "#!/bin/bash\n# Bulk analysis of multiple repositories - FREE!\n\nREPOS=(\n  \"github.com/kubernetes/kubernetes\"\n  \"github.com/prometheus/prometheus\"\n  \"github.com/docker/docker\"\n  \"github.com/hashicorp/terraform\"\n)\n\nmkdir -p scorecard-results\n\nfor repo in \"${REPOS[@]}\"; do\n  echo \"Analyzing $repo...\"\n  \n  # Extract repo name for filename\n  repo_name=$(basename $repo)\n  \n  # Run scorecard analysis\n  scorecard --repo=$repo --format=json > \"scorecard-results/${repo_name}-scorecard.json\"\n  \n  # Extract just the score for quick overview\n  score=$(cat \"scorecard-results/${repo_name}-scorecard.json\" | jq '.score')\n  echo \"$repo: Score $score/10\"\n  \n  # Rate limiting courtesy\n  sleep 2\ndone\n\necho \"Bulk analysis complete! Results in scorecard-results/\""
+    },
+    "curl": {
+      "batch_analysis": "#!/bin/bash\n# Batch scorecard analysis via API - FREE!\n\nREPOS=(\n  \"github.com/kubernetes/kubernetes\"\n  \"github.com/prometheus/prometheus\"\n  \"github.com/grafana/grafana\"\n)\n\nfor repo in \"${REPOS[@]}\"; do\n  echo \"Analyzing $repo...\"\n  \n  curl -s \"https://api.scorecard.dev/projects/$repo\" | \\\n    jq -r '{repo: \"'$repo'\", score: .score, date: .date}'\n  \n  sleep 1  # Rate limiting\ndone",
+      "get_project_scorecard": "# Get project scorecard via API - COMPLETELY FREE!\ncurl -s 'https://api.scorecard.dev/projects/github.com/kubernetes/kubernetes' | jq '{score: .score, date: .date, checks: [.checks[] | {name, score, reason}]}'",
+      "security_summary": "# Get security check summary\ncurl -s 'https://api.scorecard.dev/projects/github.com/kubernetes/kubernetes' | \\\n  jq '.checks[] | select(.name | contains(\"Security\") or contains(\"Branch\") or contains(\"Signed\")) | {name, score, reason}'"
+    },
+    "github_actions": {
+      "dependency_scorecard": "# Dependency Scorecard Analysis\nname: Dependency Security Scorecard\n\non:\n  schedule:\n    - cron: '0 6 * * 1'  # Weekly dependency analysis\n  workflow_dispatch:\n\njobs:\n  analyze-dependencies:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      \n      - name: Setup Go\n        uses: actions/setup-go@v4\n        with:\n          go-version: '1.21'\n      \n      - name: Install Scorecard CLI\n        run: go install github.com/ossf/scorecard/v4/cmd/scorecard@latest\n      \n      - name: Extract dependencies\n        id: deps\n        run: |\n          # Extract GitHub dependencies from package files\n          # This is a simplified example - adapt for your package manager\n          \n          echo \"DEPS<<EOF\" >> $GITHUB_OUTPUT\n          \n          # For package.json (Node.js)\n          if [ -f package.json ]; then\n            cat package.json | jq -r '.dependencies // {} | to_entries[] | select(.value | contains(\"github.com\")) | .value' | grep -o 'github.com/[^/]*/[^/]*' | sort -u\n          fi\n          \n          # For go.mod (Go)\n          if [ -f go.mod ]; then\n            grep 'github.com/' go.mod | awk '{print $1}' | sort -u\n          fi\n          \n          echo \"EOF\" >> $GITHUB_OUTPUT\n      \n      - name: Analyze dependency scorecards\n        run: |\n          mkdir -p scorecard-results\n          \n          echo \"\ud83d\udcca Dependency Security Analysis\"\n          echo \"===============================\"\n          \n          # Read dependencies and analyze each\n          echo '${{ steps.deps.outputs.DEPS }}' | while read -r repo; do\n            if [ -n \"$repo\" ]; then\n              echo \"Analyzing $repo...\"\n              \n              # Run scorecard analysis\n              scorecard --repo=\"$repo\" --format=json > \"scorecard-results/$(basename $repo)-scorecard.json\" 2>/dev/null || echo \"Failed to analyze $repo\"\n              \n              # Extract score for summary\n              if [ -f \"scorecard-results/$(basename $repo)-scorecard.json\" ]; then\n                score=$(cat \"scorecard-results/$(basename $repo)-scorecard.json\" | jq -r '.score // \"N/A\"')\n                echo \"$repo: $score/10\"\n              fi\n            fi\n          done\n      \n      - name: Generate summary\n        run: |\n          echo \"## \ud83d\udcca Dependency Security Scorecard Summary\" >> $GITHUB_STEP_SUMMARY\n          echo \"\" >> $GITHUB_STEP_SUMMARY\n          \n          total=0\n          count=0\n          \n          for file in scorecard-results/*.json; do\n            if [ -f \"$file\" ]; then\n              repo=$(basename \"$file\" -scorecard.json)\n              score=$(cat \"$file\" | jq -r '.score // 0')\n              \n              if [ \"$score\" != \"0\" ] && [ \"$score\" != \"null\" ]; then\n                echo \"- **$repo**: $score/10\" >> $GITHUB_STEP_SUMMARY\n                total=$(echo \"$total + $score\" | bc -l)\n                count=$((count + 1))\n              fi\n            fi\n          done\n          \n          if [ $count -gt 0 ]; then\n            average=$(echo \"scale=1; $total / $count\" | bc -l)\n            echo \"\" >> $GITHUB_STEP_SUMMARY\n            echo \"**Average Score**: $average/10\" >> $GITHUB_STEP_SUMMARY\n          fi\n      \n      - name: Upload results\n        uses: actions/upload-artifact@v4\n        with:\n          name: dependency-scorecards\n          path: scorecard-results/\n          retention-days: 30",
+      "workflow": "# OpenSSF Scorecard GitHub Action - COMPLETELY FREE!\nname: OpenSSF Scorecard Security Check\n\non:\n  push:\n    branches: [ main, develop ]\n  pull_request:\n    branches: [ main ]\n  schedule:\n    - cron: '0 3 * * 1'  # Weekly scorecard check\n\njobs:\n  scorecard:\n    name: OpenSSF Scorecard Analysis\n    runs-on: ubuntu-latest\n    permissions:\n      security-events: write\n      id-token: write\n      contents: read\n      actions: read\n    \n    steps:\n      - name: Checkout code\n        uses: actions/checkout@v4\n        with:\n          persist-credentials: false\n      \n      - name: Run OpenSSF Scorecard\n        uses: ossf/scorecard-action@v2.3.1\n        with:\n          results_file: results.sarif\n          results_format: sarif\n          publish_results: true\n      \n      - name: Upload SARIF results\n        uses: github/codeql-action/upload-sarif@v3\n        with:\n          sarif_file: results.sarif\n      \n      - name: Upload artifact\n        uses: actions/upload-artifact@v4\n        with:\n          name: SARIF file\n          path: results.sarif\n          retention-days: 5"
+    },
+    "python": {
+      "api_integration": "import requests\nimport json\nimport pandas as pd\nfrom datetime import datetime\nimport time\n\nclass OpenSSFScorecardAnalyzer:\n    \"\"\"OpenSSF Scorecard API integration - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.api_base = 'https://api.scorecard.dev'\n        self.session = requests.Session()\n        \n    def get_project_scorecard(self, platform, org, repo):\n        \"\"\"Get scorecard for a specific project\"\"\"\n        url = f'{self.api_base}/projects/{platform}/{org}/{repo}'\n        \n        try:\n            response = self.session.get(url, timeout=30)\n            \n            if response.status_code == 200:\n                return response.json()\n            elif response.status_code == 404:\n                print(f\"Project not found: {platform}/{org}/{repo}\")\n                return None\n            else:\n                print(f\"API error {response.status_code}: {response.text}\")\n                return None\n                \n        except requests.exceptions.RequestException as e:\n            print(f\"Request failed: {e}\")\n            return None\n    \n    def analyze_dependency_security(self, dependencies):\n        \"\"\"Analyze security scores for a list of dependencies\"\"\"\n        print(f\"\ud83d\udd0d Analyzing {len(dependencies)} dependencies with OpenSSF Scorecard (FREE!)\\n\")\n        \n        results = []\n        \n        for i, dep in enumerate(dependencies, 1):\n            print(f\"[{i}/{len(dependencies)}] Analyzing {dep['name']}...\")\n            \n            # Parse repository URL\n            if 'github.com' in dep.get('repository', ''):\n                # Extract org/repo from GitHub URL\n                repo_url = dep['repository'].replace('https://github.com/', '')\n                if '/' in repo_url:\n                    org, repo = repo_url.split('/', 1)\n                    repo = repo.rstrip('.git')  # Remove .git suffix\n                    \n                    scorecard = self.get_project_scorecard('github.com', org, repo)\n                    \n                    if scorecard:\n                        result = {\n                            'name': dep['name'],\n                            'repository': dep['repository'],\n                            'score': scorecard.get('score', 0),\n                            'date': scorecard.get('date', ''),\n                            'commit': scorecard.get('commit', ''),\n                            'checks': {}\n                        }\n                        \n                        # Extract individual check scores\n                        for check in scorecard.get('checks', []):\n                            result['checks'][check['name']] = {\n                                'score': check.get('score', 0),\n                                'reason': check.get('reason', ''),\n                                'documentation': check.get('documentation', {})\n                            }\n                        \n                        results.append(result)\n                        \n                        print(f\"   Score: {result['score']}/10\")\n                    else:\n                        print(\"   Scorecard not available\")\n            else:\n                print(\"   Non-GitHub repository, skipping\")\n            \n            # Rate limiting\n            time.sleep(1)\n        \n        return results\n    \n    def generate_security_report(self, analysis_results):\n        \"\"\"Generate comprehensive security report\"\"\"\n        if not analysis_results:\n            print(\"No scorecard data available for report\")\n            return\n        \n        print(f\"\\n\ud83d\udcca OpenSSF Scorecard Security Report (FREE!)\\n\")\n        print(f\"Analysis Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        # Overall statistics\n        total_deps = len(analysis_results)\n        avg_score = sum(r['score'] for r in analysis_results) / total_deps\n        \n        print(f\"\ud83d\udce6 Dependencies Analyzed: {total_deps}\")\n        print(f\"\ud83d\udcca Average Security Score: {avg_score:.1f}/10\\n\")\n        \n        # Score distribution\n        score_ranges = {\n            'Excellent (8-10)': [r for r in analysis_results if r['score'] >= 8],\n            'Good (6-8)': [r for r in analysis_results if 6 <= r['score'] < 8],\n            'Fair (4-6)': [r for r in analysis_results if 4 <= r['score'] < 6],\n            'Poor (0-4)': [r for r in analysis_results if r['score'] < 4]\n        }\n        \n        print(\"\ud83d\udcc8 Score Distribution:\")\n        for range_name, deps in score_ranges.items():\n            percentage = (len(deps) / total_deps) * 100\n            print(f\"   {range_name}: {len(deps)} ({percentage:.1f}%)\")\n        print()\n        \n        # Top and bottom performers\n        sorted_results = sorted(analysis_results, key=lambda x: x['score'], reverse=True)\n        \n        print(\"\ud83c\udfc6 Highest Scoring Dependencies:\")\n        for dep in sorted_results[:5]:\n            print(f\"   {dep['name']}: {dep['score']}/10\")\n        print()\n        \n        if len(sorted_results) > 5:\n            print(\"\u26a0\ufe0f  Lowest Scoring Dependencies:\")\n            for dep in sorted_results[-5:]:\n                print(f\"   {dep['name']}: {dep['score']}/10\")\n            print()\n        \n        # Check-specific analysis\n        if analysis_results and analysis_results[0].get('checks'):\n            self.analyze_security_checks(analysis_results)\n        \n        # Recommendations\n        print(\"\ud83d\udca1 Recommendations:\")\n        low_score_deps = [r for r in analysis_results if r['score'] < 6]\n        \n        if low_score_deps:\n            print(f\"   \u26a0\ufe0f  Review {len(low_score_deps)} dependencies with scores below 6.0\")\n            print(\"   \ud83d\udd0d Consider alternatives for critical low-scoring dependencies\")\n            print(\"   \ud83d\udccb Engage with maintainers to improve security practices\")\n        \n        print(\"   \ud83d\udcca Regularly monitor scorecard changes for regressions\")\n        print(\"   \ud83d\udee1\ufe0f  Set minimum scorecard thresholds for new dependencies\")\n        print(\"   \ud83d\udd04 Contribute to improving scores of key dependencies\")\n        \n        return {\n            'total_dependencies': total_deps,\n            'average_score': avg_score,\n            'score_distribution': {k: len(v) for k, v in score_ranges.items()},\n            'top_performers': sorted_results[:5],\n            'bottom_performers': sorted_results[-5:] if len(sorted_results) > 5 else []\n        }\n    \n    def analyze_security_checks(self, analysis_results):\n        \"\"\"Analyze specific security check performance\"\"\"\n        print(\"\ud83d\udd0d Security Check Analysis:\")\n        \n        # Aggregate check scores\n        all_checks = {}\n        for result in analysis_results:\n            for check_name, check_data in result.get('checks', {}).items():\n                if check_name not in all_checks:\n                    all_checks[check_name] = []\n                all_checks[check_name].append(check_data['score'])\n        \n        # Calculate averages and identify problematic checks\n        check_averages = {}\n        for check_name, scores in all_checks.items():\n            avg_score = sum(scores) / len(scores)\n            check_averages[check_name] = avg_score\n        \n        # Sort by average score (lowest first - most problematic)\n        sorted_checks = sorted(check_averages.items(), key=lambda x: x[1])\n        \n        print(\"   \ud83d\udcc9 Checks Needing Most Attention (lowest average scores):\")\n        for check_name, avg_score in sorted_checks[:5]:\n            print(f\"      {check_name}: {avg_score:.1f}/10 average\")\n        \n        print(\"\\n   \u2705 Best Performing Checks:\")\n        for check_name, avg_score in sorted_checks[-5:]:\n            print(f\"      {check_name}: {avg_score:.1f}/10 average\")\n        print()\n    \n    def export_to_csv(self, analysis_results, filename='scorecard_analysis.csv'):\n        \"\"\"Export results to CSV for further analysis\"\"\"\n        if not analysis_results:\n            return\n        \n        # Flatten data for CSV\n        csv_data = []\n        for result in analysis_results:\n            row = {\n                'name': result['name'],\n                'repository': result['repository'],\n                'overall_score': result['score'],\n                'analysis_date': result['date']\n            }\n            \n            # Add individual check scores\n            for check_name, check_data in result.get('checks', {}).items():\n                row[f'check_{check_name.lower().replace(\"-\", \"_\")}'] = check_data['score']\n            \n            csv_data.append(row)\n        \n        df = pd.DataFrame(csv_data)\n        df.to_csv(filename, index=False)\n        print(f\"\ud83d\udcc1 Results exported to {filename}\")\n\n# Usage examples\nif __name__ == \"__main__\":\n    analyzer = OpenSSFScorecardAnalyzer()\n    \n    # Example dependency list\n    dependencies = [\n        {\n            'name': 'kubernetes',\n            'repository': 'https://github.com/kubernetes/kubernetes'\n        },\n        {\n            'name': 'prometheus',\n            'repository': 'https://github.com/prometheus/prometheus'\n        },\n        {\n            'name': 'grafana',\n            'repository': 'https://github.com/grafana/grafana'\n        }\n    ]\n    \n    # Analyze dependencies\n    results = analyzer.analyze_dependency_security(dependencies)\n    \n    # Generate report\n    summary = analyzer.generate_security_report(results)\n    \n    # Export to CSV\n    analyzer.export_to_csv(results)",
+      "bigquery_analysis": "# BigQuery analysis for large-scale research - FREE!\nimport pandas as pd\nfrom google.cloud import bigquery\nfrom datetime import datetime, timedelta\n\ndef analyze_ecosystem_security_trends():\n    \"\"\"Analyze ecosystem security trends using OpenSSF Scorecard BigQuery data\"\"\"\n    \n    client = bigquery.Client()\n    \n    # Query for recent scorecard data\n    query = \"\"\"\n    SELECT \n        repo.name as repo_name,\n        repo.url as repo_url,\n        scorecard.score as overall_score,\n        scorecard.date as scan_date,\n        checks.name as check_name,\n        checks.score as check_score\n    FROM \n        `openssf.scorecardcron.scorecard-v2_latest` as scorecard,\n        UNNEST(scorecard.checks) as checks\n    WHERE \n        scorecard.date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)\n        AND scorecard.score IS NOT NULL\n    ORDER BY \n        scorecard.score DESC\n    LIMIT 10000\n    \"\"\"\n    \n    print(\"\ud83d\udd0d Querying OpenSSF Scorecard BigQuery dataset (FREE!)...\")\n    \n    try:\n        df = client.query(query).to_dataframe()\n        \n        print(f\"\ud83d\udcca Analyzed {len(df)} scorecard records\")\n        \n        # Aggregate by repository\n        repo_scores = df.groupby(['repo_name', 'repo_url', 'overall_score']).size().reset_index()\n        repo_scores = repo_scores.drop(columns=[0])  # Remove count column\n        \n        # Top repositories by security score\n        top_repos = repo_scores.nlargest(20, 'overall_score')\n        \n        print(\"\\n\ud83c\udfc6 Top 20 Repositories by Security Score:\")\n        for _, row in top_repos.iterrows():\n            print(f\"   {row['repo_name']}: {row['overall_score']:.1f}/10\")\n        \n        # Check-specific analysis\n        check_performance = df.groupby('check_name')['check_score'].agg(['mean', 'count']).reset_index()\n        check_performance = check_performance.sort_values('mean', ascending=False)\n        \n        print(\"\\n\ud83d\udcc8 Security Check Performance (Ecosystem Average):\")\n        for _, row in check_performance.head(10).iterrows():\n            print(f\"   {row['check_name']}: {row['mean']:.1f}/10 (from {row['count']} projects)\")\n        \n        return df, repo_scores, check_performance\n        \n    except Exception as e:\n        print(f\"BigQuery analysis failed: {e}\")\n        return None, None, None\n\n# Run analysis\nif __name__ == \"__main__\":\n    df, repos, checks = analyze_ecosystem_security_trends()"
+    }
+  },
+  "last_updated": "2025-08-16T00:15:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "github-security-advisories",
+      "snyk-vulnerability-scanner",
+      "sonatype-lift"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Apache License 2.0",
+    "maintainer": "Open Source Security Foundation (OpenSSF)",
+    "related_resources": [
+      "OpenSSF Best Practices",
+      "Supply Chain Integrity Working Group",
+      "SLSA (Supply-chain Levels for Software Artifacts)",
+      "Security Scorecards Documentation"
+    ]
+  },
+  "name": "OpenSSF Scorecard",
+  "operational_guidance": {
+    "best_practices": [
+      "Use scorecards to evaluate dependencies before adoption",
+      "Track scorecard improvements over time",
+      "Set minimum scorecard thresholds for critical dependencies",
+      "Integrate scorecard checks into dependency review processes",
+      "Monitor scorecard changes for security regression detection",
+      "Use BigQuery dataset for bulk analysis and research"
+    ],
+    "common_use_cases": [
+      "Open source dependency security assessment",
+      "Supply chain risk evaluation",
+      "Security posture benchmarking",
+      "Due diligence for open source adoption",
+      "Security practice improvement guidance",
+      "Compliance and audit support",
+      "Research and analysis of ecosystem security trends"
+    ],
+    "recommended_update_frequency": "Weekly review for critical dependencies, monthly for comprehensive analysis",
+    "value_proposition": "Free, automated, and transparent security assessment of open source projects using industry best practices"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required for basic usage",
+    "completeness": "Comprehensive security practice coverage with transparent methodology",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "High-quality automated security assessments based on industry best practices",
+    "reliability": "excellent",
+    "transparency": "Open source tool with public methodology and results",
+    "update_speed": "Daily updates for tracked projects, real-time for on-demand"
+  },
+  "quality_score": 94,
+  "subcategory": "openssf",
+  "url": "https://scorecard.dev/"
+}

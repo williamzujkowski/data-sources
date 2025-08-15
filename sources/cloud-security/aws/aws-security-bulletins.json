@@ -1,0 +1,134 @@
+{
+  "api": {
+    "base_url": "https://aws.amazon.com",
+    "rate_limit": {
+      "notes": "No explicit rate limits on RSS feed or public pages",
+      "requests_per_second": null
+    },
+    "rss_feeds": [
+      {
+        "description": "All AWS security bulletins and advisories",
+        "name": "AWS Security Bulletins",
+        "update_frequency": "As needed for security issues",
+        "url": "https://aws.amazon.com/security/security-bulletins/RSS/"
+      }
+    ],
+    "type": "RSS",
+    "web_scraping": {
+      "available": true,
+      "base_url": "https://aws.amazon.com/security/security-bulletins/",
+      "format": "HTML with structured content",
+      "rate_limit_guidance": "Respectful scraping - avoid aggressive requests"
+    }
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All AWS security bulletins available via RSS feed and web scraping without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "cloud-security",
+  "coverage": 85,
+  "data_coverage": {
+    "aws_services": [
+      "EC2",
+      "S3",
+      "Lambda",
+      "RDS",
+      "EKS",
+      "ECS",
+      "IAM",
+      "CloudFormation",
+      "CloudTrail",
+      "Config",
+      "GuardDuty",
+      "Security Hub",
+      "WAF",
+      "Shield"
+    ],
+    "content_types": [
+      "Security vulnerabilities in AWS services",
+      "Security best practices updates",
+      "Compliance guidance",
+      "Patch notifications",
+      "Configuration recommendations",
+      "Security feature announcements",
+      "Third-party software vulnerabilities affecting AWS"
+    ],
+    "temporal": {
+      "historical_data": "2006-present",
+      "latency": "Real-time for critical security issues",
+      "update_frequency": "Event-driven (as security issues arise)"
+    }
+  },
+  "description": "AWS Security Bulletins providing FREE access to security advisories, vulnerability notifications, and security best practices for AWS services. RSS feed available.",
+  "documentation": "https://aws.amazon.com/security/security-bulletins/",
+  "format": "rss",
+  "id": "aws-security-bulletins",
+  "integration_examples": {
+    "curl": {
+      "extract_titles": "# Extract bulletin titles\ncurl -s 'https://aws.amazon.com/security/security-bulletins/RSS/' | grep '<title>' | sed 's/<[^>]*>//g' | tail -n +2",
+      "get_rss": "# Get AWS Security Bulletins RSS - COMPLETELY FREE!\ncurl -s 'https://aws.amazon.com/security/security-bulletins/RSS/' | head -50",
+      "parse_with_xmllint": "# Parse AWS bulletins with xmllint\ncurl -s 'https://aws.amazon.com/security/security-bulletins/RSS/' | xmllint --format - | grep -A 5 '<item>'"
+    },
+    "javascript": {
+      "fetch_bulletins": "// Fetch AWS Security Bulletins - COMPLETELY FREE!\nconst Parser = require('rss-parser');\nconst parser = new Parser();\n\nconst fetchAWSBulletins = async () => {\n  const feedUrl = 'https://aws.amazon.com/security/security-bulletins/RSS/';\n  \n  try {\n    const feed = await parser.parseURL(feedUrl);\n    \n    console.log('AWS Security Bulletins (FREE!)\\n');\n    \n    feed.items.slice(0, 10).forEach(item => {\n      console.log(`\ud83d\udd10 ${item.title}`);\n      console.log(`   Date: ${item.pubDate}`);\n      console.log(`   Link: ${item.link}`);\n      \n      // Extract affected AWS services\n      const content = `${item.title} ${item.contentSnippet || ''}`.toLowerCase();\n      const awsServices = ['ec2', 's3', 'lambda', 'rds', 'eks', 'ecs', 'iam'];\n      const affectedServices = awsServices.filter(service => content.includes(service));\n      \n      if (affectedServices.length > 0) {\n        console.log(`   Affected Services: ${affectedServices.map(s => s.toUpperCase()).join(', ')}`);\n      }\n      \n      if (item.contentSnippet) {\n        console.log(`   Summary: ${item.contentSnippet.substring(0, 150)}...`);\n      }\n      console.log();\n    });\n    \n    return feed.items;\n  } catch (error) {\n    console.error('Error fetching AWS bulletins:', error);\n    return [];\n  }\n};\n\nfetchAWSBulletins();",
+      "security_alerting": "// AWS Security Bulletin Alerting - FREE!\nconst Parser = require('rss-parser');\nconst fs = require('fs');\nconst crypto = require('crypto');\n\nclass AWSSecurityAlerter {\n  constructor(criticalServices = []) {\n    this.parser = new Parser();\n    this.feedUrl = 'https://aws.amazon.com/security/security-bulletins/RSS/';\n    this.criticalServices = criticalServices.map(s => s.toLowerCase());\n    this.stateFile = 'aws_security_state.json';\n    this.seenBulletins = this.loadState();\n  }\n  \n  loadState() {\n    try {\n      return new Set(JSON.parse(fs.readFileSync(this.stateFile, 'utf8')));\n    } catch {\n      return new Set();\n    }\n  }\n  \n  saveState() {\n    fs.writeFileSync(\n      this.stateFile,\n      JSON.stringify([...this.seenBulletins])\n    );\n  }\n  \n  async checkForCriticalBulletins() {\n    const feed = await this.parser.parseURL(this.feedUrl);\n    const criticalBulletins = [];\n    \n    for (const item of feed.items) {\n      const hash = crypto\n        .createHash('md5')\n        .update(item.link)\n        .digest('hex');\n      \n      if (this.seenBulletins.has(hash)) {\n        continue;\n      }\n      \n      const content = `${item.title} ${item.contentSnippet || ''}`.toLowerCase();\n      \n      // Check if bulletin affects critical services\n      const affectedCriticalServices = this.criticalServices.filter(\n        service => content.includes(service)\n      );\n      \n      // Check for high-severity keywords\n      const severityKeywords = [\n        'critical', 'urgent', 'immediate', 'exploit', 'vulnerability',\n        'patch immediately', 'security issue', 'unauthorized access'\n      ];\n      \n      const isHighSeverity = severityKeywords.some(\n        keyword => content.includes(keyword)\n      );\n      \n      if (affectedCriticalServices.length > 0 || isHighSeverity) {\n        criticalBulletins.push({\n          title: item.title,\n          link: item.link,\n          date: item.pubDate,\n          affectedServices: affectedCriticalServices,\n          isHighSeverity,\n          summary: item.contentSnippet?.substring(0, 200)\n        });\n      }\n      \n      this.seenBulletins.add(hash);\n    }\n    \n    if (criticalBulletins.length > 0) {\n      this.saveState();\n      this.alertCriticalBulletins(criticalBulletins);\n    }\n    \n    return criticalBulletins;\n  }\n  \n  alertCriticalBulletins(bulletins) {\n    console.log('\ud83d\udea8 CRITICAL AWS SECURITY BULLETINS DETECTED!');\n    console.log('=' .repeat(50));\n    \n    bulletins.forEach(bulletin => {\n      console.log(`\\n\u26a0\ufe0f  ${bulletin.title}`);\n      console.log(`\ud83d\udcc5 ${bulletin.date}`);\n      console.log(`\ud83d\udd17 ${bulletin.link}`);\n      \n      if (bulletin.affectedServices.length > 0) {\n        console.log(`\ud83c\udfaf Critical Services: ${bulletin.affectedServices.map(s => s.toUpperCase()).join(', ')}`);\n      }\n      \n      if (bulletin.isHighSeverity) {\n        console.log('\u26a1 HIGH SEVERITY DETECTED');\n      }\n      \n      if (bulletin.summary) {\n        console.log(`\ud83d\udcc4 ${bulletin.summary}`);\n      }\n    });\n  }\n}\n\n// Usage: Monitor critical AWS services\nconst alerter = new AWSSecurityAlerter(['ec2', 's3', 'iam', 'lambda']);\nalerter.checkForCriticalBulletins();"
+    },
+    "python": {
+      "parse_rss": "import feedparser\nimport requests\nfrom datetime import datetime\nimport re\n\n# Parse AWS Security Bulletins RSS - COMPLETELY FREE!\nfeed_url = 'https://aws.amazon.com/security/security-bulletins/RSS/'\nfeed = feedparser.parse(feed_url)\n\nprint(\"AWS Security Bulletins (FREE!)\\n\")\n\nfor entry in feed.entries[:10]:\n    print(f\"Title: {entry.title}\")\n    print(f\"Date: {entry.published}\")\n    print(f\"Link: {entry.link}\")\n    \n    # Extract summary\n    if hasattr(entry, 'summary'):\n        summary = re.sub('<[^<]+?>', '', entry.summary)\n        print(f\"Summary: {summary[:200]}...\")\n    \n    # Extract affected services from title/content\n    services = []\n    content = f\"{entry.title} {getattr(entry, 'summary', '')}\".lower()\n    aws_services = ['ec2', 's3', 'lambda', 'rds', 'eks', 'ecs', 'iam', 'cloudformation']\n    \n    for service in aws_services:\n        if service in content:\n            services.append(service.upper())\n    \n    if services:\n        print(f\"Affected Services: {', '.join(services)}\")\n    print()",
+      "security_monitor": "import feedparser\nimport json\nimport hashlib\nimport time\nfrom datetime import datetime\n\nclass AWSSecurityMonitor:\n    \"\"\"Monitor AWS Security Bulletins - FREE!\"\"\"\n    \n    def __init__(self, aws_services_filter=None):\n        self.feed_url = 'https://aws.amazon.com/security/security-bulletins/RSS/'\n        self.services_filter = aws_services_filter or []  # Filter by specific AWS services\n        self.seen_bulletins = set()\n        self.state_file = 'aws_security_monitor.json'\n        self.load_state()\n    \n    def load_state(self):\n        try:\n            with open(self.state_file, 'r') as f:\n                data = json.load(f)\n                self.seen_bulletins = set(data['seen'])\n        except FileNotFoundError:\n            pass\n    \n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump({'seen': list(self.seen_bulletins)}, f)\n    \n    def check_new_bulletins(self):\n        \"\"\"Check for new AWS security bulletins\"\"\"\n        feed = feedparser.parse(self.feed_url)\n        new_bulletins = []\n        \n        for entry in feed.entries:\n            # Create unique ID\n            bulletin_id = hashlib.md5(entry.link.encode()).hexdigest()\n            \n            if bulletin_id in self.seen_bulletins:\n                continue\n            \n            # Filter by AWS services if specified\n            if self.services_filter:\n                content = f\"{entry.title} {getattr(entry, 'summary', '')}\".lower()\n                if not any(service.lower() in content for service in self.services_filter):\n                    self.seen_bulletins.add(bulletin_id)\n                    continue\n            \n            new_bulletins.append({\n                'title': entry.title,\n                'link': entry.link,\n                'published': entry.published,\n                'summary': getattr(entry, 'summary', '')[:300]\n            })\n            \n            self.seen_bulletins.add(bulletin_id)\n        \n        if new_bulletins:\n            self.save_state()\n        \n        return new_bulletins\n    \n    def monitor(self, interval_seconds=3600):\n        \"\"\"Monitor continuously for new bulletins\"\"\"\n        print(f\"Monitoring AWS Security Bulletins...\")\n        if self.services_filter:\n            print(f\"Filtering for services: {', '.join(self.services_filter)}\")\n        \n        while True:\n            new_bulletins = self.check_new_bulletins()\n            \n            if new_bulletins:\n                print(f\"\\n\ud83d\udea8 New AWS Security Bulletins at {datetime.now()}:\")\n                for bulletin in new_bulletins:\n                    print(f\"- {bulletin['title']}\")\n                    print(f\"  {bulletin['link']}\")\n                    print(f\"  Published: {bulletin['published']}\")\n                    print()\n            \n            time.sleep(interval_seconds)\n\n# Monitor all AWS services\nmonitor = AWSSecurityMonitor()\nnew_bulletins = monitor.check_new_bulletins()\nprint(f\"Found {len(new_bulletins)} new bulletins\")\n\n# Monitor specific services only\n# monitor = AWSSecurityMonitor(['EC2', 'S3', 'Lambda'])\n# monitor.monitor()"
+    }
+  },
+  "last_updated": "2025-08-15T20:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "azure-security-center",
+      "gcp-security-bulletins",
+      "cloud-security-alliance"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Public information",
+    "maintainer": "Amazon Web Services",
+    "related_services": [
+      "AWS Security Hub",
+      "AWS Config",
+      "AWS GuardDuty",
+      "AWS CloudTrail"
+    ]
+  },
+  "name": "AWS Security Bulletins",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to RSS feed for real-time updates",
+      "Parse bulletin content for affected services",
+      "Cross-reference with your AWS infrastructure",
+      "Implement automated alerting for critical bulletins",
+      "Archive bulletins for compliance documentation",
+      "Map bulletins to CVE databases when applicable"
+    ],
+    "common_use_cases": [
+      "AWS security posture monitoring",
+      "Compliance reporting and documentation",
+      "Incident response planning",
+      "Security awareness for AWS teams",
+      "Vulnerability management for cloud infrastructure",
+      "Security configuration validation",
+      "Risk assessment for AWS services"
+    ],
+    "recommended_update_frequency": "Monitor RSS feed daily for critical security updates",
+    "value_proposition": "Official AWS security communications completely free with no authentication"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "api_stability": "Stable RSS feed",
+    "completeness": "Comprehensive AWS service coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Official AWS security communications",
+    "reliability": "excellent",
+    "update_speed": "Real-time for critical issues"
+  },
+  "quality_score": 94,
+  "subcategory": "aws",
+  "url": "https://aws.amazon.com/security/security-bulletins/"
+}

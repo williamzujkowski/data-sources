@@ -1,0 +1,206 @@
+{
+  "api": {
+    "base_url": "https://gitlab.com/api/v4",
+    "endpoints": [
+      {
+        "auth_required": true,
+        "description": "Get project vulnerabilities (requires authentication)",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Project ID or path",
+            "example": "13083",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Vulnerability scope",
+            "example": "all",
+            "name": "scope",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/projects/:id/vulnerabilities"
+      },
+      {
+        "auth_required": true,
+        "description": "Get security dashboard data (requires authentication)",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Project ID or path",
+            "example": "13083",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/projects/:id/security_dashboard"
+      },
+      {
+        "auth_required": true,
+        "description": "Get project packages for dependency analysis",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Project ID or path",
+            "example": "13083",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/projects/:id/packages"
+      }
+    ],
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Public security advisories and CVE information",
+        "format": "HTML/RSS",
+        "name": "GitLab Security Advisories",
+        "url": "https://about.gitlab.com/security/"
+      },
+      {
+        "access": "free",
+        "description": "GitLab CVE tracking repository",
+        "format": "Git repository",
+        "name": "GitLab CVE Database",
+        "url": "https://gitlab.com/gitlab-org/cves"
+      },
+      {
+        "access": "free",
+        "description": "Comprehensive security feature documentation",
+        "format": "Documentation",
+        "name": "GitLab Security Documentation",
+        "url": "https://docs.gitlab.com/ee/user/application_security/"
+      }
+    ],
+    "rate_limit": {
+      "notes": "GitLab.com API has rate limits. Free tier provides substantial quota.",
+      "requests_per_minute": 300
+    },
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "PARTIALLY FREE! Security advisories and public vulnerability data available without authentication. GitLab.com API requires authentication but has generous free tier. Self-hosted GitLab security features vary by license.",
+    "required": false,
+    "type": "mixed"
+  },
+  "authority": 93,
+  "category": "devsecops",
+  "coverage": 92,
+  "data_coverage": {
+    "content_types": [
+      "Security vulnerability advisories",
+      "CVE information for GitLab products",
+      "SAST (Static Application Security Testing) findings",
+      "DAST (Dynamic Application Security Testing) results",
+      "Dependency scanning vulnerabilities",
+      "Container scanning results",
+      "License compliance information",
+      "Secret detection findings",
+      "Infrastructure as Code security issues"
+    ],
+    "gitlab_products": [
+      "GitLab Community Edition",
+      "GitLab Enterprise Edition",
+      "GitLab.com SaaS",
+      "GitLab Runner",
+      "GitLab Pages",
+      "GitLab Container Registry",
+      "GitLab Package Registry"
+    ],
+    "security_features": [
+      "Static Application Security Testing (SAST)",
+      "Dynamic Application Security Testing (DAST)",
+      "Interactive Application Security Testing (IAST)",
+      "Dependency Scanning",
+      "Container Scanning",
+      "Secret Detection",
+      "License Compliance",
+      "Fuzz Testing",
+      "API Security Testing",
+      "Infrastructure as Code Scanning"
+    ],
+    "temporal": {
+      "historical_data": "2011-present",
+      "latency": "Immediate for critical security issues",
+      "update_frequency": "Real-time for new vulnerabilities, regular security scans"
+    }
+  },
+  "description": "GitLab security advisories, vulnerability database, and DevSecOps security features provided FREE through multiple channels including GitLab API, security advisories, and comprehensive documentation.",
+  "documentation": "https://docs.gitlab.com/ee/user/application_security/",
+  "format": "json",
+  "id": "gitlab-security",
+  "integration_examples": {
+    "curl": {
+      "check_gitlab_status": "# Check GitLab status and security announcements\ncurl -s 'https://status.gitlab.com/api/v2/summary.json' | jq '.status'",
+      "get_cve_info": "# Get GitLab CVE information from public repository\ncurl -s 'https://api.github.com/repos/gitlab-org/cves/contents' | jq '.[] | {name, download_url}' | head -10",
+      "get_public_advisories": "# Get GitLab public security information - COMPLETELY FREE!\ncurl -s 'https://about.gitlab.com/security/' | grep -i 'security' | head -10",
+      "get_security_docs": "# Get GitLab security documentation links\ncurl -s 'https://docs.gitlab.com/ee/user/application_security/' | grep -o 'href=\"[^\"]*\"' | head -10"
+    },
+    "javascript": {
+      "fetch_gitlab_security": "// Fetch GitLab Security Information - PARTIALLY FREE!\nconst axios = require('axios');\nconst cheerio = require('cheerio'); // npm install cheerio\n\nconst fetchGitLabSecurity = async () => {\n  console.log('\ud83d\udd12 GitLab Security Information (FREE + API)\\n');\n  \n  // Method 1: Fetch public security advisories (FREE!)\n  try {\n    const advisoriesResponse = await axios.get('https://about.gitlab.com/security/');\n    const $ = cheerio.load(advisoriesResponse.data);\n    \n    console.log('\ud83d\udccb Public Security Advisories (FREE!):\\n');\n    \n    // Parse security advisory links\n    const advisories = [];\n    $('a[href*=\"/security/\"]').each((i, element) => {\n      const href = $(element).attr('href');\n      const text = $(element).text().trim();\n      \n      if (href && text && href.includes('/security/') && text.length > 10) {\n        advisories.push({ href, text });\n      }\n    });\n    \n    // Remove duplicates and show recent advisories\n    const uniqueAdvisories = advisories\n      .filter((item, index, self) => \n        index === self.findIndex(t => t.href === item.href)\n      )\n      .slice(0, 8);\n    \n    uniqueAdvisories.forEach(advisory => {\n      console.log(`\ud83d\udd34 ${advisory.text}`);\n      const fullUrl = advisory.href.startsWith('http') ? \n        advisory.href : `https://about.gitlab.com${advisory.href}`;\n      console.log(`   \ud83d\udd17 ${fullUrl}`);\n      console.log();\n    });\n    \n  } catch (error) {\n    console.error('Error fetching public advisories:', error.message);\n  }\n  \n  // Method 2: GitLab API (requires authentication)\n  console.log('\\n\ud83d\udd27 GitLab API Security Features (Requires Authentication):\\n');\n  \n  const securityFeatures = [\n    'Static Application Security Testing (SAST)',\n    'Dynamic Application Security Testing (DAST)',\n    'Dependency Scanning',\n    'Container Scanning',\n    'Secret Detection',\n    'License Compliance',\n    'Fuzz Testing',\n    'API Security Testing'\n  ];\n  \n  securityFeatures.forEach(feature => {\n    console.log(`   \u2705 ${feature}`);\n  });\n  \n  console.log('\\n\ud83d\udccb To access GitLab API security data:');\n  console.log('   1. Create GitLab access token at https://gitlab.com/-/profile/personal_access_tokens');\n  console.log('   2. Grant api, read_user, read_repository scopes');\n  console.log('   3. Use token with GitLab API endpoints');\n};\n\n// GitLab API Security Scanner (requires authentication)\nclass GitLabSecurityAPI {\n  constructor(accessToken, baseUrl = 'https://gitlab.com') {\n    this.baseUrl = baseUrl;\n    this.apiBase = `${baseUrl}/api/v4`;\n    this.headers = {\n      'Authorization': `Bearer ${accessToken}`\n    };\n  }\n  \n  async getUserProjects() {\n    try {\n      const response = await axios.get(\n        `${this.apiBase}/projects`,\n        {\n          headers: this.headers,\n          params: {\n            membership: true,\n            per_page: 20,\n            simple: true\n          }\n        }\n      );\n      \n      return response.data;\n    } catch (error) {\n      console.error('Error fetching projects:', error.response?.data || error.message);\n      return [];\n    }\n  }\n  \n  async getProjectVulnerabilities(projectId) {\n    try {\n      const response = await axios.get(\n        `${this.apiBase}/projects/${projectId}/vulnerabilities`,\n        { headers: this.headers }\n      );\n      \n      return response.data;\n    } catch (error) {\n      if (error.response?.status === 403) {\n        console.log(`   \u26a0\ufe0f  Security features not available for project ${projectId} (upgrade required)`);\n      } else {\n        console.error(`Error fetching vulnerabilities for project ${projectId}:`, error.message);\n      }\n      return [];\n    }\n  }\n  \n  async analyzeProjectSecurity(projectId) {\n    console.log(`\\n\ud83d\udd0d Analyzing project ${projectId}...`);\n    \n    const vulnerabilities = await this.getProjectVulnerabilities(projectId);\n    \n    const analysis = {\n      projectId,\n      totalVulnerabilities: vulnerabilities.length,\n      severityDistribution: {},\n      vulnerabilityTypes: []\n    };\n    \n    vulnerabilities.forEach(vuln => {\n      const severity = vuln.severity || 'unknown';\n      analysis.severityDistribution[severity] = \n        (analysis.severityDistribution[severity] || 0) + 1;\n      \n      // Extract vulnerability types\n      if (vuln.identifiers) {\n        vuln.identifiers.forEach(id => {\n          if (id.type && !analysis.vulnerabilityTypes.includes(id.type)) {\n            analysis.vulnerabilityTypes.push(id.type);\n          }\n        });\n      }\n    });\n    \n    return analysis;\n  }\n  \n  async generateSecurityDashboard() {\n    console.log('\ud83d\udd12 GitLab Security Dashboard (API Required)\\n');\n    \n    const projects = await this.getUserProjects();\n    console.log(`Found ${projects.length} accessible projects\\n`);\n    \n    const analyses = [];\n    \n    for (const project of projects.slice(0, 5)) { // Analyze first 5 projects\n      const analysis = await this.analyzeProjectSecurity(project.id);\n      analyses.push({ ...analysis, projectName: project.name });\n    }\n    \n    // Aggregate results\n    const totals = {\n      totalProjects: analyses.length,\n      totalVulnerabilities: 0,\n      severityDistribution: {},\n      vulnerabilityTypes: new Set()\n    };\n    \n    analyses.forEach(analysis => {\n      totals.totalVulnerabilities += analysis.totalVulnerabilities;\n      \n      Object.entries(analysis.severityDistribution).forEach(([severity, count]) => {\n        totals.severityDistribution[severity] = \n          (totals.severityDistribution[severity] || 0) + count;\n      });\n      \n      analysis.vulnerabilityTypes.forEach(type => {\n        totals.vulnerabilityTypes.add(type);\n      });\n    });\n    \n    // Display results\n    console.log('\\n\ud83d\udcca Security Summary:');\n    console.log(`   Projects analyzed: ${totals.totalProjects}`);\n    console.log(`   Total vulnerabilities: ${totals.totalVulnerabilities}`);\n    \n    if (Object.keys(totals.severityDistribution).length > 0) {\n      console.log('\\n\ud83d\udea8 Severity Distribution:');\n      Object.entries(totals.severityDistribution)\n        .sort((a, b) => b[1] - a[1])\n        .forEach(([severity, count]) => {\n          const icon = {\n            'critical': '\ud83d\udd34',\n            'high': '\ud83d\udfe0',\n            'medium': '\ud83d\udfe1',\n            'low': '\ud83d\udfe2'\n          }[severity] || '\u26aa';\n          console.log(`     ${icon} ${severity}: ${count}`);\n        });\n    }\n    \n    if (totals.vulnerabilityTypes.size > 0) {\n      console.log('\\n\ud83c\udfaf Vulnerability Types:');\n      Array.from(totals.vulnerabilityTypes).slice(0, 5).forEach(type => {\n        console.log(`     \ud83d\udccb ${type}`);\n      });\n    }\n    \n    // Project-specific results\n    console.log('\\n\ud83d\udcc4 Project Details:');\n    analyses.forEach(analysis => {\n      console.log(`   ${analysis.projectName} (ID: ${analysis.projectId})`);\n      console.log(`     Vulnerabilities: ${analysis.totalVulnerabilities}`);\n      \n      if (analysis.totalVulnerabilities > 0) {\n        const severities = Object.entries(analysis.severityDistribution)\n          .map(([severity, count]) => `${severity}: ${count}`)\n          .join(', ');\n        console.log(`     Breakdown: ${severities}`);\n      }\n    });\n  }\n}\n\n// Usage\nfetchGitLabSecurity();\n\n// For API access (requires authentication):\n// const gitlabAPI = new GitLabSecurityAPI('your_access_token_here');\n// gitlabAPI.generateSecurityDashboard();",
+      "gitlab_cicd_security": "// GitLab CI/CD Security Pipeline Templates - FREE!\nconst fs = require('fs');\nconst yaml = require('js-yaml'); // npm install js-yaml\n\nclass GitLabSecurityPipeline {\n  constructor() {\n    this.securityTemplates = {\n      sast: {\n        stage: 'test',\n        script: ['echo \"Static Application Security Testing\"'],\n        include: [{\n          template: 'Security/SAST.gitlab-ci.yml'\n        }]\n      },\n      \n      dependency_scanning: {\n        stage: 'test',\n        script: ['echo \"Dependency Scanning\"'],\n        include: [{\n          template: 'Security/Dependency-Scanning.gitlab-ci.yml'\n        }]\n      },\n      \n      container_scanning: {\n        stage: 'test',\n        script: ['echo \"Container Scanning\"'],\n        include: [{\n          template: 'Security/Container-Scanning.gitlab-ci.yml'\n        }],\n        variables: {\n          CI_APPLICATION_REPOSITORY: '$CI_REGISTRY_IMAGE',\n          CI_APPLICATION_TAG: '$CI_COMMIT_SHA'\n        }\n      },\n      \n      secret_detection: {\n        stage: 'test',\n        script: ['echo \"Secret Detection\"'],\n        include: [{\n          template: 'Security/Secret-Detection.gitlab-ci.yml'\n        }]\n      },\n      \n      license_scanning: {\n        stage: 'test',\n        script: ['echo \"License Compliance\"'],\n        include: [{\n          template: 'Security/License-Scanning.gitlab-ci.yml'\n        }]\n      }\n    };\n  }\n  \n  generateSecurityPipeline(options = {}) {\n    const {\n      enableSAST = true,\n      enableDependencyScanning = true,\n      enableContainerScanning = false,\n      enableSecretDetection = true,\n      enableLicenseScanning = false,\n      customStages = ['build', 'test', 'security', 'deploy']\n    } = options;\n    \n    const pipeline = {\n      stages: customStages,\n      variables: {\n        SECURE_LOG_LEVEL: 'info'\n      },\n      include: []\n    };\n    \n    console.log('\ud83d\udd27 Generating GitLab Security Pipeline (FREE!)\\n');\n    \n    // Add security scanning jobs based on options\n    if (enableSAST) {\n      pipeline.include.push({ template: 'Security/SAST.gitlab-ci.yml' });\n      console.log('\u2705 SAST (Static Application Security Testing) enabled');\n    }\n    \n    if (enableDependencyScanning) {\n      pipeline.include.push({ template: 'Security/Dependency-Scanning.gitlab-ci.yml' });\n      console.log('\u2705 Dependency Scanning enabled');\n    }\n    \n    if (enableContainerScanning) {\n      pipeline.include.push({ template: 'Security/Container-Scanning.gitlab-ci.yml' });\n      pipeline.variables.CI_APPLICATION_REPOSITORY = '$CI_REGISTRY_IMAGE';\n      pipeline.variables.CI_APPLICATION_TAG = '$CI_COMMIT_SHA';\n      console.log('\u2705 Container Scanning enabled');\n    }\n    \n    if (enableSecretDetection) {\n      pipeline.include.push({ template: 'Security/Secret-Detection.gitlab-ci.yml' });\n      console.log('\u2705 Secret Detection enabled');\n    }\n    \n    if (enableLicenseScanning) {\n      pipeline.include.push({ template: 'Security/License-Scanning.gitlab-ci.yml' });\n      console.log('\u2705 License Compliance enabled');\n    }\n    \n    // Add custom security job\n    pipeline['security_report'] = {\n      stage: 'security',\n      script: [\n        'echo \"Generating security report...\"',\n        'echo \"Security scan completed successfully\"'\n      ],\n      artifacts: {\n        reports: {\n          junit: 'security-report.xml'\n        },\n        expire_in: '1 week'\n      },\n      only: ['master', 'main', 'develop']\n    };\n    \n    console.log('\u2705 Custom security report job added');\n    \n    return pipeline;\n  }\n  \n  generateAdvancedSecurityConfig() {\n    console.log('\\n\ud83d\udd12 Advanced GitLab Security Configuration\\n');\n    \n    const advancedConfig = {\n      stages: ['build', 'test', 'security', 'deploy'],\n      \n      variables: {\n        SECURE_LOG_LEVEL: 'debug',\n        SAST_EXCLUDED_PATHS: 'spec, test, tests, tmp',\n        DEPENDENCY_SCANNING_DISABLED: 'false',\n        CONTAINER_SCANNING_DISABLED: 'false',\n        SECRET_DETECTION_DISABLED: 'false'\n      },\n      \n      include: [\n        { template: 'Security/SAST.gitlab-ci.yml' },\n        { template: 'Security/Dependency-Scanning.gitlab-ci.yml' },\n        { template: 'Security/Container-Scanning.gitlab-ci.yml' },\n        { template: 'Security/Secret-Detection.gitlab-ci.yml' },\n        { template: 'Security/License-Scanning.gitlab-ci.yml' }\n      ],\n      \n      'security_dashboard': {\n        stage: 'security',\n        script: [\n          'echo \"Collecting security results...\"',\n          'echo \"Vulnerabilities found: $(cat gl-sast-report.json | jq \".vulnerabilities | length\")\"',\n          'echo \"Dependencies scanned: $(cat gl-dependency-scanning-report.json | jq \".dependency_files | length\")\"'\n        ],\n        artifacts: {\n          reports: {\n            sast: 'gl-sast-report.json',\n            dependency_scanning: 'gl-dependency-scanning-report.json',\n            container_scanning: 'gl-container-scanning-report.json',\n            secret_detection: 'gl-secret-detection-report.json'\n          },\n          expire_in: '1 week'\n        },\n        dependencies: [\n          'sast',\n          'dependency_scanning',\n          'container_scanning',\n          'secret_detection'\n        ],\n        only: ['master', 'main']\n      },\n      \n      'vulnerability_check': {\n        stage: 'security',\n        script: [\n          'echo \"Checking for critical vulnerabilities...\"',\n          'if [ -f gl-sast-report.json ]; then',\n          '  CRITICAL_COUNT=$(cat gl-sast-report.json | jq \".vulnerabilities[] | select(.severity == \\\"Critical\\\") | length\")',\n          '  if [ \"$CRITICAL_COUNT\" -gt \"0\" ]; then',\n          '    echo \"\u274c Found $CRITICAL_COUNT critical vulnerabilities!\"',\n          '    exit 1',\n          '  fi',\n          'fi',\n          'echo \"\u2705 No critical vulnerabilities found\"'\n        ],\n        dependencies: ['sast'],\n        only: ['master', 'main'],\n        allow_failure: false\n      }\n    };\n    \n    console.log('\ud83d\udccb Advanced features configured:');\n    console.log('   \ud83d\udd0d Debug logging enabled');\n    console.log('   \ud83d\udcca Security dashboard with artifact collection');\n    console.log('   \ud83d\udea8 Critical vulnerability blocking');\n    console.log('   \ud83d\udcc1 Path exclusions for faster scanning');\n    console.log('   \ud83c\udfaf Branch-specific security policies');\n    \n    return advancedConfig;\n  }\n  \n  saveConfigToFile(config, filename = '.gitlab-ci.yml') {\n    try {\n      const yamlContent = yaml.dump(config, {\n        indent: 2,\n        lineWidth: 80,\n        noRefs: true\n      });\n      \n      fs.writeFileSync(filename, yamlContent, 'utf8');\n      console.log(`\\n\ud83d\udcbe Pipeline configuration saved to ${filename}`);\n      console.log('\\n\ud83d\udccb Next steps:');\n      console.log('   1. Commit and push .gitlab-ci.yml to your repository');\n      console.log('   2. Navigate to CI/CD > Pipelines in GitLab');\n      console.log('   3. Monitor security scanning results in Security Dashboard');\n      console.log('   4. Review and address any identified vulnerabilities');\n      \n      return true;\n    } catch (error) {\n      console.error('Error saving configuration:', error.message);\n      return false;\n    }\n  }\n}\n\n// Usage examples\nconst securityPipeline = new GitLabSecurityPipeline();\n\n// Generate basic security pipeline\nconst basicConfig = securityPipeline.generateSecurityPipeline({\n  enableSAST: true,\n  enableDependencyScanning: true,\n  enableSecretDetection: true,\n  enableContainerScanning: false,\n  enableLicenseScanning: false\n});\n\n// Generate advanced security configuration\nconst advancedConfig = securityPipeline.generateAdvancedSecurityConfig();\n\n// Save to file (uncomment to save)\n// securityPipeline.saveConfigToFile(basicConfig, 'basic-security-pipeline.yml');\n// securityPipeline.saveConfigToFile(advancedConfig, 'advanced-security-pipeline.yml');\n\nconsole.log('\\n\ud83c\udfaf GitLab Security Pipeline Templates Generated!');\nconsole.log('\\nThese templates enable:');\nconsole.log('\u2705 Automated security scanning in CI/CD');\nconsole.log('\u2705 Vulnerability detection and reporting');\nconsole.log('\u2705 Dependency and license compliance checking');\nconsole.log('\u2705 Secret detection and prevention');\nconsole.log('\u2705 Container image security scanning');"
+    },
+    "python": {
+      "fetch_security_advisories": "import requests\nimport feedparser\nfrom datetime import datetime\nimport re\n\n# Fetch GitLab Security Advisories - PARTIALLY FREE!\n# Public advisories are free, API requires authentication\n\n# Method 1: Parse public security advisories (FREE!)\ndef get_public_advisories():\n    \"\"\"Get public GitLab security advisories\"\"\"\n    advisories_url = 'https://about.gitlab.com/security/'\n    \n    try:\n        response = requests.get(advisories_url)\n        if response.status_code == 200:\n            print(\"GitLab Security Advisories (FREE!)\\n\")\n            \n            # Parse HTML for security advisory links\n            content = response.text\n            advisory_pattern = r'href=\"(/security/[^\"]+)\"[^>]*>([^<]+)</a>'\n            advisories = re.findall(advisory_pattern, content)\n            \n            for link, title in advisories[:10]:\n                print(f\"\ud83d\udd12 {title}\")\n                print(f\"   \ud83d\udd17 https://about.gitlab.com{link}\")\n                print()\n            \n            return advisories\n    except Exception as e:\n        print(f\"Error fetching advisories: {e}\")\n    \n    return []\n\n# Method 2: GitLab API with authentication (requires token)\ndef get_project_vulnerabilities(project_id, access_token):\n    \"\"\"Get vulnerabilities for a specific GitLab project\"\"\"\n    base_url = 'https://gitlab.com/api/v4'\n    headers = {'Authorization': f'Bearer {access_token}'}\n    \n    try:\n        # Get project vulnerabilities\n        url = f'{base_url}/projects/{project_id}/vulnerabilities'\n        response = requests.get(url, headers=headers)\n        \n        if response.status_code == 200:\n            vulnerabilities = response.json()\n            \n            print(f\"GitLab Project Vulnerabilities (Project ID: {project_id})\\n\")\n            \n            for vuln in vulnerabilities[:5]:\n                print(f\"\ud83d\udd34 {vuln.get('title', 'Unknown')}\")\n                print(f\"   Severity: {vuln.get('severity', 'Unknown')}\")\n                print(f\"   State: {vuln.get('state', 'Unknown')}\")\n                \n                if 'identifiers' in vuln:\n                    ids = [f\"{i.get('type', '')}: {i.get('external_id', '')}\" \n                          for i in vuln['identifiers']]\n                    print(f\"   Identifiers: {', '.join(ids[:2])}\")\n                \n                print(f\"   Detected: {vuln.get('created_at', '')[:10]}\")\n                print()\n            \n            return vulnerabilities\n        else:\n            print(f\"API Error: {response.status_code} - {response.text}\")\n    \n    except Exception as e:\n        print(f\"Error fetching project vulnerabilities: {e}\")\n    \n    return []\n\n# Usage examples\nprint(\"=== Public GitLab Security Advisories (FREE!) ===\")\npublic_advisories = get_public_advisories()\n\n# For API access, you need a GitLab access token\n# project_vulnerabilities = get_project_vulnerabilities('13083', 'your_access_token_here')",
+      "gitlab_security_scanner": "import requests\nimport json\nimport time\nfrom datetime import datetime\n\nclass GitLabSecurityScanner:\n    \"\"\"GitLab security monitoring and scanning - FREE tier available!\"\"\"\n    \n    def __init__(self, access_token=None, gitlab_url='https://gitlab.com'):\n        self.gitlab_url = gitlab_url\n        self.api_base = f'{gitlab_url}/api/v4'\n        self.headers = {}\n        if access_token:\n            self.headers['Authorization'] = f'Bearer {access_token}'\n    \n    def get_user_projects(self):\n        \"\"\"Get user's projects for security scanning\"\"\"\n        if not self.headers:\n            print(\"Authentication required for API access\")\n            return []\n        \n        try:\n            response = requests.get(\n                f'{self.api_base}/projects',\n                headers=self.headers,\n                params={'membership': True, 'per_page': 20}\n            )\n            \n            if response.status_code == 200:\n                return response.json()\n            else:\n                print(f\"Error fetching projects: {response.status_code}\")\n        except Exception as e:\n            print(f\"Error: {e}\")\n        \n        return []\n    \n    def scan_project_security(self, project_id):\n        \"\"\"Scan a project for security vulnerabilities\"\"\"\n        security_data = {\n            'project_id': project_id,\n            'vulnerabilities': [],\n            'security_jobs': [],\n            'dependencies': []\n        }\n        \n        if not self.headers:\n            print(\"Authentication required for detailed security scanning\")\n            return security_data\n        \n        try:\n            # Get vulnerabilities\n            vuln_response = requests.get(\n                f'{self.api_base}/projects/{project_id}/vulnerabilities',\n                headers=self.headers\n            )\n            \n            if vuln_response.status_code == 200:\n                security_data['vulnerabilities'] = vuln_response.json()\n            \n            # Get recent pipelines to check for security jobs\n            pipeline_response = requests.get(\n                f'{self.api_base}/projects/{project_id}/pipelines',\n                headers=self.headers,\n                params={'per_page': 5}\n            )\n            \n            if pipeline_response.status_code == 200:\n                pipelines = pipeline_response.json()\n                \n                for pipeline in pipelines:\n                    # Get jobs for each pipeline\n                    jobs_response = requests.get(\n                        f'{self.api_base}/projects/{project_id}/pipelines/{pipeline[\"id\"]}/jobs',\n                        headers=self.headers\n                    )\n                    \n                    if jobs_response.status_code == 200:\n                        jobs = jobs_response.json()\n                        security_jobs = [job for job in jobs \n                                       if any(sec_type in job['name'].lower() \n                                             for sec_type in ['sast', 'dast', 'dependency', 'container', 'secret'])]\n                        security_data['security_jobs'].extend(security_jobs)\n        \n        except Exception as e:\n            print(f\"Error scanning project {project_id}: {e}\")\n        \n        return security_data\n    \n    def analyze_security_trends(self, project_ids):\n        \"\"\"Analyze security trends across multiple projects\"\"\"\n        analysis = {\n            'total_projects': len(project_ids),\n            'total_vulnerabilities': 0,\n            'severity_distribution': {},\n            'vulnerability_types': {},\n            'projects_with_security_jobs': 0,\n            'security_job_types': {}\n        }\n        \n        for project_id in project_ids:\n            print(f\"Analyzing project {project_id}...\")\n            security_data = self.scan_project_security(project_id)\n            \n            # Analyze vulnerabilities\n            vulnerabilities = security_data['vulnerabilities']\n            analysis['total_vulnerabilities'] += len(vulnerabilities)\n            \n            for vuln in vulnerabilities:\n                severity = vuln.get('severity', 'unknown')\n                analysis['severity_distribution'][severity] = \\\n                    analysis['severity_distribution'].get(severity, 0) + 1\n                \n                # Extract vulnerability types from identifiers\n                for identifier in vuln.get('identifiers', []):\n                    vuln_type = identifier.get('type', 'unknown')\n                    analysis['vulnerability_types'][vuln_type] = \\\n                        analysis['vulnerability_types'].get(vuln_type, 0) + 1\n            \n            # Analyze security jobs\n            security_jobs = security_data['security_jobs']\n            if security_jobs:\n                analysis['projects_with_security_jobs'] += 1\n                \n                for job in security_jobs:\n                    job_name = job['name'].lower()\n                    for sec_type in ['sast', 'dast', 'dependency', 'container', 'secret']:\n                        if sec_type in job_name:\n                            analysis['security_job_types'][sec_type] = \\\n                                analysis['security_job_types'].get(sec_type, 0) + 1\n            \n            time.sleep(0.5)  # Rate limiting\n        \n        return analysis\n    \n    def generate_security_report(self, project_ids):\n        \"\"\"Generate comprehensive security report\"\"\"\n        print(f\"\ud83d\udd12 GitLab Security Report - {datetime.now().strftime('%Y-%m-%d')}\\n\")\n        \n        if not self.headers:\n            print(\"\u26a0\ufe0f  Limited report: Authentication required for detailed analysis\\n\")\n            \n            # Show public information only\n            print(\"Available Security Features (GitLab Free Tier):\")\n            features = [\n                \"Static Application Security Testing (SAST)\",\n                \"Secret Detection\",\n                \"Dependency Scanning\",\n                \"Container Scanning\",\n                \"License Compliance\"\n            ]\n            \n            for feature in features:\n                print(f\"   \u2705 {feature}\")\n            \n            print(\"\\n\ud83d\udccb To enable detailed scanning:\")\n            print(\"   1. Create GitLab access token\")\n            print(\"   2. Enable security scanning in .gitlab-ci.yml\")\n            print(\"   3. Configure security dashboard\")\n            return\n        \n        # Detailed analysis with authentication\n        analysis = self.analyze_security_trends(project_ids)\n        \n        print(f\"\ud83d\udcca Security Analysis Results:\\n\")\n        print(f\"Projects analyzed: {analysis['total_projects']}\")\n        print(f\"Total vulnerabilities: {analysis['total_vulnerabilities']}\")\n        print(f\"Projects with security scanning: {analysis['projects_with_security_jobs']}\\n\")\n        \n        # Severity distribution\n        if analysis['severity_distribution']:\n            print(\"\ud83d\udea8 Vulnerability Severity Distribution:\")\n            for severity, count in sorted(analysis['severity_distribution'].items()):\n                severity_icon = {\n                    'critical': '\ud83d\udd34',\n                    'high': '\ud83d\udfe0',\n                    'medium': '\ud83d\udfe1',\n                    'low': '\ud83d\udfe2',\n                    'info': '\ud83d\udd35'\n                }.get(severity, '\u26aa')\n                print(f\"   {severity_icon} {severity.title()}: {count}\")\n            print()\n        \n        # Security job types\n        if analysis['security_job_types']:\n            print(\"\ud83d\udd27 Security Scanning Coverage:\")\n            for job_type, count in analysis['security_job_types'].items():\n                print(f\"   \ud83d\udccb {job_type.upper()}: {count} projects\")\n            print()\n        \n        # Recommendations\n        print(\"\ud83d\udca1 Recommendations:\")\n        if analysis['projects_with_security_jobs'] < analysis['total_projects']:\n            missing = analysis['total_projects'] - analysis['projects_with_security_jobs']\n            print(f\"   \ud83d\udd27 Enable security scanning in {missing} additional projects\")\n        \n        if analysis['total_vulnerabilities'] > 0:\n            print(f\"   \ud83d\udd0d Address {analysis['total_vulnerabilities']} identified vulnerabilities\")\n            \n            critical_count = analysis['severity_distribution'].get('critical', 0)\n            if critical_count > 0:\n                print(f\"   \ud83d\udea8 URGENT: {critical_count} critical vulnerabilities require immediate attention\")\n\n# Usage examples\n# Basic usage without authentication (limited features)\nscanner = GitLabSecurityScanner()\nscanner.generate_security_report([])\n\n# Full usage with authentication\n# scanner = GitLabSecurityScanner(access_token='your_access_token')\n# projects = scanner.get_user_projects()\n# project_ids = [p['id'] for p in projects[:5]]\n# scanner.generate_security_report(project_ids)"
+    }
+  },
+  "last_updated": "2025-08-15T23:55:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "github-security-advisories",
+      "snyk-vulnerability-database",
+      "sonarqube-security"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Mixed - Public advisories free, API requires authentication",
+    "maintainer": "GitLab Inc.",
+    "related_resources": [
+      "GitLab Security Documentation",
+      "DevSecOps Best Practices",
+      "OWASP Application Security",
+      "CI/CD Security Guidelines"
+    ]
+  },
+  "name": "GitLab Security Advisories and Features",
+  "operational_guidance": {
+    "best_practices": [
+      "Monitor GitLab security advisories RSS feed",
+      "Enable security scanning in GitLab pipelines",
+      "Configure security dashboard for project overview",
+      "Set up vulnerability alerts and notifications",
+      "Integrate GitLab security with issue tracking",
+      "Use GitLab security templates for CI/CD pipelines"
+    ],
+    "common_use_cases": [
+      "DevSecOps pipeline security integration",
+      "Automated vulnerability scanning in CI/CD",
+      "Container security scanning",
+      "Open source dependency vulnerability tracking",
+      "Secret detection in code repositories",
+      "License compliance monitoring",
+      "Security posture assessment",
+      "Infrastructure as Code security validation"
+    ],
+    "recommended_update_frequency": "Monitor security advisories daily, run security scans on every commit/merge request",
+    "value_proposition": "Integrated DevSecOps platform with comprehensive security scanning and vulnerability management"
+  },
+  "quality_metrics": {
+    "accessibility": "Public advisories free, API requires registration",
+    "api_stability": "Stable v4 API",
+    "completeness": "Comprehensive DevSecOps security coverage",
+    "cost": "FREE TIER AVAILABLE with generous limits",
+    "data_quality": "Official GitLab security communications and automated scanning",
+    "reliability": "excellent",
+    "update_speed": "Real-time for critical issues"
+  },
+  "quality_score": 89,
+  "subcategory": "gitlab",
+  "url": "https://about.gitlab.com/security/"
+}

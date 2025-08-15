@@ -1,0 +1,207 @@
+{
+  "api": {
+    "base_url": "https://github.com/spdx",
+    "format_specifications": [
+      {
+        "description": "JSON Schema for SPDX documents",
+        "format": "JSON",
+        "specification": "https://github.com/spdx/spdx-spec/blob/development/v2.3.1/schemas/spdx-schema.json"
+      },
+      {
+        "description": "YAML format specification",
+        "format": "YAML",
+        "specification": "https://spdx.github.io/spdx-spec/v2.3/SPDX-file-format/#yaml-format"
+      },
+      {
+        "description": "XML Schema Definition (XSD)",
+        "format": "XML",
+        "specification": "https://github.com/spdx/spdx-spec/tree/development/v2.3.1/schemas"
+      },
+      {
+        "description": "RDF/OWL ontology format",
+        "format": "RDF",
+        "specification": "https://spdx.github.io/spdx-spec/v2.3/SPDX-file-format/#rdf-format"
+      },
+      {
+        "description": "Simple tag-value text format",
+        "format": "Tag-Value",
+        "specification": "https://spdx.github.io/spdx-spec/v2.3/SPDX-file-format/#tag-value-format"
+      }
+    ],
+    "github_repositories": [
+      {
+        "access": "free",
+        "description": "Official SPDX specification documents",
+        "name": "SPDX Specification",
+        "url": "https://github.com/spdx/spdx-spec"
+      },
+      {
+        "access": "free",
+        "description": "Reference implementation and validation tools",
+        "name": "SPDX Tools",
+        "url": "https://github.com/spdx/tools"
+      },
+      {
+        "access": "free",
+        "description": "Example SPDX documents in various formats",
+        "name": "SPDX Examples",
+        "url": "https://github.com/spdx/spdx-examples"
+      },
+      {
+        "access": "free",
+        "description": "Web-based SPDX tools and validators",
+        "name": "SPDX Online Tools",
+        "url": "https://github.com/spdx/spdx-online-tools"
+      }
+    ],
+    "online_tools": [
+      {
+        "access": "free",
+        "description": "Validate SPDX documents online",
+        "name": "SPDX Online Validator",
+        "url": "https://tools.spdx.org/app/validate/"
+      },
+      {
+        "access": "free",
+        "description": "Comprehensive list of standardized license identifiers",
+        "name": "SPDX License List",
+        "url": "https://spdx.org/licenses/"
+      },
+      {
+        "access": "free",
+        "description": "Create SPDX documents online",
+        "name": "SPDX Document Creator",
+        "url": "https://tools.spdx.org/app/create/"
+      }
+    ],
+    "type": "GitHub/Standards"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All SPDX specifications, tools, examples, and resources available without authentication. Open source project with public repositories.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 96,
+  "category": "supply-chain-security",
+  "coverage": 95,
+  "data_coverage": {
+    "content_types": [
+      "Software component identification",
+      "License information and compliance",
+      "Copyright and authorship details",
+      "Package relationships and dependencies",
+      "File-level analysis and checksums",
+      "Security vulnerability references",
+      "Supplier and originator information",
+      "Download location and verification info"
+    ],
+    "license_coverage": [
+      "450+ standardized license identifiers",
+      "OSI-approved licenses",
+      "FSF-approved licenses",
+      "Creative Commons licenses",
+      "Government and public domain",
+      "Custom license references"
+    ],
+    "spdx_elements": [
+      "Document Creation Information",
+      "Package Information",
+      "File Information",
+      "License Information",
+      "Relationship Information",
+      "Annotation Information",
+      "Review Information (deprecated)",
+      "External Document References"
+    ],
+    "supported_formats": [
+      "JSON (machine-readable)",
+      "YAML (human-readable)",
+      "XML (structured data)",
+      "RDF/Turtle (semantic web)",
+      "Tag-Value (simple text)",
+      "XLSX (spreadsheet)"
+    ],
+    "temporal": {
+      "current_version": "SPDX v2.3.1 (latest stable)",
+      "historical_data": "2010-present (SPDX v1.0 released 2011)",
+      "update_frequency": "Regular specification updates, continuous tool development"
+    }
+  },
+  "description": "SPDX (Software Package Data Exchange) open standard for Software Bill of Materials (SBOM) provided COMPLETELY FREE by the Linux Foundation. Standardized format for communicating software components, licenses, copyrights, and security references.",
+  "documentation": "https://spdx.github.io/spdx-spec/",
+  "format": "other",
+  "id": "spdx-standards",
+  "integration_examples": {
+    "cli": {
+      "cyclonedx_conversion": "# Convert CycloneDX to SPDX format - FREE!\n# Install: pip install cyclonedx-bom\n\n# Generate CycloneDX SBOM first\ncyclonedx-py -o cyclonedx-sbom.json\n\n# Convert to SPDX (manual process, tools vary)\n# Use online converters or custom scripts",
+      "spdx_validation": "# SPDX Document Validation - COMPLETELY FREE!\n# Install SPDX tools: pip install spdx-tools\n\n# Validate SPDX JSON document\nspdx-tools validate my-project.spdx.json\n\n# Convert between SPDX formats\nspdx-tools convert my-project.spdx.json my-project.spdx.yaml\nspdx-tools convert my-project.spdx.json my-project.spdx.xml\nspdx-tools convert my-project.spdx.json my-project.spdx.rdf\n\n# Create SPDX document from directory\nspdx-tools create-document \\\n  --name \"MyProject\" \\\n  --namespace \"https://example.com/MyProject\" \\\n  --creator \"Tool: spdx-tools\" \\\n  --input-directory ./src \\\n  --output my-project.spdx.json",
+      "syft_sbom_generation": "# Generate SPDX SBOM using Syft (Anchore) - COMPLETELY FREE!\n# Install: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin\n\n# Generate SPDX SBOM for directory\nsyft packages dir:. -o spdx-json=project-sbom.spdx.json\n\n# Generate SPDX SBOM for container image\nsyft packages nginx:latest -o spdx-json=nginx-sbom.spdx.json\n\n# Generate SPDX SBOM for specific language\nsyft packages dir:./package.json -o spdx-json=npm-sbom.spdx.json\n\n# Multiple output formats\nsyft packages dir:. \\\n  -o spdx-json=sbom.spdx.json \\\n  -o spdx-xml=sbom.spdx.xml \\\n  -o table=sbom.txt"
+    },
+    "curl": {
+      "get_examples": "# Get SPDX example documents\ncurl -s 'https://api.github.com/repos/spdx/spdx-examples/contents' | jq '.[] | {name, download_url}' | head -10",
+      "get_license_list": "# Get SPDX license list\ncurl -s 'https://raw.githubusercontent.com/spdx/license-list-data/main/json/licenses.json' | jq '.licenses[0:5] | .[] | {licenseId, name, isOsiApproved}'",
+      "get_spdx_schema": "# Download SPDX JSON schema - COMPLETELY FREE!\ncurl -s 'https://raw.githubusercontent.com/spdx/spdx-spec/development/v2.3.1/schemas/spdx-schema.json' | jq '.properties | keys'",
+      "validate_online": "# Use SPDX online validator (requires file upload)\necho \"Visit https://tools.spdx.org/app/validate/ to validate SPDX documents online\""
+    },
+    "javascript": {
+      "spdx_generator": "// Simple SPDX Document Generator - COMPLETELY FREE!\nconst fs = require('fs');\nconst crypto = require('crypto');\nconst path = require('path');\n\nclass SimpleSPDXGenerator {\n  constructor(projectName, projectVersion) {\n    this.projectName = projectName;\n    this.projectVersion = projectVersion;\n    this.files = [];\n    this.packages = [];\n  }\n  \n  scanDirectory(dirPath, extensions = ['.js', '.ts', '.json', '.md']) {\n    const files = [];\n    \n    function scanRecursive(currentPath) {\n      const items = fs.readdirSync(currentPath);\n      \n      items.forEach(item => {\n        const itemPath = path.join(currentPath, item);\n        const stat = fs.statSync(itemPath);\n        \n        if (stat.isDirectory()) {\n          // Skip common build/cache directories\n          if (!['node_modules', '.git', 'dist', 'build', '.venv'].includes(item)) {\n            scanRecursive(itemPath);\n          }\n        } else if (stat.isFile()) {\n          const ext = path.extname(item);\n          if (extensions.includes(ext)) {\n            files.push(itemPath);\n          }\n        }\n      });\n    }\n    \n    scanRecursive(dirPath);\n    return files;\n  }\n  \n  calculateFileChecksum(filePath) {\n    const content = fs.readFileSync(filePath);\n    return crypto.createHash('sha1').update(content).digest('hex');\n  }\n  \n  addFile(filePath, license = 'NOASSERTION') {\n    const relativePath = path.relative(process.cwd(), filePath);\n    const checksum = this.calculateFileChecksum(filePath);\n    const fileId = `SPDXRef-File-${this.files.length + 1}`;\n    \n    const fileEntry = {\n      SPDXID: fileId,\n      fileName: `./${relativePath}`,\n      checksums: [{\n        algorithm: 'SHA1',\n        checksumValue: checksum\n      }],\n      licenseConcluded: license,\n      copyrightText: 'NOASSERTION'\n    };\n    \n    this.files.push(fileEntry);\n    return fileId;\n  }\n  \n  addPackage(name, version, license = 'NOASSERTION') {\n    const packageId = `SPDXRef-Package-${this.packages.length + 1}`;\n    \n    const packageEntry = {\n      SPDXID: packageId,\n      name: name,\n      versionInfo: version,\n      downloadLocation: 'NOASSERTION',\n      filesAnalyzed: true,\n      licenseConcluded: license,\n      licenseDeclared: license,\n      copyrightText: 'NOASSERTION'\n    };\n    \n    this.packages.push(packageEntry);\n    return packageId;\n  }\n  \n  generateDocument() {\n    const timestamp = new Date().toISOString();\n    const documentNamespace = `https://example.com/${this.projectName}-${this.projectVersion}-${Date.now()}`;\n    \n    // Create main package\n    const mainPackageId = this.addPackage(this.projectName, this.projectVersion, 'MIT');\n    \n    // Build relationships\n    const relationships = [\n      {\n        spdxElementId: 'SPDXRef-DOCUMENT',\n        relationshipType: 'DESCRIBES',\n        relatedSpdxElement: mainPackageId\n      }\n    ];\n    \n    // Add file relationships\n    this.files.forEach(file => {\n      relationships.push({\n        spdxElementId: mainPackageId,\n        relationshipType: 'CONTAINS',\n        relatedSpdxElement: file.SPDXID\n      });\n    });\n    \n    const spdxDocument = {\n      spdxVersion: 'SPDX-2.3',\n      dataLicense: 'CC0-1.0',\n      SPDXID: 'SPDXRef-DOCUMENT',\n      name: `${this.projectName}-${this.projectVersion}`,\n      documentNamespace: documentNamespace,\n      creationInfo: {\n        created: timestamp,\n        creators: ['Tool: simple-spdx-generator'],\n        licenseListVersion: '3.20'\n      },\n      packages: this.packages,\n      files: this.files,\n      relationships: relationships\n    };\n    \n    return spdxDocument;\n  }\n  \n  generateForProject(projectPath, outputFile) {\n    console.log(`\ud83d\udd0d Generating SPDX SBOM for ${this.projectName} (FREE!)`);\n    \n    // Scan project files\n    const projectFiles = this.scanDirectory(projectPath);\n    console.log(`\ud83d\udcc4 Found ${projectFiles.length} files to include`);\n    \n    // Add files to SPDX document\n    projectFiles.forEach(filePath => {\n      this.addFile(filePath);\n    });\n    \n    // Generate document\n    const spdxDocument = this.generateDocument();\n    \n    // Write to file\n    fs.writeFileSync(outputFile, JSON.stringify(spdxDocument, null, 2));\n    \n    console.log(`\u2705 SPDX document generated: ${outputFile}`);\n    console.log(`\ud83d\udcca Document contains:`);\n    console.log(`   - ${this.packages.length} packages`);\n    console.log(`   - ${this.files.length} files`);\n    console.log(`   - ${spdxDocument.relationships.length} relationships`);\n    \n    return outputFile;\n  }\n}\n\n// Usage\nconst generator = new SimpleSPDXGenerator('MyProject', '1.0.0');\ngenerator.generateForProject('.', 'my-project.spdx.json');",
+      "spdx_validator": "// SPDX Document Validation with JavaScript - COMPLETELY FREE!\nconst fs = require('fs');\nconst Ajv = require('ajv'); // npm install ajv\nconst addFormats = require('ajv-formats'); // npm install ajv-formats\n\nclass SPDXValidator {\n  constructor() {\n    this.ajv = new Ajv({ allErrors: true });\n    addFormats(this.ajv);\n    this.schema = null;\n  }\n  \n  async loadSPDXSchema() {\n    // Load SPDX JSON schema from GitHub\n    const schemaUrl = 'https://raw.githubusercontent.com/spdx/spdx-spec/development/v2.3.1/schemas/spdx-schema.json';\n    \n    try {\n      const response = await fetch(schemaUrl);\n      this.schema = await response.json();\n      console.log('\u2705 SPDX schema loaded successfully');\n      return true;\n    } catch (error) {\n      console.error('\u274c Failed to load SPDX schema:', error.message);\n      return false;\n    }\n  }\n  \n  validateDocument(spdxFilePath) {\n    try {\n      // Read SPDX document\n      const spdxContent = fs.readFileSync(spdxFilePath, 'utf8');\n      const spdxDocument = JSON.parse(spdxContent);\n      \n      if (!this.schema) {\n        console.error('\u274c SPDX schema not loaded');\n        return false;\n      }\n      \n      // Compile and validate\n      const validate = this.ajv.compile(this.schema);\n      const valid = validate(spdxDocument);\n      \n      if (valid) {\n        console.log('\u2705 SPDX document is valid');\n        return true;\n      } else {\n        console.log('\u274c SPDX document validation failed:');\n        validate.errors.forEach(error => {\n          console.log(`   ${error.instancePath}: ${error.message}`);\n        });\n        return false;\n      }\n      \n    } catch (error) {\n      console.error('\u274c Validation error:', error.message);\n      return false;\n    }\n  }\n  \n  async analyzeLicenses(spdxFilePath) {\n    try {\n      const spdxContent = fs.readFileSync(spdxFilePath, 'utf8');\n      const spdxDocument = JSON.parse(spdxContent);\n      \n      const licenses = new Set();\n      const licenseAnalysis = {\n        totalLicenses: 0,\n        packageLicenses: new Map(),\n        fileLicenses: new Map(),\n        unknownLicenses: []\n      };\n      \n      // Extract licenses from packages\n      if (spdxDocument.packages) {\n        spdxDocument.packages.forEach(pkg => {\n          ['licenseConcluded', 'licenseDeclared'].forEach(field => {\n            const license = pkg[field];\n            if (license && license !== 'NOASSERTION' && license !== 'NONE') {\n              licenses.add(license);\n              licenseAnalysis.packageLicenses.set(license, \n                (licenseAnalysis.packageLicenses.get(license) || 0) + 1);\n            }\n          });\n        });\n      }\n      \n      // Extract licenses from files\n      if (spdxDocument.files) {\n        spdxDocument.files.forEach(file => {\n          const license = file.licenseConcluded;\n          if (license && license !== 'NOASSERTION' && license !== 'NONE') {\n            licenses.add(license);\n            licenseAnalysis.fileLicenses.set(license,\n              (licenseAnalysis.fileLicenses.get(license) || 0) + 1);\n          }\n        });\n      }\n      \n      licenseAnalysis.totalLicenses = licenses.size;\n      \n      console.log('\u2696\ufe0f  License Analysis Results:');\n      console.log(`   Total unique licenses: ${licenseAnalysis.totalLicenses}`);\n      console.log(`   Package licenses: ${licenseAnalysis.packageLicenses.size}`);\n      console.log(`   File licenses: ${licenseAnalysis.fileLicenses.size}`);\n      \n      // List all licenses\n      console.log('\\n\ud83d\udccb All Licenses Found:');\n      Array.from(licenses).sort().forEach(license => {\n        const pkgCount = licenseAnalysis.packageLicenses.get(license) || 0;\n        const fileCount = licenseAnalysis.fileLicenses.get(license) || 0;\n        console.log(`   ${license} (${pkgCount} packages, ${fileCount} files)`);\n      });\n      \n      return licenseAnalysis;\n      \n    } catch (error) {\n      console.error('\u274c License analysis error:', error.message);\n      return null;\n    }\n  }\n}\n\n// Usage\nconst validator = new SPDXValidator();\n\nvalidator.loadSPDXSchema().then(success => {\n  if (success) {\n    // Validate SPDX document\n    validator.validateDocument('example.spdx.json');\n    \n    // Analyze licenses\n    validator.analyzeLicenses('example.spdx.json');\n  }\n});"
+    },
+    "python": {
+      "spdx_analysis": "import json\nimport requests\nfrom collections import Counter\nfrom datetime import datetime\n\nclass SPDXAnalyzer:\n    \"\"\"Analyze SPDX documents and generate insights - FREE!\"\"\"\n    \n    def __init__(self):\n        self.spdx_license_list_url = \"https://raw.githubusercontent.com/spdx/license-list-data/main/json/licenses.json\"\n        self.license_data = None\n    \n    def load_spdx_license_list(self):\n        \"\"\"Load official SPDX license list\"\"\"\n        try:\n            response = requests.get(self.spdx_license_list_url)\n            if response.status_code == 200:\n                license_list = response.json()\n                self.license_data = {lic['licenseId']: lic for lic in license_list['licenses']}\n                print(f\"\u2705 Loaded {len(self.license_data)} SPDX licenses\")\n                return True\n        except Exception as e:\n            print(f\"\u274c Failed to load SPDX license list: {e}\")\n        return False\n    \n    def analyze_spdx_document(self, spdx_file_path):\n        \"\"\"Analyze an SPDX document for insights\"\"\"\n        try:\n            with open(spdx_file_path, 'r') as f:\n                spdx_doc = json.load(f)\n            \n            analysis = {\n                'document_info': self._analyze_document_info(spdx_doc),\n                'packages': self._analyze_packages(spdx_doc),\n                'files': self._analyze_files(spdx_doc),\n                'licenses': self._analyze_licenses(spdx_doc),\n                'relationships': self._analyze_relationships(spdx_doc),\n                'security': self._analyze_security_aspects(spdx_doc)\n            }\n            \n            return analysis\n            \n        except Exception as e:\n            print(f\"\u274c Error analyzing SPDX document: {e}\")\n            return None\n    \n    def _analyze_document_info(self, spdx_doc):\n        \"\"\"Analyze document creation information\"\"\"\n        creation_info = spdx_doc.get('creationInfo', {})\n        \n        return {\n            'spdx_version': spdx_doc.get('spdxVersion', 'Unknown'),\n            'document_name': spdx_doc.get('name', 'Unknown'),\n            'creators': creation_info.get('creators', []),\n            'created': creation_info.get('created', 'Unknown'),\n            'license_list_version': creation_info.get('licenseListVersion', 'Unknown')\n        }\n    \n    def _analyze_packages(self, spdx_doc):\n        \"\"\"Analyze package information\"\"\"\n        packages = spdx_doc.get('packages', [])\n        \n        package_analysis = {\n            'total_packages': len(packages),\n            'with_version': 0,\n            'with_download_location': 0,\n            'with_homepage': 0,\n            'license_distribution': Counter(),\n            'supplier_distribution': Counter()\n        }\n        \n        for package in packages:\n            if package.get('versionInfo'):\n                package_analysis['with_version'] += 1\n            \n            if package.get('downloadLocation') and package['downloadLocation'] != 'NOASSERTION':\n                package_analysis['with_download_location'] += 1\n            \n            if package.get('homepage'):\n                package_analysis['with_homepage'] += 1\n            \n            # Analyze licenses\n            license_concluded = package.get('licenseConcluded')\n            if license_concluded:\n                package_analysis['license_distribution'][license_concluded] += 1\n            \n            # Analyze suppliers\n            supplier = package.get('supplier')\n            if supplier:\n                package_analysis['supplier_distribution'][supplier] += 1\n        \n        return package_analysis\n    \n    def _analyze_files(self, spdx_doc):\n        \"\"\"Analyze file information\"\"\"\n        files = spdx_doc.get('files', [])\n        \n        file_analysis = {\n            'total_files': len(files),\n            'with_checksums': 0,\n            'file_type_distribution': Counter(),\n            'license_distribution': Counter(),\n            'copyright_info': 0\n        }\n        \n        for file_info in files:\n            if file_info.get('checksums'):\n                file_analysis['with_checksums'] += 1\n            \n            # Analyze file types by extension\n            file_name = file_info.get('fileName', '')\n            if '.' in file_name:\n                extension = file_name.split('.')[-1].lower()\n                file_analysis['file_type_distribution'][extension] += 1\n            \n            # Analyze licenses\n            license_concluded = file_info.get('licenseConcluded')\n            if license_concluded:\n                file_analysis['license_distribution'][license_concluded] += 1\n            \n            # Check for copyright information\n            if file_info.get('copyrightText') and file_info['copyrightText'] != 'NOASSERTION':\n                file_analysis['copyright_info'] += 1\n        \n        return file_analysis\n    \n    def _analyze_licenses(self, spdx_doc):\n        \"\"\"Analyze license information across the document\"\"\"\n        all_licenses = set()\n        \n        # Extract licenses from packages\n        for package in spdx_doc.get('packages', []):\n            for license_field in ['licenseConcluded', 'licenseDeclared']:\n                license_value = package.get(license_field)\n                if license_value and license_value not in ['NOASSERTION', 'NONE']:\n                    all_licenses.add(license_value)\n        \n        # Extract licenses from files\n        for file_info in spdx_doc.get('files', []):\n            license_value = file_info.get('licenseConcluded')\n            if license_value and license_value not in ['NOASSERTION', 'NONE']:\n                all_licenses.add(license_value)\n        \n        license_analysis = {\n            'unique_licenses': len(all_licenses),\n            'license_list': list(all_licenses),\n            'osi_approved': [],\n            'copyleft': [],\n            'permissive': []\n        }\n        \n        # Categorize licenses if we have license data\n        if self.license_data:\n            for license_id in all_licenses:\n                if license_id in self.license_data:\n                    license_info = self.license_data[license_id]\n                    \n                    if license_info.get('isOsiApproved'):\n                        license_analysis['osi_approved'].append(license_id)\n                    \n                    # Simple categorization based on common licenses\n                    if any(keyword in license_id.lower() for keyword in ['gpl', 'lgpl', 'agpl', 'copyleft']):\n                        license_analysis['copyleft'].append(license_id)\n                    elif any(keyword in license_id.lower() for keyword in ['mit', 'bsd', 'apache', 'permissive']):\n                        license_analysis['permissive'].append(license_id)\n        \n        return license_analysis\n    \n    def _analyze_relationships(self, spdx_doc):\n        \"\"\"Analyze relationship information\"\"\"\n        relationships = spdx_doc.get('relationships', [])\n        \n        relationship_analysis = {\n            'total_relationships': len(relationships),\n            'relationship_types': Counter()\n        }\n        \n        for rel in relationships:\n            rel_type = rel.get('relationshipType')\n            if rel_type:\n                relationship_analysis['relationship_types'][rel_type] += 1\n        \n        return relationship_analysis\n    \n    def _analyze_security_aspects(self, spdx_doc):\n        \"\"\"Analyze security-related aspects\"\"\"\n        security_analysis = {\n            'has_external_refs': False,\n            'security_refs': [],\n            'vulnerability_refs': 0,\n            'checksum_coverage': 0\n        }\n        \n        # Check for external references (security-related)\n        for package in spdx_doc.get('packages', []):\n            external_refs = package.get('externalRefs', [])\n            if external_refs:\n                security_analysis['has_external_refs'] = True\n                \n                for ref in external_refs:\n                    ref_type = ref.get('referenceType', '')\n                    if 'security' in ref_type.lower() or 'vulnerability' in ref_type.lower():\n                        security_analysis['security_refs'].append(ref)\n                        security_analysis['vulnerability_refs'] += 1\n        \n        # Check checksum coverage for integrity verification\n        total_items = len(spdx_doc.get('packages', [])) + len(spdx_doc.get('files', []))\n        items_with_checksums = 0\n        \n        for package in spdx_doc.get('packages', []):\n            if package.get('checksums') or package.get('packageVerificationCode'):\n                items_with_checksums += 1\n        \n        for file_info in spdx_doc.get('files', []):\n            if file_info.get('checksums'):\n                items_with_checksums += 1\n        \n        if total_items > 0:\n            security_analysis['checksum_coverage'] = (items_with_checksums / total_items) * 100\n        \n        return security_analysis\n    \n    def generate_analysis_report(self, spdx_file_path):\n        \"\"\"Generate comprehensive analysis report\"\"\"\n        print(f\"\ud83d\udcca SPDX Document Analysis Report (FREE!)\\n\")\n        print(f\"File: {spdx_file_path}\")\n        print(f\"Analysis Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        # Load license list\n        self.load_spdx_license_list()\n        \n        # Analyze document\n        analysis = self.analyze_spdx_document(spdx_file_path)\n        \n        if not analysis:\n            return\n        \n        # Document Information\n        doc_info = analysis['document_info']\n        print(\"\ud83d\udccb Document Information:\")\n        print(f\"   SPDX Version: {doc_info['spdx_version']}\")\n        print(f\"   Document Name: {doc_info['document_name']}\")\n        print(f\"   Created: {doc_info['created']}\")\n        print(f\"   Creators: {len(doc_info['creators'])}\")\n        print()\n        \n        # Package Analysis\n        pkg_analysis = analysis['packages']\n        print(f\"\ud83d\udce6 Package Analysis:\")\n        print(f\"   Total Packages: {pkg_analysis['total_packages']}\")\n        print(f\"   With Version Info: {pkg_analysis['with_version']}\")\n        print(f\"   With Download Location: {pkg_analysis['with_download_location']}\")\n        \n        if pkg_analysis['license_distribution']:\n            print(f\"   Top Licenses:\")\n            for license_id, count in pkg_analysis['license_distribution'].most_common(5):\n                print(f\"      {license_id}: {count} packages\")\n        print()\n        \n        # File Analysis\n        file_analysis = analysis['files']\n        print(f\"\ud83d\udcc4 File Analysis:\")\n        print(f\"   Total Files: {file_analysis['total_files']}\")\n        print(f\"   With Checksums: {file_analysis['with_checksums']}\")\n        print(f\"   With Copyright Info: {file_analysis['copyright_info']}\")\n        \n        if file_analysis['file_type_distribution']:\n            print(f\"   File Types:\")\n            for ext, count in file_analysis['file_type_distribution'].most_common(5):\n                print(f\"      .{ext}: {count} files\")\n        print()\n        \n        # License Analysis\n        license_analysis = analysis['licenses']\n        print(f\"\u2696\ufe0f  License Analysis:\")\n        print(f\"   Unique Licenses: {license_analysis['unique_licenses']}\")\n        print(f\"   OSI Approved: {len(license_analysis['osi_approved'])}\")\n        print(f\"   Copyleft Licenses: {len(license_analysis['copyleft'])}\")\n        print(f\"   Permissive Licenses: {len(license_analysis['permissive'])}\")\n        print()\n        \n        # Security Analysis\n        security_analysis = analysis['security']\n        print(f\"\ud83d\udd12 Security Analysis:\")\n        print(f\"   Has External References: {security_analysis['has_external_refs']}\")\n        print(f\"   Vulnerability References: {security_analysis['vulnerability_refs']}\")\n        print(f\"   Checksum Coverage: {security_analysis['checksum_coverage']:.1f}%\")\n        print()\n        \n        # Recommendations\n        print(\"\ud83d\udca1 Recommendations:\")\n        \n        if file_analysis['with_checksums'] < file_analysis['total_files']:\n            missing_checksums = file_analysis['total_files'] - file_analysis['with_checksums']\n            print(f\"   \ud83d\udd27 Add checksums to {missing_checksums} files for integrity verification\")\n        \n        if security_analysis['vulnerability_refs'] == 0:\n            print(f\"   \ud83d\udd0d Consider adding security/vulnerability references for better traceability\")\n        \n        if not license_analysis['osi_approved']:\n            print(f\"   \u2696\ufe0f  Review license compatibility and consider OSI-approved licenses\")\n        \n        print(f\"   \ud83d\udccb Keep SPDX document updated with software changes\")\n        print(f\"   \ud83d\udd04 Integrate SPDX generation into CI/CD pipeline\")\n\n# Usage\nanalyzer = SPDXAnalyzer()\nanalyzer.generate_analysis_report(\"example.spdx.json\")",
+      "spdx_generation": "# SPDX Document Generation with Python - COMPLETELY FREE!\n# Install: pip install spdx-tools\n\nfrom spdx_tools.spdx.model import (\n    Document, CreationInfo, Actor, ActorType,\n    Package, File, ChecksumAlgorithm, Checksum,\n    Relationship, RelationshipType\n)\nfrom spdx_tools.spdx.writer.json import write_document_to_file\nfrom datetime import datetime\nimport hashlib\nimport os\n\ndef create_spdx_document(project_name, project_version, files_to_scan):\n    \"\"\"Create an SPDX document for a project - FREE!\"\"\"\n    \n    # Create document creation info\n    creation_info = CreationInfo(\n        spdx_version=\"SPDX-2.3\",\n        spdx_id=\"SPDXRef-DOCUMENT\",\n        name=f\"{project_name}-{project_version}\",\n        document_namespace=f\"https://example.com/{project_name}-{project_version}\",\n        creators=[\n            Actor(ActorType.TOOL, \"spdx-tools-python\"),\n            Actor(ActorType.PERSON, \"Generated by SPDX automation\")\n        ],\n        created=datetime.now()\n    )\n    \n    # Create main package\n    main_package = Package(\n        spdx_id=\"SPDXRef-Package\",\n        name=project_name,\n        download_location=\"https://example.com/download\",\n        files_analyzed=True,\n        version=project_version,\n        supplier=Actor(ActorType.ORGANIZATION, \"Example Organization\"),\n        license_concluded=\"MIT\",  # Example license\n        license_declared=\"MIT\",\n        copyright_text=\"Copyright (C) 2025 Example Organization\"\n    )\n    \n    # Scan files and create file entries\n    file_entries = []\n    for file_path in files_to_scan:\n        if os.path.exists(file_path):\n            # Calculate file checksum\n            sha1_hash = hashlib.sha1()\n            with open(file_path, 'rb') as f:\n                for chunk in iter(lambda: f.read(4096), b\"\"):\n                    sha1_hash.update(chunk)\n            \n            file_entry = File(\n                spdx_id=f\"SPDXRef-File-{file_path.replace('/', '-').replace('.', '-')}\",\n                name=file_path,\n                checksums=[\n                    Checksum(ChecksumAlgorithm.SHA1, sha1_hash.hexdigest())\n                ],\n                license_concluded=\"MIT\",  # Example\n                copyright_text=\"Copyright (C) 2025 Example Organization\"\n            )\n            file_entries.append(file_entry)\n    \n    # Create relationships\n    relationships = [\n        Relationship(\n            spdx_element_id=\"SPDXRef-DOCUMENT\",\n            relationship_type=RelationshipType.DESCRIBES,\n            related_spdx_element_id=\"SPDXRef-Package\"\n        )\n    ]\n    \n    # Add file relationships\n    for file_entry in file_entries:\n        relationships.append(\n            Relationship(\n                spdx_element_id=\"SPDXRef-Package\",\n                relationship_type=RelationshipType.CONTAINS,\n                related_spdx_element_id=file_entry.spdx_id\n            )\n        )\n    \n    # Create complete document\n    document = Document(\n        creation_info=creation_info,\n        packages=[main_package],\n        files=file_entries,\n        relationships=relationships\n    )\n    \n    return document\n\ndef validate_spdx_document(spdx_file_path):\n    \"\"\"Validate an SPDX document using spdx-tools\"\"\"\n    from spdx_tools.spdx.parser.json import parse_from_file\n    from spdx_tools.spdx.validation.validation_messages import ValidationContext\n    from spdx_tools.spdx.validation.document_validator import validate_document\n    \n    try:\n        # Parse SPDX document\n        document = parse_from_file(spdx_file_path)\n        \n        # Validate document\n        validation_context = ValidationContext()\n        validate_document(document, validation_context)\n        \n        if validation_context.messages:\n            print(f\"\u26a0\ufe0f  Validation warnings/errors found:\")\n            for message in validation_context.messages:\n                print(f\"   {message}\")\n            return False\n        else:\n            print(\"\u2705 SPDX document is valid\")\n            return True\n            \n    except Exception as e:\n        print(f\"\u274c Validation failed: {e}\")\n        return False\n\ndef generate_project_sbom(project_path, output_file):\n    \"\"\"Generate SBOM for a project directory\"\"\"\n    project_name = os.path.basename(project_path)\n    project_version = \"1.0.0\"  # Could be extracted from package.json, etc.\n    \n    # Find relevant files to include in SBOM\n    files_to_scan = []\n    for root, dirs, files in os.walk(project_path):\n        # Skip common build/cache directories\n        dirs[:] = [d for d in dirs if d not in ['.git', 'node_modules', '__pycache__', '.venv']]\n        \n        for file in files:\n            file_path = os.path.join(root, file)\n            # Include source files, configs, etc.\n            if any(file.endswith(ext) for ext in ['.py', '.js', '.json', '.yaml', '.yml', '.md']):\n                relative_path = os.path.relpath(file_path, project_path)\n                files_to_scan.append(relative_path)\n    \n    print(f\"\ud83d\udd0d Generating SPDX SBOM for {project_name} (FREE!)\")\n    print(f\"\ud83d\udcc1 Project path: {project_path}\")\n    print(f\"\ud83d\udcc4 Files to include: {len(files_to_scan)}\")\n    \n    # Change to project directory for relative paths\n    original_cwd = os.getcwd()\n    os.chdir(project_path)\n    \n    try:\n        # Create SPDX document\n        document = create_spdx_document(project_name, project_version, files_to_scan)\n        \n        # Write to file\n        write_document_to_file(document, output_file)\n        \n        print(f\"\u2705 SPDX document generated: {output_file}\")\n        \n        # Validate the generated document\n        if validate_spdx_document(output_file):\n            print(f\"\u2705 SPDX document validation passed\")\n        \n        return output_file\n        \n    finally:\n        os.chdir(original_cwd)\n\n# Usage examples\nif __name__ == \"__main__\":\n    # Generate SBOM for current project\n    sbom_file = generate_project_sbom(\".\", \"project-sbom.spdx.json\")\n    \n    # Validate existing SPDX file\n    # validate_spdx_document(\"existing-sbom.spdx.json\")"
+    }
+  },
+  "last_updated": "2025-08-16T00:15:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "cyclonedx-sbom",
+      "swid-tags",
+      "custom-sbom-formats"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Various open source licenses (Apache 2.0, MIT, etc.)",
+    "maintainer": "Linux Foundation / SPDX Community",
+    "related_resources": [
+      "Linux Foundation",
+      "OpenChain Project",
+      "NTIA SBOM Initiative",
+      "Software Package Data Exchange Working Group"
+    ],
+    "standard_status": "ISO/IEC 5962:2021 International Standard"
+  },
+  "name": "SPDX (Software Package Data Exchange) Standards",
+  "operational_guidance": {
+    "best_practices": [
+      "Generate SPDX documents for all software releases",
+      "Validate SPDX documents using official tools",
+      "Include security vulnerability references (VEX)",
+      "Use standardized license identifiers from SPDX License List",
+      "Maintain SPDX documents throughout software lifecycle",
+      "Integrate SPDX generation into CI/CD pipelines"
+    ],
+    "common_use_cases": [
+      "Software Bill of Materials (SBOM) generation",
+      "License compliance and audit trails",
+      "Supply chain transparency and security",
+      "Component vulnerability tracking",
+      "Regulatory compliance (EU Cyber Resilience Act, etc.)",
+      "Open source governance and risk management",
+      "Software composition analysis integration"
+    ],
+    "recommended_update_frequency": "Generate SPDX documents for every software release, update tools regularly",
+    "value_proposition": "Industry-standard SBOM format with comprehensive tooling and broad ecosystem support"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required, open source tools",
+    "completeness": "Comprehensive SBOM and license compliance coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "High-quality open standard maintained by Linux Foundation",
+    "reliability": "excellent",
+    "standard_maturity": "Mature international standard (ISO/IEC 5962:2021)",
+    "update_speed": "Regular community-driven updates and improvements"
+  },
+  "quality_score": 98,
+  "subcategory": "spdx",
+  "url": "https://spdx.dev/"
+}

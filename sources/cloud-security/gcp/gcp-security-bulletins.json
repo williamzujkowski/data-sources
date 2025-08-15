@@ -1,0 +1,140 @@
+{
+  "api": {
+    "base_url": "https://cloud.google.com",
+    "rate_limit": {
+      "notes": "No explicit rate limits on RSS feeds",
+      "requests_per_second": null
+    },
+    "rss_feeds": [
+      {
+        "description": "All Google Cloud Platform security bulletins",
+        "name": "GCP Security Bulletins",
+        "update_frequency": "As needed for security issues",
+        "url": "https://cloud.google.com/feeds/gcp-security-bulletins.xml"
+      },
+      {
+        "description": "Google Workspace (formerly G Suite) security advisories",
+        "name": "Google Workspace Security Advisories",
+        "update_frequency": "As needed for security issues",
+        "url": "https://workspace.google.com/feeds/security-advisories.xml"
+      }
+    ],
+    "type": "RSS",
+    "web_scraping": {
+      "available": true,
+      "base_url": "https://cloud.google.com/support/bulletins",
+      "format": "HTML with structured content",
+      "rate_limit_guidance": "Respectful scraping recommended"
+    }
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All GCP security bulletins available via RSS feed and public web pages without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 97,
+  "category": "cloud-security",
+  "coverage": 88,
+  "data_coverage": {
+    "content_types": [
+      "Security vulnerabilities in GCP services",
+      "Third-party software vulnerabilities affecting GCP",
+      "Security configuration recommendations",
+      "Service-specific security updates",
+      "Container and Kubernetes security issues",
+      "Data protection and privacy updates",
+      "Infrastructure security advisories"
+    ],
+    "gcp_services": [
+      "Compute Engine",
+      "Google Kubernetes Engine (GKE)",
+      "App Engine",
+      "Cloud Functions",
+      "Cloud Storage",
+      "BigQuery",
+      "Cloud SQL",
+      "Cloud IAM",
+      "Cloud Security Command Center",
+      "Cloud Armor",
+      "Cloud CDN",
+      "Firebase",
+      "Google Workspace"
+    ],
+    "temporal": {
+      "historical_data": "2015-present",
+      "latency": "Real-time for critical security issues",
+      "update_frequency": "Event-driven (as security issues arise)"
+    }
+  },
+  "description": "Google Cloud Security Bulletins providing FREE access to security advisories, vulnerability notifications, and security updates for Google Cloud Platform services and products.",
+  "documentation": "https://cloud.google.com/support/bulletins",
+  "format": "rss",
+  "id": "gcp-security-bulletins",
+  "integration_examples": {
+    "curl": {
+      "extract_titles": "# Extract bulletin titles\ncurl -s 'https://cloud.google.com/feeds/gcp-security-bulletins.xml' | grep '<title>' | sed 's/<[^>]*>//g' | tail -n +2",
+      "get_gcp_bulletins": "# Get GCP security bulletins - COMPLETELY FREE!\ncurl -s 'https://cloud.google.com/feeds/gcp-security-bulletins.xml' | head -50",
+      "get_workspace_bulletins": "# Get Google Workspace security advisories - FREE!\ncurl -s 'https://workspace.google.com/feeds/security-advisories.xml' | head -50",
+      "parse_with_xmllint": "# Parse GCP bulletins with xmllint\ncurl -s 'https://cloud.google.com/feeds/gcp-security-bulletins.xml' | xmllint --format - | grep -A 3 '<item>'"
+    },
+    "javascript": {
+      "fetch_bulletins": "// Fetch GCP Security Bulletins - COMPLETELY FREE!\nconst Parser = require('rss-parser');\nconst parser = new Parser();\n\nconst fetchGCPBulletins = async () => {\n  const feeds = {\n    'GCP': 'https://cloud.google.com/feeds/gcp-security-bulletins.xml',\n    'Workspace': 'https://workspace.google.com/feeds/security-advisories.xml'\n  };\n  \n  for (const [feedName, feedUrl] of Object.entries(feeds)) {\n    console.log(`\\n\ud83d\udd10 ${feedName} Security Bulletins (FREE!)\\n`);\n    \n    try {\n      const feed = await parser.parseURL(feedUrl);\n      \n      feed.items.slice(0, 5).forEach(item => {\n        console.log(`\ud83d\udccb ${item.title}`);\n        console.log(`   Date: ${item.pubDate}`);\n        console.log(`   Link: ${item.link}`);\n        \n        // Extract GCP services mentioned\n        const content = `${item.title} ${item.contentSnippet || ''}`.toLowerCase();\n        const gcpServices = [\n          'compute engine', 'gke', 'kubernetes', 'app engine',\n          'cloud functions', 'cloud storage', 'bigquery'\n        ];\n        \n        const mentionedServices = gcpServices.filter(\n          service => content.includes(service)\n        );\n        \n        if (mentionedServices.length > 0) {\n          console.log(`   \ud83c\udfaf Services: ${mentionedServices.join(', ')}`);\n        }\n        \n        // Check for severity keywords\n        const severityKeywords = ['critical', 'high', 'important', 'urgent'];\n        const foundSeverity = severityKeywords.filter(\n          keyword => content.includes(keyword)\n        );\n        \n        if (foundSeverity.length > 0) {\n          console.log(`   \u26a0\ufe0f  Severity: ${foundSeverity.join(', ')}`);\n        }\n        \n        if (item.contentSnippet) {\n          console.log(`   \ud83d\udcc4 ${item.contentSnippet.substring(0, 120)}...`);\n        }\n        \n        console.log();\n      });\n      \n    } catch (error) {\n      console.error(`Error fetching ${feedName} bulletins:`, error.message);\n    }\n  }\n};\n\nfetchGCPBulletins();",
+      "gcp_security_dashboard": "// GCP Security Dashboard - FREE!\nconst Parser = require('rss-parser');\nconst fs = require('fs');\nconst crypto = require('crypto');\n\nclass GCPSecurityDashboard {\n  constructor() {\n    this.parser = new Parser();\n    this.feeds = {\n      'gcp': 'https://cloud.google.com/feeds/gcp-security-bulletins.xml',\n      'workspace': 'https://workspace.google.com/feeds/security-advisories.xml'\n    };\n    this.stateFile = 'gcp_security_state.json';\n    this.seenBulletins = this.loadState();\n  }\n  \n  loadState() {\n    try {\n      return new Set(JSON.parse(fs.readFileSync(this.stateFile, 'utf8')));\n    } catch {\n      return new Set();\n    }\n  }\n  \n  saveState() {\n    fs.writeFileSync(\n      this.stateFile,\n      JSON.stringify([...this.seenBulletins])\n    );\n  }\n  \n  async analyzeBulletins() {\n    const allBulletins = [];\n    \n    for (const [feedName, feedUrl] of Object.entries(this.feeds)) {\n      try {\n        const feed = await this.parser.parseURL(feedUrl);\n        \n        for (const item of feed.items) {\n          const hash = crypto\n            .createHash('md5')\n            .update(`${feedName}:${item.link}`)\n            .digest('hex');\n          \n          const bulletin = {\n            id: hash,\n            feed: feedName,\n            title: item.title,\n            link: item.link,\n            date: item.pubDate,\n            content: item.contentSnippet || '',\n            isNew: !this.seenBulletins.has(hash),\n            severity: this.assessSeverity(item.title + ' ' + (item.contentSnippet || '')),\n            services: this.extractServices(item.title + ' ' + (item.contentSnippet || ''))\n          };\n          \n          allBulletins.push(bulletin);\n          this.seenBulletins.add(hash);\n        }\n      } catch (error) {\n        console.error(`Error processing ${feedName}:`, error.message);\n      }\n    }\n    \n    this.saveState();\n    return allBulletins;\n  }\n  \n  assessSeverity(content) {\n    const severityMap = {\n      'critical': 4,\n      'high': 3,\n      'important': 3,\n      'medium': 2,\n      'low': 1\n    };\n    \n    const contentLower = content.toLowerCase();\n    let maxSeverity = 0;\n    let severityLabel = 'Unknown';\n    \n    for (const [keyword, level] of Object.entries(severityMap)) {\n      if (contentLower.includes(keyword) && level > maxSeverity) {\n        maxSeverity = level;\n        severityLabel = keyword.charAt(0).toUpperCase() + keyword.slice(1);\n      }\n    }\n    \n    return { level: maxSeverity, label: severityLabel };\n  }\n  \n  extractServices(content) {\n    const servicePatterns = {\n      'Compute Engine': /compute engine/i,\n      'GKE': /gke|kubernetes engine/i,\n      'App Engine': /app engine/i,\n      'Cloud Functions': /cloud functions/i,\n      'Cloud Storage': /cloud storage/i,\n      'BigQuery': /bigquery/i,\n      'Cloud SQL': /cloud sql/i,\n      'Firebase': /firebase/i,\n      'Google Workspace': /workspace|g suite/i\n    };\n    \n    const foundServices = [];\n    \n    for (const [service, pattern] of Object.entries(servicePatterns)) {\n      if (pattern.test(content)) {\n        foundServices.push(service);\n      }\n    }\n    \n    return foundServices;\n  }\n  \n  async generateDashboard() {\n    console.log('\ud83d\udd10 GCP Security Dashboard (FREE!)\\n');\n    console.log('=' .repeat(50));\n    \n    const bulletins = await this.analyzeBulletins();\n    const newBulletins = bulletins.filter(b => b.isNew);\n    \n    console.log(`\\n\ud83d\udcca Summary:`);\n    console.log(`Total bulletins tracked: ${bulletins.length}`);\n    console.log(`New bulletins: ${newBulletins.length}\\n`);\n    \n    if (newBulletins.length > 0) {\n      console.log('\ud83c\udd95 New Security Bulletins:\\n');\n      \n      // Sort by severity and date\n      newBulletins\n        .sort((a, b) => b.severity.level - a.severity.level)\n        .slice(0, 10)\n        .forEach(bulletin => {\n          const severityIcon = {\n            4: '\ud83d\udd34',\n            3: '\ud83d\udfe0', \n            2: '\ud83d\udfe1',\n            1: '\ud83d\udfe2'\n          }[bulletin.severity.level] || '\u26aa';\n          \n          console.log(`${severityIcon} [${bulletin.feed.toUpperCase()}] ${bulletin.title}`);\n          console.log(`   \ud83d\udcc5 ${bulletin.date}`);\n          console.log(`   \u2696\ufe0f  ${bulletin.severity.label}`);\n          \n          if (bulletin.services.length > 0) {\n            console.log(`   \ud83c\udfaf ${bulletin.services.join(', ')}`);\n          }\n          \n          console.log(`   \ud83d\udd17 ${bulletin.link}`);\n          console.log();\n        });\n    }\n    \n    // Service impact analysis\n    const serviceImpacts = {};\n    bulletins.forEach(bulletin => {\n      bulletin.services.forEach(service => {\n        if (!serviceImpacts[service]) {\n          serviceImpacts[service] = 0;\n        }\n        serviceImpacts[service]++;\n      });\n    });\n    \n    if (Object.keys(serviceImpacts).length > 0) {\n      console.log('\ud83d\udcc8 Service Impact Summary:');\n      Object.entries(serviceImpacts)\n        .sort((a, b) => b[1] - a[1])\n        .slice(0, 5)\n        .forEach(([service, count]) => {\n          console.log(`   ${service}: ${count} bulletins`);\n        });\n    }\n  }\n}\n\n// Usage\nconst dashboard = new GCPSecurityDashboard();\ndashboard.generateDashboard();"
+    },
+    "python": {
+      "gcp_security_monitor": "import feedparser\nimport json\nimport hashlib\nimport time\nfrom datetime import datetime\n\nclass GCPSecurityMonitor:\n    \"\"\"Monitor GCP Security Bulletins - FREE!\"\"\"\n    \n    def __init__(self, gcp_services_filter=None):\n        self.feeds = {\n            'gcp': 'https://cloud.google.com/feeds/gcp-security-bulletins.xml',\n            'workspace': 'https://workspace.google.com/feeds/security-advisories.xml'\n        }\n        self.services_filter = gcp_services_filter or []\n        self.seen_bulletins = set()\n        self.state_file = 'gcp_security_monitor.json'\n        self.load_state()\n    \n    def load_state(self):\n        try:\n            with open(self.state_file, 'r') as f:\n                data = json.load(f)\n                self.seen_bulletins = set(data['seen'])\n        except FileNotFoundError:\n            pass\n    \n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump({'seen': list(self.seen_bulletins)}, f)\n    \n    def check_new_bulletins(self):\n        \"\"\"Check for new GCP security bulletins\"\"\"\n        new_bulletins = []\n        \n        for feed_name, feed_url in self.feeds.items():\n            try:\n                feed = feedparser.parse(feed_url)\n                \n                for entry in feed.entries:\n                    # Create unique ID\n                    bulletin_id = hashlib.md5(f\"{feed_name}:{entry.link}\".encode()).hexdigest()\n                    \n                    if bulletin_id in self.seen_bulletins:\n                        continue\n                    \n                    # Filter by GCP services if specified\n                    if self.services_filter:\n                        content = f\"{entry.title} {getattr(entry, 'summary', '')}\".lower()\n                        if not any(service.lower() in content for service in self.services_filter):\n                            self.seen_bulletins.add(bulletin_id)\n                            continue\n                    \n                    # Analyze security severity\n                    content = f\"{entry.title} {getattr(entry, 'summary', '')}\".lower()\n                    severity_score = self._assess_severity(content)\n                    \n                    new_bulletins.append({\n                        'feed': feed_name,\n                        'title': entry.title,\n                        'link': entry.link,\n                        'published': entry.published,\n                        'summary': getattr(entry, 'summary', '')[:300],\n                        'severity_score': severity_score,\n                        'affected_services': self._extract_services(content)\n                    })\n                    \n                    self.seen_bulletins.add(bulletin_id)\n            \n            except Exception as e:\n                print(f\"Error processing {feed_name}: {e}\")\n        \n        if new_bulletins:\n            self.save_state()\n        \n        return new_bulletins\n    \n    def _assess_severity(self, content):\n        \"\"\"Assess bulletin severity based on keywords\"\"\"\n        severity_weights = {\n            'critical': 10, 'urgent': 9, 'high': 8, 'important': 7,\n            'medium': 5, 'moderate': 4, 'low': 2, 'minor': 1\n        }\n        \n        max_severity = 0\n        for keyword, weight in severity_weights.items():\n            if keyword in content:\n                max_severity = max(max_severity, weight)\n        \n        return max_severity\n    \n    def _extract_services(self, content):\n        \"\"\"Extract mentioned GCP services\"\"\"\n        service_mapping = {\n            'compute engine': 'Compute Engine',\n            'gke': 'Google Kubernetes Engine',\n            'kubernetes': 'Google Kubernetes Engine', \n            'app engine': 'App Engine',\n            'cloud functions': 'Cloud Functions',\n            'cloud storage': 'Cloud Storage',\n            'bigquery': 'BigQuery',\n            'cloud sql': 'Cloud SQL',\n            'firebase': 'Firebase',\n            'workspace': 'Google Workspace'\n        }\n        \n        found_services = []\n        for keyword, service_name in service_mapping.items():\n            if keyword in content:\n                found_services.append(service_name)\n        \n        return list(set(found_services))  # Remove duplicates\n    \n    def generate_security_report(self):\n        \"\"\"Generate GCP security report\"\"\"\n        new_bulletins = self.check_new_bulletins()\n        \n        if not new_bulletins:\n            print(\"No new GCP security bulletins found.\")\n            return\n        \n        print(f\"\ud83d\udd10 GCP Security Report - {datetime.now().strftime('%Y-%m-%d')} (FREE!)\\n\")\n        \n        # Sort by severity score\n        new_bulletins.sort(key=lambda x: x['severity_score'], reverse=True)\n        \n        for bulletin in new_bulletins:\n            severity_label = \"\ud83d\udd34 HIGH\" if bulletin['severity_score'] >= 7 else \\\n                           \"\ud83d\udfe1 MEDIUM\" if bulletin['severity_score'] >= 4 else \"\ud83d\udfe2 LOW\"\n            \n            print(f\"{severity_label} [{bulletin['feed'].upper()}] {bulletin['title']}\")\n            print(f\"   \ud83d\udcc5 {bulletin['published']}\")\n            print(f\"   \ud83d\udd17 {bulletin['link']}\")\n            \n            if bulletin['affected_services']:\n                print(f\"   \ud83c\udfaf Services: {', '.join(bulletin['affected_services'])}\")\n            \n            if bulletin['summary']:\n                clean_summary = re.sub('<[^<]+?>', '', bulletin['summary'])\n                print(f\"   \ud83d\udcc4 {clean_summary[:150]}...\")\n            \n            print()\n\n# Usage examples\n# Monitor all GCP services\nmonitor = GCPSecurityMonitor()\nmonitor.generate_security_report()\n\n# Monitor specific services only\n# monitor = GCPSecurityMonitor(['GKE', 'Compute Engine', 'Cloud Storage'])\n# monitor.generate_security_report()",
+      "parse_bulletins": "import feedparser\nimport requests\nfrom datetime import datetime\nimport re\n\n# Parse GCP Security Bulletins - COMPLETELY FREE!\nfeeds = {\n    'gcp': 'https://cloud.google.com/feeds/gcp-security-bulletins.xml',\n    'workspace': 'https://workspace.google.com/feeds/security-advisories.xml'\n}\n\nfor feed_name, feed_url in feeds.items():\n    print(f\"\\n=== {feed_name.upper()} Security Updates (FREE!) ===\")\n    \n    try:\n        feed = feedparser.parse(feed_url)\n        \n        for entry in feed.entries[:5]:\n            print(f\"\\nTitle: {entry.title}\")\n            print(f\"Date: {entry.published}\")\n            print(f\"Link: {entry.link}\")\n            \n            # Extract summary\n            if hasattr(entry, 'summary'):\n                summary = re.sub('<[^<]+?>', '', entry.summary)\n                print(f\"Summary: {summary[:200]}...\")\n            \n            # Extract affected GCP services\n            content = f\"{entry.title} {getattr(entry, 'summary', '')}\".lower()\n            gcp_services = [\n                'compute engine', 'gke', 'kubernetes', 'app engine',\n                'cloud functions', 'cloud storage', 'bigquery', 'cloud sql'\n            ]\n            \n            affected_services = [service for service in gcp_services if service in content]\n            if affected_services:\n                print(f\"Affected Services: {', '.join(affected_services)}\")\n            \n            # Check for severity indicators\n            severity_keywords = ['critical', 'high', 'important', 'urgent']\n            severity_found = [keyword for keyword in severity_keywords if keyword in content]\n            if severity_found:\n                print(f\"Severity Indicators: {', '.join(severity_found)}\")\n    \n    except Exception as e:\n        print(f\"Error parsing {feed_name}: {e}\")"
+    }
+  },
+  "last_updated": "2025-08-15T22:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "aws-security-bulletins",
+      "msrc-security-updates",
+      "kubernetes-cve-feed"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Public information",
+    "maintainer": "Google Cloud Security Team",
+    "related_services": [
+      "Google Cloud Security Command Center",
+      "Google Cloud Asset Inventory",
+      "Google Cloud IAM",
+      "Google Cloud Armor"
+    ]
+  },
+  "name": "Google Cloud Security Bulletins",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to RSS feed for real-time updates",
+      "Parse bulletin content for affected GCP services",
+      "Cross-reference with your GCP project resources",
+      "Implement automated alerting for critical bulletins",
+      "Archive bulletins for compliance documentation",
+      "Monitor both GCP and Google Workspace feeds"
+    ],
+    "common_use_cases": [
+      "GCP security posture monitoring",
+      "Kubernetes and container security tracking",
+      "Google Workspace security awareness",
+      "Compliance reporting for cloud infrastructure",
+      "Incident response planning for GCP services",
+      "Risk assessment for Google Cloud adoption",
+      "Security configuration validation"
+    ],
+    "recommended_update_frequency": "Monitor RSS feeds daily for critical security updates",
+    "value_proposition": "Official Google Cloud security communications completely free with comprehensive service coverage"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "api_stability": "Stable RSS feeds",
+    "completeness": "Comprehensive GCP service coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Official Google Cloud security communications",
+    "reliability": "excellent",
+    "update_speed": "Real-time for critical issues"
+  },
+  "quality_score": 93,
+  "subcategory": "gcp",
+  "url": "https://cloud.google.com/support/bulletins"
+}

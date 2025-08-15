@@ -1,0 +1,206 @@
+{
+  "api": {
+    "alternative_sources": [
+      {
+        "access": "free",
+        "name": "Falco Rules Registry",
+        "type": "GitHub Repository",
+        "url": "https://github.com/falcosecurity/rules/tree/main/rules"
+      },
+      {
+        "access": "free",
+        "name": "Falco Community Rules",
+        "type": "Community Contributions",
+        "url": "https://github.com/falcosecurity/contrib"
+      }
+    ],
+    "base_url": "https://api.github.com",
+    "endpoints": [
+      {
+        "description": "Get Falco rules directory contents",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Specific path to rules directory",
+            "example": "rules",
+            "name": "path",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/repos/falcosecurity/rules/contents",
+        "rate_limit": "60 req/hour without auth, 5000 with token"
+      },
+      {
+        "description": "Get specific Falco rule file",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Falco rule filename",
+            "example": "falco_rules.yaml",
+            "name": "filename",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/repos/falcosecurity/rules/contents/rules/{filename}"
+      },
+      {
+        "description": "Get Falco rules releases",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Results per page",
+            "example": "20",
+            "name": "per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "path": "/repos/falcosecurity/rules/releases"
+      }
+    ],
+    "rate_limit": {
+      "notes": "GitHub API rate limits apply",
+      "requests_per_hour_no_auth": 60,
+      "requests_per_hour_with_token": 5000
+    },
+    "raw_file_access": [
+      {
+        "description": "Core Falco detection rules",
+        "name": "Default Falco Rules",
+        "url": "https://raw.githubusercontent.com/falcosecurity/rules/main/rules/falco_rules.yaml"
+      },
+      {
+        "description": "Application-specific security rules",
+        "name": "Application Rules",
+        "url": "https://raw.githubusercontent.com/falcosecurity/rules/main/rules/application_rules.yaml"
+      },
+      {
+        "description": "Kubernetes audit log detection rules",
+        "name": "Kubernetes Audit Rules",
+        "url": "https://raw.githubusercontent.com/falcosecurity/rules/main/rules/k8s_audit_rules.yaml"
+      }
+    ],
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All Falco rules accessible via GitHub API, raw file downloads, and GitHub releases without authentication. Optional GitHub token increases rate limits.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 92,
+  "category": "container-security",
+  "coverage": 96,
+  "data_coverage": {
+    "content_types": [
+      "Runtime security detection rules",
+      "Container behavior monitoring rules",
+      "Kubernetes security rules",
+      "System call monitoring rules",
+      "Network activity detection rules",
+      "File system monitoring rules",
+      "Process execution rules",
+      "Privilege escalation detection"
+    ],
+    "rule_categories": [
+      "Container Security",
+      "Kubernetes Security",
+      "System Call Monitoring",
+      "Network Security",
+      "File System Security",
+      "Process Security",
+      "Privilege Escalation",
+      "Compliance Violations",
+      "Malware Detection",
+      "Data Exfiltration"
+    ],
+    "temporal": {
+      "historical_data": "2017-present",
+      "latency": "Real-time rule updates via GitHub",
+      "update_frequency": "Regular community contributions and releases"
+    },
+    "threat_detection": [
+      "Suspicious container behavior",
+      "Privilege escalation attempts",
+      "Unauthorized file access",
+      "Network reconnaissance",
+      "Crypto mining detection",
+      "Shell access in containers",
+      "Sensitive file modifications",
+      "Kubernetes API abuse"
+    ]
+  },
+  "description": "Falco runtime security rules for container and Kubernetes environments provided FREE through GitHub. Comprehensive detection rules for suspicious behavior, security threats, and compliance violations.",
+  "documentation": "https://falco.org/docs/rules/",
+  "format": "json",
+  "id": "falco-rules",
+  "integration_examples": {
+    "curl": {
+      "download_core_rules": "# Download core Falco rules - FREE!\ncurl -s 'https://raw.githubusercontent.com/falcosecurity/rules/main/rules/falco_rules.yaml' | head -50",
+      "get_latest_release": "# Get latest Falco rules release\ncurl -s 'https://api.github.com/repos/falcosecurity/rules/releases/latest' | jq '{tag_name, name, published_at, assets: .assets | length}'",
+      "get_recent_commits": "# Get recent commits to rules repository\ncurl -s 'https://api.github.com/repos/falcosecurity/rules/commits?per_page=5' | jq '.[] | {sha: .sha[0:7], message: .commit.message, author: .commit.author.name, date: .commit.author.date}'",
+      "get_rule_files": "# Get Falco rule files list - COMPLETELY FREE!\ncurl -s 'https://api.github.com/repos/falcosecurity/rules/contents/rules' | jq '.[] | select(.name | endswith(\".yaml\")) | {name, size, download_url}'"
+    },
+    "javascript": {
+      "falco_threat_analyzer": "// Analyze Falco rules for threat detection - FREE!\nconst axios = require('axios');\nconst yaml = require('js-yaml');\nconst fs = require('fs');\n\nclass FalcoThreatAnalyzer {\n  constructor() {\n    this.baseUrl = 'https://api.github.com/repos/falcosecurity/rules';\n    this.threatCategories = {\n      'Container Security': ['container', 'docker', 'runtime'],\n      'Privilege Escalation': ['privilege', 'escalation', 'sudo', 'setuid'],\n      'Network Security': ['network', 'connection', 'port', 'traffic'],\n      'File System': ['file', 'directory', 'write', 'delete', 'modify'],\n      'Process Security': ['process', 'execution', 'spawn', 'exec'],\n      'Crypto Mining': ['crypto', 'mining', 'miner', 'bitcoin'],\n      'Shell Access': ['shell', 'bash', 'sh', 'terminal'],\n      'Data Exfiltration': ['exfiltration', 'copy', 'transfer', 'sensitive']\n    };\n  }\n  \n  async getRuleFiles() {\n    const response = await axios.get(`${this.baseUrl}/contents/rules`);\n    return response.data.filter(file => file.name.endsWith('.yaml'));\n  }\n  \n  async analyzeRuleFile(file) {\n    try {\n      const ruleResponse = await axios.get(file.download_url);\n      const rulesData = yaml.load(ruleResponse.data);\n      \n      const analysis = {\n        filename: file.name,\n        totalRules: 0,\n        threatCategories: {},\n        severityDistribution: {},\n        sampleRules: []\n      };\n      \n      if (Array.isArray(rulesData)) {\n        const rules = rulesData.filter(item => item.rule);\n        analysis.totalRules = rules.length;\n        \n        rules.forEach(rule => {\n          // Analyze threat categories\n          const ruleText = `${rule.rule} ${rule.desc || ''} ${rule.condition || ''}`.toLowerCase();\n          \n          for (const [category, keywords] of Object.entries(this.threatCategories)) {\n            if (keywords.some(keyword => ruleText.includes(keyword))) {\n              analysis.threatCategories[category] = (analysis.threatCategories[category] || 0) + 1;\n            }\n          }\n          \n          // Analyze severity distribution\n          const priority = rule.priority || 'unknown';\n          analysis.severityDistribution[priority] = (analysis.severityDistribution[priority] || 0) + 1;\n          \n          // Collect sample high-priority rules\n          if (['CRITICAL', 'HIGH', 'WARNING'].includes(priority.toUpperCase()) && \n              analysis.sampleRules.length < 5) {\n            analysis.sampleRules.push({\n              name: rule.rule,\n              description: rule.desc || 'No description',\n              priority: priority,\n              condition: rule.condition ? rule.condition.substring(0, 100) + '...' : ''\n            });\n          }\n        });\n      }\n      \n      return analysis;\n    } catch (error) {\n      console.error(`Error analyzing ${file.name}:`, error.message);\n      return null;\n    }\n  }\n  \n  async generateThreatReport() {\n    console.log('\u26a1 Falco Threat Detection Analysis (FREE!)\\n');\n    console.log('=' .repeat(50));\n    \n    const ruleFiles = await this.getRuleFiles();\n    const allAnalyses = [];\n    \n    for (const file of ruleFiles) {\n      console.log(`Analyzing ${file.name}...`);\n      const analysis = await this.analyzeRuleFile(file);\n      if (analysis) {\n        allAnalyses.push(analysis);\n      }\n    }\n    \n    // Aggregate results\n    const aggregated = {\n      totalFiles: allAnalyses.length,\n      totalRules: 0,\n      threatCategories: {},\n      severityDistribution: {},\n      topThreatFiles: []\n    };\n    \n    allAnalyses.forEach(analysis => {\n      aggregated.totalRules += analysis.totalRules;\n      \n      // Aggregate threat categories\n      for (const [category, count] of Object.entries(analysis.threatCategories)) {\n        aggregated.threatCategories[category] = (aggregated.threatCategories[category] || 0) + count;\n      }\n      \n      // Aggregate severity distribution\n      for (const [priority, count] of Object.entries(analysis.severityDistribution)) {\n        aggregated.severityDistribution[priority] = (aggregated.severityDistribution[priority] || 0) + count;\n      }\n      \n      // Track files with most threat coverage\n      const threatScore = Object.keys(analysis.threatCategories).length;\n      if (threatScore > 0) {\n        aggregated.topThreatFiles.push({\n          filename: analysis.filename,\n          threatScore,\n          totalRules: analysis.totalRules\n        });\n      }\n    });\n    \n    // Generate report\n    console.log(`\\n\ud83d\udcca Falco Security Analysis Summary:\\n`);\n    console.log(`Total Rule Files: ${aggregated.totalFiles}`);\n    console.log(`Total Security Rules: ${aggregated.totalRules}\\n`);\n    \n    // Threat categories\n    console.log('\ud83c\udfaf Threat Coverage:');\n    const sortedThreats = Object.entries(aggregated.threatCategories)\n      .sort((a, b) => b[1] - a[1]);\n    \n    sortedThreats.forEach(([category, count]) => {\n      const percentage = ((count / aggregated.totalRules) * 100).toFixed(1);\n      console.log(`   ${category}: ${count} rules (${percentage}%)`);\n    });\n    \n    // Severity distribution\n    console.log('\\n\ud83d\udcc8 Severity Distribution:');\n    const sortedSeverity = Object.entries(aggregated.severityDistribution)\n      .sort((a, b) => b[1] - a[1]);\n    \n    sortedSeverity.forEach(([priority, count]) => {\n      const icon = {\n        'CRITICAL': '\ud83d\udd34',\n        'HIGH': '\ud83d\udfe0',\n        'WARNING': '\ud83d\udfe1',\n        'NOTICE': '\ud83d\udfe2',\n        'INFO': '\ud83d\udd35'\n      }[priority.toUpperCase()] || '\u26aa';\n      \n      console.log(`   ${icon} ${priority}: ${count} rules`);\n    });\n    \n    // Top threat detection files\n    console.log('\\n\ud83d\udccb Most Comprehensive Rule Files:');\n    aggregated.topThreatFiles\n      .sort((a, b) => b.threatScore - a.threatScore)\n      .slice(0, 5)\n      .forEach(file => {\n        console.log(`   \ud83d\udcc4 ${file.filename}`);\n        console.log(`      \ud83c\udfaf ${file.threatScore} threat categories, ${file.totalRules} rules`);\n      });\n    \n    // Save detailed analysis\n    fs.writeFileSync('falco_threat_analysis.json', JSON.stringify({\n      analysis_date: new Date().toISOString(),\n      summary: aggregated,\n      detailed_analyses: allAnalyses\n    }, null, 2));\n    \n    console.log('\\n\u2705 Detailed analysis saved to falco_threat_analysis.json');\n  }\n}\n\n// Usage\nconst analyzer = new FalcoThreatAnalyzer();\nanalyzer.generateThreatReport();",
+      "fetch_falco_rules": "// Fetch Falco Security Rules - COMPLETELY FREE!\nconst axios = require('axios');\nconst yaml = require('js-yaml');\n\nconst fetchFalcoRules = async () => {\n  const baseUrl = 'https://api.github.com/repos/falcosecurity/rules';\n  \n  // Optional: Add GitHub token for higher rate limits\n  const headers = {\n    // 'Authorization': 'token YOUR_GITHUB_TOKEN'\n  };\n  \n  try {\n    console.log('\u26a1 Falco Security Rules (FREE!)\\n');\n    \n    // Get rules directory contents\n    const filesResponse = await axios.get(\n      `${baseUrl}/contents/rules`,\n      { headers }\n    );\n    \n    const ruleFiles = filesResponse.data.filter(file => file.name.endsWith('.yaml'));\n    console.log(`Found ${ruleFiles.length} rule files:\\n`);\n    \n    for (const file of ruleFiles.slice(0, 3)) { // Process first 3 files\n      console.log(`\ud83d\udccb ${file.name}`);\n      console.log(`   Size: ${file.size} bytes`);\n      \n      try {\n        // Download and parse rule file\n        const ruleResponse = await axios.get(file.download_url);\n        const rulesData = yaml.load(ruleResponse.data);\n        \n        if (Array.isArray(rulesData)) {\n          const rules = rulesData.filter(item => item.rule);\n          const macros = rulesData.filter(item => item.macro);\n          const lists = rulesData.filter(item => item.list);\n          \n          console.log(`   Rules: ${rules.length}, Macros: ${macros.length}, Lists: ${lists.length}`);\n          \n          // Show sample rules with threat categories\n          const sampleRules = rules.slice(0, 3);\n          sampleRules.forEach(rule => {\n            const priority = rule.priority || 'unknown';\n            console.log(`     - [${priority.toUpperCase()}] ${rule.rule}`);\n            \n            if (rule.desc) {\n              const desc = rule.desc.substring(0, 80);\n              console.log(`       ${desc}${desc.length >= 80 ? '...' : ''}`);\n            }\n          });\n        }\n      } catch (parseError) {\n        console.log(`   (Could not parse YAML)`);\n      }\n      \n      console.log();\n    }\n    \n    // Get latest releases\n    const releasesResponse = await axios.get(\n      `${baseUrl}/releases`,\n      { headers, params: { per_page: 3 } }\n    );\n    \n    const releases = releasesResponse.data;\n    if (releases.length > 0) {\n      console.log('\ud83d\udce6 Latest Releases:\\n');\n      releases.forEach(release => {\n        console.log(`   \ud83c\udff7\ufe0f  ${release.tag_name} - ${release.name}`);\n        console.log(`      \ud83d\udcc5 ${release.published_at.split('T')[0]}`);\n        console.log(`      \ud83d\udcbe ${release.assets.length} assets`);\n        console.log();\n      });\n    }\n    \n    // Check rate limit\n    console.log(`Rate limit remaining: ${filesResponse.headers['x-ratelimit-remaining'] || 'Unknown'}`);\n    \n  } catch (error) {\n    console.error('Error fetching Falco rules:', error.response?.data || error.message);\n  }\n};\n\nfetchFalcoRules();"
+    },
+    "python": {
+      "falco_rules_monitor": "import requests\nimport yaml\nimport json\nimport hashlib\nfrom datetime import datetime\n\nclass FalcoRulesMonitor:\n    \"\"\"Monitor Falco security rules - FREE!\"\"\"\n    \n    def __init__(self, github_token=None):\n        self.base_url = 'https://api.github.com/repos/falcosecurity/rules'\n        self.headers = {}\n        if github_token:\n            self.headers['Authorization'] = f'token {github_token}'\n        \n        self.seen_commits = set()\n        self.state_file = 'falco_rules_monitor.json'\n        self.load_state()\n    \n    def load_state(self):\n        try:\n            with open(self.state_file, 'r') as f:\n                data = json.load(f)\n                self.seen_commits = set(data['seen'])\n        except FileNotFoundError:\n            pass\n    \n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump({'seen': list(self.seen_commits)}, f)\n    \n    def get_latest_releases(self):\n        \"\"\"Get latest Falco rules releases\"\"\"\n        response = requests.get(f'{self.base_url}/releases', headers=self.headers)\n        \n        if response.status_code == 200:\n            return response.json()[:5]  # Latest 5 releases\n        return []\n    \n    def get_rule_files(self):\n        \"\"\"Get all rule files from the repository\"\"\"\n        response = requests.get(f'{self.base_url}/contents/rules', headers=self.headers)\n        \n        if response.status_code == 200:\n            files = response.json()\n            return [f for f in files if f['name'].endswith('.yaml')]\n        return []\n    \n    def analyze_rule_file(self, file_info):\n        \"\"\"Analyze a specific Falco rule file\"\"\"\n        try:\n            rule_response = requests.get(file_info['download_url'])\n            if rule_response.status_code == 200:\n                rules_data = yaml.safe_load(rule_response.text)\n                \n                analysis = {\n                    'filename': file_info['name'],\n                    'size': file_info['size'],\n                    'rules': [],\n                    'macros': [],\n                    'lists': [],\n                    'threats_detected': []\n                }\n                \n                if isinstance(rules_data, list):\n                    for item in rules_data:\n                        if 'rule' in item:\n                            rule_info = {\n                                'name': item['rule'],\n                                'desc': item.get('desc', ''),\n                                'condition': item.get('condition', ''),\n                                'priority': item.get('priority', 'unknown')\n                            }\n                            analysis['rules'].append(rule_info)\n                            \n                            # Extract threat categories from description\n                            desc_lower = rule_info['desc'].lower()\n                            threats = [\n                                'privilege escalation', 'container escape', 'crypto mining',\n                                'network reconnaissance', 'data exfiltration', 'malware',\n                                'shell access', 'suspicious behavior'\n                            ]\n                            \n                            for threat in threats:\n                                if threat in desc_lower:\n                                    analysis['threats_detected'].append(threat)\n                        \n                        elif 'macro' in item:\n                            analysis['macros'].append({\n                                'name': item['macro'],\n                                'condition': item.get('condition', '')\n                            })\n                        \n                        elif 'list' in item:\n                            analysis['lists'].append({\n                                'name': item['list'],\n                                'items': item.get('items', [])\n                            })\n                \n                return analysis\n        \n        except Exception as e:\n            print(f\"Error analyzing {file_info['name']}: {e}\")\n        \n        return None\n    \n    def check_for_updates(self):\n        \"\"\"Check for new Falco rules updates\"\"\"\n        # Get latest commits\n        commits_response = requests.get(f'{self.base_url}/commits', \n                                      headers=self.headers,\n                                      params={'per_page': 10})\n        \n        new_commits = []\n        if commits_response.status_code == 200:\n            commits = commits_response.json()\n            \n            for commit in commits:\n                commit_sha = commit['sha']\n                if commit_sha not in self.seen_commits:\n                    new_commits.append({\n                        'sha': commit_sha,\n                        'message': commit['commit']['message'],\n                        'author': commit['commit']['author']['name'],\n                        'date': commit['commit']['author']['date'],\n                        'url': commit['html_url']\n                    })\n                    self.seen_commits.add(commit_sha)\n        \n        if new_commits:\n            self.save_state()\n        \n        return new_commits\n    \n    def generate_security_report(self):\n        \"\"\"Generate Falco security rules report\"\"\"\n        print(f\"\u26a1 Falco Security Rules Report - {datetime.now().strftime('%Y-%m-%d')} (FREE!)\\n\")\n        \n        # Check for updates\n        updates = self.check_for_updates()\n        if updates:\n            print(f\"\ud83c\udd95 New Updates ({len(updates)} commits):\\n\")\n            for update in updates[:3]:  # Show latest 3\n                print(f\"   \ud83d\udcdd {update['message'][:60]}...\")\n                print(f\"      \ud83d\udc64 {update['author']} - {update['date'][:10]}\")\n                print(f\"      \ud83d\udd17 {update['url']}\")\n                print()\n        \n        # Get latest releases\n        releases = self.get_latest_releases()\n        if releases:\n            print(f\"\ud83d\udce6 Latest Releases:\\n\")\n            for release in releases[:3]:\n                print(f\"   \ud83c\udff7\ufe0f  {release['tag_name']} - {release['name']}\")\n                print(f\"      \ud83d\udcc5 {release['published_at'][:10]}\")\n                print(f\"      \ud83d\udcbe {len(release.get('assets', []))} assets\")\n                print()\n        \n        # Analyze rule files\n        rule_files = self.get_rule_files()\n        print(f\"\ud83d\udccb Rule Files Analysis ({len(rule_files)} files):\\n\")\n        \n        total_rules = 0\n        all_threats = []\n        \n        for file_info in rule_files[:5]:  # Analyze first 5 files\n            analysis = self.analyze_rule_file(file_info)\n            if analysis:\n                print(f\"   \ud83d\udcc4 {analysis['filename']}\")\n                print(f\"      \ud83d\udd27 Rules: {len(analysis['rules'])}, Macros: {len(analysis['macros'])}, Lists: {len(analysis['lists'])}\")\n                \n                if analysis['threats_detected']:\n                    unique_threats = list(set(analysis['threats_detected']))\n                    print(f\"      \ud83c\udfaf Threats: {', '.join(unique_threats[:3])}\")\n                    all_threats.extend(unique_threats)\n                \n                total_rules += len(analysis['rules'])\n                print()\n        \n        # Summary\n        print(f\"\ud83d\udcca Summary:\")\n        print(f\"   Total Rules Analyzed: {total_rules}\")\n        if all_threats:\n            threat_counts = {}\n            for threat in all_threats:\n                threat_counts[threat] = threat_counts.get(threat, 0) + 1\n            \n            top_threats = sorted(threat_counts.items(), key=lambda x: x[1], reverse=True)[:5]\n            print(f\"   Top Threat Categories: {', '.join([t[0] for t in top_threats])}\")\n\n# Usage\nmonitor = FalcoRulesMonitor()\nmonitor.generate_security_report()\n\n# With GitHub token for higher rate limits\n# monitor = FalcoRulesMonitor(github_token='your_token_here')\n# monitor.generate_security_report()",
+      "fetch_rules": "import requests\nimport yaml\nimport base64\nfrom datetime import datetime\n\n# Fetch Falco Rules - COMPLETELY FREE!\nbase_url = 'https://api.github.com/repos/falcosecurity/rules'\n\n# Optional: Add GitHub token for higher rate limits\n# headers = {'Authorization': 'token YOUR_GITHUB_TOKEN'}\nheaders = {}  # Using without auth for demo\n\ntry:\n    # Get rules directory contents\n    response = requests.get(f'{base_url}/contents/rules', headers=headers)\n    \n    if response.status_code == 200:\n        files = response.json()\n        \n        print(\"Falco Security Rules (FREE!)\\n\")\n        print(f\"Found {len(files)} rule files:\\n\")\n        \n        for file_info in files:\n            if file_info['name'].endswith('.yaml'):\n                print(f\"\ud83d\udccb {file_info['name']}\")\n                print(f\"   Size: {file_info['size']} bytes\")\n                print(f\"   Download: {file_info['download_url']}\")\n                \n                # Download and parse a sample rule file\n                if file_info['name'] == 'falco_rules.yaml':\n                    print(\"   \\n   Downloading core rules...\")\n                    \n                    rule_response = requests.get(file_info['download_url'])\n                    if rule_response.status_code == 200:\n                        try:\n                            rules_data = yaml.safe_load(rule_response.text)\n                            \n                            # Count rules by type\n                            if isinstance(rules_data, list):\n                                rule_count = 0\n                                macro_count = 0\n                                list_count = 0\n                                \n                                for item in rules_data:\n                                    if 'rule' in item:\n                                        rule_count += 1\n                                    elif 'macro' in item:\n                                        macro_count += 1\n                                    elif 'list' in item:\n                                        list_count += 1\n                                \n                                print(f\"   Rules: {rule_count}, Macros: {macro_count}, Lists: {list_count}\")\n                                \n                                # Show first few rules\n                                sample_rules = [item for item in rules_data if 'rule' in item][:3]\n                                for rule in sample_rules:\n                                    print(f\"     - {rule['rule']}: {rule.get('desc', 'No description')}\")\n                        \n                        except yaml.YAMLError:\n                            print(\"   (YAML parsing failed)\")\n                print()\n    \n    else:\n        print(f\"Error: {response.status_code} - {response.text}\")\n        \nexcept Exception as e:\n    print(f\"Error fetching Falco rules: {e}\")\n\n# Check rate limit\nif 'X-RateLimit-Remaining' in response.headers:\n    print(f\"Rate limit remaining: {response.headers['X-RateLimit-Remaining']}\")"
+    }
+  },
+  "last_updated": "2025-08-15T23:50:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "sysdig-secure-rules",
+      "aqua-security-tracee",
+      "datadog-security-monitoring"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Apache License 2.0",
+    "maintainer": "Falco Security Community",
+    "related_resources": [
+      "Falco Documentation",
+      "Falco Community",
+      "Cloud Native Computing Foundation (CNCF)",
+      "Container Security Standards",
+      "Kubernetes Security Best Practices"
+    ]
+  },
+  "name": "Falco Security Rules",
+  "operational_guidance": {
+    "best_practices": [
+      "Download latest rules from GitHub releases",
+      "Monitor rules repository for security updates",
+      "Customize rules for your specific environment",
+      "Test rules in staging before production deployment",
+      "Subscribe to Falco security announcements",
+      "Contribute back rule improvements to the community"
+    ],
+    "common_use_cases": [
+      "Container runtime security monitoring",
+      "Kubernetes cluster security",
+      "Compliance monitoring (PCI DSS, SOX, GDPR)",
+      "Threat detection in cloud environments",
+      "DevSecOps pipeline integration",
+      "Security incident detection and response",
+      "Behavioral analysis of containerized applications"
+    ],
+    "recommended_update_frequency": "Monitor repository weekly for rule updates, apply critical security rules immediately",
+    "value_proposition": "Open source runtime security rules with comprehensive threat detection for containers and Kubernetes"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "api_stability": "Stable GitHub API and raw file access",
+    "completeness": "Comprehensive container and Kubernetes security coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community-vetted security rules with active maintenance",
+    "reliability": "excellent",
+    "update_speed": "Regular updates with active community"
+  },
+  "quality_score": 94,
+  "subcategory": "falco",
+  "url": "https://github.com/falcosecurity/rules"
+}

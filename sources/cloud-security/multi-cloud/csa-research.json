@@ -1,0 +1,159 @@
+{
+  "api": {
+    "base_url": "https://cloudsecurityalliance.org",
+    "rate_limit": {
+      "notes": "No rate limits on RSS feeds or public content",
+      "requests_per_second": null
+    },
+    "rss_feeds": [
+      {
+        "description": "Latest CSA research, reports, and announcements",
+        "name": "CSA Research Feed",
+        "update_frequency": "Weekly",
+        "url": "https://cloudsecurityalliance.org/blog/feed/"
+      },
+      {
+        "description": "Working group publications and updates",
+        "name": "CSA Working Groups Feed",
+        "update_frequency": "Monthly",
+        "url": "https://cloudsecurityalliance.org/working-groups/feed/"
+      }
+    ],
+    "type": "RSS",
+    "web_resources": [
+      {
+        "access": "free",
+        "description": "Research artifacts and deliverables",
+        "path": "/research/artifacts/"
+      },
+      {
+        "access": "free",
+        "description": "Security guidance documents",
+        "path": "/guidance/"
+      },
+      {
+        "access": "free",
+        "description": "Active working group publications",
+        "path": "/research/working-groups/"
+      }
+    ]
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! CSA research papers, guidance documents, and frameworks available without authentication. RSS feed for updates.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 94,
+  "category": "cloud-security",
+  "coverage": 92,
+  "data_coverage": {
+    "cloud_providers": [
+      "Multi-cloud guidance",
+      "AWS security frameworks",
+      "Microsoft Azure security",
+      "Google Cloud Platform security",
+      "Hybrid cloud security",
+      "Private cloud considerations"
+    ],
+    "content_types": [
+      "Cloud security frameworks",
+      "Multi-cloud security guidance",
+      "Security controls matrices",
+      "Cloud compliance mapping",
+      "Best practices documentation",
+      "Research reports and whitepapers",
+      "Working group deliverables",
+      "Industry benchmarks and surveys"
+    ],
+    "research_areas": [
+      "Cloud Controls Matrix (CCM)",
+      "Consensus Assessments Initiative Questionnaire (CAIQ)",
+      "Security Trust Assurance and Risk (STAR)",
+      "Software Defined Perimeter (SDP)",
+      "Zero Trust Architecture",
+      "Cloud Security Posture Management",
+      "Identity and Access Management",
+      "Data Protection in the Cloud",
+      "Container and Kubernetes Security",
+      "IoT Security"
+    ],
+    "temporal": {
+      "historical_data": "2009-present",
+      "latency": "Research published upon completion",
+      "update_frequency": "Ongoing research publications"
+    }
+  },
+  "description": "Cloud Security Alliance (CSA) providing FREE access to cloud security research, best practices, frameworks, and guidance for multi-cloud environments. No authentication required for public research.",
+  "documentation": "https://cloudsecurityalliance.org/research/",
+  "format": "rss",
+  "id": "csa-research",
+  "integration_examples": {
+    "curl": {
+      "check_ccm_updates": "# Check for CCM-related updates\ncurl -s 'https://cloudsecurityalliance.org/blog/feed/' | grep -i 'ccm\\|cloud controls matrix\\|controls matrix'",
+      "extract_titles": "# Extract CSA research titles\ncurl -s 'https://cloudsecurityalliance.org/blog/feed/' | grep '<title>' | sed 's/<[^>]*>//g' | tail -n +2",
+      "get_csa_feed": "# Get CSA research feed - COMPLETELY FREE!\ncurl -s 'https://cloudsecurityalliance.org/blog/feed/' | head -50",
+      "get_working_groups": "# Get CSA working groups feed - FREE!\ncurl -s 'https://cloudsecurityalliance.org/working-groups/feed/' | head -50"
+    },
+    "javascript": {
+      "csa_ccm_tracker": "// Track CSA Cloud Controls Matrix updates - FREE!\nconst Parser = require('rss-parser');\nconst fs = require('fs');\nconst crypto = require('crypto');\n\nclass CSA_CCM_Tracker {\n  constructor() {\n    this.parser = new Parser();\n    this.feedUrl = 'https://cloudsecurityalliance.org/blog/feed/';\n    this.ccmKeywords = [\n      'cloud controls matrix', 'ccm', 'controls matrix',\n      'security controls', 'compliance framework'\n    ];\n    this.stateFile = 'csa_ccm_tracker.json';\n    this.seenItems = this.loadState();\n  }\n  \n  loadState() {\n    try {\n      return new Set(JSON.parse(fs.readFileSync(this.stateFile, 'utf8')));\n    } catch {\n      return new Set();\n    }\n  }\n  \n  saveState() {\n    fs.writeFileSync(\n      this.stateFile,\n      JSON.stringify([...this.seenItems])\n    );\n  }\n  \n  async trackCCMUpdates() {\n    const feed = await this.parser.parseURL(this.feedUrl);\n    const ccmUpdates = [];\n    \n    for (const item of feed.items) {\n      const hash = crypto\n        .createHash('md5')\n        .update(item.link)\n        .digest('hex');\n      \n      if (this.seenItems.has(hash)) {\n        continue;\n      }\n      \n      const content = `${item.title} ${item.contentSnippet || ''}`.toLowerCase();\n      \n      // Check for CCM-related content\n      const isCCMRelated = this.ccmKeywords.some(\n        keyword => content.includes(keyword)\n      );\n      \n      if (isCCMRelated) {\n        ccmUpdates.push({\n          title: item.title,\n          link: item.link,\n          date: item.pubDate,\n          summary: item.contentSnippet?.substring(0, 200),\n          matchedKeywords: this.ccmKeywords.filter(keyword => content.includes(keyword))\n        });\n      }\n      \n      this.seenItems.add(hash);\n    }\n    \n    if (ccmUpdates.length > 0) {\n      this.saveState();\n      this.reportCCMUpdates(ccmUpdates);\n    }\n    \n    return ccmUpdates;\n  }\n  \n  reportCCMUpdates(updates) {\n    console.log('\ud83c\udfd7\ufe0f  CSA Cloud Controls Matrix Updates (FREE!)\\n');\n    console.log('=' .repeat(50));\n    \n    updates.forEach(update => {\n      console.log(`\\n\ud83d\udccb ${update.title}`);\n      console.log(`\ud83d\udcc5 ${update.date}`);\n      console.log(`\ud83d\udd17 ${update.link}`);\n      console.log(`\ud83c\udfaf Keywords: ${update.matchedKeywords.join(', ')}`);\n      \n      if (update.summary) {\n        console.log(`\ud83d\udcc4 ${update.summary}...`);\n      }\n    });\n    \n    console.log(`\\n\u2705 Found ${updates.length} CCM-related updates`);\n  }\n  \n  async generateCCMDashboard() {\n    console.log('\ud83d\udd10 CSA Cloud Controls Matrix Dashboard (FREE!)\\n');\n    \n    const updates = await this.trackCCMUpdates();\n    \n    if (updates.length === 0) {\n      console.log('No new CCM updates found.');\n    }\n    \n    // Provide CCM reference information\n    console.log('\\n\ud83d\udcda CCM Resources (Always FREE!):');\n    console.log('\u2022 Cloud Controls Matrix: https://cloudsecurityalliance.org/research/cloud-controls-matrix/');\n    console.log('\u2022 CAIQ Questionnaire: https://cloudsecurityalliance.org/research/caiq/');\n    console.log('\u2022 STAR Registry: https://cloudsecurityalliance.org/star/');\n    console.log('\u2022 CSA Research: https://cloudsecurityalliance.org/research/');\n  }\n}\n\n// Usage\nconst tracker = new CSA_CCM_Tracker();\ntracker.generateCCMDashboard();",
+      "fetch_csa_research": "// Fetch CSA Research - COMPLETELY FREE!\nconst Parser = require('rss-parser');\nconst parser = new Parser();\n\nconst fetchCSAResearch = async () => {\n  const feeds = {\n    'Research': 'https://cloudsecurityalliance.org/blog/feed/',\n    'Working Groups': 'https://cloudsecurityalliance.org/working-groups/feed/'\n  };\n  \n  for (const [feedName, feedUrl] of Object.entries(feeds)) {\n    console.log(`\\n\ud83d\udd2c CSA ${feedName} (FREE!)\\n`);\n    \n    try {\n      const feed = await parser.parseURL(feedUrl);\n      \n      feed.items.slice(0, 5).forEach(item => {\n        console.log(`\ud83d\udccb ${item.title}`);\n        console.log(`   Date: ${item.pubDate}`);\n        console.log(`   Link: ${item.link}`);\n        \n        // Identify cloud security frameworks mentioned\n        const content = `${item.title} ${item.contentSnippet || ''}`.toLowerCase();\n        const frameworks = {\n          'CCM': ['ccm', 'cloud controls matrix'],\n          'CAIQ': ['caiq', 'consensus assessments'],\n          'STAR': ['star registry', 'star program'],\n          'Zero Trust': ['zero trust', 'zt architecture'],\n          'Container Security': ['container', 'kubernetes', 'docker']\n        };\n        \n        const mentionedFrameworks = [];\n        for (const [framework, keywords] of Object.entries(frameworks)) {\n          if (keywords.some(keyword => content.includes(keyword))) {\n            mentionedFrameworks.push(framework);\n          }\n        }\n        \n        if (mentionedFrameworks.length > 0) {\n          console.log(`   \ud83c\udfd7\ufe0f  Frameworks: ${mentionedFrameworks.join(', ')}`);\n        }\n        \n        if (item.contentSnippet) {\n          console.log(`   \ud83d\udcc4 ${item.contentSnippet.substring(0, 120)}...`);\n        }\n        \n        console.log();\n      });\n      \n    } catch (error) {\n      console.error(`Error fetching CSA ${feedName}:`, error.message);\n    }\n  }\n};\n\nfetchCSAResearch();"
+    },
+    "python": {
+      "csa_framework_monitor": "import feedparser\nimport requests\nimport json\nimport hashlib\nfrom datetime import datetime\nfrom bs4 import BeautifulSoup\n\nclass CSAFrameworkMonitor:\n    \"\"\"Monitor CSA for framework updates and new research - FREE!\"\"\"\n    \n    def __init__(self):\n        self.feeds = {\n            'research': 'https://cloudsecurityalliance.org/blog/feed/',\n            'working_groups': 'https://cloudsecurityalliance.org/working-groups/feed/'\n        }\n        self.frameworks = {\n            'Cloud Controls Matrix': ['ccm', 'cloud controls matrix', 'controls matrix'],\n            'CAIQ': ['caiq', 'consensus assessments', 'questionnaire'],\n            'STAR Registry': ['star registry', 'star program', 'security trust assurance'],\n            'Zero Trust': ['zero trust', 'zt architecture', 'zero trust network'],\n            'SDP': ['software defined perimeter', 'sdp', 'software-defined perimeter'],\n            'Container Security': ['container security', 'kubernetes security', 'docker security']\n        }\n        self.seen_items = set()\n        self.state_file = 'csa_monitor.json'\n        self.load_state()\n    \n    def load_state(self):\n        try:\n            with open(self.state_file, 'r') as f:\n                data = json.load(f)\n                self.seen_items = set(data['seen'])\n        except FileNotFoundError:\n            pass\n    \n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump({'seen': list(self.seen_items)}, f)\n    \n    def check_framework_updates(self):\n        \"\"\"Check for new framework-related content\"\"\"\n        framework_updates = []\n        \n        for feed_name, feed_url in self.feeds.items():\n            try:\n                feed = feedparser.parse(feed_url)\n                \n                for entry in feed.entries:\n                    # Create unique ID\n                    item_id = hashlib.md5(f\"{feed_name}:{entry.link}\".encode()).hexdigest()\n                    \n                    if item_id in self.seen_items:\n                        continue\n                    \n                    # Check for framework mentions\n                    content = f\"{entry.title} {getattr(entry, 'summary', '')}\".lower()\n                    \n                    related_frameworks = []\n                    for framework_name, keywords in self.frameworks.items():\n                        if any(keyword in content for keyword in keywords):\n                            related_frameworks.append(framework_name)\n                    \n                    if related_frameworks:\n                        framework_updates.append({\n                            'feed': feed_name,\n                            'title': entry.title,\n                            'link': entry.link,\n                            'published': entry.published,\n                            'frameworks': related_frameworks,\n                            'summary': getattr(entry, 'summary', '')[:300]\n                        })\n                    \n                    self.seen_items.add(item_id)\n            \n            except Exception as e:\n                print(f\"Error processing {feed_name}: {e}\")\n        \n        if framework_updates:\n            self.save_state()\n        \n        return framework_updates\n    \n    def download_csa_artifacts(self):\n        \"\"\"Get links to downloadable CSA artifacts\"\"\"\n        artifacts_url = 'https://cloudsecurityalliance.org/research/artifacts/'\n        \n        try:\n            response = requests.get(artifacts_url)\n            soup = BeautifulSoup(response.content, 'html.parser')\n            \n            artifacts = []\n            \n            # Find download links (this is simplified - actual parsing may vary)\n            for link in soup.find_all('a', href=True):\n                href = link['href']\n                text = link.get_text().strip()\n                \n                # Look for PDF, XLSX, or other document links\n                if any(ext in href.lower() for ext in ['.pdf', '.xlsx', '.docx', '.zip']):\n                    artifacts.append({\n                        'title': text,\n                        'url': href if href.startswith('http') else f'https://cloudsecurityalliance.org{href}',\n                        'type': href.split('.')[-1].upper()\n                    })\n            \n            return artifacts[:20]  # Return first 20 found\n        \n        except Exception as e:\n            print(f\"Error fetching artifacts: {e}\")\n            return []\n    \n    def generate_framework_report(self):\n        \"\"\"Generate CSA framework update report\"\"\"\n        print(\"\ud83d\udd10 CSA Framework Monitor Report (FREE!)\\n\")\n        \n        # Check for new framework updates\n        updates = self.check_framework_updates()\n        \n        if updates:\n            print(f\"\ud83d\udccb New Framework-Related Content ({len(updates)} items):\\n\")\n            \n            for update in updates:\n                print(f\"\ud83d\udcc4 [{update['feed'].title()}] {update['title']}\")\n                print(f\"   \ud83d\udcc5 {update['published']}\")\n                print(f\"   \ud83c\udfd7\ufe0f  Frameworks: {', '.join(update['frameworks'])}\")\n                print(f\"   \ud83d\udd17 {update['link']}\")\n                \n                if update['summary']:\n                    clean_summary = re.sub('<[^<]+?>', '', update['summary'])\n                    print(f\"   \ud83d\udcc4 {clean_summary[:150]}...\")\n                print()\n        else:\n            print(\"No new framework updates found.\\n\")\n        \n        # List available artifacts\n        print(\"\ud83d\udcda Available CSA Research Artifacts (FREE Downloads):\\n\")\n        artifacts = self.download_csa_artifacts()\n        \n        for artifact in artifacts[:10]:\n            print(f\"\ud83d\udcc4 {artifact['title']} [{artifact['type']}]\")\n            print(f\"   \ud83d\udd17 {artifact['url']}\")\n            print()\n\n# Usage\nmonitor = CSAFrameworkMonitor()\nmonitor.generate_framework_report()",
+      "parse_research": "import feedparser\nimport requests\nfrom bs4 import BeautifulSoup\nimport re\nfrom datetime import datetime\n\n# Parse CSA Research Feed - COMPLETELY FREE!\nfeed_url = 'https://cloudsecurityalliance.org/blog/feed/'\nfeed = feedparser.parse(feed_url)\n\nprint(\"Cloud Security Alliance Research (FREE!)\\n\")\n\nfor entry in feed.entries[:10]:\n    print(f\"Title: {entry.title}\")\n    print(f\"Date: {entry.published}\")\n    print(f\"Link: {entry.link}\")\n    \n    # Extract categories/tags\n    if hasattr(entry, 'tags'):\n        tags = [tag.term for tag in entry.tags]\n        print(f\"Tags: {', '.join(tags)}\")\n    \n    # Extract summary\n    if hasattr(entry, 'summary'):\n        summary = re.sub('<[^<]+?>', '', entry.summary)\n        print(f\"Summary: {summary[:200]}...\")\n    \n    # Check for framework/guidance keywords\n    content = f\"{entry.title} {getattr(entry, 'summary', '')}\".lower()\n    frameworks = [\n        'cloud controls matrix', 'ccm', 'caiq', 'star registry',\n        'zero trust', 'sdp', 'container security', 'kubernetes'\n    ]\n    \n    mentioned_frameworks = [fw for fw in frameworks if fw in content]\n    if mentioned_frameworks:\n        print(f\"Frameworks: {', '.join(mentioned_frameworks)}\")\n    \n    print()"
+    }
+  },
+  "last_updated": "2025-08-15T23:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "nist-cybersecurity-framework",
+      "iso-27001-controls",
+      "cis-controls"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Creative Commons (varies by document)",
+    "maintainer": "Cloud Security Alliance",
+    "related_frameworks": [
+      "NIST Cybersecurity Framework",
+      "ISO 27001/27002",
+      "CIS Critical Security Controls",
+      "COBIT",
+      "SOC 2"
+    ]
+  },
+  "name": "Cloud Security Alliance Research",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to RSS feeds for research updates",
+      "Download and archive key frameworks (CCM, CAIQ)",
+      "Map CSA guidance to your cloud architecture",
+      "Participate in working groups for latest insights",
+      "Use CSA STAR registry for vendor assessments",
+      "Implement Cloud Controls Matrix for compliance"
+    ],
+    "common_use_cases": [
+      "Multi-cloud security strategy development",
+      "Cloud compliance framework implementation",
+      "Vendor security assessment using CAIQ",
+      "Security controls mapping with CCM",
+      "Cloud security maturity assessment",
+      "Zero trust architecture planning",
+      "Container security best practices",
+      "Cloud migration security planning"
+    ],
+    "recommended_update_frequency": "Monitor RSS feeds monthly, review major framework updates quarterly",
+    "value_proposition": "Industry-standard cloud security frameworks and research completely free from leading cloud security organization"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required for public research",
+    "api_stability": "Stable RSS feeds and web resources",
+    "completeness": "Comprehensive multi-cloud coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Industry-leading cloud security research",
+    "reliability": "excellent",
+    "update_speed": "Regular research publication cycle"
+  },
+  "quality_score": 91,
+  "subcategory": "multi-cloud",
+  "url": "https://cloudsecurityalliance.org/research/"
+}

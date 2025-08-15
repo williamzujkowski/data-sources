@@ -1,0 +1,206 @@
+{
+  "api": {
+    "access_methods": [
+      {
+        "description": "Free CLI tool for dependency scanning",
+        "installation": "Download from GitHub releases or use package managers",
+        "name": "Command Line Interface",
+        "platforms": [
+          "Windows",
+          "Linux",
+          "macOS"
+        ]
+      },
+      {
+        "artifact": "org.owasp:dependency-check-maven",
+        "description": "Maven integration for dependency scanning",
+        "name": "Maven Plugin"
+      },
+      {
+        "description": "Gradle integration for dependency scanning",
+        "name": "Gradle Plugin",
+        "plugin_id": "org.owasp.dependencycheck"
+      },
+      {
+        "description": "Jenkins CI/CD integration",
+        "name": "Jenkins Plugin",
+        "plugin_name": "OWASP Dependency-Check Plugin"
+      },
+      {
+        "action": "dependency-check/Dependency-Check_Action",
+        "description": "GitHub Actions workflow integration",
+        "name": "GitHub Action"
+      }
+    ],
+    "base_url": "https://github.com/jeremylong/DependencyCheck",
+    "data_sources": [
+      {
+        "access": "free",
+        "description": "Primary CVE data source",
+        "name": "National Vulnerability Database (NVD)",
+        "url": "https://nvd.nist.gov/"
+      },
+      {
+        "access": "free",
+        "description": "Open source vulnerability database",
+        "name": "OSS Index",
+        "url": "https://ossindex.sonatype.org/"
+      },
+      {
+        "access": "free",
+        "description": "JavaScript vulnerability database",
+        "name": "RetireJS",
+        "url": "https://retirejs.github.io/retire.js/"
+      },
+      {
+        "access": "free",
+        "description": "Historical Node.js security advisories",
+        "name": "Node Security Platform Archive"
+      }
+    ],
+    "output_formats": [
+      "JSON",
+      "XML",
+      "HTML",
+      "CSV",
+      "SARIF",
+      "JUnit"
+    ],
+    "type": "CLI/REST"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open-source tool with no authentication required. Vulnerability data accessed from NVD, OSS Index, and other public sources.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 94,
+  "category": "devsecops",
+  "coverage": 97,
+  "data_coverage": {
+    "content_types": [
+      "Known vulnerabilities in dependencies",
+      "CVE mappings for components",
+      "CVSS severity scores",
+      "Vulnerable version ranges",
+      "Fixed version information",
+      "License information",
+      "Component confidence levels",
+      "Vendor and product mappings"
+    ],
+    "package_managers": [
+      "Maven Central",
+      "npm Registry",
+      "PyPI",
+      "RubyGems",
+      "NuGet",
+      "Packagist",
+      "ConanCenter",
+      "Go Modules",
+      "Crates.io",
+      "Swift Package Manager"
+    ],
+    "scan_capabilities": [
+      "Archive analysis (JAR, WAR, EAR)",
+      "Assembly analysis (.NET)",
+      "Node.js package analysis",
+      "Python distribution analysis",
+      "Ruby gem analysis",
+      "PHP composer analysis",
+      "CocoaPods analysis",
+      "Swift package analysis",
+      "Autoconf analysis",
+      "CMake analysis"
+    ],
+    "supported_languages": [
+      "Java (Maven, Gradle)",
+      "JavaScript/Node.js (npm, yarn)",
+      "Python (pip, pipenv, poetry)",
+      "Ruby (Gemfile)",
+      "PHP (Composer)",
+      "C# (.NET, NuGet)",
+      "C/C++ (ConanFile)",
+      "Go (go.mod)",
+      "Rust (Cargo.toml)",
+      "Swift (Package.swift)"
+    ],
+    "temporal": {
+      "historical_data": "2012-present",
+      "latency": "Near real-time with latest vulnerability databases",
+      "update_frequency": "Daily NVD updates, regular releases"
+    }
+  },
+  "description": "OWASP Dependency-Check is a FREE open-source tool that identifies vulnerabilities in project dependencies. Comprehensive vulnerability database with support for multiple languages, package managers, and CI/CD integration.",
+  "documentation": "https://jeremylong.github.io/DependencyCheck/",
+  "format": "json",
+  "id": "owasp-dependency-check",
+  "integration_examples": {
+    "cli": {
+      "advanced_scan": "# Advanced dependency scan with custom configuration\n./dependency-check/bin/dependency-check.sh \\\n  --project \"Production-App\" \\\n  --scan \"./\" \\\n  --exclude \"**/test/**\" \\\n  --exclude \"**/target/**\" \\\n  --enableExperimental \\\n  --format JSON \\\n  --format XML \\\n  --format HTML \\\n  --format SARIF \\\n  --out \"./security-reports\" \\\n  --failOnCVSS 7 \\\n  --suppression dependency-check-suppressions.xml\n\n# Check exit code\nif [ $? -ne 0 ]; then\n  echo \"\u274c High/Critical vulnerabilities found!\"\n  exit 1\nelse\n  echo \"\u2705 No high/critical vulnerabilities detected\"\nfi",
+      "basic_scan": "# Basic dependency scan - COMPLETELY FREE!\n# Download and install dependency-check CLI\nwget https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip\nunzip dependency-check-8.4.0-release.zip\n\n# Run basic scan\n./dependency-check/bin/dependency-check.sh \\\n  --project \"MyProject\" \\\n  --scan \"./src\" \\\n  --format JSON \\\n  --format HTML \\\n  --out \"./reports\"\n\n# View results\necho \"Scan complete! Check reports/dependency-check-report.html\""
+    },
+    "gradle": {
+      "build_gradle": "// OWASP Dependency-Check Gradle Plugin - FREE!\nplugins {\n    id 'org.owasp.dependencycheck' version '8.4.0'\n}\n\ndependencyCheck {\n    failBuildOnCVSS = 7.0\n    formats = ['JSON', 'HTML', 'SARIF']\n    suppressionFile = 'dependency-check-suppressions.xml'\n    \n    analyzers {\n        experimentalEnabled = true\n        archiveEnabled = true\n        assemblyEnabled = true\n    }\n    \n    // Skip test dependencies\n    skipConfigurations = ['testImplementation', 'testRuntimeOnly']\n}",
+      "run_gradle_scan": "# Run OWASP Dependency-Check with Gradle - FREE!\n./gradlew dependencyCheckAnalyze\n\n# Check results\necho \"Scan complete! Check build/reports/dependency-check-report.html\""
+    },
+    "maven": {
+      "pom_integration": "<!-- OWASP Dependency-Check Maven Plugin - FREE! -->\n<plugin>\n    <groupId>org.owasp</groupId>\n    <artifactId>dependency-check-maven</artifactId>\n    <version>8.4.0</version>\n    <configuration>\n        <failBuildOnCVSS>7</failBuildOnCVSS>\n        <formats>\n            <format>JSON</format>\n            <format>HTML</format>\n            <format>SARIF</format>\n        </formats>\n        <suppressionFiles>\n            <suppressionFile>dependency-check-suppressions.xml</suppressionFile>\n        </suppressionFiles>\n    </configuration>\n    <executions>\n        <execution>\n            <goals>\n                <goal>check</goal>\n            </goals>\n        </execution>\n    </executions>\n</plugin>",
+      "run_maven_scan": "# Run OWASP Dependency-Check with Maven - FREE!\nmvn org.owasp:dependency-check-maven:check \\\n    -Dformat=JSON \\\n    -Dformat=HTML \\\n    -DfailBuildOnCVSS=7 \\\n    -DsuppressionFile=dependency-check-suppressions.xml\n\n# Check results\necho \"Scan complete! Check target/dependency-check-report.html\""
+    },
+    "python": {
+      "ci_integration": "#!/usr/bin/env python3\n\"\"\"CI/CD integration script for OWASP Dependency-Check\"\"\"\n\nimport os\nimport sys\nimport json\nimport subprocess\nfrom pathlib import Path\n\ndef setup_dependency_check():\n    \"\"\"Download and setup OWASP Dependency-Check if not present\"\"\"\n    dc_dir = Path('./dependency-check')\n    \n    if dc_dir.exists():\n        print(\"\u2705 OWASP Dependency-Check already installed\")\n        return str(dc_dir)\n    \n    print(\"\ud83d\udce5 Downloading OWASP Dependency-Check...\")\n    \n    # Download latest release\n    download_cmd = [\n        'wget', '-q',\n        'https://github.com/jeremylong/DependencyCheck/releases/download/v8.4.0/dependency-check-8.4.0-release.zip',\n        '-O', 'dependency-check.zip'\n    ]\n    \n    try:\n        subprocess.run(download_cmd, check=True)\n        subprocess.run(['unzip', '-q', 'dependency-check.zip'], check=True)\n        subprocess.run(['rm', 'dependency-check.zip'], check=True)\n        \n        print(\"\u2705 OWASP Dependency-Check installed\")\n        return str(dc_dir)\n        \n    except subprocess.CalledProcessError as e:\n        print(f\"\u274c Failed to download Dependency-Check: {e}\")\n        sys.exit(1)\n\ndef run_security_scan():\n    \"\"\"Run security scan in CI/CD environment\"\"\"\n    \n    # Environment configuration\n    project_name = os.getenv('CI_PROJECT_NAME', 'Unknown-Project')\n    fail_on_cvss = float(os.getenv('SECURITY_FAIL_CVSS', '7.0'))\n    scan_path = os.getenv('SECURITY_SCAN_PATH', '.')\n    reports_dir = os.getenv('SECURITY_REPORTS_DIR', './security-reports')\n    \n    print(f\"\ud83d\udd12 Security Scan Configuration:\")\n    print(f\"   Project: {project_name}\")\n    print(f\"   Scan Path: {scan_path}\")\n    print(f\"   Fail Threshold: CVSS >= {fail_on_cvss}\")\n    print(f\"   Reports Dir: {reports_dir}\")\n    print()\n    \n    # Setup dependency-check\n    dc_path = setup_dependency_check()\n    \n    # Create reports directory\n    Path(reports_dir).mkdir(exist_ok=True)\n    \n    # Run scan\n    scan_cmd = [\n        f'{dc_path}/bin/dependency-check.sh',\n        '--project', project_name,\n        '--scan', scan_path,\n        '--out', reports_dir,\n        '--format', 'JSON',\n        '--format', 'HTML',\n        '--format', 'SARIF',\n        '--failOnCVSS', str(fail_on_cvss),\n        '--enableExperimental'\n    ]\n    \n    # Add exclusions for common build/test directories\n    exclusions = [\n        '**/test/**', '**/tests/**', '**/target/**',\n        '**/build/**', '**/node_modules/**', '**/venv/**',\n        '**/.git/**', '**/coverage/**'\n    ]\n    \n    for exclusion in exclusions:\n        scan_cmd.extend(['--exclude', exclusion])\n    \n    print(\"\ud83d\ude80 Starting security scan...\")\n    \n    try:\n        result = subprocess.run(\n            scan_cmd,\n            capture_output=True,\n            text=True,\n            timeout=1800  # 30 minutes\n        )\n        \n        print(f\"Scan completed with exit code: {result.returncode}\")\n        \n        # Parse results\n        json_report = Path(reports_dir) / 'dependency-check-report.json'\n        \n        if json_report.exists():\n            with open(json_report) as f:\n                scan_data = json.load(f)\n            \n            # Generate summary\n            generate_ci_summary(scan_data, reports_dir)\n            \n            # Check for failures\n            if result.returncode != 0:\n                print(\"\u274c Security scan FAILED - vulnerabilities above threshold detected\")\n                return False\n            else:\n                print(\"\u2705 Security scan PASSED - no critical vulnerabilities\")\n                return True\n        else:\n            print(\"\u26a0\ufe0f  Warning: Scan report not found\")\n            return False\n            \n    except subprocess.TimeoutExpired:\n        print(\"\u274c Security scan timed out\")\n        return False\n    except Exception as e:\n        print(f\"\u274c Security scan failed: {e}\")\n        return False\n\ndef generate_ci_summary(scan_data, reports_dir):\n    \"\"\"Generate CI-friendly summary\"\"\"\n    dependencies = scan_data.get('dependencies', [])\n    \n    total_deps = len(dependencies)\n    vulnerable_deps = sum(1 for dep in dependencies if dep.get('vulnerabilities'))\n    total_vulns = sum(len(dep.get('vulnerabilities', [])) for dep in dependencies)\n    \n    # Count by severity\n    severity_counts = {}\n    for dep in dependencies:\n        for vuln in dep.get('vulnerabilities', []):\n            severity = vuln.get('severity', 'UNASSIGNED')\n            severity_counts[severity] = severity_counts.get(severity, 0) + 1\n    \n    # Generate summary\n    summary = {\n        'total_dependencies': total_deps,\n        'vulnerable_dependencies': vulnerable_deps,\n        'total_vulnerabilities': total_vulns,\n        'severity_distribution': severity_counts\n    }\n    \n    # Save summary for CI artifacts\n    summary_file = Path(reports_dir) / 'security-summary.json'\n    with open(summary_file, 'w') as f:\n        json.dump(summary, f, indent=2)\n    \n    # Print CI-friendly output\n    print(f\"\\n\ud83d\udcca Security Scan Summary:\")\n    print(f\"Dependencies Scanned: {total_deps}\")\n    print(f\"Vulnerable Dependencies: {vulnerable_deps}\")\n    print(f\"Total Vulnerabilities: {total_vulns}\")\n    \n    if severity_counts:\n        print(\"\\nSeverity Breakdown:\")\n        for severity in ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW']:\n            count = severity_counts.get(severity, 0)\n            if count > 0:\n                print(f\"  {severity}: {count}\")\n    \n    # Set CI environment variables for downstream jobs\n    if os.getenv('GITHUB_ENV'):\n        with open(os.getenv('GITHUB_ENV'), 'a') as f:\n            f.write(f\"SECURITY_TOTAL_VULNS={total_vulns}\\n\")\n            f.write(f\"SECURITY_CRITICAL_VULNS={severity_counts.get('CRITICAL', 0)}\\n\")\n            f.write(f\"SECURITY_HIGH_VULNS={severity_counts.get('HIGH', 0)}\\n\")\n\nif __name__ == '__main__':\n    success = run_security_scan()\n    sys.exit(0 if success else 1)",
+      "scan_automation": "import subprocess\nimport json\nimport os\nfrom datetime import datetime\n\nclass DependencyCheckScanner:\n    \"\"\"OWASP Dependency-Check automation - FREE!\"\"\"\n    \n    def __init__(self, dependency_check_path='dependency-check'):\n        self.dc_path = dependency_check_path\n        self.scan_results = None\n    \n    def run_scan(self, project_name, scan_path, output_dir='./reports', \n                 fail_on_cvss=7.0, formats=['JSON', 'HTML']):\n        \"\"\"Run OWASP Dependency-Check scan\"\"\"\n        \n        print(f\"\ud83d\udd0d Running OWASP Dependency-Check scan for {project_name}...\")\n        \n        # Prepare command\n        cmd = [\n            f'{self.dc_path}/bin/dependency-check.sh',\n            '--project', project_name,\n            '--scan', scan_path,\n            '--out', output_dir,\n            '--failOnCVSS', str(fail_on_cvss)\n        ]\n        \n        # Add output formats\n        for fmt in formats:\n            cmd.extend(['--format', fmt])\n        \n        # Add common exclusions\n        exclusions = [\n            '**/test/**', '**/tests/**', '**/target/**', \n            '**/build/**', '**/node_modules/**'\n        ]\n        \n        for exclusion in exclusions:\n            cmd.extend(['--exclude', exclusion])\n        \n        try:\n            # Run scan\n            result = subprocess.run(\n                cmd, \n                capture_output=True, \n                text=True, \n                timeout=1800  # 30 minute timeout\n            )\n            \n            print(f\"Scan completed with exit code: {result.returncode}\")\n            \n            if result.stdout:\n                print(\"STDOUT:\", result.stdout[-500:])  # Last 500 chars\n            \n            if result.stderr:\n                print(\"STDERR:\", result.stderr[-500:])  # Last 500 chars\n            \n            # Load JSON results if available\n            json_report = os.path.join(output_dir, 'dependency-check-report.json')\n            if os.path.exists(json_report):\n                with open(json_report, 'r') as f:\n                    self.scan_results = json.load(f)\n                    print(f\"\u2705 Results loaded from {json_report}\")\n            \n            return result.returncode == 0\n            \n        except subprocess.TimeoutExpired:\n            print(\"\u274c Scan timed out after 30 minutes\")\n            return False\n        except Exception as e:\n            print(f\"\u274c Scan failed: {e}\")\n            return False\n    \n    def analyze_results(self):\n        \"\"\"Analyze scan results and generate summary\"\"\"\n        if not self.scan_results:\n            print(\"No scan results available\")\n            return\n        \n        dependencies = self.scan_results.get('dependencies', [])\n        \n        analysis = {\n            'total_dependencies': len(dependencies),\n            'vulnerable_dependencies': 0,\n            'total_vulnerabilities': 0,\n            'severity_distribution': {},\n            'high_risk_components': [],\n            'scan_date': datetime.now().isoformat()\n        }\n        \n        for dep in dependencies:\n            vulnerabilities = dep.get('vulnerabilities', [])\n            \n            if vulnerabilities:\n                analysis['vulnerable_dependencies'] += 1\n                analysis['total_vulnerabilities'] += len(vulnerabilities)\n                \n                # Count high-risk vulnerabilities for this component\n                high_risk_count = 0\n                \n                for vuln in vulnerabilities:\n                    severity = vuln.get('severity', 'UNKNOWN')\n                    analysis['severity_distribution'][severity] = \\\n                        analysis['severity_distribution'].get(severity, 0) + 1\n                    \n                    # Track high/critical vulnerabilities\n                    if severity in ['HIGH', 'CRITICAL']:\n                        high_risk_count += 1\n                \n                # Add to high-risk components if significant vulnerabilities\n                if high_risk_count > 0:\n                    analysis['high_risk_components'].append({\n                        'filename': dep.get('fileName', 'Unknown'),\n                        'vulnerabilities': high_risk_count,\n                        'total_vulns': len(vulnerabilities)\n                    })\n        \n        return analysis\n    \n    def generate_report(self, analysis):\n        \"\"\"Generate human-readable security report\"\"\"\n        if not analysis:\n            return\n        \n        print(f\"\\n\ud83d\udcca OWASP Dependency-Check Security Report (FREE!)\\n\")\n        print(f\"Scan Date: {analysis['scan_date'][:19]}\\n\")\n        \n        print(f\"\ud83d\udce6 Dependencies Analyzed: {analysis['total_dependencies']}\")\n        print(f\"\ud83d\udea8 Vulnerable Dependencies: {analysis['vulnerable_dependencies']}\")\n        print(f\"\ud83d\udd0d Total Vulnerabilities: {analysis['total_vulnerabilities']}\\n\")\n        \n        # Severity distribution\n        if analysis['severity_distribution']:\n            print(\"\ud83d\udcc8 Vulnerability Severity Distribution:\")\n            severity_order = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'UNASSIGNED']\n            \n            for severity in severity_order:\n                count = analysis['severity_distribution'].get(severity, 0)\n                if count > 0:\n                    severity_icon = {\n                        'CRITICAL': '\ud83d\udd34',\n                        'HIGH': '\ud83d\udfe0',\n                        'MEDIUM': '\ud83d\udfe1',\n                        'LOW': '\ud83d\udfe2',\n                        'UNASSIGNED': '\u26aa'\n                    }.get(severity, '\u26aa')\n                    \n                    print(f\"   {severity_icon} {severity}: {count}\")\n            print()\n        \n        # High-risk components\n        if analysis['high_risk_components']:\n            print(\"\u26a0\ufe0f  High-Risk Components:\")\n            \n            # Sort by vulnerability count\n            sorted_components = sorted(\n                analysis['high_risk_components'],\n                key=lambda x: x['vulnerabilities'],\n                reverse=True\n            )\n            \n            for comp in sorted_components[:10]:  # Top 10\n                print(f\"   \ud83d\udcc4 {comp['filename']}\")\n                print(f\"      \ud83d\udd34 {comp['vulnerabilities']} high/critical vulnerabilities\")\n                print(f\"      \ud83d\udcca {comp['total_vulns']} total vulnerabilities\")\n                print()\n        \n        # Recommendations\n        print(\"\ud83d\udca1 Recommendations:\")\n        \n        critical_count = analysis['severity_distribution'].get('CRITICAL', 0)\n        high_count = analysis['severity_distribution'].get('HIGH', 0)\n        \n        if critical_count > 0:\n            print(f\"   \ud83d\udea8 URGENT: Address {critical_count} critical vulnerabilities immediately\")\n        \n        if high_count > 0:\n            print(f\"   \u26a0\ufe0f  HIGH: Address {high_count} high-severity vulnerabilities\")\n        \n        if analysis['vulnerable_dependencies'] > 0:\n            print(f\"   \ud83d\udccb Review and update {analysis['vulnerable_dependencies']} vulnerable dependencies\")\n            print(\"   \ud83d\udd04 Consider upgrading to newer versions with security fixes\")\n            print(\"   \ud83d\udcdd Document any unavoidable risks with suppression files\")\n        else:\n            print(\"   \u2705 No vulnerabilities detected - great job!\")\n    \n    def scan_and_report(self, project_name, scan_path):\n        \"\"\"Complete scan and reporting workflow\"\"\"\n        success = self.run_scan(project_name, scan_path)\n        \n        if success:\n            analysis = self.analyze_results()\n            if analysis:\n                self.generate_report(analysis)\n                return analysis\n        \n        return None\n\n# Usage examples\nif __name__ == \"__main__\":\n    # Initialize scanner (adjust path as needed)\n    scanner = DependencyCheckScanner('/path/to/dependency-check')\n    \n    # Scan current project\n    analysis = scanner.scan_and_report(\"MyProject\", \".\")\n    \n    # Check if scan found critical issues\n    if analysis:\n        critical_vulns = analysis['severity_distribution'].get('CRITICAL', 0)\n        high_vulns = analysis['severity_distribution'].get('HIGH', 0)\n        \n        if critical_vulns > 0 or high_vulns > 0:\n            print(f\"\\n\u274c Build should FAIL: {critical_vulns + high_vulns} high/critical vulnerabilities\")\n            exit(1)\n        else:\n            print(\"\\n\u2705 Build can proceed: No high/critical vulnerabilities\")\n            exit(0)"
+    }
+  },
+  "last_updated": "2025-08-15T23:58:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "snyk-vulnerability-scanner",
+      "github-security-advisories",
+      "sonatype-ossindex"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Apache License 2.0",
+    "maintainer": "Jeremy Long & OWASP Community",
+    "related_resources": [
+      "OWASP Foundation",
+      "National Vulnerability Database (NVD)",
+      "Common Vulnerabilities and Exposures (CVE)",
+      "Software Composition Analysis (SCA) Best Practices"
+    ]
+  },
+  "name": "OWASP Dependency-Check",
+  "operational_guidance": {
+    "best_practices": [
+      "Integrate into CI/CD pipelines for continuous scanning",
+      "Configure to fail builds on high/critical vulnerabilities",
+      "Regularly update vulnerability databases",
+      "Use suppression files for false positives",
+      "Configure appropriate analyzers for your tech stack",
+      "Review and act on scan results promptly"
+    ],
+    "common_use_cases": [
+      "DevSecOps pipeline integration",
+      "Continuous dependency vulnerability scanning",
+      "Software composition analysis (SCA)",
+      "Compliance reporting and documentation",
+      "Open source risk assessment",
+      "Supply chain security monitoring",
+      "Security gate enforcement in CI/CD",
+      "Developer security awareness"
+    ],
+    "recommended_update_frequency": "Run on every build/commit, update vulnerability databases daily",
+    "value_proposition": "Free, comprehensive dependency vulnerability scanning with extensive language and CI/CD support"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration or authentication required",
+    "completeness": "Comprehensive multi-language ecosystem coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "High-quality data from authoritative sources (NVD, OSS Index)",
+    "reliability": "excellent",
+    "tool_stability": "Mature, stable open-source project",
+    "update_speed": "Daily vulnerability database updates"
+  },
+  "quality_score": 96,
+  "subcategory": "scanning",
+  "url": "https://github.com/jeremylong/DependencyCheck"
+}

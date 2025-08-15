@@ -1,0 +1,155 @@
+{
+  "api": {
+    "base_url": "https://api.msrc.microsoft.com",
+    "endpoints": [
+      {
+        "description": "Get all available security updates",
+        "method": "GET",
+        "parameters": [],
+        "path": "/cvrf/v2.0/updates",
+        "response_format": "JSON list of security update IDs"
+      },
+      {
+        "description": "Get detailed security update information",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Security update ID (e.g., 2024-Jan)",
+            "example": "2024-Jan",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/cvrf/v2.0/cvrf/{id}",
+        "response_format": "CVRF XML converted to JSON"
+      },
+      {
+        "description": "Get security updates for specific month/year",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Year-Month format",
+            "example": "2024-Aug",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/cvrf/v2.0/updates/{id}"
+      }
+    ],
+    "rate_limit": {
+      "notes": "No documented rate limits for public API",
+      "requests_per_second": null
+    },
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! MSRC API provides open access to security update data without authentication or registration.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "cloud-security",
+  "coverage": 90,
+  "data_coverage": {
+    "content_types": [
+      "Security vulnerabilities (CVEs)",
+      "Security updates and patches",
+      "Security advisories",
+      "Affected product information",
+      "Severity ratings (CVSS scores)",
+      "Exploitation information",
+      "Mitigation guidance",
+      "Known issues and workarounds"
+    ],
+    "microsoft_products": [
+      "Microsoft Azure services",
+      "Windows (all versions)",
+      "Office 365",
+      "Exchange Server",
+      "SharePoint",
+      "SQL Server",
+      "Visual Studio",
+      ".NET Framework",
+      "PowerShell",
+      "Microsoft Defender"
+    ],
+    "temporal": {
+      "historical_data": "2016-present (via API)",
+      "latency": "Real-time on publication",
+      "update_frequency": "Monthly Patch Tuesday + out-of-band updates"
+    }
+  },
+  "description": "Microsoft Security Response Center providing FREE access to security updates, vulnerabilities, and advisories for Microsoft products including Azure, Windows, Office, and developer tools.",
+  "documentation": "https://api.msrc.microsoft.com/cvrf/v2.0/swagger/index",
+  "format": "json",
+  "id": "msrc-security-updates",
+  "integration_examples": {
+    "curl": {
+      "count_vulnerabilities": "# Count vulnerabilities in latest update\ncurl -s 'https://api.msrc.microsoft.com/cvrf/v2.0/updates' | jq -r '.value[-1].ID' | xargs -I {} curl -s 'https://api.msrc.microsoft.com/cvrf/v2.0/cvrf/{}' | jq '.Vulnerability | length'",
+      "get_latest_details": "# Get details for latest security update\ncurl -s 'https://api.msrc.microsoft.com/cvrf/v2.0/updates' | jq -r '.value[-1].ID' | xargs -I {} curl -s 'https://api.msrc.microsoft.com/cvrf/v2.0/cvrf/{}' | jq '.Vulnerability[0:3]'",
+      "get_updates": "# Get all Microsoft security updates - COMPLETELY FREE!\ncurl -s 'https://api.msrc.microsoft.com/cvrf/v2.0/updates' | jq '.value[-5:]'"
+    },
+    "javascript": {
+      "azure_vulnerability_tracker": "// Track Azure vulnerabilities from MSRC - FREE!\nconst axios = require('axios');\nconst fs = require('fs');\n\nclass AzureVulnerabilityTracker {\n  constructor() {\n    this.baseUrl = 'https://api.msrc.microsoft.com/cvrf/v2.0';\n    this.azureKeywords = [\n      'azure', 'office 365', 'active directory', 'exchange online',\n      'sharepoint online', 'onedrive', 'teams', 'power platform'\n    ];\n    this.cacheFile = 'azure_vulnerabilities.json';\n  }\n  \n  async getLatestUpdates(count = 3) {\n    const response = await axios.get(`${this.baseUrl}/updates`);\n    return response.data.value.slice(-count);\n  }\n  \n  async analyzeAzureVulnerabilities(updateId) {\n    try {\n      const response = await axios.get(`${this.baseUrl}/cvrf/${updateId}`);\n      const data = response.data;\n      \n      if (!data.Vulnerability) {\n        return [];\n      }\n      \n      const azureVulns = [];\n      \n      for (const vuln of data.Vulnerability) {\n        const vulnText = JSON.stringify(vuln).toLowerCase();\n        \n        // Check if vulnerability mentions Azure services\n        const isAzureRelated = this.azureKeywords.some(\n          keyword => vulnText.includes(keyword)\n        );\n        \n        if (isAzureRelated) {\n          const azureVuln = {\n            updateId,\n            cveId: vuln.CVE || 'Unknown',\n            title: vuln.Title?.Value || 'Unknown',\n            severity: this.extractSeverity(vuln),\n            discoveredDate: new Date().toISOString(),\n            azureServices: this.identifyAzureServices(vulnText)\n          };\n          \n          azureVulns.push(azureVuln);\n        }\n      }\n      \n      return azureVulns;\n    } catch (error) {\n      console.error(`Error analyzing ${updateId}:`, error.message);\n      return [];\n    }\n  }\n  \n  extractSeverity(vuln) {\n    if (vuln.CVSSScoreSets && vuln.CVSSScoreSets.length > 0) {\n      const baseScore = vuln.CVSSScoreSets[0].BaseScore;\n      if (baseScore >= 9.0) return `Critical (${baseScore})`;\n      if (baseScore >= 7.0) return `High (${baseScore})`;\n      if (baseScore >= 4.0) return `Medium (${baseScore})`;\n      return `Low (${baseScore})`;\n    }\n    return 'Unknown';\n  }\n  \n  identifyAzureServices(text) {\n    const serviceKeywords = {\n      'Active Directory': ['active directory', 'azure ad'],\n      'Office 365': ['office 365', 'o365'],\n      'Exchange Online': ['exchange online', 'exchange'],\n      'SharePoint': ['sharepoint'],\n      'Teams': ['microsoft teams', 'teams'],\n      'Azure VMs': ['virtual machine', 'azure vm'],\n      'Azure Storage': ['azure storage', 'blob storage']\n    };\n    \n    const identifiedServices = [];\n    \n    for (const [service, keywords] of Object.entries(serviceKeywords)) {\n      if (keywords.some(keyword => text.includes(keyword))) {\n        identifiedServices.push(service);\n      }\n    }\n    \n    return identifiedServices;\n  }\n  \n  async generateAzureSecurityDashboard() {\n    console.log('\ud83d\udd10 Azure Security Dashboard (FREE MSRC Data)\\n');\n    \n    const recentUpdates = await this.getLatestUpdates(3);\n    let allAzureVulns = [];\n    \n    for (const update of recentUpdates) {\n      console.log(`Analyzing ${update.ID}...`);\n      const vulns = await this.analyzeAzureVulnerabilities(update.ID);\n      allAzureVulns = allAzureVulns.concat(vulns);\n    }\n    \n    console.log(`\\n\ud83d\udcca Azure Vulnerability Summary:`);\n    console.log(`Total Azure vulnerabilities found: ${allAzureVulns.length}\\n`);\n    \n    if (allAzureVulns.length > 0) {\n      // Group by severity\n      const severityGroups = {};\n      allAzureVulns.forEach(vuln => {\n        const severity = vuln.severity.split(' ')[0];\n        if (!severityGroups[severity]) {\n          severityGroups[severity] = [];\n        }\n        severityGroups[severity].push(vuln);\n      });\n      \n      for (const [severity, vulns] of Object.entries(severityGroups)) {\n        console.log(`${severity}: ${vulns.length} vulnerabilities`);\n        vulns.slice(0, 2).forEach(vuln => {\n          console.log(`  - ${vuln.cveId}: ${vuln.title.substring(0, 60)}...`);\n          if (vuln.azureServices.length > 0) {\n            console.log(`    Services: ${vuln.azureServices.join(', ')}`);\n          }\n        });\n        console.log();\n      }\n      \n      // Save to cache\n      fs.writeFileSync(this.cacheFile, JSON.stringify(allAzureVulns, null, 2));\n      console.log(`\u2705 Results saved to ${this.cacheFile}`);\n    }\n  }\n}\n\n// Usage\nconst tracker = new AzureVulnerabilityTracker();\ntracker.generateAzureSecurityDashboard();",
+      "fetch_updates": "// Fetch Microsoft Security Updates - COMPLETELY FREE!\nconst axios = require('axios');\n\nconst fetchMSRCUpdates = async () => {\n  const baseUrl = 'https://api.msrc.microsoft.com/cvrf/v2.0';\n  \n  try {\n    // Get all available updates\n    const response = await axios.get(`${baseUrl}/updates`);\n    const updates = response.data.value;\n    \n    console.log('Microsoft Security Updates (FREE!)\\n');\n    console.log(`Total updates: ${updates.length}\\n`);\n    \n    // Get details for the latest 3 updates\n    const recentUpdates = updates.slice(-3);\n    \n    for (const update of recentUpdates) {\n      console.log(`\ud83d\udcc5 ${update.ID}`);\n      console.log(`   Released: ${update.InitialReleaseDate}`);\n      console.log(`   Updated: ${update.CurrentReleaseDate}`);\n      \n      try {\n        // Get detailed vulnerability information\n        const detailResponse = await axios.get(`${baseUrl}/cvrf/${update.ID}`);\n        const details = detailResponse.data;\n        \n        if (details.Vulnerability) {\n          console.log(`   Vulnerabilities: ${details.Vulnerability.length}`);\n          \n          // Show high-severity vulnerabilities\n          const highSeverityVulns = details.Vulnerability.filter(vuln => {\n            if (vuln.CVSSScoreSets) {\n              for (const scoreSet of vuln.CVSSScoreSets) {\n                if (scoreSet.BaseScore && scoreSet.BaseScore >= 7.0) {\n                  return true;\n                }\n              }\n            }\n            return false;\n          });\n          \n          if (highSeverityVulns.length > 0) {\n            console.log(`   High Severity: ${highSeverityVulns.length}`);\n            \n            // Show first high-severity vulnerability\n            const vuln = highSeverityVulns[0];\n            const score = vuln.CVSSScoreSets?.[0]?.BaseScore || 'Unknown';\n            console.log(`     - ${vuln.CVE || 'No CVE'}: ${score}/10`);\n          }\n        }\n      } catch (detailError) {\n        console.log(`   (Details unavailable)`);\n      }\n      \n      console.log();\n    }\n    \n  } catch (error) {\n    console.error('Error fetching MSRC updates:', error.message);\n  }\n};\n\nfetchMSRCUpdates();"
+    },
+    "python": {
+      "azure_security_monitor": "import requests\nimport json\nfrom datetime import datetime\n\nclass MSRCAzureMonitor:\n    \"\"\"Monitor MSRC for Azure-specific security updates - FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://api.msrc.microsoft.com/cvrf/v2.0'\n        self.azure_keywords = [\n            'azure', 'cloud', 'active directory', 'office 365',\n            'exchange online', 'sharepoint online', 'teams'\n        ]\n    \n    def get_latest_update(self):\n        \"\"\"Get the most recent security update\"\"\"\n        response = requests.get(f'{self.base_url}/updates')\n        updates = response.json()\n        \n        if updates['value']:\n            return updates['value'][-1]['ID']\n        return None\n    \n    def analyze_azure_vulnerabilities(self, update_id):\n        \"\"\"Analyze vulnerabilities affecting Azure services\"\"\"\n        response = requests.get(f'{self.base_url}/cvrf/{update_id}')\n        \n        if response.status_code != 200:\n            return []\n        \n        data = response.json()\n        azure_vulns = []\n        \n        if 'Vulnerability' not in data:\n            return []\n        \n        for vuln in data['Vulnerability']:\n            # Check if vulnerability affects Azure services\n            vuln_text = json.dumps(vuln).lower()\n            \n            if any(keyword in vuln_text for keyword in self.azure_keywords):\n                azure_info = {\n                    'cve_id': vuln.get('CVE', 'Unknown'),\n                    'title': vuln.get('Title', {}).get('Value', 'Unknown'),\n                    'severity': 'Unknown',\n                    'products': [],\n                    'description': ''\n                }\n                \n                # Extract CVSS score\n                if 'CVSSScoreSets' in vuln:\n                    for score_set in vuln['CVSSScoreSets']:\n                        if 'BaseScore' in score_set:\n                            score = score_set['BaseScore']\n                            azure_info['severity'] = f\"{score}/10\"\n                            break\n                \n                # Extract affected products\n                if 'ProductStatuses' in vuln:\n                    for product_status in vuln['ProductStatuses']:\n                        if 'ProductID' in product_status:\n                            for product_id in product_status['ProductID']:\n                                # Look up product name\n                                if 'ProductTree' in data:\n                                    for branch in data['ProductTree'].get('Branch', []):\n                                        if self._find_product_name(branch, product_id):\n                                            azure_info['products'].append(\n                                                self._find_product_name(branch, product_id)\n                                            )\n                \n                azure_vulns.append(azure_info)\n        \n        return azure_vulns\n    \n    def _find_product_name(self, branch, product_id):\n        \"\"\"Recursively find product name by ID\"\"\"\n        if isinstance(branch, dict):\n            if branch.get('Name') == product_id:\n                return branch.get('FullProductName', {}).get('Value', 'Unknown Product')\n            \n            # Check sub-branches\n            for sub_branch in branch.get('Branch', []):\n                result = self._find_product_name(sub_branch, product_id)\n                if result:\n                    return result\n        \n        return None\n    \n    def generate_azure_security_report(self):\n        \"\"\"Generate Azure security report from latest update\"\"\"\n        latest_update = self.get_latest_update()\n        if not latest_update:\n            return\n        \n        print(f\"Azure Security Report - {latest_update} (FREE!)\\n\")\n        \n        azure_vulns = self.analyze_azure_vulnerabilities(latest_update)\n        \n        if not azure_vulns:\n            print(\"No Azure-specific vulnerabilities found in latest update.\")\n            return\n        \n        print(f\"Found {len(azure_vulns)} Azure-related vulnerabilities:\\n\")\n        \n        for vuln in azure_vulns:\n            print(f\"\ud83d\udd34 {vuln['cve_id']}: {vuln['title']}\")\n            print(f\"   Severity: {vuln['severity']}\")\n            if vuln['products']:\n                print(f\"   Affected Products: {', '.join(set(vuln['products'])[:3])}\")\n            print()\n\n# Usage\nmonitor = MSRCAzureMonitor()\nmonitor.generate_azure_security_report()",
+      "get_updates": "import requests\nimport json\nfrom datetime import datetime, timedelta\n\n# Get Microsoft Security Updates - COMPLETELY FREE!\nbase_url = 'https://api.msrc.microsoft.com/cvrf/v2.0'\n\n# Get all available updates\nresponse = requests.get(f'{base_url}/updates')\nupdates = response.json()\n\nprint(\"Microsoft Security Updates (FREE!)\\n\")\nprint(f\"Total updates available: {len(updates['value'])}\\n\")\n\n# Get recent updates (last 6 months)\nfor update in updates['value'][-6:]:\n    update_id = update['ID']\n    print(f\"Update: {update_id}\")\n    print(f\"  Initial Release: {update['InitialReleaseDate']}\")\n    print(f\"  Current Release: {update['CurrentReleaseDate']}\")\n    \n    # Get detailed information for this update\n    detail_response = requests.get(f'{base_url}/cvrf/{update_id}')\n    if detail_response.status_code == 200:\n        details = detail_response.json()\n        \n        # Count vulnerabilities\n        if 'Vulnerability' in details:\n            vuln_count = len(details['Vulnerability'])\n            print(f\"  Vulnerabilities: {vuln_count}\")\n            \n            # Show critical/important vulnerabilities\n            critical_vulns = []\n            for vuln in details['Vulnerability'][:3]:  # Show first 3\n                title = vuln.get('Title', {}).get('Value', 'Unknown')\n                cve_id = vuln.get('CVE', 'No CVE')\n                severity = 'Unknown'\n                \n                if 'CVSSScoreSets' in vuln:\n                    for score_set in vuln['CVSSScoreSets']:\n                        if 'BaseScore' in score_set:\n                            base_score = score_set['BaseScore']\n                            if base_score >= 7.0:\n                                severity = f\"High ({base_score})\"\n                            elif base_score >= 4.0:\n                                severity = f\"Medium ({base_score})\"\n                            else:\n                                severity = f\"Low ({base_score})\"\n                            break\n                \n                print(f\"    - {cve_id}: {title} [{severity}]\")\n    print()"
+    }
+  },
+  "last_updated": "2025-08-15T21:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "aws-security-bulletins",
+      "gcp-security-bulletins",
+      "cisa-advisories"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Public information",
+    "maintainer": "Microsoft Security Response Center",
+    "related_services": [
+      "Microsoft Defender for Cloud",
+      "Azure Security Center",
+      "Microsoft Sentinel",
+      "Azure Policy"
+    ]
+  },
+  "name": "Microsoft Security Response Center (MSRC)",
+  "operational_guidance": {
+    "best_practices": [
+      "Poll for new updates monthly around Patch Tuesday",
+      "Parse CVRF XML for detailed vulnerability information",
+      "Map CVE IDs to your Microsoft infrastructure",
+      "Implement automated parsing of severity scores",
+      "Track out-of-band security updates separately",
+      "Cross-reference with Microsoft Update Catalog"
+    ],
+    "common_use_cases": [
+      "Microsoft/Azure security posture assessment",
+      "Patch management planning and prioritization",
+      "Vulnerability management for Microsoft products",
+      "Compliance reporting and documentation",
+      "Security awareness for Microsoft environments",
+      "Incident response for Microsoft vulnerabilities",
+      "Risk assessment for Microsoft services"
+    ],
+    "recommended_update_frequency": "Check monthly after Patch Tuesday, monitor for out-of-band updates",
+    "value_proposition": "Official Microsoft security update data completely free with comprehensive API access"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "api_stability": "Stable v2.0 API",
+    "completeness": "Comprehensive Microsoft product coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Official Microsoft security communications",
+    "reliability": "excellent",
+    "update_speed": "Real-time on Patch Tuesday"
+  },
+  "quality_score": 96,
+  "subcategory": "azure",
+  "url": "https://msrc.microsoft.com"
+}

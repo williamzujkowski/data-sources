@@ -1,0 +1,170 @@
+{
+  "api": {
+    "base_url": "https://www.cisa.gov",
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Current cybersecurity alerts including supply chain threats",
+        "format": "HTML/RSS",
+        "name": "CISA Alerts and Advisories",
+        "url": "https://www.cisa.gov/news-events/cybersecurity-advisories"
+      },
+      {
+        "access": "free",
+        "description": "Comprehensive supply chain security frameworks and best practices",
+        "format": "PDF/HTML",
+        "name": "Software Supply Chain Security Guidance",
+        "url": "https://www.cisa.gov/resources-tools/resources/software-supply-chain-security"
+      },
+      {
+        "access": "free",
+        "description": "Critical infrastructure protection guidance",
+        "format": "HTML/PDF",
+        "name": "Critical Infrastructure Security",
+        "url": "https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience"
+      },
+      {
+        "access": "free",
+        "description": "Catalog of vulnerabilities with evidence of active exploitation",
+        "format": "JSON/CSV/HTML",
+        "name": "Known Exploited Vulnerabilities (KEV)",
+        "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      }
+    ],
+    "rss_feeds": [
+      {
+        "description": "RSS feed of all CISA cybersecurity advisories",
+        "name": "CISA Cybersecurity Advisories",
+        "update_frequency": "Real-time",
+        "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml"
+      },
+      {
+        "description": "ICS-CERT advisories for industrial control systems",
+        "name": "CISA Industrial Control Systems Advisories",
+        "update_frequency": "As needed",
+        "url": "https://www.cisa.gov/uscert/ics/advisories/advisories.xml"
+      }
+    ],
+    "type": "REST",
+    "web_scraping": {
+      "available": true,
+      "guidance": "Respectful scraping of public information only",
+      "rate_limit_guidance": "Be considerate of government servers"
+    }
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All CISA supply chain security resources, guidance documents, frameworks, and advisories available without authentication or registration.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 99,
+  "category": "supply-chain-security",
+  "coverage": 93,
+  "data_coverage": {
+    "content_types": [
+      "Supply chain risk management frameworks",
+      "Software security best practices",
+      "Third-party risk assessment guidance",
+      "Vendor security evaluation criteria",
+      "Software Bill of Materials (SBOM) guidance",
+      "Critical infrastructure protection",
+      "Incident response for supply chain attacks",
+      "Threat intelligence on supply chain compromises"
+    ],
+    "frameworks_and_standards": [
+      "NIST Cybersecurity Framework",
+      "NIST Supply Chain Risk Management (SCRM)",
+      "Executive Order 14028 Implementation Guidance",
+      "Software Supply Chain Security Guidance",
+      "Zero Trust Architecture Guidelines",
+      "Critical Infrastructure Protection Standards",
+      "Federal Acquisition Security Council (FASC) Guidelines"
+    ],
+    "sector_coverage": [
+      "Federal Government",
+      "Critical Infrastructure (16 sectors)",
+      "Information Technology",
+      "Healthcare",
+      "Financial Services",
+      "Energy",
+      "Transportation",
+      "Manufacturing"
+    ],
+    "temporal": {
+      "historical_data": "2009-present (DHS/CISA establishment)",
+      "latency": "Immediate for critical threats",
+      "update_frequency": "Real-time for alerts, regular updates for guidance"
+    }
+  },
+  "description": "CISA (Cybersecurity and Infrastructure Security Agency) supply chain security guidance, frameworks, and resources provided COMPLETELY FREE. Comprehensive information on supply chain risk management, software security, and critical infrastructure protection.",
+  "documentation": "https://www.cisa.gov/resources-tools/resources/software-supply-chain-security",
+  "format": "other",
+  "id": "cisa-supply-chain",
+  "integration_examples": {
+    "bash": {
+      "cisa_monitoring": "#!/bin/bash\n# CISA Supply Chain Security Monitoring - COMPLETELY FREE!\n\n# Set up directories\nmkdir -p ./cisa-data\ncd ./cisa-data\n\necho \"\ud83d\udd12 CISA Supply Chain Security Monitor (FREE!)\"\necho \"============================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Download CISA KEV catalog\necho \"\ud83d\udce5 Downloading CISA KEV catalog...\"\ncurl -s \"https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json\" \\\n  -o kev-catalog.json\n\nif [ -f kev-catalog.json ]; then\n  echo \"\u2705 KEV catalog downloaded successfully\"\n  \n  # Extract basic statistics\n  TOTAL_VULNS=$(cat kev-catalog.json | jq '.count')\n  CATALOG_VERSION=$(cat kev-catalog.json | jq -r '.catalogVersion')\n  DATE_RELEASED=$(cat kev-catalog.json | jq -r '.dateReleased')\n  \n  echo \"\ud83d\udcca KEV Catalog Statistics:\"\n  echo \"   Total Vulnerabilities: $TOTAL_VULNS\"\n  echo \"   Catalog Version: $CATALOG_VERSION\"\n  echo \"   Date Released: $DATE_RELEASED\"\n  echo \"\"\n  \n  # Find recent additions (last 30 days)\n  echo \"\ud83d\udcc8 Recent KEV Additions (Last 30 days):\"\n  THIRTY_DAYS_AGO=$(date -d '30 days ago' '+%Y-%m-%d')\n  \n  cat kev-catalog.json | jq -r \\\n    --arg date \"$THIRTY_DAYS_AGO\" \\\n    '.vulnerabilities[] | select(.dateAdded >= $date) | \"\ud83d\udd34 \" + .cveID + \" - \" + .vendorProject + \" \" + .product + \" (\" + .dateAdded + \")\"' \\\n    | head -10\n  \n  echo \"\"\n  \n  # Top affected vendors\n  echo \"\ud83c\udfe2 Top Affected Vendors:\"\n  cat kev-catalog.json | jq -r '.vulnerabilities[].vendorProject' | \\\n    sort | uniq -c | sort -nr | head -5 | \\\n    while read count vendor; do\n      echo \"   $vendor: $count vulnerabilities\"\n    done\n  \n  echo \"\"\nelse\n  echo \"\u274c Failed to download KEV catalog\"\nfi\n\n# Download CISA advisories RSS\necho \"\ud83d\udce1 Fetching CISA advisories...\"\ncurl -s \"https://www.cisa.gov/cybersecurity-advisories/all.xml\" \\\n  -o cisa-advisories.xml\n\nif [ -f cisa-advisories.xml ]; then\n  echo \"\u2705 CISA advisories downloaded successfully\"\n  \n  # Extract recent advisories (requires xmllint)\n  if command -v xmllint &> /dev/null; then\n    echo \"\ud83d\udccb Recent CISA Advisories:\"\n    xmllint --format cisa-advisories.xml | \\\n      grep -A 2 -B 1 '<title>' | \\\n      grep -v '^--$' | \\\n      head -20\n  else\n    echo \"   (Install xmllint for advisory parsing)\"\n  fi\n  \n  echo \"\"\nelse\n  echo \"\u274c Failed to download CISA advisories\"\nfi\n\n# Check for supply chain specific content\necho \"\ud83d\udd0d Supply Chain Security Resources:\"\necho \"   \ud83d\udcc4 Software Supply Chain Security: https://www.cisa.gov/resources-tools/resources/software-supply-chain-security\"\necho \"   \ud83c\udfaf Supply Chain Compromise: https://www.cisa.gov/topics/supply-chain-compromise\"\necho \"   \ud83d\udee1\ufe0f  Secure Software Development: https://www.cisa.gov/resources-tools/resources/secure-software-development-attestation-form\"\necho \"   \ud83d\udcca SBOM Resources: https://www.cisa.gov/sbom\"\necho \"\"\n\n# Generate summary report\necho \"\ud83d\udca1 Next Steps:\"\necho \"   1. Review KEV catalog for vulnerabilities affecting your environment\"\necho \"   2. Implement CISA supply chain security guidance\"\necho \"   3. Establish SBOM generation and management processes\"\necho \"   4. Monitor CISA advisories for supply chain threats\"\necho \"   5. Engage vendors on security practices and attestations\"\necho \"\"\n\necho \"\ud83d\udcc5 Report generated: $(date)\"\necho \"\ud83d\udcc1 Data saved to: $(pwd)\"",
+      "kev_analysis": "#!/bin/bash\n# CISA KEV Catalog Analysis Script - COMPLETELY FREE!\n\necho \"\ud83d\udcca CISA KEV Catalog Analysis (FREE!)\"\necho \"===================================\"\n\n# Download latest KEV catalog\necho \"\ud83d\udce5 Downloading CISA KEV catalog...\"\ncurl -s \"https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json\" -o kev.json\n\nif [ ! -f kev.json ]; then\n  echo \"\u274c Failed to download KEV catalog\"\n  exit 1\nfi\n\necho \"\u2705 KEV catalog downloaded\"\necho \"\"\n\n# Basic statistics\necho \"\ud83d\udcca Basic Statistics:\"\nTOTAL=$(cat kev.json | jq '.count')\nVERSION=$(cat kev.json | jq -r '.catalogVersion')\nRELEASED=$(cat kev.json | jq -r '.dateReleased')\n\necho \"   Total KEV entries: $TOTAL\"\necho \"   Catalog version: $VERSION\"\necho \"   Last updated: $RELEASED\"\necho \"\"\n\n# Recent additions (last 7 days)\necho \"\ud83c\udd95 Recent Additions (Last 7 days):\"\nSEVEN_DAYS_AGO=$(date -d '7 days ago' '+%Y-%m-%d')\nRECENT_COUNT=$(cat kev.json | jq --arg date \"$SEVEN_DAYS_AGO\" '[.vulnerabilities[] | select(.dateAdded >= $date)] | length')\n\necho \"   Count: $RECENT_COUNT\"\nif [ \"$RECENT_COUNT\" -gt \"0\" ]; then\n  cat kev.json | jq -r --arg date \"$SEVEN_DAYS_AGO\" \\\n    '.vulnerabilities[] | select(.dateAdded >= $date) | \"   \ud83d\udd34 \" + .cveID + \" - \" + .vendorProject + \" (\" + .dateAdded + \")\"' | head -5\nfi\necho \"\"\n\n# Vendor analysis\necho \"\ud83c\udfe2 Top 10 Affected Vendors:\"\ncat kev.json | jq -r '.vulnerabilities[].vendorProject' | \\\n  sort | uniq -c | sort -nr | head -10 | \\\n  awk '{printf \"   %-20s %d vulnerabilities\\n\", $2, $1}'\necho \"\"\n\n# Year analysis\necho \"\ud83d\udcc5 Vulnerabilities by Year Added:\"\ncat kev.json | jq -r '.vulnerabilities[].dateAdded' | \\\n  cut -d'-' -f1 | sort | uniq -c | sort -nr | \\\n  awk '{printf \"   %s: %d vulnerabilities\\n\", $2, $1}'\necho \"\"\n\n# Product analysis\necho \"\ud83c\udfaf Common Product Keywords:\"\ncat kev.json | jq -r '.vulnerabilities[].product' | \\\n  tr ' ' '\\n' | tr '[:upper:]' '[:lower:]' | \\\n  grep -E '^[a-z]{3,}$' | sort | uniq -c | sort -nr | head -10 | \\\n  awk '{printf \"   %-15s %d mentions\\n\", $2, $1}'\necho \"\"\n\n# Critical timing analysis\necho \"\u23f0 Due Date Analysis:\"\nEXPIRED_COUNT=$(cat kev.json | jq --arg today \"$(date '+%Y-%m-%d')\" '[.vulnerabilities[] | select(.dueDate < $today)] | length')\nTODAY_COUNT=$(cat kev.json | jq --arg today \"$(date '+%Y-%m-%d')\" '[.vulnerabilities[] | select(.dueDate == $today)] | length')\nWEEK_COUNT=$(cat kev.json | jq --arg week \"$(date -d '+7 days' '+%Y-%m-%d')\" --arg today \"$(date '+%Y-%m-%d')\" '[.vulnerabilities[] | select(.dueDate > $today and .dueDate <= $week)] | length')\n\necho \"   Expired due dates: $EXPIRED_COUNT\"\necho \"   Due today: $TODAY_COUNT\"\necho \"   Due within 7 days: $WEEK_COUNT\"\necho \"\"\n\n# Export CSV for further analysis\necho \"\ud83d\udcbe Generating CSV export...\"\necho \"CVE_ID,Vendor,Product,Vulnerability_Name,Date_Added,Due_Date,Required_Action\" > kev_export.csv\ncat kev.json | jq -r '.vulnerabilities[] | [.cveID, .vendorProject, .product, .vulnerabilityName, .dateAdded, .dueDate, .requiredAction] | @csv' >> kev_export.csv\necho \"   CSV exported to: kev_export.csv\"\necho \"\"\n\necho \"\u2705 Analysis complete!\"\necho \"\ud83d\udcc1 Files generated:\"\necho \"   - kev.json (raw catalog)\"\necho \"   - kev_export.csv (structured data)\"\necho \"\"\necho \"\ud83d\udca1 Use this data to:\"\necho \"   - Prioritize vulnerability patching\"\necho \"   - Track vendor security performance\"\necho \"   - Plan security updates and maintenance windows\"\necho \"   - Report on compliance with federal requirements\""
+    },
+    "curl": {
+      "get_cisa_advisories": "# Get CISA cybersecurity advisories RSS\ncurl -s 'https://www.cisa.gov/cybersecurity-advisories/all.xml' | head -50",
+      "get_kev_catalog": "# Get CISA KEV catalog - COMPLETELY FREE!\ncurl -s 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json' | jq '{catalogVersion, dateReleased, count, vulnerabilities: [.vulnerabilities[0:5]]}'",
+      "recent_kev_additions": "# Get recent KEV additions (last 30 days)\nTHIRTY_DAYS_AGO=$(date -d '30 days ago' '+%Y-%m-%d')\ncurl -s 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json' | jq --arg date \"$THIRTY_DAYS_AGO\" '.vulnerabilities[] | select(.dateAdded >= $date) | {cveID, vendor: .vendorProject, product, dateAdded}'",
+      "vendor_analysis": "# Analyze KEV by vendor\ncurl -s 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json' | jq -r '.vulnerabilities[].vendorProject' | sort | uniq -c | sort -nr | head -10"
+    },
+    "python": {
+      "fetch_cisa_advisories": "import requests\nimport feedparser\nfrom datetime import datetime, timedelta\nimport json\nimport csv\n\n# Fetch CISA Cybersecurity Advisories - COMPLETELY FREE!\ndef get_cisa_advisories():\n    \"\"\"Get CISA cybersecurity advisories from RSS feed\"\"\"\n    feed_url = 'https://www.cisa.gov/cybersecurity-advisories/all.xml'\n    \n    try:\n        feed = feedparser.parse(feed_url)\n        \n        print(\"CISA Cybersecurity Advisories (FREE!)\\n\")\n        print(f\"Feed Title: {feed.feed.get('title', 'Unknown')}\")\n        print(f\"Last Updated: {feed.feed.get('updated', 'Unknown')}\")\n        print(f\"Total Advisories: {len(feed.entries)}\\n\")\n        \n        advisories = []\n        \n        for entry in feed.entries[:10]:  # Show latest 10\n            advisory = {\n                'title': entry.title,\n                'link': entry.link,\n                'published': entry.published,\n                'summary': entry.get('summary', ''),\n                'category': entry.get('category', 'Unknown')\n            }\n            \n            advisories.append(advisory)\n            \n            print(f\"\ud83d\udccb {advisory['title']}\")\n            print(f\"   \ud83d\udcc5 {advisory['published']}\")\n            print(f\"   \ud83d\udd17 {advisory['link']}\")\n            \n            if advisory['summary']:\n                summary = advisory['summary'][:150].replace('\\n', ' ')\n                print(f\"   \ud83d\udcc4 {summary}...\")\n            \n            print()\n        \n        return advisories\n        \n    except Exception as e:\n        print(f\"Error fetching CISA advisories: {e}\")\n        return []\n\n# Fetch CISA KEV (Known Exploited Vulnerabilities) Catalog\ndef get_cisa_kev_catalog():\n    \"\"\"Get CISA Known Exploited Vulnerabilities catalog\"\"\"\n    kev_url = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json'\n    \n    try:\n        response = requests.get(kev_url)\n        if response.status_code == 200:\n            kev_data = response.json()\n            \n            print(\"CISA Known Exploited Vulnerabilities (KEV) Catalog (FREE!)\\n\")\n            print(f\"Catalog Version: {kev_data.get('catalogVersion', 'Unknown')}\")\n            print(f\"Date Released: {kev_data.get('dateReleased', 'Unknown')}\")\n            print(f\"Count: {kev_data.get('count', 0)} vulnerabilities\\n\")\n            \n            vulnerabilities = kev_data.get('vulnerabilities', [])\n            \n            # Show recent vulnerabilities (last 30 days)\n            recent_vulns = []\n            thirty_days_ago = datetime.now() - timedelta(days=30)\n            \n            for vuln in vulnerabilities:\n                date_added = vuln.get('dateAdded', '')\n                if date_added:\n                    try:\n                        vuln_date = datetime.strptime(date_added, '%Y-%m-%d')\n                        if vuln_date >= thirty_days_ago:\n                            recent_vulns.append(vuln)\n                    except ValueError:\n                        continue\n            \n            print(f\"\ud83d\udcc8 Recent Additions (Last 30 days): {len(recent_vulns)}\\n\")\n            \n            for vuln in recent_vulns[:5]:  # Show latest 5\n                print(f\"\ud83d\udd34 {vuln.get('cveID', 'Unknown CVE')}\")\n                print(f\"   Product: {vuln.get('product', 'Unknown')}\")\n                print(f\"   Vendor: {vuln.get('vendorProject', 'Unknown')}\")\n                print(f\"   Added: {vuln.get('dateAdded', 'Unknown')}\")\n                print(f\"   Due Date: {vuln.get('dueDate', 'Unknown')}\")\n                print(f\"   Description: {vuln.get('shortDescription', 'No description')[:100]}...\")\n                print()\n            \n            return kev_data\n        \n        else:\n            print(f\"Error fetching KEV catalog: HTTP {response.status_code}\")\n            return None\n            \n    except Exception as e:\n        print(f\"Error fetching KEV catalog: {e}\")\n        return None\n\n# Usage\nif __name__ == \"__main__\":\n    print(\"=== CISA Cybersecurity Advisories ===\")\n    advisories = get_cisa_advisories()\n    \n    print(\"\\n=== CISA KEV Catalog ===\")\n    kev_data = get_cisa_kev_catalog()",
+      "supply_chain_monitor": "import requests\nimport feedparser\nimport json\nimport hashlib\nimport time\nfrom datetime import datetime\nfrom bs4 import BeautifulSoup\n\nclass CISASupplyChainMonitor:\n    \"\"\"Monitor CISA supply chain security resources - FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.cisa.gov'\n        self.seen_advisories = set()\n        self.state_file = 'cisa_supply_chain_monitor.json'\n        self.load_state()\n    \n    def load_state(self):\n        try:\n            with open(self.state_file, 'r') as f:\n                data = json.load(f)\n                self.seen_advisories = set(data['seen'])\n        except FileNotFoundError:\n            pass\n    \n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump({'seen': list(self.seen_advisories)}, f)\n    \n    def check_new_advisories(self):\n        \"\"\"Check for new CISA advisories\"\"\"\n        feed_url = 'https://www.cisa.gov/cybersecurity-advisories/all.xml'\n        \n        try:\n            feed = feedparser.parse(feed_url)\n            new_advisories = []\n            \n            for entry in feed.entries:\n                advisory_id = hashlib.md5(entry.link.encode()).hexdigest()\n                \n                if advisory_id in self.seen_advisories:\n                    continue\n                \n                # Check for supply chain related content\n                content = f\"{entry.title} {entry.get('summary', '')}\".lower()\n                supply_chain_keywords = [\n                    'supply chain', 'third party', 'vendor', 'software supply',\n                    'dependency', 'component', 'sbom', 'supply-chain'\n                ]\n                \n                is_supply_chain_related = any(keyword in content for keyword in supply_chain_keywords)\n                \n                advisory = {\n                    'title': entry.title,\n                    'link': entry.link,\n                    'published': entry.published,\n                    'summary': entry.get('summary', ''),\n                    'supply_chain_related': is_supply_chain_related\n                }\n                \n                new_advisories.append(advisory)\n                self.seen_advisories.add(advisory_id)\n            \n            if new_advisories:\n                self.save_state()\n            \n            return new_advisories\n            \n        except Exception as e:\n            print(f\"Error checking advisories: {e}\")\n            return []\n    \n    def get_supply_chain_guidance(self):\n        \"\"\"Scrape CISA supply chain guidance pages\"\"\"\n        guidance_urls = [\n            'https://www.cisa.gov/resources-tools/resources/software-supply-chain-security',\n            'https://www.cisa.gov/topics/supply-chain-compromise'\n        ]\n        \n        guidance_content = []\n        \n        for url in guidance_urls:\n            try:\n                response = requests.get(url)\n                if response.status_code == 200:\n                    soup = BeautifulSoup(response.content, 'html.parser')\n                    \n                    # Extract title\n                    title = soup.find('title')\n                    page_title = title.text.strip() if title else 'Unknown'\n                    \n                    # Extract main content (simplified)\n                    content_div = soup.find('div', class_='field-item') or soup.find('main')\n                    \n                    guidance_info = {\n                        'url': url,\n                        'title': page_title,\n                        'last_scraped': datetime.now().isoformat(),\n                        'content_available': content_div is not None\n                    }\n                    \n                    # Extract links to resources\n                    links = soup.find_all('a', href=True)\n                    resource_links = []\n                    \n                    for link in links:\n                        href = link['href']\n                        text = link.get_text().strip()\n                        \n                        # Look for document links\n                        if any(ext in href.lower() for ext in ['.pdf', '.doc', '.docx']):\n                            if 'supply' in text.lower() or 'security' in text.lower():\n                                resource_links.append({\n                                    'text': text,\n                                    'url': href if href.startswith('http') else f'https://www.cisa.gov{href}'\n                                })\n                    \n                    guidance_info['resource_links'] = resource_links[:10]  # First 10 relevant links\n                    guidance_content.append(guidance_info)\n                \n                time.sleep(1)  # Be respectful to government servers\n                \n            except Exception as e:\n                print(f\"Error scraping {url}: {e}\")\n        \n        return guidance_content\n    \n    def analyze_kev_trends(self):\n        \"\"\"Analyze trends in CISA KEV catalog\"\"\"\n        kev_url = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json'\n        \n        try:\n            response = requests.get(kev_url)\n            if response.status_code == 200:\n                kev_data = response.json()\n                vulnerabilities = kev_data.get('vulnerabilities', [])\n                \n                analysis = {\n                    'total_vulnerabilities': len(vulnerabilities),\n                    'vendor_distribution': {},\n                    'recent_additions': [],\n                    'product_categories': {},\n                    'analysis_date': datetime.now().isoformat()\n                }\n                \n                # Analyze by vendor\n                for vuln in vulnerabilities:\n                    vendor = vuln.get('vendorProject', 'Unknown')\n                    analysis['vendor_distribution'][vendor] = \\\n                        analysis['vendor_distribution'].get(vendor, 0) + 1\n                    \n                    # Categorize products\n                    product = vuln.get('product', '').lower()\n                    if 'windows' in product or 'microsoft' in product:\n                        category = 'Microsoft Products'\n                    elif 'adobe' in product or 'acrobat' in product or 'flash' in product:\n                        category = 'Adobe Products'\n                    elif 'chrome' in product or 'firefox' in product or 'safari' in product:\n                        category = 'Web Browsers'\n                    elif 'java' in product or 'oracle' in product:\n                        category = 'Oracle/Java Products'\n                    else:\n                        category = 'Other'\n                    \n                    analysis['product_categories'][category] = \\\n                        analysis['product_categories'].get(category, 0) + 1\n                    \n                    # Check for recent additions (last 7 days)\n                    date_added = vuln.get('dateAdded', '')\n                    if date_added:\n                        try:\n                            vuln_date = datetime.strptime(date_added, '%Y-%m-%d')\n                            days_ago = (datetime.now() - vuln_date).days\n                            \n                            if days_ago <= 7:\n                                analysis['recent_additions'].append({\n                                    'cve': vuln.get('cveID'),\n                                    'vendor': vendor,\n                                    'product': vuln.get('product'),\n                                    'date_added': date_added\n                                })\n                        except ValueError:\n                            continue\n                \n                return analysis\n            \n        except Exception as e:\n            print(f\"Error analyzing KEV trends: {e}\")\n            return None\n    \n    def generate_supply_chain_report(self):\n        \"\"\"Generate comprehensive supply chain security report\"\"\"\n        print(f\"\ud83d\udd12 CISA Supply Chain Security Report (FREE!)\\n\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        # Check for new advisories\n        print(\"\ud83d\udccb Checking for new CISA advisories...\")\n        new_advisories = self.check_new_advisories()\n        \n        supply_chain_advisories = [adv for adv in new_advisories if adv['supply_chain_related']]\n        \n        if supply_chain_advisories:\n            print(f\"\ud83d\udea8 New Supply Chain Related Advisories ({len(supply_chain_advisories)}):\")\n            for advisory in supply_chain_advisories:\n                print(f\"   \ud83d\udcc4 {advisory['title']}\")\n                print(f\"      \ud83d\udcc5 {advisory['published']}\")\n                print(f\"      \ud83d\udd17 {advisory['link']}\")\n                print()\n        else:\n            print(\"   \u2705 No new supply chain related advisories found\")\n        \n        # Get supply chain guidance\n        print(\"\\n\ud83d\udcda CISA Supply Chain Guidance Resources:\")\n        guidance = self.get_supply_chain_guidance()\n        \n        for guide in guidance:\n            print(f\"   \ud83d\udcc4 {guide['title']}\")\n            print(f\"      \ud83d\udd17 {guide['url']}\")\n            print(f\"      \ud83d\udccb {len(guide['resource_links'])} related resources found\")\n            \n            for resource in guide['resource_links'][:3]:  # Show first 3\n                print(f\"         - {resource['text']}\")\n            print()\n        \n        # Analyze KEV trends\n        print(\"\ud83d\udcc8 CISA KEV Catalog Analysis:\")\n        kev_analysis = self.analyze_kev_trends()\n        \n        if kev_analysis:\n            print(f\"   \ud83d\udcca Total Known Exploited Vulnerabilities: {kev_analysis['total_vulnerabilities']}\")\n            print(f\"   \ud83c\udd95 Recent Additions (7 days): {len(kev_analysis['recent_additions'])}\")\n            \n            # Top vendors\n            top_vendors = sorted(\n                kev_analysis['vendor_distribution'].items(),\n                key=lambda x: x[1],\n                reverse=True\n            )[:5]\n            \n            print(f\"\\n   \ud83c\udfe2 Top Affected Vendors:\")\n            for vendor, count in top_vendors:\n                print(f\"      {vendor}: {count} vulnerabilities\")\n            \n            # Product categories\n            print(f\"\\n   \ud83c\udfaf Product Categories:\")\n            for category, count in sorted(kev_analysis['product_categories'].items(), \n                                        key=lambda x: x[1], reverse=True):\n                print(f\"      {category}: {count} vulnerabilities\")\n            \n            # Recent additions\n            if kev_analysis['recent_additions']:\n                print(f\"\\n   \ud83c\udd95 Recent KEV Additions:\")\n                for recent in kev_analysis['recent_additions'][:5]:\n                    print(f\"      {recent['cve']} - {recent['vendor']} {recent['product']} ({recent['date_added']})\")\n        \n        print(\"\\n\ud83d\udca1 Supply Chain Security Recommendations:\")\n        print(\"   \ud83d\udccb Implement CISA software supply chain security guidance\")\n        print(\"   \ud83d\udd0d Regularly review CISA KEV catalog for affected products\")\n        print(\"   \ud83d\udcca Establish Software Bill of Materials (SBOM) processes\")\n        print(\"   \ud83e\udd1d Engage with vendors on security practices\")\n        print(\"   \u26a1 Implement zero trust architecture principles\")\n\n# Usage\nmonitor = CISASupplyChainMonitor()\nmonitor.generate_supply_chain_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:10:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "nist-cybersecurity-framework",
+      "iso-27001-supply-chain",
+      "enisa-supply-chain-guidance"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Public domain - U.S. government information",
+    "maintainer": "U.S. Cybersecurity and Infrastructure Security Agency (CISA)",
+    "related_resources": [
+      "NIST Supply Chain Risk Management",
+      "Executive Order 14028 (Improving Cybersecurity)",
+      "Software Bill of Materials (SBOM) Initiative",
+      "Federal Acquisition Security Council (FASC)"
+    ]
+  },
+  "name": "CISA Supply Chain Security",
+  "operational_guidance": {
+    "best_practices": [
+      "Monitor CISA alerts and advisories regularly",
+      "Implement CISA's software supply chain security guidance",
+      "Use CISA KEV catalog for vulnerability prioritization",
+      "Follow CISA incident response recommendations",
+      "Subscribe to CISA RSS feeds for real-time updates",
+      "Implement CISA's zero trust architecture principles"
+    ],
+    "common_use_cases": [
+      "Federal compliance and regulatory requirements",
+      "Critical infrastructure protection planning",
+      "Supply chain risk assessment and management",
+      "Vendor security evaluation processes",
+      "Incident response planning and execution",
+      "Cybersecurity awareness and training",
+      "Threat intelligence and situational awareness"
+    ],
+    "recommended_update_frequency": "Monitor alerts daily, review guidance documents quarterly",
+    "value_proposition": "Authoritative, free cybersecurity guidance from the U.S. government's lead cybersecurity agency"
+  },
+  "quality_metrics": {
+    "accessibility": "Public access without registration",
+    "authority": "Official U.S. government cybersecurity agency",
+    "completeness": "Comprehensive supply chain security coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Authoritative U.S. government cybersecurity guidance",
+    "reliability": "excellent",
+    "update_speed": "Real-time for critical threats and vulnerabilities"
+  },
+  "quality_score": 97,
+  "subcategory": "cisa",
+  "url": "https://www.cisa.gov/topics/supply-chain-compromise"
+}
