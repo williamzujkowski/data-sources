@@ -1,0 +1,153 @@
+{
+  "api": {
+    "base_url": "http://localhost:8080/WebGoat",
+    "installation_methods": [
+      {
+        "command": "docker run -it -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 webgoat/webgoat",
+        "description": "Easiest installation method",
+        "method": "Docker"
+      },
+      {
+        "command": "java -jar webgoat-2023.8.jar",
+        "description": "Download JAR from GitHub releases",
+        "method": "Standalone JAR"
+      },
+      {
+        "command": "git clone https://github.com/WebGoat/WebGoat.git",
+        "description": "Build from source",
+        "method": "GitHub Source"
+      }
+    ],
+    "lesson_categories": [
+      "General",
+      "Introduction",
+      "Injection",
+      "Broken Authentication",
+      "Sensitive Data Exposure",
+      "XML External Entities",
+      "Broken Access Control",
+      "Security Misconfiguration",
+      "Cross-Site Scripting",
+      "Insecure Deserialization",
+      "Vulnerable Components",
+      "Request Forgeries",
+      "Client Side"
+    ],
+    "type": "application"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source application. Download and run locally or use Docker container. No registration required.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 96,
+  "category": "education-training",
+  "coverage": 94,
+  "data_coverage": {
+    "content_types": [
+      "Interactive security lessons",
+      "Hands-on exercises",
+      "Video tutorials",
+      "Code examples",
+      "Vulnerability demonstrations",
+      "Security concepts",
+      "Best practices",
+      "Remediation guidance"
+    ],
+    "features": [
+      "Progress tracking",
+      "Hints system",
+      "Solution viewing",
+      "Reset functionality",
+      "Challenge mode",
+      "Developer tools integration",
+      "Proxy support",
+      "Multi-language support"
+    ],
+    "learning_topics": [
+      "SQL Injection",
+      "Cross-Site Scripting (XSS)",
+      "Access Control Flaws",
+      "Authentication Flaws",
+      "CSRF",
+      "Path Traversal",
+      "XXE",
+      "Deserialization",
+      "JWT attacks",
+      "Password reset flaws",
+      "Secure coding"
+    ],
+    "temporal": {
+      "historical_data": "2001-present",
+      "latency": "Local installation - no latency",
+      "update_frequency": "Regular updates with new lessons"
+    }
+  },
+  "description": "OWASP WebGoat - FREE deliberately insecure web application for learning web application security. Hands-on lessons covering OWASP Top 10 and more.",
+  "format": "other",
+  "id": "owasp-webgoat",
+  "integration_examples": {
+    "bash": {
+      "webgoat_setup": "#!/bin/bash\n# WebGoat Quick Setup - FREE!\n\necho \"\ud83c\udfaf OWASP WebGoat Setup (COMPLETELY FREE!)\"\necho \"========================================\"\necho \"\"\n\necho \"\ud83d\udc33 Docker Installation (Easiest):\"\necho \"docker pull webgoat/webgoat\"\necho \"docker run -it -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 webgoat/webgoat\"\necho \"\"\n\necho \"\ud83c\udf10 Access WebGoat:\"\necho \"   WebGoat: http://localhost:8080/WebGoat\"\necho \"   WebWolf: http://localhost:9090/WebWolf\"\necho \"\"\n\necho \"\ud83d\udcda Lesson Categories:\"\necho \"   \u2022 Injection (SQL, Command, Path)\"\necho \"   \u2022 Authentication & Sessions\"\necho \"   \u2022 Cross-Site Scripting (XSS)\"\necho \"   \u2022 Access Control\"\necho \"   \u2022 CSRF\"\necho \"   \u2022 Cryptography\"\necho \"   \u2022 And much more!\"\necho \"\"\n\necho \"\ud83d\udca1 Tips:\"\necho \"   \u2022 Register any username/password\"\necho \"   \u2022 Start with Introduction lessons\"\necho \"   \u2022 Use hints if stuck\"\necho \"   \u2022 Try with Burp/ZAP proxy\"\necho \"\"\n\necho \"\ud83c\udd93 Completely FREE & Open Source!\""
+    },
+    "curl": {
+      "docker_pull": "# Pull WebGoat Docker image - FREE!\ndocker pull webgoat/webgoat"
+    },
+    "python": {
+      "webgoat_helper": "import requests\nimport json\nfrom typing import Dict, List\n\nclass WebGoatHelper:\n    \"\"\"OWASP WebGoat Helper - FREE Learning Platform!\"\"\"\n    \n    def __init__(self, host='localhost', port=8080):\n        self.base_url = f'http://{host}:{port}/WebGoat'\n        self.session = requests.Session()\n        \n    def lesson_overview(self):\n        \"\"\"WebGoat lesson categories (FREE!)\"\"\"\n        print(\"\ud83c\udfaf OWASP WebGoat Lessons (COMPLETELY FREE!)\\n\")\n        \n        lessons = {\n            'Injection': [\n                'SQL Injection (intro)',\n                'SQL Injection (advanced)',\n                'SQL Injection (mitigation)',\n                'Path Traversal',\n                'Command Injection',\n                'NoSQL Injection'\n            ],\n            'Broken Authentication': [\n                'Authentication Bypasses',\n                'JWT tokens',\n                'Password reset',\n                'Secure Passwords',\n                'Multi-Factor Authentication'\n            ],\n            'Cross-Site Scripting': [\n                'XSS Reflected',\n                'XSS Stored',\n                'XSS DOM-based',\n                'XSS Mitigation',\n                'Content Security Policy'\n            ],\n            'Broken Access Control': [\n                'Insecure Direct Object References',\n                'Missing Function Level Access Control',\n                'Horizontal Privilege Escalation',\n                'Vertical Privilege Escalation'\n            ],\n            'Security Misconfiguration': [\n                'XXE',\n                'Insecure Deserialization',\n                'Vulnerable Components',\n                'Error Handling',\n                'Admin Interfaces'\n            ],\n            'Client Side': [\n                'Bypass front-end restrictions',\n                'HTML tampering',\n                'Client side filtering',\n                'WebSockets',\n                'Local Storage'\n            ]\n        }\n        \n        for category, topics in lessons.items():\n            print(f\"\ud83d\udcda {category}:\")\n            for topic in topics:\n                print(f\"   \u2022 {topic}\")\n            print()\n        \n        return lessons\n    \n    def learning_path(self):\n        \"\"\"Recommended learning path (FREE!)\"\"\"\n        print(\"\ud83c\udf93 WebGoat Learning Path (FREE!)\\n\")\n        \n        path = [\n            {\n                'level': 'Beginner',\n                'lessons': [\n                    'Introduction to WebGoat',\n                    'HTTP Basics',\n                    'HTTP Proxies',\n                    'CIA Triad',\n                    'Crypto Basics'\n                ]\n            },\n            {\n                'level': 'Intermediate',\n                'lessons': [\n                    'SQL Injection',\n                    'Cross-Site Scripting',\n                    'Authentication Flaws',\n                    'Access Control',\n                    'CSRF'\n                ]\n            },\n            {\n                'level': 'Advanced',\n                'lessons': [\n                    'XXE',\n                    'Deserialization',\n                    'JWT Attacks',\n                    'Server-Side Request Forgery',\n                    'Race Conditions'\n                ]\n            },\n            {\n                'level': 'Expert',\n                'lessons': [\n                    'Challenge lessons',\n                    'CTF mode',\n                    'Custom exploits',\n                    'Chaining vulnerabilities',\n                    'Advanced bypasses'\n                ]\n            }\n        ]\n        \n        for level_info in path:\n            print(f\"\ud83c\udfc6 {level_info['level']} Level:\")\n            for lesson in level_info['lessons']:\n                print(f\"   \u25a1 {lesson}\")\n            print()\n        \n        return path\n    \n    def installation_guide(self):\n        \"\"\"Installation instructions (FREE!)\"\"\"\n        print(\"\ud83d\ude80 WebGoat Installation Guide (FREE!)\\n\")\n        \n        print(\"\ud83d\udc33 Method 1: Docker (Recommended):\\n\")\n        print(\"   docker pull webgoat/webgoat\")\n        print(\"   docker run -it -p 127.0.0.1:8080:8080 \\\\\")\n        print(\"              -p 127.0.0.1:9090:9090 \\\\\")\n        print(\"              webgoat/webgoat\\n\")\n        \n        print(\"\u2615 Method 2: Standalone JAR:\\n\")\n        print(\"   1. Download from: https://github.com/WebGoat/WebGoat/releases\")\n        print(\"   2. java -jar webgoat-2023.8.jar\")\n        print(\"   3. Browse to: http://localhost:8080/WebGoat\\n\")\n        \n        print(\"\ud83d\udd27 Method 3: Build from Source:\\n\")\n        print(\"   git clone https://github.com/WebGoat/WebGoat.git\")\n        print(\"   cd WebGoat\")\n        print(\"   ./mvnw clean install\")\n        print(\"   ./mvnw spring-boot:run\\n\")\n        \n        print(\"\ud83c\udf10 Access WebGoat:\\n\")\n        print(\"   URL: http://localhost:8080/WebGoat\")\n        print(\"   Register a new user (stays local)\")\n        print(\"   Start learning!\\n\")\n        \n    def tips_and_tricks(self):\n        \"\"\"WebGoat tips for effective learning (FREE!)\"\"\"\n        print(\"\ud83d\udca1 WebGoat Tips & Tricks (FREE!)\\n\")\n        \n        print(\"\ud83c\udfaf Learning Tips:\\n\")\n        tips = [\n            \"Start with 'General' category first\",\n            \"Read lesson plans before attempting\",\n            \"Use browser developer tools\",\n            \"Try solving without hints initially\",\n            \"Use hints progressively if stuck\",\n            \"Review solutions after completion\",\n            \"Understand why vulnerabilities exist\",\n            \"Learn proper remediation techniques\"\n        ]\n        \n        for tip in tips:\n            print(f\"   \u2022 {tip}\")\n        \n        print(\"\\n\ud83d\udee0\ufe0f Recommended Tools:\\n\")\n        tools = [\n            \"Burp Suite Community (FREE)\",\n            \"OWASP ZAP (FREE)\",\n            \"Browser DevTools\",\n            \"Postman for API testing\",\n            \"CyberChef for encoding/decoding\",\n            \"sqlmap for SQL injection\"\n        ]\n        \n        for tool in tools:\n            print(f\"   \u2022 {tool}\")\n        \n        print(\"\\n\ud83d\udcc8 Progress Tracking:\\n\")\n        progress = [\n            \"WebGoat tracks lesson completion\",\n            \"Green checkmarks show completed\",\n            \"Reset lessons to practice again\",\n            \"Challenge yourself with time limits\",\n            \"Share progress with team/instructor\"\n        ]\n        \n        for item in progress:\n            print(f\"   \u2022 {item}\")\n        \n        print(\"\\n\ud83c\udfae Challenge Mode:\\n\")\n        print(\"   \u2022 Flags hidden in applications\")\n        print(\"   \u2022 No hints available\")\n        print(\"   \u2022 Time-based scoring\")\n        print(\"   \u2022 Leaderboard tracking\")\n        print(\"   \u2022 Great for CTF practice\\n\")\n        \n    def companion_resources(self):\n        \"\"\"Additional OWASP resources (FREE!)\"\"\"\n        print(\"\ud83d\udcda Companion OWASP Resources (ALL FREE!)\\n\")\n        \n        resources = {\n            'WebWolf': {\n                'description': 'Companion app for WebGoat',\n                'url': 'http://localhost:9090/WebWolf',\n                'purpose': 'Receives emails, hosts files, landing page'\n            },\n            'OWASP Top 10': {\n                'description': 'Most critical web security risks',\n                'url': 'https://owasp.org/Top10/',\n                'purpose': 'Understanding vulnerability categories'\n            },\n            'OWASP Cheat Sheets': {\n                'description': 'Security implementation guides',\n                'url': 'https://cheatsheetseries.owasp.org/',\n                'purpose': 'Secure coding practices'\n            },\n            'OWASP Juice Shop': {\n                'description': 'Modern vulnerable application',\n                'url': 'https://owasp.org/www-project-juice-shop/',\n                'purpose': 'JavaScript/Node.js security'\n            },\n            'OWASP ZAP': {\n                'description': 'Free security scanner',\n                'url': 'https://www.zaproxy.org/',\n                'purpose': 'Automated vulnerability scanning'\n            }\n        }\n        \n        for name, details in resources.items():\n            print(f\"\ud83d\udd17 {name}:\")\n            print(f\"   {details['description']}\")\n            print(f\"   Purpose: {details['purpose']}\")\n            print(f\"   URL: {details['url']}\")\n            print()\n        \n        return resources\n    \n    def why_webgoat(self):\n        \"\"\"Why use WebGoat for learning (FREE!)\"\"\"\n        print(\"\ud83c\udf1f Why OWASP WebGoat? (FREE!)\\n\")\n        \n        print(\"\u2705 Key Benefits:\\n\")\n        benefits = [\n            \"100% FREE and open source\",\n            \"No cloud/online dependencies\",\n            \"Safe learning environment\",\n            \"Comprehensive OWASP coverage\",\n            \"Hands-on practical learning\",\n            \"Industry-recognized training\",\n            \"Regular updates\",\n            \"Active community support\",\n            \"Extensive documentation\",\n            \"Multi-language support\"\n        ]\n        \n        for benefit in benefits:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83c\udfaf Perfect For:\\n\")\n        audiences = [\n            \"Security professionals\",\n            \"Software developers\",\n            \"DevSecOps engineers\",\n            \"Students and educators\",\n            \"Penetration testers\",\n            \"Security awareness training\",\n            \"Certification preparation\",\n            \"Team workshops\"\n        ]\n        \n        for audience in audiences:\n            print(f\"   \u2022 {audience}\")\n        \n        print(\"\\n\ud83c\udfc5 Recognition:\\n\")\n        print(\"   \u2022 OWASP Flagship Project\")\n        print(\"   \u2022 Used by universities worldwide\")\n        print(\"   \u2022 Corporate training standard\")\n        print(\"   \u2022 20+ years of development\")\n        print(\"   \u2022 Millions of users\\n\")\n        \n        return benefits\n\n# Usage\nhelper = WebGoatHelper()\nhelper.lesson_overview()\nhelper.learning_path()\nhelper.installation_guide()\nhelper.tips_and_tricks()\nhelper.companion_resources()\nhelper.why_webgoat()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "owasp-juice-shop",
+      "dvwa",
+      "mutillidae"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "GNU General Public License v2.0",
+    "maintainer": "OWASP Foundation",
+    "related_resources": [
+      "OWASP Top 10",
+      "OWASP ZAP",
+      "OWASP Cheat Sheets",
+      "PortSwigger Academy"
+    ]
+  },
+  "name": "OWASP WebGoat",
+  "operational_guidance": {
+    "best_practices": [
+      "Start with introduction lessons",
+      "Use hints when stuck",
+      "Try without proxy first",
+      "Use Burp/ZAP for advanced lessons",
+      "Complete lessons in order",
+      "Read lesson objectives",
+      "Understand the vulnerability",
+      "Learn remediation techniques"
+    ],
+    "common_use_cases": [
+      "Security training",
+      "Developer education",
+      "Penetration testing practice",
+      "Security awareness",
+      "University courses",
+      "Certification preparation",
+      "Team training",
+      "Security workshops"
+    ],
+    "recommended_update_frequency": "Check for updates quarterly",
+    "value_proposition": "Industry-standard vulnerable application for learning web security, completely free with comprehensive lessons covering OWASP Top 10"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free and open source",
+    "completeness": "Comprehensive OWASP Top 10 coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "OWASP-vetted content",
+    "reliability": "excellent",
+    "update_speed": "Quarterly releases"
+  },
+  "quality_score": 95,
+  "subcategory": "owasp",
+  "url": "https://owasp.org/www-project-webgoat/"
+}

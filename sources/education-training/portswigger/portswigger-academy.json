@@ -1,0 +1,165 @@
+{
+  "api": {
+    "base_url": "https://portswigger.net/web-security",
+    "difficulty_levels": [
+      "Apprentice",
+      "Practitioner",
+      "Expert"
+    ],
+    "lab_categories": [
+      "SQL injection",
+      "Cross-site scripting",
+      "CSRF",
+      "Clickjacking",
+      "DOM-based vulnerabilities",
+      "CORS",
+      "XXE injection",
+      "SSRF",
+      "Request smuggling",
+      "OS command injection",
+      "Server-side template injection",
+      "Directory traversal",
+      "Access control",
+      "Authentication",
+      "OAuth",
+      "JWT attacks",
+      "Web cache poisoning",
+      "Insecure deserialization",
+      "Information disclosure",
+      "Business logic vulnerabilities",
+      "HTTP Host header attacks",
+      "WebSockets",
+      "Essential skills"
+    ],
+    "learning_paths": [
+      "Server-side topics",
+      "Client-side topics",
+      "Advanced topics"
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Optional registration to track progress and get certificates. All learning content and labs are free.",
+    "required": false,
+    "type": "optional"
+  },
+  "authority": 98,
+  "category": "education-training",
+  "coverage": 96,
+  "data_coverage": {
+    "content_types": [
+      "Interactive labs",
+      "Written tutorials",
+      "Video content",
+      "Practical exercises",
+      "Vulnerability explanations",
+      "Exploitation techniques",
+      "Defense strategies",
+      "Code examples"
+    ],
+    "lab_features": [
+      "200+ free labs",
+      "Real vulnerability simulations",
+      "Step-by-step solutions",
+      "Community solutions",
+      "Video walkthroughs",
+      "Hints system",
+      "Progress tracking",
+      "Skill assessments"
+    ],
+    "temporal": {
+      "historical_data": "2018-present",
+      "latency": "Real-time access",
+      "update_frequency": "New labs added regularly"
+    },
+    "topics": [
+      "SQL injection (all types)",
+      "Cross-site scripting (XSS)",
+      "Cross-site request forgery (CSRF)",
+      "XML external entity (XXE)",
+      "Server-side request forgery (SSRF)",
+      "Authentication vulnerabilities",
+      "Access control issues",
+      "Business logic flaws",
+      "Information disclosure",
+      "File upload vulnerabilities",
+      "JWT attacks",
+      "OAuth vulnerabilities",
+      "Web cache poisoning",
+      "HTTP request smuggling",
+      "Clickjacking",
+      "WebSockets security",
+      "GraphQL vulnerabilities",
+      "Race conditions",
+      "NoSQL injection",
+      "API testing"
+    ]
+  },
+  "description": "PortSwigger Web Security Academy - FREE comprehensive web security training with interactive labs covering OWASP Top 10 and advanced topics.",
+  "format": "other",
+  "id": "portswigger-academy",
+  "integration_examples": {
+    "bash": {
+      "academy_guide": "#!/bin/bash\n# PortSwigger Academy Quick Start - FREE!\n\necho \"\ud83c\udf93 PortSwigger Web Security Academy (COMPLETELY FREE!)\"\necho \"=====================================================\"\necho \"\"\n\necho \"\ud83e\uddea 200+ FREE Interactive Labs:\"\necho \"   \u2022 SQL Injection\"\necho \"   \u2022 Cross-site Scripting\"\necho \"   \u2022 Authentication\"\necho \"   \u2022 SSRF\"\necho \"   \u2022 XXE\"\necho \"   \u2022 Access Control\"\necho \"   \u2022 And much more!\"\necho \"\"\n\necho \"\ud83d\udcda Learning Paths:\"\necho \"   1. Server-side vulnerabilities\"\necho \"   2. Client-side vulnerabilities\"\necho \"   3. Advanced topics\"\necho \"\"\n\necho \"\ud83c\udfaf How to Start:\"\necho \"   1. Visit: https://portswigger.net/web-security\"\necho \"   2. Choose a topic\"\necho \"   3. Read the theory\"\necho \"   4. Start a lab (no signup needed!)\"\necho \"   5. Practice exploitation\"\necho \"   6. Check solutions if stuck\"\necho \"\"\n\necho \"\ud83d\udd27 Tools:\"\necho \"   \u2022 Burp Suite Community (FREE)\"\necho \"   \u2022 Built-in lab browser\"\necho \"   \u2022 Video solutions\"\necho \"   \u2022 Community help\"\necho \"\"\n\necho \"\ud83c\udfc6 Benefits:\"\necho \"   \u2022 Industry-recognized training\"\necho \"   \u2022 Real vulnerability practice\"\necho \"   \u2022 Certificate of completion\"\necho \"   \u2022 Exam preparation\"\necho \"\"\n\necho \"\ud83c\udd93 100% FREE - No credit card required!\""
+    },
+    "curl": {
+      "check_academy": "# Check PortSwigger Academy - FREE!\ncurl -s https://portswigger.net/web-security | grep -i 'free' | head -5"
+    },
+    "python": {
+      "academy_helper": "import requests\nimport json\nfrom typing import Dict, List\n\nclass PortSwiggerAcademyHelper:\n    \"\"\"PortSwigger Web Security Academy Helper - FREE Training!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://portswigger.net/web-security'\n        \n    def learning_paths(self):\n        \"\"\"Get structured learning paths (FREE!)\"\"\"\n        print(\"\ud83c\udf93 PortSwigger Academy Learning Paths (COMPLETELY FREE!)\\n\")\n        \n        paths = {\n            'Server-side topics': [\n                'SQL injection',\n                'Authentication',\n                'Directory traversal',\n                'Command injection',\n                'Business logic vulnerabilities',\n                'Information disclosure',\n                'Access control',\n                'File upload vulnerabilities',\n                'SSRF',\n                'XXE injection'\n            ],\n            'Client-side topics': [\n                'Cross-site scripting (XSS)',\n                'CSRF',\n                'CORS',\n                'Clickjacking',\n                'DOM-based vulnerabilities',\n                'WebSockets'\n            ],\n            'Advanced topics': [\n                'Insecure deserialization',\n                'Web cache poisoning',\n                'HTTP Host header attacks',\n                'HTTP request smuggling',\n                'OAuth authentication',\n                'JWT attacks',\n                'GraphQL API vulnerabilities',\n                'Race conditions',\n                'Server-side template injection',\n                'Web cache deception',\n                'Browser-powered desync'\n            ]\n        }\n        \n        for path_name, topics in paths.items():\n            print(f\"\ud83d\udcda {path_name}:\")\n            for topic in topics:\n                print(f\"   \u2022 {topic}\")\n            print()\n        \n        return paths\n    \n    def lab_catalog(self):\n        \"\"\"Catalog of all free labs (FREE!)\"\"\"\n        print(\"\ud83e\uddea PortSwigger Academy Lab Catalog (200+ FREE LABS!)\\n\")\n        \n        labs = {\n            'SQL Injection': {\n                'count': 30,\n                'difficulties': ['Apprentice', 'Practitioner', 'Expert'],\n                'examples': [\n                    'SQL injection vulnerability in WHERE clause',\n                    'SQL injection UNION attacks',\n                    'Blind SQL injection with conditional responses',\n                    'SQL injection with filter bypass',\n                    'Second-order SQL injection'\n                ]\n            },\n            'Cross-site Scripting': {\n                'count': 30,\n                'difficulties': ['Apprentice', 'Practitioner', 'Expert'],\n                'examples': [\n                    'Reflected XSS into HTML context',\n                    'Stored XSS into HTML context',\n                    'DOM XSS in jQuery anchor',\n                    'XSS with Angular sandbox escape',\n                    'XSS in JSON data via CSP bypass'\n                ]\n            },\n            'CSRF': {\n                'count': 12,\n                'difficulties': ['Apprentice', 'Practitioner'],\n                'examples': [\n                    'CSRF vulnerability with no defenses',\n                    'CSRF with broken token validation',\n                    'CSRF with token tied to non-session cookie',\n                    'CSRF with SameSite cookie bypass'\n                ]\n            },\n            'Authentication': {\n                'count': 14,\n                'difficulties': ['Apprentice', 'Practitioner', 'Expert'],\n                'examples': [\n                    'Username enumeration',\n                    'Password reset broken logic',\n                    '2FA simple bypass',\n                    'Password brute-force via password change',\n                    'Broken brute-force protection'\n                ]\n            },\n            'Server-side Request Forgery': {\n                'count': 7,\n                'difficulties': ['Apprentice', 'Practitioner', 'Expert'],\n                'examples': [\n                    'Basic SSRF against local server',\n                    'SSRF with blacklist bypass',\n                    'SSRF with whitelist bypass',\n                    'Blind SSRF with out-of-band detection'\n                ]\n            }\n        }\n        \n        total_labs = 0\n        for category, details in labs.items():\n            print(f\"\ud83d\udd2c {category}:\")\n            print(f\"   Total labs: {details['count']}\")\n            print(f\"   Difficulties: {', '.join(details['difficulties'])}\")\n            print(\"   Example labs:\")\n            for lab in details['examples'][:3]:\n                print(f\"      \u2022 {lab}\")\n            print()\n            total_labs += details['count']\n        \n        print(f\"\ud83d\udcca Total FREE labs: {total_labs}+\\n\")\n        return labs\n    \n    def burp_suite_integration(self):\n        \"\"\"Burp Suite integration guide (FREE!)\"\"\"\n        print(\"\ud83d\udd27 Burp Suite Integration (FREE!)\\n\")\n        \n        print(\"\ud83c\udd93 Burp Suite Community Edition:\\n\")\n        features = [\n            \"FREE version available\",\n            \"Perfect for Academy labs\",\n            \"Proxy for intercepting requests\",\n            \"Repeater for modifying requests\",\n            \"Decoder for encoding/decoding\",\n            \"Comparer for response analysis\",\n            \"Sequencer for randomness testing\",\n            \"Built-in browser\"\n        ]\n        \n        for feature in features:\n            print(f\"   \u2022 {feature}\")\n        \n        print(\"\\n\ud83c\udfaf Using Burp with Academy Labs:\\n\")\n        steps = [\n            \"Download Burp Suite Community (FREE)\",\n            \"Start Burp and open browser\",\n            \"Navigate to Academy lab\",\n            \"Intercept and modify requests\",\n            \"Follow lab instructions\",\n            \"Use hints if stuck\",\n            \"Check community solutions\",\n            \"Learn from video walkthroughs\"\n        ]\n        \n        for i, step in enumerate(steps, 1):\n            print(f\"   {i}. {step}\")\n        \n        print(\"\\n\ud83d\udca1 Pro Tips:\\n\")\n        tips = [\n            \"Use Burp's embedded browser\",\n            \"Enable request/response logging\",\n            \"Use Repeater for testing\",\n            \"Check Proxy history\",\n            \"Use Intruder for automation\",\n            \"Learn keyboard shortcuts\",\n            \"Save project files\",\n            \"Use extensions from BApp Store\"\n        ]\n        \n        for tip in tips:\n            print(f\"   \u2022 {tip}\")\n        \n        return features\n    \n    def certification_path(self):\n        \"\"\"Path to Burp Suite certification (FREE training!)\"\"\"\n        print(\"\ud83c\udfc6 Burp Suite Certification Path (FREE TRAINING!)\\n\")\n        \n        print(\"\ud83d\udcda Exam Topics (All FREE to learn):\\n\")\n        topics = {\n            'Web Security Fundamentals': [\n                'HTTP basics',\n                'Cookies and sessions',\n                'Same-origin policy',\n                'Content Security Policy'\n            ],\n            'Common Vulnerabilities': [\n                'SQL injection',\n                'Cross-site scripting',\n                'CSRF',\n                'XXE',\n                'SSRF',\n                'Path traversal'\n            ],\n            'Authentication & Access': [\n                'Authentication mechanisms',\n                'Session management',\n                'Access control',\n                'OAuth',\n                'JWT'\n            ],\n            'Advanced Topics': [\n                'Deserialization',\n                'Request smuggling',\n                'Cache poisoning',\n                'WebSockets',\n                'GraphQL'\n            ]\n        }\n        \n        for category, items in topics.items():\n            print(f\"   \ud83d\udcd6 {category}:\")\n            for item in items:\n                print(f\"      \u2022 {item}\")\n            print()\n        \n        print(\"\ud83c\udfaf Preparation Strategy:\\n\")\n        strategy = [\n            \"Complete all Academy learning paths\",\n            \"Practice with 200+ free labs\",\n            \"Watch video solutions\",\n            \"Join study groups\",\n            \"Take practice exams\",\n            \"Review community notes\",\n            \"Master Burp Suite tools\",\n            \"Understand vulnerability chains\"\n        ]\n        \n        for step in strategy:\n            print(f\"   \u2022 {step}\")\n        \n        print(\"\\n\ud83d\udcb0 Cost Breakdown:\\n\")\n        print(\"   \u2022 Academy Training: FREE\")\n        print(\"   \u2022 Practice Labs: FREE\")\n        print(\"   \u2022 Study Materials: FREE\")\n        print(\"   \u2022 Burp Community: FREE\")\n        print(\"   \u2022 Exam Fee: $99 (only cost)\\n\")\n        \n        return topics\n    \n    def learning_resources(self):\n        \"\"\"Additional learning resources (FREE!)\"\"\"\n        print(\"\ud83d\udcda Additional Learning Resources (ALL FREE!)\\n\")\n        \n        print(\"\ud83c\udfa5 Video Content:\\n\")\n        videos = [\n            \"Lab walkthroughs\",\n            \"Concept explanations\",\n            \"Tool demonstrations\",\n            \"Exam tips\",\n            \"Community solutions\",\n            \"Expert interviews\",\n            \"Conference talks\",\n            \"Research presentations\"\n        ]\n        \n        for video in videos:\n            print(f\"   \u2022 {video}\")\n        \n        print(\"\\n\ud83d\udcdd Written Resources:\\n\")\n        written = [\n            \"Detailed vulnerability explanations\",\n            \"Step-by-step tutorials\",\n            \"Cheat sheets\",\n            \"Methodology guides\",\n            \"Best practices\",\n            \"Research papers\",\n            \"Blog posts\",\n            \"Community notes\"\n        ]\n        \n        for resource in written:\n            print(f\"   \u2022 {resource}\")\n        \n        print(\"\\n\ud83c\udf1f Community Features:\\n\")\n        community = [\n            \"Solution sharing\",\n            \"Discussion forums\",\n            \"Study groups\",\n            \"Discord servers\",\n            \"Reddit communities\",\n            \"Twitter updates\",\n            \"YouTube channels\",\n            \"Practice challenges\"\n        ]\n        \n        for feature in community:\n            print(f\"   \u2022 {feature}\")\n        \n        print(\"\\n\ud83d\udd17 Start Learning:\\n\")\n        print(f\"   URL: {self.base_url}\")\n        print(\"   Registration: Optional (FREE)\")\n        print(\"   All content: 100% FREE\\n\")\n        \n        return videos\n    \n    def why_portswigger_academy(self):\n        \"\"\"Why choose PortSwigger Academy (FREE!)\"\"\"\n        print(\"\ud83c\udf1f Why PortSwigger Web Security Academy? (FREE!)\\n\")\n        \n        print(\"\u2705 Key Benefits:\\n\")\n        benefits = [\n            \"200+ FREE interactive labs\",\n            \"Created by Burp Suite makers\",\n            \"Industry-recognized training\",\n            \"Covers all major vulnerabilities\",\n            \"Real-world scenarios\",\n            \"Step-by-step solutions\",\n            \"Video walkthroughs\",\n            \"Progress tracking\",\n            \"Certificates of completion\",\n            \"No time limits\"\n        ]\n        \n        for benefit in benefits:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83c\udfaf Perfect For:\\n\")\n        audiences = [\n            \"Security professionals\",\n            \"Penetration testers\",\n            \"Bug bounty hunters\",\n            \"Software developers\",\n            \"DevSecOps engineers\",\n            \"Security students\",\n            \"Career changers\",\n            \"Certification candidates\"\n        ]\n        \n        for audience in audiences:\n            print(f\"   \u2022 {audience}\")\n        \n        print(\"\\n\ud83c\udfc5 Recognition:\\n\")\n        print(\"   \u2022 Industry standard training\")\n        print(\"   \u2022 Used by top companies\")\n        print(\"   \u2022 Recommended by experts\")\n        print(\"   \u2022 Certification available\")\n        print(\"   \u2022 Global community\\n\")\n        \n        return benefits\n\n# Usage\nhelper = PortSwiggerAcademyHelper()\nhelper.learning_paths()\nhelper.lab_catalog()\nhelper.burp_suite_integration()\nhelper.certification_path()\nhelper.learning_resources()\nhelper.why_portswigger_academy()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "owasp-webgoat",
+      "hackedu",
+      "pentesterlab"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free access",
+    "maintainer": "PortSwigger",
+    "related_resources": [
+      "Burp Suite",
+      "OWASP Top 10",
+      "Web Security Testing Guide",
+      "Bug Bounty Platforms"
+    ]
+  },
+  "name": "PortSwigger Web Security Academy",
+  "operational_guidance": {
+    "best_practices": [
+      "Start with apprentice labs",
+      "Read theory before labs",
+      "Try without hints first",
+      "Use Burp Suite Community",
+      "Complete learning paths",
+      "Practice regularly",
+      "Join the community",
+      "Track your progress"
+    ],
+    "common_use_cases": [
+      "Web security training",
+      "Penetration testing practice",
+      "Bug bounty preparation",
+      "Security certification prep",
+      "Developer security education",
+      "Team training",
+      "University courses",
+      "Self-paced learning"
+    ],
+    "recommended_update_frequency": "Check weekly for new labs",
+    "value_proposition": "Industry-leading web security training platform with 200+ free interactive labs covering all major vulnerability classes"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Most comprehensive web security coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Expert-created content",
+    "reliability": "excellent",
+    "update_speed": "Weekly new content"
+  },
+  "quality_score": 97,
+  "subcategory": "portswigger",
+  "url": "https://portswigger.net/web-security"
+}
