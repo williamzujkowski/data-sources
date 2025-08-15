@@ -111,7 +111,7 @@
     }
   },
   "description": "Metasploit Framework - FREE, open source penetration testing framework. The world's most used penetration testing framework for finding, exploiting, and validating vulnerabilities.",
-  "format": "ruby",
+  "format": "other",
   "id": "metasploit-framework",
   "integration_examples": {
     "bash": {
