@@ -1,0 +1,330 @@
+{
+  "id": "semantic-scholar",
+  "name": "Semantic Scholar",
+  "description": "AI-powered research tool providing FREE access to 200+ million academic papers across all fields with citation graphs, paper recommendations, and research analytics. Excellent for security and computer science research.",
+  "category": "research",
+  "subcategory": "academic",
+  "website": "https://www.semanticscholar.org",
+  "documentation": "https://api.semanticscholar.org/api-docs/",
+  
+  "api": {
+    "type": "REST",
+    "base_url": "https://api.semanticscholar.org",
+    "endpoints": [
+      {
+        "path": "/graph/v1/paper/search",
+        "method": "GET",
+        "description": "Search papers - FREE with generous limits!",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "required": true,
+            "description": "Search query",
+            "example": "ransomware detection machine learning"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "required": false,
+            "description": "Comma-separated fields to return",
+            "example": "title,abstract,authors,year,citationCount,url,openAccessPdf"
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "required": false,
+            "description": "Pagination offset (max 9999)",
+            "example": "0"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "required": false,
+            "description": "Results per page (max 100)",
+            "example": "100"
+          },
+          {
+            "name": "year",
+            "type": "string",
+            "required": false,
+            "description": "Year or range (e.g., 2020-2024)",
+            "example": "2023-2024"
+          },
+          {
+            "name": "fieldsOfStudy",
+            "type": "string",
+            "required": false,
+            "description": "Filter by field",
+            "example": "Computer Science"
+          },
+          {
+            "name": "openAccessPdf",
+            "type": "string",
+            "required": false,
+            "description": "Filter for open access papers",
+            "example": ""
+          }
+        ],
+        "rate_limit": {
+          "requests_per_second": 100,
+          "requests_per_5_minutes": 5000,
+          "notes": "EXTREMELY GENEROUS FREE LIMITS! 100 requests/second without API key!"
+        }
+      },
+      {
+        "path": "/graph/v1/paper/{paper_id}",
+        "method": "GET",
+        "description": "Get paper details by ID - FREE!",
+        "parameters": [
+          {
+            "name": "paper_id",
+            "type": "string",
+            "required": true,
+            "description": "Paper ID (S2 ID, DOI, ArXiv ID, etc.)",
+            "example": "arXiv:2001.08361"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "required": false,
+            "description": "Fields to return",
+            "example": "paperId,title,abstract,authors,year,citationCount,references,citations"
+          }
+        ]
+      },
+      {
+        "path": "/graph/v1/paper/{paper_id}/citations",
+        "method": "GET",
+        "description": "Get papers citing this paper - FREE!",
+        "parameters": [
+          {
+            "name": "paper_id",
+            "type": "string",
+            "required": true,
+            "description": "Paper ID"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "required": false,
+            "description": "Fields for cited papers"
+          },
+          {
+            "name": "offset",
+            "type": "integer",
+            "required": false,
+            "description": "Pagination offset"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "required": false,
+            "description": "Results limit (max 1000)"
+          }
+        ]
+      },
+      {
+        "path": "/graph/v1/paper/{paper_id}/references",
+        "method": "GET",
+        "description": "Get paper references - FREE!",
+        "parameters": [
+          {
+            "name": "paper_id",
+            "type": "string",
+            "required": true,
+            "description": "Paper ID"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "required": false,
+            "description": "Fields for referenced papers"
+          }
+        ]
+      },
+      {
+        "path": "/graph/v1/author/search",
+        "method": "GET",
+        "description": "Search for authors - FREE!",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "required": true,
+            "description": "Author name",
+            "example": "Yann LeCun"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "required": false,
+            "description": "Author fields",
+            "example": "authorId,name,affiliations,paperCount,citationCount,hIndex"
+          }
+        ]
+      },
+      {
+        "path": "/graph/v1/author/{author_id}/papers",
+        "method": "GET",
+        "description": "Get author's papers - FREE!",
+        "parameters": [
+          {
+            "name": "author_id",
+            "type": "string",
+            "required": true,
+            "description": "Author ID",
+            "example": "1741101"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "required": false,
+            "description": "Paper fields"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "required": false,
+            "description": "Max papers (up to 1000)"
+          }
+        ]
+      },
+      {
+        "path": "/recommendations/v1/papers",
+        "method": "GET",
+        "description": "Get paper recommendations - FREE!",
+        "parameters": [
+          {
+            "name": "paperId",
+            "type": "string",
+            "required": true,
+            "description": "Seed paper for recommendations"
+          },
+          {
+            "name": "fields",
+            "type": "string",
+            "required": false,
+            "description": "Fields to return"
+          },
+          {
+            "name": "limit",
+            "type": "integer",
+            "required": false,
+            "description": "Number of recommendations (max 100)"
+          }
+        ]
+      }
+    ]
+  },
+  
+  "authentication": {
+    "type": "api_key",
+    "required": false,
+    "registration_url": "https://www.semanticscholar.org/product/api#api-key-form",
+    "notes": "API key is OPTIONAL! Without key: 100 requests/second, 5000 per 5 minutes. With FREE key: 100 requests/second sustained. Both options are completely FREE!",
+    "setup_instructions": [
+      "Option 1: Use without API key (100 req/sec limit)",
+      "Option 2: Request free API key for sustained high-volume access",
+      "If using key, add header: x-api-key: YOUR_KEY"
+    ]
+  },
+  
+  "integration_examples": {
+    "python": {
+      "basic_search": "import requests\nimport json\n\n# Search for security papers - NO API KEY NEEDED!\nurl = 'https://api.semanticscholar.org/graph/v1/paper/search'\nparams = {\n    'query': 'zero day vulnerability detection',\n    'fields': 'title,authors,year,abstract,citationCount,openAccessPdf,url',\n    'limit': 20,\n    'year': '2020-2024'\n}\n\nresponse = requests.get(url, params=params)\ndata = response.json()\n\nprint(f\"Found {data.get('total', 0)} papers (FREE ACCESS!)\\n\")\n\nfor paper in data.get('data', []):\n    print(f\"📄 {paper['title']}\")\n    print(f\"   Authors: {', '.join([a['name'] for a in paper.get('authors', [])][:3])}\")\n    print(f\"   Year: {paper.get('year', 'N/A')} | Citations: {paper.get('citationCount', 0)}\")\n    \n    # Check for free PDF\n    if paper.get('openAccessPdf'):\n        print(f\"   📥 FREE PDF: {paper['openAccessPdf']['url']}\")\n    \n    print(f\"   URL: {paper.get('url', 'N/A')}\\n\")",
+      
+      "advanced_client": "#!/usr/bin/env python3\n\"\"\"\nSemantic Scholar Client - FREE Academic Search with 100 req/sec!\nNo API key required for generous limits!\n\"\"\"\n\nimport requests\nimport json\nfrom typing import List, Dict, Optional\nimport time\nfrom datetime import datetime, timedelta\n\nclass SemanticScholarClient:\n    def __init__(self, api_key: Optional[str] = None):\n        self.base_url = 'https://api.semanticscholar.org'\n        self.session = requests.Session()\n        \n        # API key is optional - works great without it!\n        if api_key:\n            self.session.headers['x-api-key'] = api_key\n        \n        # Track rate limiting (100/sec is allowed!)\n        self.last_request = 0\n        self.min_delay = 0.01  # 100 requests/second allowed!\n    \n    def _rate_limit(self):\n        \"\"\"Respect the generous rate limits\"\"\"\n        elapsed = time.time() - self.last_request\n        if elapsed < self.min_delay:\n            time.sleep(self.min_delay - elapsed)\n        self.last_request = time.time()\n    \n    def search_papers(self, \n                     query: str,\n                     year_range: str = None,\n                     limit: int = 100,\n                     open_access_only: bool = False) -> List[Dict]:\n        \"\"\"Search papers - 100 requests/second allowed FREE!\"\"\"\n        \n        params = {\n            'query': query,\n            'fields': 'paperId,title,abstract,authors,year,venue,citationCount,'\n                     'influentialCitationCount,openAccessPdf,url,journal,publicationTypes',\n            'limit': min(limit, 100)  # Max 100 per request\n        }\n        \n        if year_range:\n            params['year'] = year_range\n        \n        if open_access_only:\n            params['openAccessPdf'] = ''\n        \n        all_papers = []\n        offset = 0\n        \n        while len(all_papers) < limit and offset < 10000:\n            params['offset'] = offset\n            \n            self._rate_limit()\n            response = self.session.get(\n                f'{self.base_url}/graph/v1/paper/search',\n                params=params\n            )\n            \n            if response.status_code != 200:\n                break\n            \n            data = response.json()\n            papers = data.get('data', [])\n            \n            if not papers:\n                break\n            \n            all_papers.extend(papers)\n            offset += len(papers)\n            \n            if len(papers) < params['limit']:\n                break\n        \n        return all_papers[:limit]\n    \n    def get_paper_details(self, paper_id: str) -> Dict:\n        \"\"\"Get detailed paper information - FREE!\"\"\"\n        \n        fields = ('paperId,externalIds,title,abstract,venue,year,referenceCount,'\n                 'citationCount,influentialCitationCount,isOpenAccess,openAccessPdf,'\n                 'fieldsOfStudy,s2FieldsOfStudy,authors,citations,references,embedding')\n        \n        self._rate_limit()\n        response = self.session.get(\n            f'{self.base_url}/graph/v1/paper/{paper_id}',\n            params={'fields': fields}\n        )\n        \n        if response.status_code == 200:\n            return response.json()\n        return {}\n    \n    def get_citations(self, paper_id: str, limit: int = 100) -> List[Dict]:\n        \"\"\"Get papers citing this paper - FREE!\"\"\"\n        \n        params = {\n            'fields': 'paperId,title,authors,year,venue,citationCount,url',\n            'limit': min(limit, 1000)\n        }\n        \n        self._rate_limit()\n        response = self.session.get(\n            f'{self.base_url}/graph/v1/paper/{paper_id}/citations',\n            params=params\n        )\n        \n        if response.status_code == 200:\n            return response.json().get('data', [])\n        return []\n    \n    def get_references(self, paper_id: str, limit: int = 100) -> List[Dict]:\n        \"\"\"Get paper references - FREE!\"\"\"\n        \n        params = {\n            'fields': 'paperId,title,authors,year,venue,citationCount,url',\n            'limit': min(limit, 1000)\n        }\n        \n        self._rate_limit()\n        response = self.session.get(\n            f'{self.base_url}/graph/v1/paper/{paper_id}/references',\n            params=params\n        )\n        \n        if response.status_code == 200:\n            return response.json().get('data', [])\n        return []\n    \n    def get_recommendations(self, paper_id: str, limit: int = 20) -> List[Dict]:\n        \"\"\"Get paper recommendations using AI - FREE!\"\"\"\n        \n        params = {\n            'paperId': paper_id,\n            'fields': 'paperId,title,abstract,authors,year,citationCount,url',\n            'limit': min(limit, 100)\n        }\n        \n        self._rate_limit()\n        response = self.session.get(\n            f'{self.base_url}/recommendations/v1/papers',\n            params=params\n        )\n        \n        if response.status_code == 200:\n            return response.json().get('recommendedPapers', [])\n        return []\n    \n    def find_influential_papers(self, topic: str, min_citations: int = 100) -> List[Dict]:\n        \"\"\"Find highly cited papers on a topic - FREE!\"\"\"\n        \n        papers = self.search_papers(topic, limit=500)\n        \n        # Filter by citation count\n        influential = [p for p in papers \n                      if p.get('citationCount', 0) >= min_citations]\n        \n        # Sort by citations\n        influential.sort(key=lambda x: x.get('citationCount', 0), reverse=True)\n        \n        return influential\n    \n    def track_author(self, author_name: str) -> Dict:\n        \"\"\"Get author information and papers - FREE!\"\"\"\n        \n        # Search for author\n        self._rate_limit()\n        response = self.session.get(\n            f'{self.base_url}/graph/v1/author/search',\n            params={\n                'query': author_name,\n                'fields': 'authorId,name,affiliations,paperCount,citationCount,hIndex'\n            }\n        )\n        \n        if response.status_code != 200:\n            return {}\n        \n        authors = response.json().get('data', [])\n        if not authors:\n            return {}\n        \n        author = authors[0]\n        author_id = author['authorId']\n        \n        # Get author's papers\n        self._rate_limit()\n        papers_response = self.session.get(\n            f'{self.base_url}/graph/v1/author/{author_id}/papers',\n            params={\n                'fields': 'title,year,citationCount,venue',\n                'limit': 100\n            }\n        )\n        \n        if papers_response.status_code == 200:\n            author['papers'] = papers_response.json().get('data', [])\n        \n        return author\n    \n    def analyze_research_trends(self, topic: str, years: int = 5) -> Dict:\n        \"\"\"Analyze research trends over time - FREE!\"\"\"\n        \n        current_year = datetime.now().year\n        trends = {}\n        \n        for year in range(current_year - years + 1, current_year + 1):\n            papers = self.search_papers(\n                topic,\n                year_range=str(year),\n                limit=100\n            )\n            \n            trends[year] = {\n                'count': len(papers),\n                'total_citations': sum(p.get('citationCount', 0) for p in papers),\n                'avg_citations': sum(p.get('citationCount', 0) for p in papers) / len(papers) if papers else 0,\n                'top_papers': sorted(papers, \n                                   key=lambda x: x.get('citationCount', 0), \n                                   reverse=True)[:3]\n            }\n        \n        return trends\n\n# Example usage - ALL FREE with 100 req/sec!\nif __name__ == '__main__':\n    client = SemanticScholarClient()  # No API key needed!\n    \n    # Search for recent security papers\n    print(\"\\n=== Recent Security Research (FREE) ===\")\n    papers = client.search_papers(\n        'zero-day exploit detection',\n        year_range='2023-2024',\n        limit=5\n    )\n    \n    for paper in papers:\n        print(f\"\\n📄 {paper['title']}\")\n        print(f\"   Citations: {paper.get('citationCount', 0)}\")\n        if paper.get('openAccessPdf'):\n            print(f\"   FREE PDF: {paper['openAccessPdf']['url']}\")\n    \n    # Find influential papers\n    print(\"\\n=== Influential Papers on Ransomware ===\")\n    influential = client.find_influential_papers('ransomware', min_citations=50)\n    for paper in influential[:3]:\n        print(f\"- {paper['title']} ({paper.get('citationCount', 0)} citations)\")\n    \n    # Analyze trends\n    print(\"\\n=== Research Trends: Supply Chain Attacks ===\")\n    trends = client.analyze_research_trends('supply chain attacks', years=3)\n    for year, data in trends.items():\n        print(f\"{year}: {data['count']} papers, {data['avg_citations']:.1f} avg citations\")",
+      
+      "citation_graph": "import requests\nimport networkx as nx\nimport json\n\ndef build_citation_network(seed_paper_id: str, depth: int = 2):\n    \"\"\"\n    Build citation network around a paper - FREE!\n    100 requests/second allowed!\n    \"\"\"\n    \n    base_url = 'https://api.semanticscholar.org/graph/v1'\n    graph = nx.DiGraph()\n    visited = set()\n    to_visit = [(seed_paper_id, 0)]\n    \n    while to_visit:\n        paper_id, current_depth = to_visit.pop(0)\n        \n        if paper_id in visited or current_depth > depth:\n            continue\n        \n        visited.add(paper_id)\n        \n        # Get paper details\n        response = requests.get(\n            f'{base_url}/paper/{paper_id}',\n            params={'fields': 'paperId,title,year,citationCount'}\n        )\n        \n        if response.status_code != 200:\n            continue\n        \n        paper = response.json()\n        graph.add_node(paper_id, \n                      title=paper.get('title', ''),\n                      year=paper.get('year', 0),\n                      citations=paper.get('citationCount', 0))\n        \n        if current_depth < depth:\n            # Get citations (papers citing this one)\n            cit_response = requests.get(\n                f'{base_url}/paper/{paper_id}/citations',\n                params={'fields': 'paperId', 'limit': 10}\n            )\n            \n            if cit_response.status_code == 200:\n                citations = cit_response.json().get('data', [])\n                for cite in citations:\n                    cite_id = cite['citingPaper']['paperId']\n                    graph.add_edge(cite_id, paper_id)\n                    if cite_id not in visited:\n                        to_visit.append((cite_id, current_depth + 1))\n            \n            # Get references\n            ref_response = requests.get(\n                f'{base_url}/paper/{paper_id}/references',\n                params={'fields': 'paperId', 'limit': 10}\n            )\n            \n            if ref_response.status_code == 200:\n                references = ref_response.json().get('data', [])\n                for ref in references:\n                    ref_id = ref['citedPaper']['paperId']\n                    graph.add_edge(paper_id, ref_id)\n                    if ref_id not in visited:\n                        to_visit.append((ref_id, current_depth + 1))\n    \n    return graph\n\n# Build citation network - FREE!\ngraph = build_citation_network('arXiv:2001.08361', depth=1)\nprint(f\"Citation network: {graph.number_of_nodes()} papers, {graph.number_of_edges()} citations\")"
+    },
+    
+    "curl": {
+      "search": "# Search papers - 100 req/sec allowed FREE!\ncurl 'https://api.semanticscholar.org/graph/v1/paper/search?query=ransomware%20detection&fields=title,authors,year,citationCount,openAccessPdf&limit=10'",
+      
+      "paper_details": "# Get paper by ArXiv ID - FREE!\ncurl 'https://api.semanticscholar.org/graph/v1/paper/arXiv:2001.08361?fields=title,abstract,authors,citationCount,references.title'",
+      
+      "citations": "# Get citations - FREE!\ncurl 'https://api.semanticscholar.org/graph/v1/paper/649def34f8be52c8b66281af98ae884c09aef38b/citations?fields=title,year&limit=10'",
+      
+      "recommendations": "# Get AI recommendations - FREE!\ncurl 'https://api.semanticscholar.org/recommendations/v1/papers?paperId=649def34f8be52c8b66281af98ae884c09aef38b&fields=title,abstract&limit=5'",
+      
+      "author_search": "# Search authors - FREE!\ncurl 'https://api.semanticscholar.org/graph/v1/author/search?query=Geoffrey%20Hinton&fields=name,paperCount,citationCount,hIndex'"
+    }
+  },
+  
+  "data_format": {
+    "primary_format": "JSON",
+    "encoding": "UTF-8",
+    "field_descriptions": {
+      "paperId": "Semantic Scholar paper ID",
+      "externalIds": "Other identifiers (DOI, ArXiv, PubMed, etc.)",
+      "title": "Paper title",
+      "abstract": "Paper abstract",
+      "authors": "Author list with IDs and names",
+      "year": "Publication year",
+      "venue": "Publication venue",
+      "journal": "Journal information",
+      "citationCount": "Number of citations",
+      "influentialCitationCount": "Number of influential citations",
+      "referenceCount": "Number of references",
+      "openAccessPdf": "Free PDF download if available",
+      "fieldsOfStudy": "Research fields",
+      "embedding": "Paper embedding vector for similarity"
+    }
+  },
+  
+  "coverage": {
+    "data_types": ["research_papers", "citations", "authors", "venues"],
+    "volume": "200+ million papers across all fields",
+    "disciplines": [
+      "Computer Science",
+      "Medicine",
+      "Biology",
+      "Physics",
+      "Mathematics",
+      "Engineering",
+      "Economics",
+      "Psychology"
+    ],
+    "update_frequency": "Weekly updates with new papers"
+  },
+  
+  "quality_metrics": {
+    "cost": "COMPLETELY FREE",
+    "rate_limits": "EXTREMELY GENEROUS - 100 requests/second free!",
+    "reliability": "Excellent - backed by Allen Institute for AI",
+    "data_quality": "High - AI-enhanced metadata and citations",
+    "unique_features": [
+      "AI-powered paper recommendations",
+      "Influential citation detection",
+      "Semantic similarity search",
+      "Paper embeddings for ML"
+    ]
+  },
+  
+  "operational_guidance": {
+    "recommended_update_frequency": "Weekly for comprehensive updates",
+    "best_practices": [
+      "Use without API key for most use cases (100 req/sec!)",
+      "Request free API key only for sustained high-volume",
+      "Cache results locally",
+      "Use field selection to reduce response size",
+      "Leverage AI recommendations for discovery"
+    ],
+    "value_proposition": "Most generous FREE API limits (100 req/sec!) with AI-enhanced paper discovery, citations, and recommendations",
+    "use_cases": [
+      "Literature reviews and surveys",
+      "Citation analysis",
+      "Research trend tracking",
+      "Author profiling",
+      "Paper similarity search",
+      "Influence measurement"
+    ]
+  },
+  
+  "metadata": {
+    "last_updated": "2024-01-15",
+    "maintainer": "Allen Institute for AI",
+    "license": "Free to use, respect paper copyrights"
+  }
+}

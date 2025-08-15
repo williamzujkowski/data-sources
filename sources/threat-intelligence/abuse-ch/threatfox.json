@@ -1,0 +1,213 @@
+{
+  "id": "abuse-ch-threatfox",
+  "name": "Abuse.ch ThreatFox",
+  "description": "FREE threat intelligence platform for sharing indicators of compromise (IOCs) associated with malware. Provides real-time access to malicious URLs, domains, IPs, and hashes. No registration or API key required!",
+  "category": "threat-intelligence",
+  "subcategory": "iocs",
+  "website": "https://threatfox.abuse.ch",
+  "documentation": "https://threatfox.abuse.ch/api/",
+  
+  "api": {
+    "type": "REST",
+    "base_url": "https://threatfox-api.abuse.ch/api/v1",
+    "endpoints": [
+      {
+        "path": "/",
+        "method": "POST",
+        "description": "Query IOCs - COMPLETELY FREE!",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "required": true,
+            "description": "Query type",
+            "example": "get_iocs"
+          },
+          {
+            "name": "days",
+            "type": "integer",
+            "required": false,
+            "description": "IOCs from last N days (max 90)",
+            "example": "7"
+          },
+          {
+            "name": "search_term",
+            "type": "string",
+            "required": false,
+            "description": "Search for specific IOC",
+            "example": "192.168.1.1"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "required": false,
+            "description": "Get specific IOC by ID",
+            "example": "123456"
+          },
+          {
+            "name": "hash",
+            "type": "string",
+            "required": false,
+            "description": "Search by file hash",
+            "example": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "name": "tag",
+            "type": "string",
+            "required": false,
+            "description": "Filter by malware tag",
+            "example": "Cobalt Strike"
+          }
+        ],
+        "request_body": {
+          "type": "JSON",
+          "examples": {
+            "recent_iocs": {
+              "query": "get_iocs",
+              "days": 7
+            },
+            "search_ioc": {
+              "query": "search_ioc",
+              "search_term": "evil.com"
+            },
+            "by_tag": {
+              "query": "taginfo",
+              "tag": "Emotet",
+              "limit": 100
+            },
+            "by_malware": {
+              "query": "malwareinfo",
+              "malware": "Cobalt Strike",
+              "limit": 100
+            }
+          }
+        },
+        "rate_limit": {
+          "notes": "NO RATE LIMITS! Completely free, no authentication required!"
+        }
+      }
+    ],
+    "export_endpoints": [
+      {
+        "path": "/export/json/recent/",
+        "method": "GET",
+        "description": "Export recent IOCs as JSON - FREE!",
+        "response_format": "JSON feed of recent IOCs"
+      },
+      {
+        "path": "/export/csv/recent/",
+        "method": "GET",
+        "description": "Export recent IOCs as CSV - FREE!"
+      },
+      {
+        "path": "/export/json/full/",
+        "method": "GET",
+        "description": "Export ALL IOCs (large file) - FREE!"
+      }
+    ]
+  },
+  
+  "authentication": {
+    "type": "none",
+    "required": false,
+    "notes": "ThreatFox is COMPLETELY FREE! No API key, no registration, no rate limits. Just start using it!"
+  },
+  
+  "integration_examples": {
+    "python": {
+      "basic_query": "import requests\nimport json\nfrom datetime import datetime\n\n# Get recent IOCs - COMPLETELY FREE!\nurl = 'https://threatfox-api.abuse.ch/api/v1/'\n\n# Get IOCs from last 7 days\ndata = {\n    'query': 'get_iocs',\n    'days': 7\n}\n\nresponse = requests.post(url, json=data)\nresult = response.json()\n\nif result['query_status'] == 'ok':\n    print(f\"Found {len(result.get('data', []))} IOCs (FREE!)\\n\")\n    \n    for ioc in result.get('data', [])[:10]:\n        print(f\"🔴 IOC: {ioc['ioc']}\")\n        print(f\"   Type: {ioc['ioc_type']}\")\n        print(f\"   Threat: {ioc['threat_type']}\")\n        print(f\"   Malware: {ioc['malware']}\")\n        print(f\"   Confidence: {ioc['confidence_level']}%\")\n        print(f\"   First seen: {ioc['first_seen']}\")\n        print()",
+      
+      "comprehensive_client": "#!/usr/bin/env python3\n\"\"\"\nThreatFox IOC Hunter - FREE Threat Intelligence\nNo API key needed - Completely free!\n\"\"\"\n\nimport requests\nimport json\nimport csv\nimport time\nfrom typing import List, Dict, Optional\nfrom datetime import datetime, timedelta\nimport hashlib\n\nclass ThreatFoxClient:\n    def __init__(self):\n        self.base_url = 'https://threatfox-api.abuse.ch/api/v1/'\n        self.export_url = 'https://threatfox.abuse.ch/export'\n    \n    def get_recent_iocs(self, days: int = 7) -> List[Dict]:\n        \"\"\"Get recent IOCs - FREE!\"\"\"\n        \n        data = {\n            'query': 'get_iocs',\n            'days': min(days, 90)  # Max 90 days\n        }\n        \n        response = requests.post(self.base_url, json=data)\n        result = response.json()\n        \n        if result.get('query_status') == 'ok':\n            return result.get('data', [])\n        return []\n    \n    def search_ioc(self, search_term: str) -> List[Dict]:\n        \"\"\"Search for specific IOC - FREE!\"\"\"\n        \n        data = {\n            'query': 'search_ioc',\n            'search_term': search_term\n        }\n        \n        response = requests.post(self.base_url, json=data)\n        result = response.json()\n        \n        if result.get('query_status') == 'ok':\n            return result.get('data', [])\n        return []\n    \n    def search_hash(self, file_hash: str) -> List[Dict]:\n        \"\"\"Search by file hash - FREE!\"\"\"\n        \n        data = {\n            'query': 'search_hash',\n            'hash': file_hash\n        }\n        \n        response = requests.post(self.base_url, json=data)\n        result = response.json()\n        \n        if result.get('query_status') == 'ok':\n            return result.get('data', [])\n        return []\n    \n    def get_iocs_by_tag(self, tag: str, limit: int = 100) -> List[Dict]:\n        \"\"\"Get IOCs by malware tag - FREE!\"\"\"\n        \n        data = {\n            'query': 'taginfo',\n            'tag': tag,\n            'limit': limit\n        }\n        \n        response = requests.post(self.base_url, json=data)\n        result = response.json()\n        \n        if result.get('query_status') == 'ok':\n            return result.get('data', [])\n        return []\n    \n    def get_iocs_by_malware(self, malware: str, limit: int = 100) -> List[Dict]:\n        \"\"\"Get IOCs by malware family - FREE!\"\"\"\n        \n        data = {\n            'query': 'malwareinfo',\n            'malware': malware,\n            'limit': limit\n        }\n        \n        response = requests.post(self.base_url, json=data)\n        result = response.json()\n        \n        if result.get('query_status') == 'ok':\n            return result.get('data', [])\n        return []\n    \n    def get_ioc_by_id(self, ioc_id: str) -> Dict:\n        \"\"\"Get specific IOC by ID - FREE!\"\"\"\n        \n        data = {\n            'query': 'ioc',\n            'id': ioc_id\n        }\n        \n        response = requests.post(self.base_url, json=data)\n        result = response.json()\n        \n        if result.get('query_status') == 'ok':\n            return result.get('data', [{}])[0]\n        return {}\n    \n    def export_recent_json(self) -> List[Dict]:\n        \"\"\"Export recent IOCs as JSON - FREE!\"\"\"\n        \n        url = f'{self.export_url}/json/recent/'\n        response = requests.get(url)\n        \n        if response.status_code == 200:\n            # Parse the JSON Lines format\n            iocs = []\n            for line in response.text.strip().split('\\n'):\n                if line.startswith('#'):\n                    continue\n                try:\n                    iocs.append(json.loads(line))\n                except:\n                    pass\n            return iocs\n        return []\n    \n    def check_indicators(self, indicators: List[str]) -> Dict[str, List]:\n        \"\"\"Check multiple indicators against ThreatFox - FREE!\"\"\"\n        \n        results = {\n            'found': [],\n            'clean': []\n        }\n        \n        for indicator in indicators:\n            iocs = self.search_ioc(indicator)\n            if iocs:\n                results['found'].append({\n                    'indicator': indicator,\n                    'iocs': iocs\n                })\n            else:\n                results['clean'].append(indicator)\n        \n        return results\n    \n    def monitor_malware_family(self, malware_families: List[str]):\n        \"\"\"Monitor specific malware families - FREE!\"\"\"\n        \n        all_iocs = {}\n        \n        for family in malware_families:\n            iocs = self.get_iocs_by_malware(family, limit=50)\n            if iocs:\n                all_iocs[family] = iocs\n                print(f\"\\n🦠 {family}: {len(iocs)} IOCs found\")\n                \n                # Show sample IOCs\n                for ioc in iocs[:3]:\n                    print(f\"  - {ioc['ioc_type']}: {ioc['ioc']}\")\n                    print(f\"    Confidence: {ioc['confidence_level']}%\")\n        \n        return all_iocs\n    \n    def get_high_confidence_iocs(self, min_confidence: int = 75) -> List[Dict]:\n        \"\"\"Get only high-confidence IOCs - FREE!\"\"\"\n        \n        recent_iocs = self.get_recent_iocs(days=7)\n        \n        high_confidence = [\n            ioc for ioc in recent_iocs\n            if int(ioc.get('confidence_level', 0)) >= min_confidence\n        ]\n        \n        return high_confidence\n    \n    def generate_blocklist(self, ioc_types: List[str] = ['domain', 'ip:port']) -> Dict[str, List]:\n        \"\"\"Generate blocklists by IOC type - FREE!\"\"\"\n        \n        recent_iocs = self.get_recent_iocs(days=7)\n        blocklists = {ioc_type: [] for ioc_type in ioc_types}\n        \n        for ioc in recent_iocs:\n            ioc_type = ioc.get('ioc_type')\n            if ioc_type in ioc_types:\n                blocklists[ioc_type].append(ioc['ioc'])\n        \n        # Remove duplicates\n        for ioc_type in blocklists:\n            blocklists[ioc_type] = list(set(blocklists[ioc_type]))\n        \n        return blocklists\n\n# Example usage - ALL FREE!\nif __name__ == '__main__':\n    client = ThreatFoxClient()\n    \n    # Get recent IOCs\n    print(\"\\n=== Recent Threat IOCs (FREE) ===\")\n    recent = client.get_recent_iocs(days=1)\n    print(f\"Found {len(recent)} IOCs in last 24 hours\")\n    \n    # Search for specific IOC\n    print(\"\\n=== Searching for IOCs ===\")\n    results = client.search_ioc('malicious-domain.com')\n    if results:\n        for r in results:\n            print(f\"Found: {r['ioc']} - {r['threat_type']}\")\n    \n    # Get Cobalt Strike IOCs\n    print(\"\\n=== Cobalt Strike IOCs ===\")\n    cobalt = client.get_iocs_by_tag('Cobalt Strike', limit=5)\n    for ioc in cobalt:\n        print(f\"- {ioc['ioc_type']}: {ioc['ioc']}\")\n    \n    # Monitor malware families\n    print(\"\\n=== Monitoring Malware Families ===\")\n    families = ['Emotet', 'QakBot', 'IcedID']\n    client.monitor_malware_family(families)\n    \n    # Generate blocklists\n    print(\"\\n=== Generating Blocklists ===\")\n    blocklists = client.generate_blocklist(['domain', 'ip:port'])\n    for ioc_type, indicators in blocklists.items():\n        print(f\"{ioc_type}: {len(indicators)} entries\")\n        if indicators:\n            print(f\"  Sample: {indicators[:3]}\")",
+      
+      "real_time_monitor": "import requests\nimport time\nfrom datetime import datetime\n\ndef monitor_threats_realtime():\n    \"\"\"Monitor for new threats in real-time - FREE!\"\"\"\n    \n    seen_iocs = set()\n    url = 'https://threatfox-api.abuse.ch/api/v1/'\n    \n    print(\"🔍 Starting real-time threat monitoring (FREE!)\\n\")\n    \n    while True:\n        # Get IOCs from last hour\n        data = {\n            'query': 'get_iocs',\n            'days': 1  # Get today's IOCs\n        }\n        \n        response = requests.post(url, json=data)\n        result = response.json()\n        \n        if result.get('query_status') == 'ok':\n            for ioc in result.get('data', []):\n                ioc_id = ioc.get('id')\n                \n                if ioc_id not in seen_iocs:\n                    seen_iocs.add(ioc_id)\n                    \n                    # Check if IOC is recent (within last hour)\n                    first_seen = ioc.get('first_seen', '')\n                    \n                    print(f\"[{datetime.now().strftime('%H:%M:%S')}] NEW THREAT DETECTED!\")\n                    print(f\"  IOC: {ioc['ioc']}\")\n                    print(f\"  Type: {ioc['ioc_type']}\")\n                    print(f\"  Malware: {ioc.get('malware', 'Unknown')}\")\n                    print(f\"  Threat: {ioc.get('threat_type', 'Unknown')}\")\n                    print(f\"  Confidence: {ioc.get('confidence_level', 0)}%\")\n                    print(f\"  Tags: {', '.join(ioc.get('tags', []))}\")\n                    print()\n        \n        # Check every 5 minutes (no rate limits!)\n        time.sleep(300)\n\n# Run monitoring\n# monitor_threats_realtime()"
+    },
+    
+    "curl": {
+      "recent_iocs": "# Get recent IOCs - FREE!\ncurl -X POST 'https://threatfox-api.abuse.ch/api/v1/' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"query\": \"get_iocs\", \"days\": 7}'",
+      
+      "search_ioc": "# Search for specific IOC - FREE!\ncurl -X POST 'https://threatfox-api.abuse.ch/api/v1/' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"query\": \"search_ioc\", \"search_term\": \"192.168.1.1\"}'",
+      
+      "by_malware": "# Get IOCs by malware family - FREE!\ncurl -X POST 'https://threatfox-api.abuse.ch/api/v1/' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"query\": \"malwareinfo\", \"malware\": \"Emotet\", \"limit\": 100}'",
+      
+      "export_json": "# Export recent IOCs as JSON - FREE!\ncurl 'https://threatfox.abuse.ch/export/json/recent/' -o threatfox_recent.json",
+      
+      "export_csv": "# Export recent IOCs as CSV - FREE!\ncurl 'https://threatfox.abuse.ch/export/csv/recent/' -o threatfox_recent.csv"
+    }
+  },
+  
+  "data_format": {
+    "primary_format": "JSON",
+    "encoding": "UTF-8",
+    "field_descriptions": {
+      "id": "Unique IOC identifier",
+      "ioc": "The indicator value",
+      "ioc_type": "Type (domain, ip:port, url, md5_hash, sha256_hash)",
+      "threat_type": "Threat classification",
+      "threat_type_desc": "Threat description",
+      "malware": "Associated malware family",
+      "malware_printable": "Malware display name",
+      "malware_alias": "Alternative malware names",
+      "malware_malpedia": "Malpedia reference",
+      "confidence_level": "Confidence percentage (0-100)",
+      "first_seen": "First observation time",
+      "last_seen": "Last observation time",
+      "reporter": "Who reported the IOC",
+      "reference": "Reference URL",
+      "tags": "Associated tags"
+    }
+  },
+  
+  "coverage": {
+    "ioc_types": [
+      "Domains",
+      "URLs",
+      "IP addresses",
+      "IP:Port combinations",
+      "MD5 hashes",
+      "SHA256 hashes"
+    ],
+    "malware_families": "500+ tracked malware families",
+    "update_frequency": "Real-time as IOCs are reported",
+    "volume": "1M+ IOCs and growing"
+  },
+  
+  "quality_metrics": {
+    "cost": "COMPLETELY FREE",
+    "rate_limits": "NONE - No limits!",
+    "reliability": "Excellent - Abuse.ch infrastructure",
+    "data_quality": "Community-validated with confidence scores",
+    "unique_features": [
+      "Real-time IOC feed",
+      "Malware family tracking",
+      "Confidence scoring",
+      "Tag-based filtering",
+      "Bulk exports"
+    ]
+  },
+  
+  "operational_guidance": {
+    "recommended_update_frequency": "Every 5-15 minutes for real-time protection",
+    "best_practices": [
+      "No authentication needed - just start using!",
+      "Use confidence levels to filter IOCs",
+      "Monitor specific malware families of interest",
+      "Export bulk data for offline processing",
+      "Combine with other Abuse.ch feeds"
+    ],
+    "value_proposition": "Completely FREE, real-time threat intelligence with no registration or limits",
+    "use_cases": [
+      "Real-time threat detection",
+      "IOC blocklist generation",
+      "Malware family tracking",
+      "Incident response",
+      "Threat hunting",
+      "Security research"
+    ]
+  },
+  
+  "metadata": {
+    "last_updated": "2024-01-15",
+    "maintainer": "Abuse.ch by institute.ch",
+    "license": "Free to use, CC0 license"
+  }
+}
