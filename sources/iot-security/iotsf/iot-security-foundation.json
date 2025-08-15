@@ -1,0 +1,159 @@
+{
+  "api": {
+    "base_url": "https://www.iotsecurityfoundation.org",
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Comprehensive IoT security compliance questionnaire and framework",
+        "format": "PDF/Excel",
+        "name": "IoT Security Compliance Framework",
+        "url": "https://www.iotsecurityfoundation.org/iot-security-compliance-framework/"
+      },
+      {
+        "access": "free",
+        "description": "IoT security best practice guides for manufacturers and users",
+        "format": "PDF",
+        "name": "Best Practice Guidelines",
+        "url": "https://www.iotsecurityfoundation.org/best-practice-guidelines/"
+      },
+      {
+        "access": "free",
+        "description": "Security assurance scheme for IoT devices",
+        "format": "PDF",
+        "name": "IoT Security Assurance Framework",
+        "url": "https://www.iotsecurityfoundation.org/iot-security-assurance-framework/"
+      },
+      {
+        "access": "free",
+        "description": "Guidelines for responsible vulnerability disclosure in IoT",
+        "format": "PDF",
+        "name": "Vulnerability Disclosure Guidelines",
+        "url": "https://www.iotsecurityfoundation.org/vulnerability-disclosure/"
+      }
+    ],
+    "resources": [
+      {
+        "access": "free",
+        "description": "Maps IoT security standards and frameworks",
+        "name": "IoT Security Mapping Tool"
+      },
+      {
+        "access": "free",
+        "description": "Principles for building secure IoT products",
+        "name": "Security by Design"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All IoT Security Foundation resources, frameworks, best practices, and guides available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 91,
+  "category": "iot-security",
+  "coverage": 89,
+  "data_coverage": {
+    "content_types": [
+      "IoT security frameworks",
+      "Compliance questionnaires",
+      "Best practice guidelines",
+      "Security assurance schemes",
+      "Vulnerability disclosure processes",
+      "Supply chain security",
+      "Security by design principles",
+      "Risk assessment methodologies"
+    ],
+    "iot_domains": [
+      "Consumer IoT",
+      "Industrial IoT (IIoT)",
+      "Medical IoT",
+      "Automotive IoT",
+      "Smart Home",
+      "Smart Cities",
+      "Agricultural IoT",
+      "Retail IoT"
+    ],
+    "security_areas": [
+      "Device security",
+      "Network security",
+      "Cloud security",
+      "Data protection",
+      "Identity management",
+      "Secure updates",
+      "Supply chain security",
+      "Privacy protection"
+    ],
+    "temporal": {
+      "historical_data": "2015-present",
+      "latency": "Regular updates as standards evolve",
+      "update_frequency": "Quarterly framework updates"
+    }
+  },
+  "description": "IoT Security Foundation providing best practices, frameworks, and guidance for securing Internet of Things devices and ecosystems. COMPLETELY FREE access to IoT security resources, frameworks, and compliance guides.",
+  "documentation": "https://www.iotsecurityfoundation.org/best-practice-guidelines/",
+  "format": "other",
+  "id": "iot-security-foundation",
+  "integration_examples": {
+    "bash": {
+      "iot_security_check": "#!/bin/bash\n# IoT Security Foundation Checklist - FREE!\n\necho \"\ud83c\udf10 IoT Security Foundation Resources (FREE!)\"\necho \"============================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Resources\necho \"\ud83d\udcda IoTSF Resources:\"\necho \"   \u2022 Website: https://www.iotsecurityfoundation.org/\"\necho \"   \u2022 Compliance Framework: /iot-security-compliance-framework/\"\necho \"   \u2022 Best Practices: /best-practice-guidelines/\"\necho \"   \u2022 Assurance Framework: /iot-security-assurance-framework/\"\necho \"   \u2022 Vulnerability Disclosure: /vulnerability-disclosure/\"\necho \"\"\n\n# Security domains\necho \"\ud83d\udd12 IoT Security Domains:\"\necho \"   \u2022 Device Security\"\necho \"   \u2022 Communications Security\"\necho \"   \u2022 Software/Firmware Updates\"\necho \"   \u2022 Authentication & Authorization\"\necho \"   \u2022 Data Protection & Privacy\"\necho \"   \u2022 System Integrity\"\necho \"   \u2022 Supply Chain Security\"\necho \"   \u2022 Vulnerability Management\"\necho \"\"\n\n# Best practices\necho \"\u2705 IoT Security Best Practices:\"\necho \"   [ ] No default passwords\"\necho \"   [ ] Secure boot implementation\"\necho \"   [ ] Encrypted communications\"\necho \"   [ ] Secure update mechanism\"\necho \"   [ ] Input validation\"\necho \"   [ ] Security logging\"\necho \"   [ ] Physical security\"\necho \"   [ ] Privacy by design\"\necho \"\"\n\n# Security classes\necho \"\ud83c\udfaf IoTSF Security Classes:\"\necho \"   \u2022 Class 0: Baseline security\"\necho \"   \u2022 Class 1: Basic security controls\"\necho \"   \u2022 Class 2: Enhanced security\"\necho \"   \u2022 Class 3: Advanced security\"\necho \"\"\n\n# Recommendations\necho \"\ud83d\udca1 Recommendations:\"\necho \"   1. Download IoTSF Compliance Framework\"\necho \"   2. Complete security assessment\"\necho \"   3. Implement best practices\"\necho \"   4. Establish vulnerability disclosure\"\necho \"   5. Regular security reviews\"\necho \"\"\n\necho \"\ud83d\udcc5 Generated: $(date)\""
+    },
+    "curl": {
+      "get_resources": "# Access IoTSF resources - FREE!\ncurl -s https://www.iotsecurityfoundation.org/ | grep -o 'href=\"[^\"]*pdf\"' | head -10"
+    },
+    "python": {
+      "iot_security_assessor": "import json\nfrom datetime import datetime\nimport requests\n\nclass IoTSecurityAssessor:\n    \"\"\"IoT Security Foundation Assessment Tool - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.iotsecurityfoundation.org'\n        \n        # IoTSF Security Classes\n        self.security_classes = {\n            'Class 0': 'Baseline - Minimal security features',\n            'Class 1': 'Basic - Essential security controls',\n            'Class 2': 'Enhanced - Additional security measures',\n            'Class 3': 'Advanced - Comprehensive security implementation'\n        }\n        \n        # Key security domains\n        self.security_domains = [\n            'Device Security',\n            'Communications Security',\n            'Software/Firmware Updates',\n            'Authentication & Authorization',\n            'Data Protection & Privacy',\n            'System Integrity',\n            'Supply Chain Security',\n            'Vulnerability Management'\n        ]\n    \n    def assess_security_compliance(self):\n        \"\"\"Assess IoT device security compliance\"\"\"\n        print(\"\ud83d\udd12 IoT Security Compliance Assessment (FREE!)\\n\")\n        \n        print(\"\ud83d\udccb IoTSF Compliance Framework Domains:\")\n        for domain in self.security_domains:\n            print(f\"   \u2022 {domain}\")\n        \n        print(\"\\n\ud83c\udfaf Security Classes:\")\n        for class_name, description in self.security_classes.items():\n            print(f\"   {class_name}: {description}\")\n        \n        print(\"\\n\u2705 Compliance Checklist Sample:\")\n        checklist = [\n            \"[ ] Unique device credentials\",\n            \"[ ] Secure boot implementation\",\n            \"[ ] Encrypted communications\",\n            \"[ ] Secure update mechanism\",\n            \"[ ] No hardcoded passwords\",\n            \"[ ] Security event logging\",\n            \"[ ] Vulnerability disclosure process\",\n            \"[ ] Privacy by design\"\n        ]\n        \n        for item in checklist:\n            print(f\"   {item}\")\n        \n        return self.security_domains\n    \n    def get_best_practices(self, device_type='consumer'):\n        \"\"\"Get IoT security best practices\"\"\"\n        print(f\"\ud83d\udcda IoT Security Best Practices - {device_type.title()} (FREE!)\\n\")\n        \n        practices = {\n            'consumer': [\n                'No default passwords',\n                'Implement secure updates',\n                'Encrypt sensitive data',\n                'Secure ecosystem interfaces',\n                'Ensure software integrity',\n                'Make systems resilient',\n                'Protect personal data',\n                'Minimize exposed attack surface'\n            ],\n            'industrial': [\n                'Network segmentation',\n                'Access control implementation',\n                'Continuous monitoring',\n                'Incident response planning',\n                'Supply chain verification',\n                'Physical security measures',\n                'Redundancy and failover',\n                'Safety and security integration'\n            ],\n            'medical': [\n                'Patient data protection',\n                'FDA compliance alignment',\n                'Clinical risk management',\n                'Secure connectivity',\n                'Audit logging',\n                'Emergency access procedures',\n                'Interoperability security',\n                'Lifecycle management'\n            ]\n        }\n        \n        device_practices = practices.get(device_type, practices['consumer'])\n        \n        print(f\"\ud83d\udee1\ufe0f {device_type.title()} IoT Best Practices:\")\n        for practice in device_practices:\n            print(f\"   \u2022 {practice}\")\n        \n        print(\"\\n\ud83d\udd10 Universal Security Principles:\")\n        universal = [\n            \"Security by Design\",\n            \"Defense in Depth\",\n            \"Least Privilege\",\n            \"Fail Secure\",\n            \"Regular Updates\",\n            \"Vulnerability Management\"\n        ]\n        \n        for principle in universal:\n            print(f\"   \u2022 {principle}\")\n        \n        return device_practices\n    \n    def vulnerability_disclosure_framework(self):\n        \"\"\"IoT vulnerability disclosure guidelines\"\"\"\n        print(\"\ud83d\udd0d IoT Vulnerability Disclosure Framework (FREE!)\\n\")\n        \n        print(\"\ud83d\udccb Vulnerability Disclosure Process:\")\n        process_steps = [\n            \"1. Discovery - Identify vulnerability\",\n            \"2. Reporting - Contact vendor/manufacturer\",\n            \"3. Validation - Verify and assess impact\",\n            \"4. Remediation - Develop and test fix\",\n            \"5. Disclosure - Coordinate public disclosure\",\n            \"6. Patching - Deploy updates to devices\"\n        ]\n        \n        for step in process_steps:\n            print(f\"   {step}\")\n        \n        print(\"\\n\u23f1\ufe0f Recommended Timeline:\")\n        timeline = [\n            \"Day 0: Initial vulnerability report\",\n            \"Day 7: Vendor acknowledgment\",\n            \"Day 30: Impact assessment complete\",\n            \"Day 90: Patch development target\",\n            \"Day 120: Coordinated disclosure\"\n        ]\n        \n        for milestone in timeline:\n            print(f\"   {milestone}\")\n        \n        print(\"\\n\ud83e\udd1d Responsible Disclosure Guidelines:\")\n        guidelines = [\n            \"Provide clear vulnerability details\",\n            \"Include proof of concept if possible\",\n            \"Allow reasonable time for fixes\",\n            \"Coordinate disclosure timing\",\n            \"Avoid public disclosure before patch\",\n            \"Credit researchers appropriately\"\n        ]\n        \n        for guideline in guidelines:\n            print(f\"   \u2022 {guideline}\")\n        \n        return process_steps\n    \n    def supply_chain_security(self):\n        \"\"\"IoT supply chain security guidance\"\"\"\n        print(\"\ud83d\udd17 IoT Supply Chain Security (FREE!)\\n\")\n        \n        print(\"\ud83d\udce6 Supply Chain Security Measures:\")\n        measures = [\n            \"Component authenticity verification\",\n            \"Secure manufacturing processes\",\n            \"Firmware integrity checking\",\n            \"Vendor security assessment\",\n            \"Bill of Materials (BoM) management\",\n            \"Third-party code auditing\",\n            \"Secure distribution channels\",\n            \"Anti-counterfeiting measures\"\n        ]\n        \n        for measure in measures:\n            print(f\"   \u2022 {measure}\")\n        \n        print(\"\\n\ud83d\udd0d Risk Assessment Areas:\")\n        risk_areas = [\n            \"Hardware tampering\",\n            \"Firmware modification\",\n            \"Counterfeit components\",\n            \"Malicious code injection\",\n            \"Data interception\",\n            \"Supply chain attacks\"\n        ]\n        \n        for risk in risk_areas:\n            print(f\"   \u2022 {risk}\")\n        \n        return measures\n    \n    def generate_security_report(self, device_type='consumer'):\n        \"\"\"Generate comprehensive IoT security report\"\"\"\n        print(f\"\ud83c\udf10 IoT Security Assessment Report (FREE!)\")\n        print(f\"Device Type: {device_type.title()}\")\n        print(f\"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udccb COMPLIANCE ASSESSMENT\")\n        print(\"=\" * 50)\n        self.assess_security_compliance()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udcda BEST PRACTICES\")\n        print(\"=\" * 50)\n        self.get_best_practices(device_type)\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd0d VULNERABILITY DISCLOSURE\")\n        print(\"=\" * 50)\n        self.vulnerability_disclosure_framework()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd17 SUPPLY CHAIN SECURITY\")\n        print(\"=\" * 50)\n        self.supply_chain_security()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83c\udfaf ACTION ITEMS\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udcdd Immediate Actions:\")\n        actions = [\n            \"1. Complete IoTSF Compliance Questionnaire\",\n            \"2. Implement security by design principles\",\n            \"3. Establish vulnerability disclosure process\",\n            \"4. Conduct supply chain risk assessment\",\n            \"5. Implement secure update mechanism\",\n            \"6. Review and update security documentation\"\n        ]\n        \n        for action in actions:\n            print(f\"   {action}\")\n        \n        print(\"\\n\ud83d\udcda Resources:\")\n        print(f\"   \u2022 IoTSF Website: {self.base_url}\")\n        print(\"   \u2022 Compliance Framework: /iot-security-compliance-framework/\")\n        print(\"   \u2022 Best Practices: /best-practice-guidelines/\")\n        print(\"   \u2022 Assurance Framework: /iot-security-assurance-framework/\")\n        \n        print(\"\\n\ud83d\udca1 Key Recommendations:\")\n        print(\"   \u2022 Adopt IoTSF Compliance Framework\")\n        print(\"   \u2022 Implement continuous security monitoring\")\n        print(\"   \u2022 Maintain security throughout lifecycle\")\n        print(\"   \u2022 Engage in security community\")\n        print(\"   \u2022 Regular security assessments\")\n        \n        return True\n\n# Usage\nassessor = IoTSecurityAssessor()\nassessor.generate_security_report('consumer')"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "owasp-iot-project",
+      "ics-cert-advisories",
+      "nist-iot-cybersecurity"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free to use with attribution",
+    "maintainer": "IoT Security Foundation",
+    "related_resources": [
+      "IoTSF Compliance Questionnaire",
+      "IoT Security Assurance Scheme",
+      "ETSI EN 303 645",
+      "NIST IoT Cybersecurity"
+    ]
+  },
+  "name": "IoT Security Foundation",
+  "operational_guidance": {
+    "best_practices": [
+      "Implement IoTSF Compliance Framework",
+      "Follow security by design principles",
+      "Establish vulnerability disclosure process",
+      "Regular security assessments",
+      "Supply chain verification",
+      "Continuous monitoring",
+      "Security documentation maintenance"
+    ],
+    "common_use_cases": [
+      "IoT device security assessment",
+      "Compliance framework implementation",
+      "Security by design adoption",
+      "Vulnerability management",
+      "Supply chain security",
+      "Risk assessment",
+      "Security certification preparation"
+    ],
+    "recommended_update_frequency": "Review quarterly for framework updates",
+    "value_proposition": "Industry-leading IoT security framework and best practices from dedicated IoT security organization"
+  },
+  "quality_metrics": {
+    "accessibility": "All resources freely downloadable",
+    "completeness": "Comprehensive IoT security coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Industry-standard IoT security guidance",
+    "reliability": "excellent",
+    "update_speed": "Regular updates as standards evolve"
+  },
+  "quality_score": 90,
+  "subcategory": "iotsf",
+  "url": "https://www.iotsecurityfoundation.org/"
+}

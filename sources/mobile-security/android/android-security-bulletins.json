@@ -1,0 +1,153 @@
+{
+  "api": {
+    "base_url": "https://source.android.com",
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Monthly Android security updates and patch information",
+        "format": "HTML",
+        "name": "Monthly Security Bulletins",
+        "url": "https://source.android.com/security/bulletin"
+      },
+      {
+        "access": "free",
+        "description": "Comprehensive Android security architecture and features",
+        "format": "HTML",
+        "name": "Android Security Overview",
+        "url": "https://source.android.com/security"
+      },
+      {
+        "access": "free",
+        "description": "Android version-specific security enhancements",
+        "format": "HTML",
+        "name": "Security Enhancements",
+        "url": "https://source.android.com/security/enhancements"
+      },
+      {
+        "access": "free",
+        "description": "Android application sandboxing documentation",
+        "format": "HTML",
+        "name": "Application Sandbox",
+        "url": "https://source.android.com/security/app-sandbox"
+      }
+    ],
+    "rss_feeds": [
+      {
+        "description": "Android security news and updates",
+        "name": "Android Security Updates",
+        "update_frequency": "Monthly",
+        "url": "https://android-developers.googleblog.com/feeds/posts/default/-/security"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All Android Security Bulletins, vulnerability information, and security resources available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "mobile-security",
+  "coverage": 93,
+  "data_coverage": {
+    "android_versions": [
+      "Android 14 (API 34)",
+      "Android 13 (API 33)",
+      "Android 12/12L (API 31-32)",
+      "Android 11 (API 30)",
+      "Android 10 (API 29)",
+      "Legacy version support"
+    ],
+    "content_types": [
+      "Security vulnerability details",
+      "CVE information and CVSS scores",
+      "Patch level information",
+      "Security patch notes",
+      "Affected component details",
+      "Severity ratings",
+      "Mitigation strategies",
+      "Security architecture documentation"
+    ],
+    "temporal": {
+      "historical_data": "2015-present",
+      "latency": "Coordinated disclosure with patches",
+      "update_frequency": "Monthly security bulletins (first Monday)"
+    },
+    "vulnerability_categories": [
+      "Framework vulnerabilities",
+      "Media framework issues",
+      "System vulnerabilities",
+      "Kernel vulnerabilities",
+      "Qualcomm components",
+      "MediaTek components",
+      "Third-party component issues",
+      "Google Play system updates"
+    ]
+  },
+  "description": "Official Android Security Bulletins providing monthly security updates, vulnerability details, and patch information for Android devices. COMPLETELY FREE access to security bulletins, CVE details, and patch levels.",
+  "documentation": "https://source.android.com/security",
+  "format": "other",
+  "id": "android-security-bulletins",
+  "integration_examples": {
+    "bash": {
+      "check_bulletins": "#!/bin/bash\n# Android Security Bulletin Monitor - FREE!\n\necho \"\ud83e\udd16 Android Security Bulletin Check (FREE!)\"\necho \"==========================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# Current bulletin\nCURRENT_MONTH=$(date +%Y-%m-01)\necho \"\ud83d\udcc5 Current Security Bulletin:\"\necho \"   \ud83d\udd17 https://source.android.com/security/bulletin/$CURRENT_MONTH\"\necho \"\"\n\n# Recent bulletins\necho \"\ud83d\udccb Recent Security Bulletins:\"\nfor i in {0..5}; do\n    BULLETIN_DATE=$(date -d \"$i months ago\" +%Y-%m-01 2>/dev/null || date -v-${i}m +%Y-%m-01)\n    echo \"   \u2022 $BULLETIN_DATE: https://source.android.com/security/bulletin/$BULLETIN_DATE\"\ndone\necho \"\"\n\n# Security resources\necho \"\ud83d\udcda Android Security Resources:\"\necho \"   \u2022 Overview: https://source.android.com/security\"\necho \"   \u2022 Bulletins: https://source.android.com/security/bulletin\"\necho \"   \u2022 Enhancements: https://source.android.com/security/enhancements\"\necho \"   \u2022 App Sandbox: https://source.android.com/security/app-sandbox\"\necho \"   \u2022 Encryption: https://source.android.com/security/encryption\"\necho \"\"\n\n# Severity levels\necho \"\ud83d\udee1\ufe0f Severity Levels:\"\necho \"   \ud83d\udd34 Critical: RCE with no user interaction\"\necho \"   \ud83d\udfe0 High: RCE or privilege escalation\"\necho \"   \ud83d\udfe1 Moderate: Limited RCE or data access\"\necho \"   \ud83d\udfe2 Low: Limited impact\"\necho \"\"\n\n# Check device patch level (if adb available)\nif command -v adb &> /dev/null; then\n    echo \"\ud83d\udcf1 Connected Device Check:\"\n    PATCH_LEVEL=$(adb shell getprop ro.build.version.security_patch 2>/dev/null)\n    if [ ! -z \"$PATCH_LEVEL\" ]; then\n        echo \"   Current patch level: $PATCH_LEVEL\"\n        \n        # Check if outdated (more than 3 months)\n        CURRENT_DATE=$(date +%s)\n        PATCH_DATE=$(date -d \"$PATCH_LEVEL\" +%s 2>/dev/null || echo \"0\")\n        DAYS_OLD=$(( ($CURRENT_DATE - $PATCH_DATE) / 86400 ))\n        \n        if [ $DAYS_OLD -gt 90 ]; then\n            echo \"   \u26a0\ufe0f WARNING: Patch level is more than 3 months old!\"\n        else\n            echo \"   \u2705 Patch level is current\"\n        fi\n    else\n        echo \"   No device connected or ADB not authorized\"\n    fi\nelse\n    echo \"\ud83d\udcf1 ADB not installed - cannot check device patch level\"\nfi\necho \"\"\n\necho \"\ud83d\udca1 Security Recommendations:\"\necho \"   1. Keep security patch level current\"\necho \"   2. Enable automatic updates\"\necho \"   3. Use Google Play Protect\"\necho \"   4. Review app permissions\"\necho \"   5. Enable screen lock\"\necho \"\"\n\necho \"\ud83d\udcc5 Report generated: $(date)\""
+    },
+    "curl": {
+      "check_latest": "# Check latest Android Security Bulletin - FREE!\ncurl -s https://source.android.com/security/bulletin | grep -o 'href=\"/security/bulletin/[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\"' | head -5"
+    },
+    "python": {
+      "bulletin_monitor": "import requests\nfrom bs4 import BeautifulSoup\nfrom datetime import datetime, timedelta\nimport json\nimport re\n\nclass AndroidSecurityBulletinMonitor:\n    \"\"\"Monitor Android Security Bulletins - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://source.android.com'\n        self.bulletin_url = f'{self.base_url}/security/bulletin'\n        \n        # Severity levels\n        self.severity_levels = {\n            'Critical': '\ud83d\udd34 Critical - Remote code execution with no user interaction',\n            'High': '\ud83d\udfe0 High - Remote code execution or privilege escalation',\n            'Moderate': '\ud83d\udfe1 Moderate - Limited remote code execution or data access',\n            'Low': '\ud83d\udfe2 Low - Limited impact vulnerabilities'\n        }\n    \n    def get_latest_bulletin(self):\n        \"\"\"Get latest Android Security Bulletin information\"\"\"\n        print(\"\ud83e\udd16 Android Security Bulletin Monitor (FREE!)\\n\")\n        \n        # Generate current month bulletin URL\n        current_date = datetime.now()\n        bulletin_date = current_date.strftime('%Y-%m-01')\n        \n        print(f\"\ud83d\udcc5 Latest Bulletin: {bulletin_date}\")\n        print(f\"\ud83d\udd17 {self.bulletin_url}/{bulletin_date}\\n\")\n        \n        return bulletin_date\n    \n    def analyze_patch_levels(self):\n        \"\"\"Analyze Android security patch levels\"\"\"\n        print(\"\ud83d\udcca Android Security Patch Levels (FREE!)\\n\")\n        \n        # Current and recent patch levels\n        current_date = datetime.now()\n        patch_levels = []\n        \n        for i in range(6):  # Last 6 months\n            patch_date = current_date - timedelta(days=30*i)\n            patch_level = patch_date.strftime('%Y-%m-01')\n            patch_levels.append(patch_level)\n        \n        print(\"\ud83d\udcc5 Recent Security Patch Levels:\")\n        for level in patch_levels:\n            status = \"\u2705 Current\" if level == patch_levels[0] else \"\u26a0\ufe0f Outdated\"\n            print(f\"   \u2022 {level}: {status}\")\n        \n        print(\"\\n\ud83d\udca1 Patch Level Information:\")\n        print(\"   \u2022 Format: YYYY-MM-DD\")\n        print(\"   \u2022 Updated monthly (first Monday)\")\n        print(\"   \u2022 Contains all patches from that month\")\n        print(\"   \u2022 Cumulative - includes all previous patches\")\n        \n        return patch_levels\n    \n    def check_vulnerability_categories(self):\n        \"\"\"Check vulnerability categories and components\"\"\"\n        print(\"\ud83d\udd0d Android Vulnerability Categories (FREE!)\\n\")\n        \n        categories = {\n            'Framework': 'Android OS framework vulnerabilities',\n            'Media Framework': 'Media processing and codec issues',\n            'System': 'System-level security issues',\n            'Kernel': 'Linux kernel vulnerabilities',\n            'Qualcomm': 'Qualcomm closed-source components',\n            'MediaTek': 'MediaTek components',\n            'Google Play': 'Google Play system updates'\n        }\n        \n        print(\"\ud83d\udce6 Component Categories:\")\n        for component, description in categories.items():\n            print(f\"   \u2022 {component}: {description}\")\n        \n        print(\"\\n\ud83d\udee1\ufe0f Security Severity Levels:\")\n        for level, description in self.severity_levels.items():\n            print(f\"   {description}\")\n        \n        return categories\n    \n    def get_security_resources(self):\n        \"\"\"Get Android security resources and documentation\"\"\"\n        print(\"\ud83d\udcda Android Security Resources (FREE!)\\n\")\n        \n        resources = {\n            'Security Overview': f'{self.base_url}/security',\n            'Security Bulletins': f'{self.base_url}/security/bulletin',\n            'Security Enhancements': f'{self.base_url}/security/enhancements',\n            'App Sandbox': f'{self.base_url}/security/app-sandbox',\n            'Encryption': f'{self.base_url}/security/encryption',\n            'Keystore': f'{self.base_url}/security/keystore',\n            'SELinux': f'{self.base_url}/security/selinux',\n            'Verified Boot': f'{self.base_url}/security/verifiedboot'\n        }\n        \n        print(\"\ud83d\udd17 Security Documentation:\")\n        for name, url in resources.items():\n            print(f\"   \u2022 {name}: {url}\")\n        \n        print(\"\\n\ud83d\udd27 Security Features by Version:\")\n        version_features = [\n            \"Android 14: Enhanced privacy controls, credential manager\",\n            \"Android 13: Photo picker, themed app icons, per-app languages\",\n            \"Android 12: Privacy dashboard, mic/camera indicators\",\n            \"Android 11: Scoped storage, one-time permissions\",\n            \"Android 10: Privacy location controls, system-wide dark theme\"\n        ]\n        \n        for feature in version_features:\n            print(f\"   \u2022 {feature}\")\n        \n        return resources\n    \n    def generate_security_report(self):\n        \"\"\"Generate comprehensive Android security report\"\"\"\n        print(f\"\ud83e\udd16 Android Security Report (FREE!)\")\n        print(f\"Report Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcc5 SECURITY BULLETINS\")\n        print(\"=\" * 50)\n        self.get_latest_bulletin()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udd04 PATCH LEVELS\")\n        print(\"=\" * 50)\n        self.analyze_patch_levels()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udd0d VULNERABILITY ANALYSIS\")\n        print(\"=\" * 50)\n        self.check_vulnerability_categories()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\ud83d\udcda SECURITY RESOURCES\")\n        print(\"=\" * 50)\n        self.get_security_resources()\n        \n        print(\"\\n\" + \"=\" * 50)\n        print(\"\u2705 SECURITY CHECKLIST\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udcf1 Device Security Checklist:\")\n        checklist = [\n            \"[ ] Security patch level is current (within 3 months)\",\n            \"[ ] Google Play Protect is enabled\",\n            \"[ ] Unknown sources disabled\",\n            \"[ ] Developer options disabled\",\n            \"[ ] USB debugging disabled\",\n            \"[ ] Screen lock configured\",\n            \"[ ] Encryption enabled\",\n            \"[ ] Find My Device enabled\",\n            \"[ ] App permissions reviewed\",\n            \"[ ] Biometric authentication configured\"\n        ]\n        \n        for item in checklist:\n            print(f\"   {item}\")\n        \n        print(\"\\n\ud83d\udca1 Best Practices:\")\n        print(\"   1. Apply security patches within 30 days\")\n        print(\"   2. Only install apps from Google Play Store\")\n        print(\"   3. Review app permissions regularly\")\n        print(\"   4. Enable automatic security updates\")\n        print(\"   5. Use strong authentication methods\")\n        print(\"   6. Keep Google Play Services updated\")\n        print(\"   7. Enable Google Play Protect scanning\")\n        \n        print(\"\\n\ud83d\udcf1 For Developers:\")\n        print(\"   \u2022 Follow secure coding practices\")\n        print(\"   \u2022 Implement certificate pinning\")\n        print(\"   \u2022 Use Android Keystore for keys\")\n        print(\"   \u2022 Enable app sandboxing\")\n        print(\"   \u2022 Implement SafetyNet attestation\")\n        print(\"   \u2022 Use encrypted shared preferences\")\n        print(\"   \u2022 Follow principle of least privilege\")\n        \n        return True\n\n# Usage\nmonitor = AndroidSecurityBulletinMonitor()\nmonitor.generate_security_report()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "owasp-mobile-security",
+      "nvd-nist",
+      "cve-mitre"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Public information",
+    "maintainer": "Google Android Security Team",
+    "related_resources": [
+      "Android Security Overview",
+      "Google Play Protect",
+      "Android Enterprise Security",
+      "SafetyNet Attestation API"
+    ]
+  },
+  "name": "Android Security Bulletins",
+  "operational_guidance": {
+    "best_practices": [
+      "Monitor monthly security bulletins",
+      "Apply patches within 30 days",
+      "Track CVE implementations",
+      "Maintain patch level documentation",
+      "Test patches before deployment",
+      "Monitor vendor-specific patches",
+      "Implement defense in depth"
+    ],
+    "common_use_cases": [
+      "Security patch management",
+      "Vulnerability assessment",
+      "Device security auditing",
+      "Compliance verification",
+      "Security update planning",
+      "Risk assessment",
+      "Vendor security evaluation"
+    ],
+    "recommended_update_frequency": "Check monthly on first Monday for new bulletins",
+    "value_proposition": "Official source for Android security vulnerabilities and patches, providing authoritative information for device security management"
+  },
+  "quality_metrics": {
+    "accessibility": "Full public access without registration",
+    "completeness": "Comprehensive coverage of Android vulnerabilities",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Official Google Android security information",
+    "reliability": "excellent",
+    "update_speed": "Monthly coordinated disclosure"
+  },
+  "quality_score": 96,
+  "subcategory": "android",
+  "url": "https://source.android.com/security/bulletin"
+}

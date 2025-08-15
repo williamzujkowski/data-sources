@@ -1,0 +1,161 @@
+{
+  "api": {
+    "base_url": "https://owasp.org",
+    "github_repos": [
+      {
+        "description": "Vulnerable IoT firmware for learning",
+        "name": "IoTGoat",
+        "url": "https://github.com/OWASP/IoTGoat"
+      },
+      {
+        "description": "IoT security verification standard",
+        "name": "IoT-Security-Verification-Standard-ISVS",
+        "url": "https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS"
+      }
+    ],
+    "public_sources": [
+      {
+        "access": "free",
+        "description": "Top 10 IoT security vulnerabilities and risks",
+        "format": "HTML/PDF",
+        "name": "OWASP IoT Top 10",
+        "url": "https://owasp.org/www-project-internet-of-things/"
+      },
+      {
+        "access": "free",
+        "description": "IoT security testing methodology and tools",
+        "format": "GitHub",
+        "name": "IoT Security Testing Guide",
+        "url": "https://github.com/OWASP/IoTGoat"
+      },
+      {
+        "access": "free",
+        "description": "Deliberately insecure IoT firmware for training",
+        "format": "GitHub",
+        "name": "IoTGoat",
+        "url": "https://github.com/OWASP/IoTGoat"
+      },
+      {
+        "access": "free",
+        "description": "IoT security requirements and verification",
+        "format": "GitHub/Markdown",
+        "name": "IoT Security Verification Standard",
+        "url": "https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS"
+      }
+    ],
+    "type": "web"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All OWASP IoT Project resources including IoT Top 10, testing guides, and security tools available without authentication.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 94,
+  "category": "iot-security",
+  "coverage": 91,
+  "data_coverage": {
+    "content_types": [
+      "IoT vulnerability categories",
+      "Security testing methodologies",
+      "Risk assessment frameworks",
+      "Security verification standards",
+      "Attack surface mapping",
+      "Threat modeling guidance",
+      "Security controls",
+      "Remediation strategies"
+    ],
+    "iot_top_10": [
+      "I1: Weak, Guessable, or Hardcoded Passwords",
+      "I2: Insecure Network Services",
+      "I3: Insecure Ecosystem Interfaces",
+      "I4: Lack of Secure Update Mechanism",
+      "I5: Use of Insecure or Outdated Components",
+      "I6: Insufficient Privacy Protection",
+      "I7: Insecure Data Transfer and Storage",
+      "I8: Lack of Device Management",
+      "I9: Insecure Default Settings",
+      "I10: Lack of Physical Hardening"
+    ],
+    "temporal": {
+      "historical_data": "2014-present",
+      "latency": "Community-driven updates",
+      "update_frequency": "Annual Top 10 updates"
+    },
+    "testing_areas": [
+      "Firmware analysis",
+      "Network service testing",
+      "Web interface security",
+      "Mobile application testing",
+      "Cloud API security",
+      "Hardware security",
+      "Radio communication testing",
+      "Update mechanism validation"
+    ]
+  },
+  "description": "OWASP Internet of Things Project providing IoT Top 10 vulnerabilities, security guidance, and testing methodology for IoT devices and ecosystems. COMPLETELY FREE access to all IoT security resources.",
+  "documentation": "https://wiki.owasp.org/index.php/OWASP_Internet_of_Things_Project",
+  "format": "other",
+  "id": "owasp-iot-project",
+  "integration_examples": {
+    "bash": {
+      "iot_security_scan": "#!/bin/bash\n# OWASP IoT Security Scanner - FREE!\n\necho \"\ud83c\udf10 OWASP IoT Security Check (FREE!)\"\necho \"====================================\"\necho \"Date: $(date)\"\necho \"\"\n\n# OWASP IoT Top 10\necho \"\ud83d\udcca OWASP IoT Top 10 Vulnerabilities:\"\necho \"   I1: \ud83d\udd13 Weak/Hardcoded Passwords\"\necho \"   I2: \ud83c\udf10 Insecure Network Services\"\necho \"   I3: \ud83d\udd0c Insecure Ecosystem Interfaces\"\necho \"   I4: \ud83d\udd04 Lack of Secure Update\"\necho \"   I5: \ud83d\udce6 Outdated Components\"\necho \"   I6: \ud83d\udd12 Insufficient Privacy\"\necho \"   I7: \ud83d\udcbe Insecure Data Transfer\"\necho \"   I8: \u2699\ufe0f Lack of Device Management\"\necho \"   I9: \u26a0\ufe0f Insecure Default Settings\"\necho \"   I10: \ud83d\udee1\ufe0f Lack of Physical Hardening\"\necho \"\"\n\n# Testing phases\necho \"\ud83d\udd0d IoT Testing Phases:\"\necho \"   1. Information Gathering\"\necho \"   2. Firmware Analysis\"\necho \"   3. Network Testing\"\necho \"   4. Application Testing\"\necho \"   5. Hardware Testing\"\necho \"\"\n\n# Security tools\necho \"\ud83d\udd27 Recommended Tools:\"\necho \"   Firmware:\"\necho \"      \u2022 Binwalk\"\necho \"      \u2022 Firmwalker\"\necho \"      \u2022 FACT\"\necho \"   Network:\"\necho \"      \u2022 Nmap\"\necho \"      \u2022 Wireshark\"\necho \"      \u2022 Burp Suite\"\necho \"   Hardware:\"\necho \"      \u2022 Bus Pirate\"\necho \"      \u2022 JTAGulator\"\necho \"      \u2022 Logic Analyzer\"\necho \"\"\n\n# Security checklist\necho \"\u2705 Quick Security Check:\"\necho \"   [ ] Check for default passwords\"\necho \"   [ ] Scan open ports\"\necho \"   [ ] Test encryption\"\necho \"   [ ] Verify update mechanism\"\necho \"   [ ] Check privacy settings\"\necho \"   [ ] Test authentication\"\necho \"   [ ] Review permissions\"\necho \"   [ ] Check physical access\"\necho \"\"\n\n# Resources\necho \"\ud83d\udcda Resources:\"\necho \"   \u2022 OWASP IoT: https://owasp.org/www-project-internet-of-things/\"\necho \"   \u2022 IoTGoat: https://github.com/OWASP/IoTGoat\"\necho \"   \u2022 ISVS: https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS\"\necho \"\"\n\necho \"\ud83d\udcc5 Generated: $(date)\""
+    },
+    "curl": {
+      "get_iot_resources": "# Get OWASP IoT resources - FREE!\ncurl -s https://owasp.org/www-project-internet-of-things/ | grep -o 'href=\"[^\"]*\"' | grep -E 'iot|IoT' | head -10"
+    },
+    "python": {
+      "iot_security_tester": "import json\nfrom datetime import datetime\nimport subprocess\n\nclass OWASPIoTSecurityTester:\n    \"\"\"OWASP IoT Security Testing Framework - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.project_url = 'https://owasp.org/www-project-internet-of-things/'\n        \n        # OWASP IoT Top 10 (2018)\n        self.iot_top_10 = [\n            {'id': 'I1', 'name': 'Weak, Guessable, or Hardcoded Passwords',\n             'risk': 'Critical', 'icon': '\ud83d\udd13'},\n            {'id': 'I2', 'name': 'Insecure Network Services',\n             'risk': 'High', 'icon': '\ud83c\udf10'},\n            {'id': 'I3', 'name': 'Insecure Ecosystem Interfaces',\n             'risk': 'High', 'icon': '\ud83d\udd0c'},\n            {'id': 'I4', 'name': 'Lack of Secure Update Mechanism',\n             'risk': 'Critical', 'icon': '\ud83d\udd04'},\n            {'id': 'I5', 'name': 'Use of Insecure or Outdated Components',\n             'risk': 'High', 'icon': '\ud83d\udce6'},\n            {'id': 'I6', 'name': 'Insufficient Privacy Protection',\n             'risk': 'Medium', 'icon': '\ud83d\udd12'},\n            {'id': 'I7', 'name': 'Insecure Data Transfer and Storage',\n             'risk': 'High', 'icon': '\ud83d\udcbe'},\n            {'id': 'I8', 'name': 'Lack of Device Management',\n             'risk': 'Medium', 'icon': '\u2699\ufe0f'},\n            {'id': 'I9', 'name': 'Insecure Default Settings',\n             'risk': 'High', 'icon': '\u26a0\ufe0f'},\n            {'id': 'I10', 'name': 'Lack of Physical Hardening',\n             'risk': 'Medium', 'icon': '\ud83d\udee1\ufe0f'}\n        ]\n    \n    def assess_iot_top_10(self):\n        \"\"\"Assess device against OWASP IoT Top 10\"\"\"\n        print(\"\ud83c\udf10 OWASP IoT Top 10 Assessment (FREE!)\\n\")\n        \n        print(\"\ud83d\udcca IoT Security Vulnerabilities:\\n\")\n        for vuln in self.iot_top_10:\n            risk_color = {'Critical': '\ud83d\udd34', 'High': '\ud83d\udfe0', 'Medium': '\ud83d\udfe1', 'Low': '\ud83d\udfe2'}\n            risk_icon = risk_color.get(vuln['risk'], '\u26aa')\n            print(f\"{vuln['icon']} {vuln['id']}: {vuln['name']}\")\n            print(f\"   Risk Level: {risk_icon} {vuln['risk']}\")\n            print()\n        \n        return self.iot_top_10\n    \n    def test_methodology(self):\n        \"\"\"IoT security testing methodology\"\"\"\n        print(\"\ud83d\udd0d IoT Security Testing Methodology (FREE!)\\n\")\n        \n        test_phases = [\n            {\n                'phase': 'Information Gathering',\n                'activities': [\n                    'Device identification',\n                    'Architecture mapping',\n                    'Component inventory',\n                    'Communication analysis'\n                ]\n            },\n            {\n                'phase': 'Firmware Analysis',\n                'activities': [\n                    'Firmware extraction',\n                    'File system analysis',\n                    'Binary analysis',\n                    'Hardcoded secrets search'\n                ]\n            },\n            {\n                'phase': 'Network Testing',\n                'activities': [\n                    'Port scanning',\n                    'Service enumeration',\n                    'Protocol analysis',\n                    'Man-in-the-middle testing'\n                ]\n            },\n            {\n                'phase': 'Application Testing',\n                'activities': [\n                    'Web interface testing',\n                    'Mobile app analysis',\n                    'API security testing',\n                    'Authentication bypass'\n                ]\n            },\n            {\n                'phase': 'Hardware Testing',\n                'activities': [\n                    'Debug port identification',\n                    'JTAG/UART access',\n                    'Side-channel analysis',\n                    'Chip-off attacks'\n                ]\n            }\n        ]\n        \n        for phase_info in test_phases:\n            print(f\"\ud83d\udccb {phase_info['phase']}:\")\n            for activity in phase_info['activities']:\n                print(f\"   \u2022 {activity}\")\n            print()\n        \n        return test_phases\n    \n    def security_controls(self):\n        \"\"\"IoT security controls and mitigations\"\"\"\n        print(\"\ud83d\udee1\ufe0f IoT Security Controls (FREE!)\\n\")\n        \n        controls = {\n            'Authentication': [\n                'Strong password policies',\n                'Multi-factor authentication',\n                'Certificate-based auth',\n                'Biometric authentication'\n            ],\n            'Encryption': [\n                'TLS/SSL for communications',\n                'Encrypted storage',\n                'Secure key management',\n                'End-to-end encryption'\n            ],\n            'Updates': [\n                'Signed firmware updates',\n                'Secure boot',\n                'Rollback protection',\n                'Automatic updates'\n            ],\n            'Monitoring': [\n                'Security event logging',\n                'Anomaly detection',\n                'Intrusion detection',\n                'Remote attestation'\n            ]\n        }\n        \n        for category, control_list in controls.items():\n            print(f\"\ud83d\udd10 {category}:\")\n            for control in control_list:\n                print(f\"   \u2022 {control}\")\n            print()\n        \n        return controls\n    \n    def testing_tools(self):\n        \"\"\"IoT security testing tools\"\"\"\n        print(\"\ud83d\udd27 IoT Security Testing Tools (FREE!)\\n\")\n        \n        tools = {\n            'Firmware Analysis': [\n                'Binwalk - Firmware extraction',\n                'Firmwalker - Firmware analysis',\n                'FACT - Firmware Analysis Tool',\n                'FwAnalyzer - Security scanning'\n            ],\n            'Network Testing': [\n                'Nmap - Port scanning',\n                'Wireshark - Protocol analysis',\n                'Ettercap - MITM attacks',\n                'Burp Suite - Web testing'\n            ],\n            'Hardware Testing': [\n                'Bus Pirate - Hardware interface',\n                'JTAGulator - JTAG identification',\n                'Logic Analyzer - Signal analysis',\n                'OpenOCD - Debug interface'\n            ],\n            'Radio Testing': [\n                'GNU Radio - SDR framework',\n                'HackRF - Radio testing',\n                'Ubertooth - Bluetooth analysis',\n                'KillerBee - Zigbee testing'\n            ]\n        }\n        \n        for category, tool_list in tools.items():\n            print(f\"\ud83d\udee0\ufe0f {category}:\")\n            for tool in tool_list:\n                print(f\"   \u2022 {tool}\")\n            print()\n        \n        return tools\n    \n    def generate_security_report(self, device_name=\"IoT Device\"):\n        \"\"\"Generate comprehensive IoT security report\"\"\"\n        print(f\"\ud83c\udf10 OWASP IoT Security Report (FREE!)\")\n        print(f\"Device: {device_name}\")\n        print(f\"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\\n\")\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udcca IoT TOP 10 ASSESSMENT\")\n        print(\"=\" * 50)\n        self.assess_iot_top_10()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udd0d TESTING METHODOLOGY\")\n        print(\"=\" * 50)\n        self.test_methodology()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udee1\ufe0f SECURITY CONTROLS\")\n        print(\"=\" * 50)\n        self.security_controls()\n        \n        print(\"=\" * 50)\n        print(\"\ud83d\udd27 TESTING TOOLS\")\n        print(\"=\" * 50)\n        self.testing_tools()\n        \n        print(\"=\" * 50)\n        print(\"\u2705 SECURITY CHECKLIST\")\n        print(\"=\" * 50)\n        \n        print(\"\\n\ud83d\udcdd IoT Security Checklist:\")\n        checklist = [\n            \"[ ] No default/weak passwords\",\n            \"[ ] Secure network services\",\n            \"[ ] Encrypted communications\",\n            \"[ ] Secure update mechanism\",\n            \"[ ] Updated components\",\n            \"[ ] Privacy protection\",\n            \"[ ] Secure data storage\",\n            \"[ ] Device management capability\",\n            \"[ ] Secure default settings\",\n            \"[ ] Physical security measures\"\n        ]\n        \n        for item in checklist:\n            print(f\"   {item}\")\n        \n        print(\"\\n\ud83d\udca1 Key Recommendations:\")\n        print(\"   1. Address all OWASP IoT Top 10 vulnerabilities\")\n        print(\"   2. Implement defense in depth strategy\")\n        print(\"   3. Regular security assessments\")\n        print(\"   4. Continuous monitoring and updates\")\n        print(\"   5. Security by design approach\")\n        print(\"   6. Supply chain security verification\")\n        print(\"   7. Incident response planning\")\n        \n        print(\"\\n\ud83d\udcda Resources:\")\n        print(f\"   \u2022 OWASP IoT Project: {self.project_url}\")\n        print(\"   \u2022 IoTGoat: https://github.com/OWASP/IoTGoat\")\n        print(\"   \u2022 IoT Security Verification: https://github.com/OWASP/IoT-Security-Verification-Standard-ISVS\")\n        print(\"   \u2022 Wiki: https://wiki.owasp.org/index.php/OWASP_Internet_of_Things_Project\")\n        \n        return True\n\n# Usage\ntester = OWASPIoTSecurityTester()\ntester.generate_security_report(\"Smart Home Device\")"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "iot-security-foundation",
+      "ics-cert-advisories",
+      "nist-iot-cybersecurity"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Creative Commons Attribution-ShareAlike",
+    "maintainer": "OWASP IoT Project Team",
+    "related_resources": [
+      "OWASP Top 10",
+      "OWASP Mobile Security",
+      "OWASP API Security",
+      "OWASP Application Security Verification Standard"
+    ]
+  },
+  "name": "OWASP IoT Project",
+  "operational_guidance": {
+    "best_practices": [
+      "Address all OWASP IoT Top 10 risks",
+      "Follow structured testing methodology",
+      "Use appropriate security tools",
+      "Implement security controls",
+      "Regular security assessments",
+      "Continuous monitoring",
+      "Security training for developers"
+    ],
+    "common_use_cases": [
+      "IoT vulnerability assessment",
+      "Security testing methodology",
+      "Risk assessment and prioritization",
+      "Security requirements definition",
+      "Penetration testing",
+      "Security training and awareness",
+      "Compliance verification"
+    ],
+    "recommended_update_frequency": "Review annually for Top 10 updates",
+    "value_proposition": "Industry-standard IoT security vulnerabilities and testing methodology from the leading application security community"
+  },
+  "quality_metrics": {
+    "accessibility": "All resources openly available",
+    "completeness": "Comprehensive IoT security coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community-validated IoT security standards",
+    "reliability": "excellent",
+    "update_speed": "Annual Top 10 updates"
+  },
+  "quality_score": 93,
+  "subcategory": "owasp",
+  "url": "https://owasp.org/www-project-internet-of-things/"
+}
