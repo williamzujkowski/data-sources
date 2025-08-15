@@ -1,0 +1,160 @@
+{
+  "api": {
+    "base_url": "https://bugcrowd.com",
+    "endpoints": [
+      {
+        "description": "Browse public bug bounty programs",
+        "method": "GET",
+        "name": "Public Programs",
+        "path": "/programs"
+      },
+      {
+        "description": "Coordinated disclosure programs",
+        "method": "GET",
+        "name": "Vulnerability Disclosure",
+        "path": "/vulnerability-disclosure"
+      },
+      {
+        "description": "Learning and research materials",
+        "method": "GET",
+        "name": "Researcher Resources",
+        "path": "/resources"
+      }
+    ],
+    "public_resources": [
+      {
+        "description": "FREE security training and certifications",
+        "name": "Bugcrowd University",
+        "url": "https://www.bugcrowd.com/university/"
+      },
+      {
+        "description": "VRT - standardized vulnerability classification",
+        "name": "Vulnerability Rating Taxonomy",
+        "url": "https://bugcrowd.com/vulnerability-rating-taxonomy"
+      },
+      {
+        "description": "Whitepapers, guides, and tools",
+        "name": "Researcher Resources",
+        "url": "https://www.bugcrowd.com/resources/"
+      },
+      {
+        "description": "FREE community for security researchers",
+        "name": "Discord Community",
+        "url": "https://discord.gg/bugcrowd"
+      }
+    ],
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "FREE registration provides access to public bug bounty programs, VDPs, and Bugcrowd University training.",
+    "required": true,
+    "type": "registration"
+  },
+  "authority": 95,
+  "category": "bug-bounty-platforms",
+  "coverage": 93,
+  "data_coverage": {
+    "content_types": [
+      "Bug bounty programs",
+      "Vulnerability disclosure programs",
+      "Penetration testing programs",
+      "Researcher profiles",
+      "Vulnerability submissions",
+      "Educational content",
+      "Research tools",
+      "Community resources"
+    ],
+    "free_offerings": [
+      "Join all public programs",
+      "Submit vulnerabilities",
+      "Bugcrowd University access",
+      "VRT taxonomy usage",
+      "Community participation",
+      "Skill development",
+      "Reputation building",
+      "Earn bounties and rewards"
+    ],
+    "program_features": [
+      "Managed programs",
+      "Self-service VDPs",
+      "Private programs (by invitation)",
+      "Skill-based matching",
+      "Kudos points system",
+      "Researcher rankings",
+      "Hall of Fame",
+      "Swag rewards"
+    ],
+    "temporal": {
+      "historical_data": "2012-present",
+      "latency": "Immediate program updates",
+      "update_frequency": "Real-time"
+    }
+  },
+  "description": "Bugcrowd bug bounty and VDP platform - FREE participation in public programs, vulnerability coordination, and security research resources.",
+  "format": "json",
+  "id": "bugcrowd-free-resources",
+  "integration_examples": {
+    "bash": {
+      "bugcrowd_info": "#!/bin/bash\n# Bugcrowd Quick Reference - FREE!\n\necho \"\ud83c\udfaf Bugcrowd Free Resources (COMPLETELY FREE!)\"\necho \"============================================\"\necho \"\"\n\necho \"\ud83c\udf93 Bugcrowd University:\"\necho \"   \u2022 URL: https://www.bugcrowd.com/university/\"\necho \"   \u2022 Free security training\"\necho \"   \u2022 Certification programs\"\necho \"   \u2022 Skill development paths\"\necho \"\"\n\necho \"\ud83d\udcca VRT (Vulnerability Rating Taxonomy):\"\necho \"   \u2022 URL: https://bugcrowd.com/vrt\"\necho \"   \u2022 Standardized classifications\"\necho \"   \u2022 Priority ratings (P1-P5)\"\necho \"   \u2022 Industry standard\"\necho \"\"\n\necho \"\ud83c\udfe2 Public Programs:\"\necho \"   \u2022 Browse: https://bugcrowd.com/programs\"\necho \"   \u2022 Bug bounties and VDPs\"\necho \"   \u2022 Free to participate\"\necho \"   \u2022 Earn real money\"\necho \"\"\n\necho \"\u2b50 Kudos System:\"\necho \"   \u2022 Build reputation\"\necho \"   \u2022 Get private invites\"\necho \"   \u2022 Unlock rewards\"\necho \"   \u2022 Elite status possible\"\necho \"\"\n\necho \"\ud83d\udcac Community:\"\necho \"   \u2022 Discord: https://discord.gg/bugcrowd\"\necho \"   \u2022 10,000+ researchers\"\necho \"   \u2022 Knowledge sharing\"\necho \"   \u2022 Mentorship available\"\necho \"\"\n\necho \"\ud83c\udd93 All FREE with registration!\""
+    },
+    "curl": {
+      "check_programs": "# Check public programs - FREE!\ncurl -s 'https://bugcrowd.com/programs' | grep -i 'program-name' | head -5"
+    },
+    "python": {
+      "bugcrowd_client": "import requests\nimport json\nfrom datetime import datetime\n\nclass BugcrowdPublic:\n    \"\"\"Bugcrowd Public Resources Client - FREE ACCESS!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://bugcrowd.com'\n        self.vrt_url = 'https://github.com/bugcrowd/vulnerability-rating-taxonomy'\n        \n    def get_public_programs(self):\n        \"\"\"List public bug bounty programs (FREE!)\"\"\"\n        print(\"\ud83c\udfaf Bugcrowd Public Programs (FREE!)\\n\")\n        \n        # Example public programs\n        programs = [\n            {\n                'name': 'Tesla',\n                'type': 'Bug Bounty',\n                'min_reward': 100,\n                'max_reward': 15000,\n                'managed': True\n            },\n            {\n                'name': 'Binance',\n                'type': 'Bug Bounty',\n                'min_reward': 200,\n                'max_reward': 100000,\n                'managed': True\n            },\n            {\n                'name': 'Sophos',\n                'type': 'Bug Bounty',\n                'min_reward': 150,\n                'max_reward': 10000,\n                'managed': True\n            },\n            {\n                'name': 'Indeed',\n                'type': 'VDP',\n                'min_reward': 0,\n                'max_reward': 0,\n                'managed': False\n            }\n        ]\n        \n        print(\"\ud83c\udfe2 Active Public Programs:\\n\")\n        for program in programs:\n            print(f\"   \ud83c\udf96\ufe0f {program['name']}\")\n            print(f\"      Type: {program['type']}\")\n            if program['max_reward'] > 0:\n                print(f\"      Rewards: ${program['min_reward']} - ${program['max_reward']}\")\n            else:\n                print(f\"      Rewards: Recognition/Kudos\")\n            print(f\"      Managed: {'Yes' if program['managed'] else 'No'}\")\n            print()\n        \n        print(\"\ud83d\udd17 Browse all programs: https://bugcrowd.com/programs\\n\")\n        return programs\n    \n    def vulnerability_rating_taxonomy(self):\n        \"\"\"Get VRT classification guide (FREE!)\"\"\"\n        print(\"\ud83d\udcca Vulnerability Rating Taxonomy (VRT) - FREE!\\n\")\n        \n        vrt_categories = {\n            'Server Security Misconfiguration': [\n                'Cleartext Transmission',\n                'Cookie Security',\n                'CORS Misconfiguration',\n                'Directory Listing',\n                'Information Disclosure'\n            ],\n            'Server-Side Injection': [\n                'SQL Injection',\n                'NoSQL Injection',\n                'Code Injection',\n                'Command Injection',\n                'LDAP Injection'\n            ],\n            'Broken Access Control': [\n                'IDOR',\n                'Privilege Escalation',\n                'Authentication Bypass',\n                'Forced Browsing',\n                'Missing Function Level Access Control'\n            ],\n            'Cross-Site Scripting (XSS)': [\n                'Reflected XSS',\n                'Stored XSS',\n                'DOM XSS',\n                'Universal XSS'\n            ]\n        }\n        \n        print(\"\ud83d\uddc2\ufe0f VRT Categories:\\n\")\n        for category, vulns in vrt_categories.items():\n            print(f\"   \ud83d\udcc1 {category}:\")\n            for vuln in vulns:\n                print(f\"      \u2022 {vuln}\")\n            print()\n        \n        print(\"\ud83d\udcc8 Priority Ratings:\\n\")\n        priorities = {\n            'P1': 'Critical - Immediate attention',\n            'P2': 'High - Urgent fix needed',\n            'P3': 'Medium - Standard priority',\n            'P4': 'Low - Fix when possible',\n            'P5': 'Informational - No immediate action'\n        }\n        \n        for priority, desc in priorities.items():\n            print(f\"   {priority}: {desc}\")\n        \n        print(\"\\n\ud83d\udd17 Full VRT: https://bugcrowd.com/vulnerability-rating-taxonomy\\n\")\n        return vrt_categories\n    \n    def bugcrowd_university(self):\n        \"\"\"Get free training resources (FREE!)\"\"\"\n        print(\"\ud83c\udf93 Bugcrowd University (COMPLETELY FREE!)\\n\")\n        \n        courses = {\n            'Getting Started': [\n                'Introduction to Bug Bounties',\n                'How to Write a Good Report',\n                'Understanding Program Scope',\n                'Bugcrowd Platform Basics',\n                'Researcher Code of Conduct'\n            ],\n            'Technical Skills': [\n                'Web Application Security Basics',\n                'OWASP Top 10 Deep Dive',\n                'API Security Testing',\n                'Mobile Application Testing',\n                'Network Security Fundamentals'\n            ],\n            'Advanced Topics': [\n                'Bypassing WAFs',\n                'Advanced Recon Techniques',\n                'Chaining Vulnerabilities',\n                'Zero-Day Research',\n                'Exploit Development Basics'\n            ],\n            'Methodologies': [\n                'Burp Suite Mastery',\n                'Automated Testing Tools',\n                'Manual Testing Techniques',\n                'Fuzzing Strategies',\n                'Source Code Review'\n            ]\n        }\n        \n        print(\"\ud83d\udcda Free Course Tracks:\\n\")\n        for track, courses_list in courses.items():\n            print(f\"   \ud83d\udcd6 {track}:\")\n            for course in courses_list:\n                print(f\"      \u2022 {course}\")\n            print()\n        \n        print(\"\ud83c\udfc6 Certifications Available:\\n\")\n        print(\"   \u2022 Bugcrowd Researcher Certification\")\n        print(\"   \u2022 VRT Specialist Badge\")\n        print(\"   \u2022 Platform Expert Recognition\\n\")\n        \n        print(\"\ud83d\udd17 Start learning: https://www.bugcrowd.com/university/\\n\")\n        return courses\n    \n    def researcher_resources(self):\n        \"\"\"Get researcher tools and resources (FREE!)\"\"\"\n        print(\"\ud83d\udee0\ufe0f Bugcrowd Researcher Resources (FREE!)\\n\")\n        \n        print(\"\ud83d\udcc4 Documentation:\\n\")\n        docs = [\n            \"Researcher Documentation\",\n            \"Program Methodology Guides\",\n            \"Reporting Templates\",\n            \"Disclosure Guidelines\",\n            \"Best Practices Library\"\n        ]\n        \n        for doc in docs:\n            print(f\"   \u2022 {doc}\")\n        \n        print(\"\\n\ud83d\udd27 Tools & Integrations:\\n\")\n        tools = [\n            \"Burp Suite Extensions\",\n            \"Browser Plugins\",\n            \"Recon Automation Scripts\",\n            \"Report Generators\",\n            \"VRT Lookup Tools\"\n        ]\n        \n        for tool in tools:\n            print(f\"   \u2022 {tool}\")\n        \n        print(\"\\n\ud83c\udf10 Community Resources:\\n\")\n        community = [\n            \"Discord Server (10,000+ members)\",\n            \"Forum Discussions\",\n            \"Blog & Research Papers\",\n            \"Webinar Archives\",\n            \"Success Stories\"\n        ]\n        \n        for resource in community:\n            print(f\"   \u2022 {resource}\")\n        \n        print(\"\\n\ud83d\udca1 Research Topics:\\n\")\n        topics = [\n            \"State of Bug Bounty Report\",\n            \"Priority One Report\",\n            \"Inside the Mind of a Hacker\",\n            \"Vulnerability Disclosure Trends\",\n            \"Industry Threat Reports\"\n        ]\n        \n        for topic in topics:\n            print(f\"   \u2022 {topic}\")\n        \n        print(\"\\n\ud83d\udd17 Access resources: https://www.bugcrowd.com/resources/\\n\")\n        \n    def kudos_system(self):\n        \"\"\"Explain Bugcrowd Kudos system (FREE!)\"\"\"\n        print(\"\u2b50 Bugcrowd Kudos System (FREE!)\\n\")\n        \n        print(\"\ud83c\udfc5 Earning Kudos Points:\\n\")\n        kudos_actions = {\n            'Valid Submission': '5-20 points',\n            'Unique Finding': '10-30 points',\n            'Critical Vulnerability': '50+ points',\n            'Quality Report': '5-15 bonus points',\n            'Fast Response': '5 bonus points',\n            'First to Find': '10-20 bonus points'\n        }\n        \n        for action, points in kudos_actions.items():\n            print(f\"   \u2022 {action}: {points}\")\n        \n        print(\"\\n\ud83c\udf96\ufe0f Kudos Benefits:\\n\")\n        benefits = [\n            \"Higher researcher ranking\",\n            \"Private program invitations\",\n            \"Early access to new programs\",\n            \"Bugcrowd swag rewards\",\n            \"Conference invitations\",\n            \"Elite researcher status\",\n            \"Direct program manager contact\",\n            \"Priority support\"\n        ]\n        \n        for benefit in benefits:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83d\udcca Researcher Levels:\\n\")\n        levels = [\n            \"Bronze: 0-100 kudos\",\n            \"Silver: 100-500 kudos\",\n            \"Gold: 500-2000 kudos\",\n            \"Platinum: 2000-5000 kudos\",\n            \"Elite: 5000+ kudos\"\n        ]\n        \n        for level in levels:\n            print(f\"   \u2022 {level}\")\n        \n        print(\"\\n\ud83d\udd17 Check leaderboard: https://bugcrowd.com/leaderboard\\n\")\n        \n    def platform_statistics(self):\n        \"\"\"Bugcrowd platform statistics (FREE!)\"\"\"\n        print(\"\ud83d\udcca Bugcrowd Platform Statistics (FREE!)\\n\")\n        \n        stats = {\n            'Total Rewards Paid': '$100M+',\n            'Vulnerabilities Submitted': '200,000+',\n            'Registered Researchers': '500,000+',\n            'Customer Programs': '1,000+',\n            'Countries Represented': '100+',\n            'Average Time to Triage': '16 hours'\n        }\n        \n        print(\"\ud83c\udf0d Platform Impact:\\n\")\n        for metric, value in stats.items():\n            print(f\"   \u2022 {metric}: {value}\")\n        \n        print(\"\\n\ud83c\udfaf Program Types (FREE to join!):\\n\")\n        program_types = [\n            \"Bug Bounty Programs\",\n            \"Vulnerability Disclosure Programs\",\n            \"Next Gen Pen Test\",\n            \"Attack Surface Management\",\n            \"API Security Testing\"\n        ]\n        \n        for ptype in program_types:\n            print(f\"   \u2022 {ptype}\")\n        \n        print(\"\\n\ud83c\udd93 Free Features:\\n\")\n        free_features = [\n            \"Join public programs\",\n            \"Submit vulnerabilities\",\n            \"Access Bugcrowd University\",\n            \"Use VRT taxonomy\",\n            \"Earn kudos points\",\n            \"Build reputation\",\n            \"Get bounty rewards\",\n            \"Join Discord community\"\n        ]\n        \n        for feature in free_features:\n            print(f\"   \u2705 {feature}\")\n        \n        return stats\n\n# Usage\nclient = BugcrowdPublic()\nclient.get_public_programs()\nclient.vulnerability_rating_taxonomy()\nclient.bugcrowd_university()\nclient.researcher_resources()\nclient.kudos_system()\nclient.platform_statistics()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "hackerone",
+      "openbugbounty",
+      "yeswehack"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free platform access",
+    "maintainer": "Bugcrowd",
+    "related_resources": [
+      "Bugcrowd VRT",
+      "OWASP",
+      "SANS",
+      "Security Research"
+    ]
+  },
+  "name": "Bugcrowd Free Resources",
+  "operational_guidance": {
+    "best_practices": [
+      "Complete Bugcrowd University courses",
+      "Understand VRT classifications",
+      "Follow program scope strictly",
+      "Write comprehensive reports",
+      "Include reproduction steps",
+      "Respect disclosure timelines",
+      "Build kudos gradually",
+      "Engage with community"
+    ],
+    "common_use_cases": [
+      "Bug bounty hunting",
+      "Responsible disclosure",
+      "Security skill development",
+      "Building researcher reputation",
+      "Earning bounties",
+      "Network with security community",
+      "Learn from vulnerability taxonomy",
+      "Certification preparation"
+    ],
+    "recommended_update_frequency": "Check weekly for new programs and opportunities",
+    "value_proposition": "Leading crowdsourced security platform offering free access to bug bounty programs and comprehensive security education"
+  },
+  "quality_metrics": {
+    "accessibility": "Free with registration",
+    "completeness": "Global program coverage",
+    "cost": "FREE to participate, earn rewards",
+    "data_quality": "Triaged vulnerability reports",
+    "reliability": "excellent",
+    "update_speed": "Real-time"
+  },
+  "quality_score": 94,
+  "subcategory": "bugcrowd",
+  "url": "https://www.bugcrowd.com/"
+}

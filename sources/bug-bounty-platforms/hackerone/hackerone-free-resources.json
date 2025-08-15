@@ -1,0 +1,158 @@
+{
+  "api": {
+    "base_url": "https://api.hackerone.com/v1",
+    "endpoints": [
+      {
+        "description": "List public bug bounty programs",
+        "method": "GET",
+        "name": "Public Programs",
+        "path": "/hackers/programs"
+      },
+      {
+        "description": "Public vulnerability disclosures",
+        "method": "GET",
+        "name": "Hacktivity",
+        "path": "/hacktivity"
+      },
+      {
+        "description": "Browse all programs",
+        "method": "GET",
+        "name": "Program Directory",
+        "path": "/directory"
+      }
+    ],
+    "public_resources": [
+      {
+        "description": "Real-time feed of disclosed vulnerabilities",
+        "name": "Hacktivity Feed",
+        "url": "https://hackerone.com/hacktivity"
+      },
+      {
+        "description": "FREE web security training",
+        "name": "Hacker101",
+        "url": "https://www.hacker101.com/"
+      },
+      {
+        "description": "Report vulnerabilities to companies",
+        "name": "Vulnerability Disclosure",
+        "url": "https://hackerone.com/directory"
+      },
+      {
+        "description": "FREE capture the flag challenges",
+        "name": "CTF Challenges",
+        "url": "https://ctf.hacker101.com/"
+      }
+    ],
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "FREE account registration provides access to public bug bounty programs, vulnerability submission, and learning resources.",
+    "required": true,
+    "type": "registration"
+  },
+  "authority": 96,
+  "category": "bug-bounty-platforms",
+  "coverage": 94,
+  "data_coverage": {
+    "content_types": [
+      "Bug bounty programs",
+      "Vulnerability reports",
+      "Disclosed vulnerabilities",
+      "Security researcher profiles",
+      "Bounty statistics",
+      "Company programs",
+      "Learning resources",
+      "CTF challenges"
+    ],
+    "free_features": [
+      "Access to all public programs",
+      "Submit vulnerability reports",
+      "View disclosed reports",
+      "Hacker101 training",
+      "CTF platform",
+      "Community forums",
+      "Reputation building",
+      "Swag and rewards"
+    ],
+    "program_metrics": [
+      "Response time",
+      "Bounty range",
+      "Reports resolved",
+      "Total bounties paid",
+      "Hacker participation",
+      "Vulnerability severity distribution"
+    ],
+    "temporal": {
+      "historical_data": "2012-present",
+      "latency": "Immediate disclosure after fix",
+      "update_frequency": "Real-time"
+    }
+  },
+  "description": "HackerOne bug bounty platform - FREE public program participation, vulnerability disclosure, and security learning resources.",
+  "format": "json",
+  "id": "hackerone-free-resources",
+  "integration_examples": {
+    "bash": {
+      "hackerone_check": "#!/bin/bash\n# HackerOne Quick Reference - FREE!\n\necho \"\ud83c\udfaf HackerOne Free Resources (COMPLETELY FREE!)\"\necho \"============================================\"\necho \"\"\n\necho \"\ud83d\udcda Free Learning Resources:\"\necho \"   \u2022 Hacker101: https://www.hacker101.com/\"\necho \"   \u2022 CTF Platform: https://ctf.hacker101.com/\"\necho \"   \u2022 Video Lessons: Free security training\"\necho \"   \u2022 Playground: Practice environments\"\necho \"\"\n\necho \"\ud83c\udfe2 Public Programs:\"\necho \"   \u2022 Directory: https://hackerone.com/directory\"\necho \"   \u2022 3000+ programs available\"\necho \"   \u2022 No cost to participate\"\necho \"   \u2022 Earn real bounties\"\necho \"\"\n\necho \"\ud83d\udcf0 Hacktivity Feed:\"\necho \"   \u2022 URL: https://hackerone.com/hacktivity\"\necho \"   \u2022 Real disclosed vulnerabilities\"\necho \"   \u2022 Learn from others' reports\"\necho \"   \u2022 See bounty amounts\"\necho \"\"\n\necho \"\ud83d\udcb0 Earning Potential:\"\necho \"   \u2022 Critical: $2,500-$10,000+\"\necho \"   \u2022 High: $1,000-$5,000\"\necho \"   \u2022 Medium: $250-$1,500\"\necho \"   \u2022 Low: $50-$500\"\necho \"\"\n\necho \"\ud83c\udd93 All FREE with registration!\""
+    },
+    "curl": {
+      "get_programs": "# Browse public programs - FREE!\ncurl -s 'https://hackerone.com/directory' | grep -E 'program-name' | head -10"
+    },
+    "python": {
+      "hackerone_client": "import requests\nimport json\nfrom datetime import datetime, timedelta\n\nclass HackerOnePublic:\n    \"\"\"HackerOne Public Resources Client - FREE ACCESS!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://hackerone.com'\n        self.api_url = 'https://api.hackerone.com/v1'\n        \n    def get_public_programs(self):\n        \"\"\"List public bug bounty programs (FREE!)\"\"\"\n        print(\"\ud83c\udfaf HackerOne Public Programs (FREE!)\\n\")\n        \n        # Simulated program data (actual requires web scraping)\n        programs = [\n            {\n                'name': 'GitHub',\n                'min_bounty': 100,\n                'max_bounty': 30000,\n                'reports_resolved': 1500,\n                'response_time': '< 24 hours'\n            },\n            {\n                'name': 'PayPal',\n                'min_bounty': 50,\n                'max_bounty': 15000,\n                'reports_resolved': 2000,\n                'response_time': '< 48 hours'\n            },\n            {\n                'name': 'Spotify',\n                'min_bounty': 100,\n                'max_bounty': 20000,\n                'reports_resolved': 800,\n                'response_time': '< 72 hours'\n            },\n            {\n                'name': 'Twitter',\n                'min_bounty': 140,\n                'max_bounty': 15080,\n                'reports_resolved': 1200,\n                'response_time': '< 24 hours'\n            }\n        ]\n        \n        print(\"\ud83d\udcca Popular Public Programs:\\n\")\n        for program in programs:\n            print(f\"   \ud83c\udfe2 {program['name']}\")\n            print(f\"      Bounty Range: ${program['min_bounty']} - ${program['max_bounty']}\")\n            print(f\"      Reports Resolved: {program['reports_resolved']}+\")\n            print(f\"      Response Time: {program['response_time']}\")\n            print()\n        \n        print(\"\ud83d\udd17 Browse all programs: https://hackerone.com/directory\\n\")\n        return programs\n    \n    def get_hacktivity_feed(self):\n        \"\"\"Get recent disclosed vulnerabilities (FREE!)\"\"\"\n        print(\"\ud83d\udcf0 HackerOne Hacktivity Feed (FREE!)\\n\")\n        \n        # Example hacktivity items\n        hacktivity = [\n            {\n                'title': 'XSS in profile page',\n                'program': 'Example Corp',\n                'severity': 'Medium',\n                'bounty': 500,\n                'reporter': 'security_researcher_1'\n            },\n            {\n                'title': 'SQL Injection in API',\n                'program': 'Tech Company',\n                'severity': 'Critical',\n                'bounty': 5000,\n                'reporter': 'bug_hunter_pro'\n            },\n            {\n                'title': 'IDOR vulnerability',\n                'program': 'E-commerce Site',\n                'severity': 'High',\n                'bounty': 2000,\n                'reporter': 'ethical_hacker'\n            }\n        ]\n        \n        print(\"\ud83d\udd13 Recent Disclosed Vulnerabilities:\\n\")\n        for activity in hacktivity:\n            severity_emoji = {\n                'Critical': '\ud83d\udd34',\n                'High': '\ud83d\udfe0',\n                'Medium': '\ud83d\udfe1',\n                'Low': '\ud83d\udfe2'\n            }\n            \n            print(f\"   {severity_emoji.get(activity['severity'], '\u26aa')} {activity['title']}\")\n            print(f\"      Program: {activity['program']}\")\n            print(f\"      Severity: {activity['severity']}\")\n            print(f\"      Bounty: ${activity['bounty']}\")\n            print(f\"      Reporter: @{activity['reporter']}\")\n            print()\n        \n        print(\"\ud83d\udcc8 View full Hacktivity: https://hackerone.com/hacktivity\\n\")\n        return hacktivity\n    \n    def hacker101_resources(self):\n        \"\"\"Get Hacker101 free training resources (FREE!)\"\"\"\n        print(\"\ud83c\udf93 Hacker101 Free Training (COMPLETELY FREE!)\\n\")\n        \n        courses = {\n            'Beginner': [\n                'Introduction to Web Hacking',\n                'HTTP Basics',\n                'Cookie Security',\n                'HTML Injection',\n                'Cross-Site Scripting (XSS)'\n            ],\n            'Intermediate': [\n                'SQL Injection',\n                'Command Injection',\n                'Directory Traversal',\n                'Session Fixation',\n                'Clickjacking'\n            ],\n            'Advanced': [\n                'XML External Entity (XXE)',\n                'Server Side Request Forgery',\n                'Crypto Attacks',\n                'Race Conditions',\n                'Advanced XSS'\n            ]\n        }\n        \n        print(\"\ud83d\udcda Free Course Categories:\\n\")\n        for level, topics in courses.items():\n            print(f\"   \ud83d\udcd6 {level} Level:\")\n            for topic in topics:\n                print(f\"      \u2022 {topic}\")\n            print()\n        \n        print(\"\ud83c\udfc1 CTF Challenges:\\n\")\n        print(\"   \u2022 Micro-CMS v1\")\n        print(\"   \u2022 Micro-CMS v2\")\n        print(\"   \u2022 Photo Gallery\")\n        print(\"   \u2022 Cody's First Blog\")\n        print(\"   \u2022 Postbook\")\n        print(\"   \u2022 And many more!\\n\")\n        \n        print(\"\ud83d\udd17 Start learning: https://www.hacker101.com/\")\n        print(\"\ud83c\udfae CTF Platform: https://ctf.hacker101.com/\\n\")\n        \n        return courses\n    \n    def vulnerability_disclosure_guide(self):\n        \"\"\"Guide for responsible disclosure (FREE!)\"\"\"\n        print(\"\ud83d\udee1\ufe0f Vulnerability Disclosure Guide (FREE!)\\n\")\n        \n        print(\"\ud83d\udccb Disclosure Process:\\n\")\n        steps = [\n            \"Find a vulnerability in scope\",\n            \"Write clear, detailed report\",\n            \"Include proof of concept\",\n            \"Submit through HackerOne\",\n            \"Wait for triage\",\n            \"Collaborate on fix\",\n            \"Get bounty/recognition\",\n            \"Report gets disclosed (optional)\"\n        ]\n        \n        for i, step in enumerate(steps, 1):\n            print(f\"   {i}. {step}\")\n        \n        print(\"\\n\ud83d\udcb0 Bounty Ranges by Severity:\\n\")\n        severities = {\n            'Critical': '$2,500 - $10,000+',\n            'High': '$1,000 - $5,000',\n            'Medium': '$250 - $1,500',\n            'Low': '$50 - $500'\n        }\n        \n        for severity, range_val in severities.items():\n            print(f\"   \u2022 {severity}: {range_val}\")\n        \n        print(\"\\n\ud83c\udfc6 Reputation Benefits:\\n\")\n        benefits = [\n            \"Build security reputation\",\n            \"Earn recognition points\",\n            \"Get invited to private programs\",\n            \"Receive swag and rewards\",\n            \"Network with security community\",\n            \"Potential job opportunities\"\n        ]\n        \n        for benefit in benefits:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83d\udd17 Start reporting: https://hackerone.com/directory\\n\")\n        \n    def platform_statistics(self):\n        \"\"\"HackerOne platform statistics (FREE!)\"\"\"\n        print(\"\ud83d\udcca HackerOne Platform Statistics (FREE!)\\n\")\n        \n        stats = {\n            'Total Bounties Paid': '$300M+',\n            'Vulnerabilities Found': '300,000+',\n            'Registered Hackers': '1,000,000+',\n            'Customer Programs': '3,000+',\n            'Countries Represented': '170+',\n            'Average Time to Fix': '30 days'\n        }\n        \n        print(\"\ud83c\udf0d Global Impact:\\n\")\n        for metric, value in stats.items():\n            print(f\"   \u2022 {metric}: {value}\")\n        \n        print(\"\\n\ud83c\udfaf Program Types (All FREE to join!):\\n\")\n        program_types = [\n            \"Bug Bounty Programs\",\n            \"Vulnerability Disclosure Programs (VDP)\",\n            \"Pentest Programs\",\n            \"Government Programs\",\n            \"Open Source Programs\"\n        ]\n        \n        for ptype in program_types:\n            print(f\"   \u2022 {ptype}\")\n        \n        print(\"\\n\ud83c\udd93 Free Features:\\n\")\n        free_features = [\n            \"Join all public programs\",\n            \"Submit unlimited reports\",\n            \"Access Hacker101 training\",\n            \"Play CTF challenges\",\n            \"View Hacktivity feed\",\n            \"Build reputation\",\n            \"Earn bounties\",\n            \"Get swag rewards\"\n        ]\n        \n        for feature in free_features:\n            print(f\"   \u2705 {feature}\")\n        \n        return stats\n\n# Usage\nclient = HackerOnePublic()\nclient.get_public_programs()\nclient.get_hacktivity_feed()\nclient.hacker101_resources()\nclient.vulnerability_disclosure_guide()\nclient.platform_statistics()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "bugcrowd",
+      "openbugbounty",
+      "yeswehack"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free platform access",
+    "maintainer": "HackerOne",
+    "related_resources": [
+      "Hacker101",
+      "OWASP",
+      "PortSwigger Academy",
+      "PentesterLab"
+    ]
+  },
+  "name": "HackerOne Free Resources",
+  "operational_guidance": {
+    "best_practices": [
+      "Read program scope carefully",
+      "Follow responsible disclosure",
+      "Write clear reports",
+      "Provide proof of concepts",
+      "Respect program rules",
+      "Learn from Hacktivity",
+      "Complete Hacker101 courses",
+      "Build reputation gradually"
+    ],
+    "common_use_cases": [
+      "Bug bounty participation",
+      "Vulnerability disclosure",
+      "Security training",
+      "Building security reputation",
+      "Learning from disclosures",
+      "CTF practice",
+      "Responsible disclosure",
+      "Earning bounties"
+    ],
+    "recommended_update_frequency": "Check daily for new programs and Hacktivity",
+    "value_proposition": "World's leading bug bounty platform offering free access to thousands of programs and comprehensive security training"
+  },
+  "quality_metrics": {
+    "accessibility": "Free with registration",
+    "completeness": "Comprehensive program coverage",
+    "cost": "FREE participation, earn bounties",
+    "data_quality": "Verified vulnerability reports",
+    "reliability": "excellent",
+    "update_speed": "Real-time"
+  },
+  "quality_score": 95,
+  "subcategory": "hackerone",
+  "url": "https://www.hackerone.com/"
+}

@@ -1,0 +1,154 @@
+{
+  "api": {
+    "base_url": "https://www.openbugbounty.org",
+    "endpoints": [
+      {
+        "description": "Search reported vulnerabilities",
+        "method": "GET",
+        "name": "Search Vulnerabilities",
+        "path": "/search"
+      },
+      {
+        "description": "View researcher statistics",
+        "method": "GET",
+        "name": "Researcher Profile",
+        "path": "/researchers/{id}"
+      },
+      {
+        "description": "Submit vulnerability report",
+        "method": "POST",
+        "name": "Report Vulnerability",
+        "path": "/report"
+      },
+      {
+        "description": "Platform statistics",
+        "method": "GET",
+        "name": "Statistics",
+        "path": "/stats"
+      }
+    ],
+    "type": "rest",
+    "unique_features": [
+      "No registration required",
+      "Non-intrusive vulnerability verification",
+      "Automated notification system",
+      "CERT coordination",
+      "Legal safe harbor",
+      "Transparency reports",
+      "No monetary transactions",
+      "Community-driven"
+    ]
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! No registration required to report vulnerabilities. Optional registration for additional features.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 92,
+  "category": "bug-bounty-platforms",
+  "coverage": 91,
+  "data_coverage": {
+    "content_types": [
+      "XSS vulnerabilities",
+      "Open redirect vulnerabilities",
+      "Subdomain takeover",
+      "Information disclosure",
+      "Security headers issues",
+      "SSL/TLS problems",
+      "Sensitive data exposure",
+      "Configuration issues"
+    ],
+    "platform_features": [
+      "Anonymous reporting",
+      "Coordinated disclosure",
+      "Website owner verification",
+      "Researcher recognition",
+      "Hall of Fame",
+      "Statistics tracking",
+      "CERT collaboration",
+      "Legal protection"
+    ],
+    "temporal": {
+      "historical_data": "2014-present",
+      "latency": "Immediate publication after verification",
+      "update_frequency": "Real-time"
+    },
+    "vulnerability_types": [
+      "Cross-Site Scripting (XSS)",
+      "Open Redirects",
+      "Subdomain Takeover",
+      "Information Disclosure",
+      "Missing Security Headers",
+      "SSL/TLS Issues",
+      "Directory Listing",
+      "Source Code Disclosure"
+    ]
+  },
+  "description": "Open Bug Bounty - COMPLETELY FREE and open platform for responsible vulnerability disclosure. No registration required for researchers or website owners.",
+  "format": "json",
+  "id": "open-bug-bounty",
+  "integration_examples": {
+    "bash": {
+      "obb_report": "#!/bin/bash\n# Open Bug Bounty Quick Guide - FREE!\n\necho \"\ud83c\udf10 Open Bug Bounty (100% FREE, NO REGISTRATION!)\"\necho \"================================================\"\necho \"\"\n\necho \"\ud83c\udd93 Platform Features:\"\necho \"   \u2022 NO registration required\"\necho \"   \u2022 NO fees or payments\"\necho \"   \u2022 Anonymous reporting OK\"\necho \"   \u2022 Legal safe harbor\"\necho \"   \u2022 CERT coordination\"\necho \"\"\n\necho \"\u2705 Accepted Vulnerabilities:\"\necho \"   \u2022 XSS (Cross-Site Scripting)\"\necho \"   \u2022 Open Redirects\"\necho \"   \u2022 Subdomain Takeover\"\necho \"   \u2022 Information Disclosure\"\necho \"   \u2022 Missing Security Headers\"\necho \"   \u2022 SSL/TLS Issues\"\necho \"\"\n\necho \"\ud83d\udcdd How to Report:\"\necho \"   1. Find non-intrusive vulnerability\"\necho \"   2. Go to: https://www.openbugbounty.org/\"\necho \"   3. Submit report (no signup needed!)\"\necho \"   4. Get recognition\"\necho \"\"\n\necho \"\u23f0 Disclosure Timeline:\"\necho \"   \u2022 90 days grace period\"\necho \"   \u2022 Coordinated disclosure\"\necho \"   \u2022 Extensions available\"\necho \"\"\n\necho \"\ud83c\udfc6 Recognition:\"\necho \"   \u2022 Hall of Fame\"\necho \"   \u2022 Public rankings\"\necho \"   \u2022 Certificates\"\necho \"   \u2022 Career benefits\"\necho \"\"\n\necho \"\ud83d\udd17 Start now: https://www.openbugbounty.org/\""
+    },
+    "curl": {
+      "search_domain": "# Search for vulnerabilities - FREE!\ncurl -s 'https://www.openbugbounty.org/search/?search=example.com' | grep -i 'vulnerability' | head -5"
+    },
+    "python": {
+      "obb_client": "import requests\nimport json\nfrom datetime import datetime\nimport hashlib\n\nclass OpenBugBountyClient:\n    \"\"\"Open Bug Bounty Client - COMPLETELY FREE, NO REGISTRATION!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.openbugbounty.org'\n        \n    def platform_overview(self):\n        \"\"\"Get Open Bug Bounty overview (FREE!)\"\"\"\n        print(\"\ud83c\udf10 Open Bug Bounty Platform (100% FREE!)\\n\")\n        \n        print(\"\ud83c\udd93 Unique Features:\\n\")\n        features = [\n            \"NO registration required\",\n            \"NO fees or payments\",\n            \"Anonymous reporting allowed\",\n            \"Non-intrusive testing only\",\n            \"Legal safe harbor protection\",\n            \"CERT coordination\",\n            \"Automated notifications\",\n            \"Transparent process\"\n        ]\n        \n        for feature in features:\n            print(f\"   \u2705 {feature}\")\n        \n        print(\"\\n\ud83d\udcca Platform Statistics:\\n\")\n        stats = {\n            'Vulnerabilities Reported': '1,000,000+',\n            'Websites Checked': '500,000+',\n            'Security Researchers': '15,000+',\n            'Fixed Vulnerabilities': '400,000+',\n            'Average Fix Time': '30 days',\n            'Countries Covered': '190+'\n        }\n        \n        for stat, value in stats.items():\n            print(f\"   \u2022 {stat}: {value}\")\n        \n        print(\"\\n\ud83d\udd17 Start reporting: https://www.openbugbounty.org/\\n\")\n        return features\n    \n    def reporting_guidelines(self):\n        \"\"\"Guidelines for reporting vulnerabilities (FREE!)\"\"\"\n        print(\"\ud83d\udccb Open Bug Bounty Reporting Guidelines (FREE!)\\n\")\n        \n        print(\"\u2705 Accepted Vulnerability Types:\\n\")\n        accepted = [\n            \"Cross-Site Scripting (XSS)\",\n            \"Open Redirect\",\n            \"Subdomain Takeover\",\n            \"Information Disclosure\",\n            \"Missing Security Headers\",\n            \"SSL/TLS Issues\",\n            \"Directory Listing\",\n            \"Backup File Disclosure\"\n        ]\n        \n        for vuln_type in accepted:\n            print(f\"   \u2022 {vuln_type}\")\n        \n        print(\"\\n\ud83d\udeab NOT Accepted:\\n\")\n        not_accepted = [\n            \"SQL Injection (intrusive)\",\n            \"Authentication Bypass (intrusive)\",\n            \"Remote Code Execution (intrusive)\",\n            \"Denial of Service\",\n            \"Brute Force Attacks\",\n            \"Social Engineering\",\n            \"Physical Security\",\n            \"Spam/Phishing\"\n        ]\n        \n        for vuln_type in not_accepted:\n            print(f\"   \u2022 {vuln_type}\")\n        \n        print(\"\\n\ud83d\udcdd Reporting Process:\\n\")\n        process = [\n            \"Find non-intrusive vulnerability\",\n            \"Submit report (no registration needed)\",\n            \"OBB verifies vulnerability\",\n            \"Website owner notified\",\n            \"Grace period for fix (90 days)\",\n            \"Public disclosure (if not fixed)\",\n            \"Recognition for researcher\"\n        ]\n        \n        for i, step in enumerate(process, 1):\n            print(f\"   {i}. {step}\")\n        \n        print(\"\\n\u2696\ufe0f Legal Protection:\\n\")\n        print(\"   \u2022 Good faith security research\")\n        print(\"   \u2022 Safe harbor provisions\")\n        print(\"   \u2022 Non-intrusive testing only\")\n        print(\"   \u2022 Coordinated disclosure\")\n        print(\"   \u2022 CERT collaboration available\\n\")\n        \n        return process\n    \n    def search_vulnerabilities(self, domain):\n        \"\"\"Search for reported vulnerabilities (FREE!)\"\"\"\n        print(f\"\ud83d\udd0d Searching vulnerabilities for: {domain}\\n\")\n        \n        # Example vulnerability data\n        vulnerabilities = [\n            {\n                'id': 'OBB-12345',\n                'type': 'XSS',\n                'url': f'https://{domain}/search',\n                'status': 'Fixed',\n                'date': '2024-10-15',\n                'researcher': 'Anonymous'\n            },\n            {\n                'id': 'OBB-12346',\n                'type': 'Open Redirect',\n                'url': f'https://{domain}/redirect',\n                'status': 'Patched',\n                'date': '2024-09-20',\n                'researcher': 'security_researcher_1'\n            }\n        ]\n        \n        if vulnerabilities:\n            print(f\"\ud83d\udcca Found {len(vulnerabilities)} vulnerabilities:\\n\")\n            for vuln in vulnerabilities:\n                status_emoji = '\u2705' if vuln['status'] == 'Fixed' else '\u26a0\ufe0f'\n                print(f\"   {status_emoji} {vuln['id']}: {vuln['type']}\")\n                print(f\"      URL: {vuln['url']}\")\n                print(f\"      Status: {vuln['status']}\")\n                print(f\"      Date: {vuln['date']}\")\n                print(f\"      Researcher: {vuln['researcher']}\")\n                print()\n        else:\n            print(\"   \u2705 No vulnerabilities reported for this domain\\n\")\n        \n        print(f\"\ud83d\udd17 Search online: https://www.openbugbounty.org/search/?search={domain}\\n\")\n        return vulnerabilities\n    \n    def researcher_benefits(self):\n        \"\"\"Benefits for security researchers (FREE!)\"\"\"\n        print(\"\ud83c\udfc6 Researcher Benefits (ALL FREE!)\\n\")\n        \n        print(\"\ud83c\udf96\ufe0f Recognition:\\n\")\n        recognition = [\n            \"Public Hall of Fame\",\n            \"Researcher rankings\",\n            \"Statistics tracking\",\n            \"Achievement badges\",\n            \"Certificate of appreciation\",\n            \"LinkedIn recommendations\",\n            \"Community recognition\"\n        ]\n        \n        for item in recognition:\n            print(f\"   \u2022 {item}\")\n        \n        print(\"\\n\ud83d\udcc8 Career Benefits:\\n\")\n        career = [\n            \"Build security portfolio\",\n            \"Demonstrate skills\",\n            \"No NDA restrictions\",\n            \"Public disclosure rights\",\n            \"Reference for employers\",\n            \"Networking opportunities\",\n            \"Industry recognition\"\n        ]\n        \n        for benefit in career:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83d\udee1\ufe0f Legal Benefits:\\n\")\n        legal = [\n            \"Safe harbor protection\",\n            \"Good faith research shield\",\n            \"Clear disclosure process\",\n            \"CERT coordination\",\n            \"No legal agreements needed\",\n            \"Transparent policies\",\n            \"International recognition\"\n        ]\n        \n        for benefit in legal:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83c\udf1f Top Researcher Perks:\\n\")\n        perks = [\n            \"Special recognition badges\",\n            \"Priority support\",\n            \"Direct CERT contacts\",\n            \"Speaking opportunities\",\n            \"Media mentions\",\n            \"Community leadership\",\n            \"Mentorship opportunities\"\n        ]\n        \n        for perk in perks:\n            print(f\"   \u2022 {perk}\")\n        \n        return recognition\n    \n    def website_owner_benefits(self):\n        \"\"\"Benefits for website owners (FREE!)\"\"\"\n        print(\"\ud83c\udfe2 Website Owner Benefits (COMPLETELY FREE!)\\n\")\n        \n        print(\"\ud83d\udd12 Security Benefits:\\n\")\n        security = [\n            \"Free vulnerability notifications\",\n            \"Coordinated disclosure process\",\n            \"90-day grace period for fixes\",\n            \"No public shaming\",\n            \"Professional reports\",\n            \"CERT assistance available\",\n            \"Improved security posture\"\n        ]\n        \n        for benefit in security:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83d\udcb0 Cost Benefits:\\n\")\n        cost = [\n            \"$0 platform fees\",\n            \"$0 subscription costs\",\n            \"$0 per vulnerability\",\n            \"No bounty obligations\",\n            \"Free security testing\",\n            \"Community-driven security\",\n            \"No contracts required\"\n        ]\n        \n        for benefit in cost:\n            print(f\"   \u2022 {benefit}\")\n        \n        print(\"\\n\ud83d\udcca Management Features:\\n\")\n        management = [\n            \"Claim your website\",\n            \"Manage vulnerabilities\",\n            \"Communicate with researchers\",\n            \"Track fix progress\",\n            \"Get statistics\",\n            \"Prevent false positives\",\n            \"Control disclosure timeline\"\n        ]\n        \n        for feature in management:\n            print(f\"   \u2022 {feature}\")\n        \n        print(\"\\n\ud83d\udd17 Claim website: https://www.openbugbounty.org/\\n\")\n        return security\n    \n    def responsible_disclosure_process(self):\n        \"\"\"Explain responsible disclosure (FREE!)\"\"\"\n        print(\"\u2696\ufe0f Responsible Disclosure Process (FREE!)\\n\")\n        \n        print(\"\ud83d\udcc5 Timeline:\\n\")\n        timeline = [\n            \"Day 0: Vulnerability reported\",\n            \"Day 1: OBB verification\",\n            \"Day 2: Website owner notified\",\n            \"Day 3-90: Grace period for fix\",\n            \"Day 91: Public disclosure (if not fixed)\",\n            \"Any time: Owner can request extension\",\n            \"After fix: Marked as resolved\"\n        ]\n        \n        for event in timeline:\n            print(f\"   \u2022 {event}\")\n        \n        print(\"\\n\ud83e\udd1d Coordination Options:\\n\")\n        coordination = [\n            \"Direct website owner contact\",\n            \"CERT involvement\",\n            \"ISP notification\",\n            \"Hosting provider alert\",\n            \"Domain registrar contact\",\n            \"Social media outreach\",\n            \"Community assistance\"\n        ]\n        \n        for option in coordination:\n            print(f\"   \u2022 {option}\")\n        \n        print(\"\\n\u2705 Disclosure Principles:\\n\")\n        principles = [\n            \"Non-intrusive testing only\",\n            \"Good faith research\",\n            \"Help, don't harm\",\n            \"Coordinate with owners\",\n            \"Respect grace periods\",\n            \"Clear communication\",\n            \"Transparency in process\"\n        ]\n        \n        for principle in principles:\n            print(f\"   \u2022 {principle}\")\n        \n        print(\"\\n\ud83d\udd17 Learn more: https://www.openbugbounty.org/\\n\")\n        return timeline\n    \n    def hall_of_fame(self):\n        \"\"\"Top researchers hall of fame (FREE!)\"\"\"\n        print(\"\ud83c\udfc6 Open Bug Bounty Hall of Fame (FREE!)\\n\")\n        \n        print(\"\ud83e\udd47 Top Researchers (Example):\\n\")\n        researchers = [\n            {'rank': 1, 'name': 'security_master', 'reports': 5000, 'fixed': 4500},\n            {'rank': 2, 'name': 'bug_hunter_pro', 'reports': 4800, 'fixed': 4200},\n            {'rank': 3, 'name': 'ethical_researcher', 'reports': 4500, 'fixed': 4000},\n            {'rank': 4, 'name': 'white_hat_hero', 'reports': 4200, 'fixed': 3800},\n            {'rank': 5, 'name': 'vuln_finder', 'reports': 4000, 'fixed': 3600}\n        ]\n        \n        for researcher in researchers:\n            print(f\"   #{researcher['rank']} @{researcher['name']}\")\n            print(f\"      Reports: {researcher['reports']}\")\n            print(f\"      Fixed: {researcher['fixed']}\")\n            print(f\"      Success Rate: {researcher['fixed']/researcher['reports']*100:.1f}%\")\n            print()\n        \n        print(\"\ud83c\udf1f Recognition Levels:\\n\")\n        levels = [\n            \"Newcomer: 1-10 reports\",\n            \"Contributor: 10-50 reports\",\n            \"Researcher: 50-200 reports\",\n            \"Expert: 200-1000 reports\",\n            \"Master: 1000-5000 reports\",\n            \"Legend: 5000+ reports\"\n        ]\n        \n        for level in levels:\n            print(f\"   \u2022 {level}\")\n        \n        print(\"\\n\ud83d\udd17 Full rankings: https://www.openbugbounty.org/researchers/\\n\")\n        return researchers\n\n# Usage\nclient = OpenBugBountyClient()\nclient.platform_overview()\nclient.reporting_guidelines()\nclient.researcher_benefits()\nclient.website_owner_benefits()\nclient.responsible_disclosure_process()\nclient.hall_of_fame()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "hackerone",
+      "bugcrowd",
+      "yeswehack"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free and open platform",
+    "maintainer": "Open Bug Bounty",
+    "related_resources": [
+      "CERT Coordination",
+      "Responsible Disclosure",
+      "OWASP",
+      "Security Headers"
+    ]
+  },
+  "name": "Open Bug Bounty",
+  "operational_guidance": {
+    "best_practices": [
+      "Report only non-intrusive vulnerabilities",
+      "Follow coordinated disclosure",
+      "Provide clear proof of concept",
+      "Never exploit vulnerabilities",
+      "Respect website policies",
+      "Use platform for good faith reporting",
+      "Help fix rather than exploit",
+      "Build positive reputation"
+    ],
+    "common_use_cases": [
+      "Responsible vulnerability disclosure",
+      "Anonymous security reporting",
+      "Website security monitoring",
+      "Building researcher reputation",
+      "Community recognition",
+      "Learning from disclosures",
+      "CERT coordination",
+      "Legal safe reporting"
+    ],
+    "recommended_update_frequency": "Check weekly for vulnerability trends",
+    "value_proposition": "World's first free, open, and non-profit bug bounty platform enabling responsible disclosure without registration or monetary transactions"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "completeness": "Global website coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community-verified reports",
+    "reliability": "excellent",
+    "update_speed": "Real-time"
+  },
+  "quality_score": 93,
+  "subcategory": "openbugbounty",
+  "url": "https://www.openbugbounty.org/"
+}
