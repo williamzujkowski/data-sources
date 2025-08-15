@@ -1,0 +1,180 @@
+{
+  "api": {
+    "api_features": [
+      "Full REST API",
+      "Python client",
+      "Java client",
+      "Node.js client",
+      "CLI access",
+      "Automation framework"
+    ],
+    "base_url": "http://localhost:8080",
+    "installation_methods": [
+      {
+        "command": "Download from zaproxy.org/download/",
+        "method": "Cross-platform installer",
+        "platforms": [
+          "Windows",
+          "macOS",
+          "Linux"
+        ]
+      },
+      {
+        "command": "docker pull zaproxy/zap-stable",
+        "method": "Docker",
+        "platforms": [
+          "All Docker-supported platforms"
+        ]
+      },
+      {
+        "command": "sudo snap install zaproxy --classic",
+        "method": "Snap",
+        "platforms": [
+          "Linux"
+        ]
+      },
+      {
+        "command": "brew install --cask owasp-zap",
+        "method": "Homebrew",
+        "platforms": [
+          "macOS"
+        ]
+      }
+    ],
+    "scan_types": [
+      "Passive Scanning",
+      "Active Scanning",
+      "Spider/Crawler",
+      "AJAX Spider",
+      "Fuzzer",
+      "Forced Browse",
+      "WebSocket Testing",
+      "API Scanning (OpenAPI/SOAP)",
+      "Authentication Testing"
+    ],
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source tool. Download and run locally. No registration, license, or payment required.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 97,
+  "category": "penetration-testing",
+  "coverage": 95,
+  "data_coverage": {
+    "content_types": [
+      "Vulnerability reports",
+      "Security alerts",
+      "Scan results",
+      "Attack patterns",
+      "Risk assessments",
+      "Compliance checks",
+      "API documentation",
+      "Automation scripts"
+    ],
+    "key_features": [
+      "Automated scanners",
+      "Manual testing tools",
+      "WebSocket support",
+      "REST API testing",
+      "Authentication support",
+      "Session management",
+      "Marketplace add-ons",
+      "Scripting engine",
+      "Report generation",
+      "CI/CD integration"
+    ],
+    "temporal": {
+      "historical_data": "2010-present",
+      "latency": "Real-time scanning",
+      "update_frequency": "Weekly releases"
+    },
+    "vulnerability_categories": [
+      "Injection (SQL, NoSQL, OS Command, LDAP)",
+      "Broken Authentication",
+      "Sensitive Data Exposure",
+      "XML External Entities (XXE)",
+      "Broken Access Control",
+      "Security Misconfiguration",
+      "Cross-Site Scripting (XSS)",
+      "Insecure Deserialization",
+      "Using Components with Known Vulnerabilities",
+      "Insufficient Logging & Monitoring",
+      "Server Side Request Forgery (SSRF)",
+      "Cross-Site Request Forgery (CSRF)",
+      "Open Redirects",
+      "File Upload Issues",
+      "Business Logic Flaws"
+    ]
+  },
+  "description": "OWASP ZAP (Zed Attack Proxy) - FREE, open source web application security scanner. One of the world's most popular security tools actively maintained by hundreds of volunteers.",
+  "format": "json",
+  "id": "owasp-zap",
+  "integration_examples": {
+    "bash": {
+      "zap_quick_scan": "#!/bin/bash\n# OWASP ZAP Quick Scan - FREE!\n\necho \"[*] OWASP ZAP Quick Scan (COMPLETELY FREE!)\"\necho \"==========================================\"\necho \"\"\n\necho \"[+] Installation:\"\necho \"   # Docker (Easiest)\"\necho \"   docker pull zaproxy/zap-stable\"\necho \"\"\necho \"   # Download\"\necho \"   https://www.zaproxy.org/download/\"\necho \"\"\n\necho \"[+] Quick Baseline Scan:\"\necho \"   docker run -t zaproxy/zap-stable zap-baseline.py -t https://example.com\"\necho \"\"\n\necho \"[+] Full Scan:\"\necho \"   docker run -t zaproxy/zap-stable zap-full-scan.py -t https://example.com\"\necho \"\"\n\necho \"[+] API Scan:\"\necho \"   docker run -t zaproxy/zap-stable zap-api-scan.py -t openapi.json -f openapi\"\necho \"\"\n\necho \"[+] GUI Mode:\"\necho \"   # Linux/Mac\"\necho \"   ./zap.sh\"\necho \"   \"\necho \"   # Windows\"\necho \"   zap.bat\"\necho \"\"\n\necho \"[+] Automation:\"\necho \"   zap.sh -cmd -autorun automation.yaml\"\necho \"\"\n\necho \"[+] Documentation:\"\necho \"   - Website: https://www.zaproxy.org/\"\necho \"   - API Docs: https://www.zaproxy.org/docs/api/\"\necho \"   - Getting Started: https://www.zaproxy.org/getting-started/\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "zap_docker": "# Run ZAP baseline scan - FREE!\ndocker run -t zaproxy/zap-stable zap-baseline.py -t https://example.com -r report.html"
+    },
+    "python": {
+      "zap_automation": "from zapv2 import ZAPv2\nimport time\nimport json\nfrom typing import Dict, List\n\nclass ZAPAutomation:\n    \"\"\"OWASP ZAP Automation - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self, proxy='http://127.0.0.1:8080'):\n        self.zap = ZAPv2(proxies={'http': proxy, 'https': proxy})\n        self.target = None\n        \n    def quick_scan_guide(self):\n        \"\"\"Quick scan guide (FREE!)\"\"\"\n        print(\"== OWASP ZAP Quick Scan Guide (FREE!)\\n\")\n        \n        print(\"1. Start ZAP:\\n\")\n        print(\"   # GUI Mode\")\n        print(\"   $ zap.sh  # Linux/Mac\")\n        print(\"   > zap.bat  # Windows\\n\")\n        \n        print(\"   # Headless Mode\")\n        print(\"   $ zap.sh -daemon -port 8080\\n\")\n        \n        print(\"   # Docker\")\n        print(\"   $ docker run -t zaproxy/zap-stable zap.sh -daemon\\n\")\n        \n        print(\"2. Basic Spider & Scan:\")\n        code = '''# Python example\nfrom zapv2 import ZAPv2\n\nzap = ZAPv2()\ntarget = 'http://example.com'\n\n# Spider the target\nprint('Spidering target...')\nscan_id = zap.spider.scan(target)\nwhile int(zap.spider.status(scan_id)) < 100:\n    time.sleep(2)\n    \n# Active scan\nprint('Active scanning...')\nscan_id = zap.ascan.scan(target)\nwhile int(zap.ascan.status(scan_id)) < 100:\n    time.sleep(5)\n    \n# Get alerts\nalerts = zap.core.alerts(baseurl=target)\nfor alert in alerts:\n    print(f\"Alert: {alert['name']} - Risk: {alert['risk']}\")'''\n        \n        print(code)\n        print()\n        \n    def scan_types(self):\n        \"\"\"ZAP scan types (FREE!)\"\"\"\n        print(\"== OWASP ZAP Scan Types (ALL FREE!)\\n\")\n        \n        scans = {\n            'Passive Scanning': {\n                'description': 'Non-intrusive analysis of requests/responses',\n                'features': [\n                    'Always running in background',\n                    'No additional requests sent',\n                    'Safe for production',\n                    'Finds information leaks',\n                    'Identifies missing headers',\n                    'Detects insecure cookies'\n                ]\n            },\n            'Active Scanning': {\n                'description': 'Sends attack payloads to find vulnerabilities',\n                'features': [\n                    'SQL injection testing',\n                    'XSS detection',\n                    'Command injection',\n                    'Path traversal',\n                    'SSRF detection',\n                    'XXE testing'\n                ]\n            },\n            'Spider': {\n                'description': 'Discovers all pages and functionality',\n                'features': [\n                    'Traditional spider',\n                    'AJAX spider for JS apps',\n                    'Form submission',\n                    'Cookie handling',\n                    'Authentication support',\n                    'Sitemap parsing'\n                ]\n            },\n            'Fuzzer': {\n                'description': 'Sends malformed data to find issues',\n                'features': [\n                    'Custom payloads',\n                    'Built-in fuzz lists',\n                    'Parameter fuzzing',\n                    'Header fuzzing',\n                    'Cookie fuzzing',\n                    'Automated analysis'\n                ]\n            },\n            'API Scanning': {\n                'description': 'REST/SOAP/GraphQL API testing',\n                'features': [\n                    'OpenAPI/Swagger import',\n                    'SOAP WSDL support',\n                    'GraphQL introspection',\n                    'Endpoint discovery',\n                    'Authentication testing',\n                    'Rate limit testing'\n                ]\n            }\n        }\n        \n        for scan_type, details in scans.items():\n            print(f\"[+] {scan_type}:\")\n            print(f\"   {details['description']}\\n\")\n            print(\"   Features:\")\n            for feature in details['features']:\n                print(f\"      - {feature}\")\n            print()\n        \n        return scans"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "burp-suite-community",
+      "nikto",
+      "w3af"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Apache License 2.0",
+    "maintainer": "OWASP Foundation",
+    "related_resources": [
+      "OWASP Top 10",
+      "OWASP Testing Guide",
+      "OWASP ASVS",
+      "ZAP User Group"
+    ]
+  },
+  "name": "OWASP ZAP",
+  "operational_guidance": {
+    "best_practices": [
+      "Start with passive scanning",
+      "Configure context properly",
+      "Set up authentication",
+      "Use appropriate scan policies",
+      "Review alerts manually",
+      "Integrate into CI/CD",
+      "Keep ZAP updated",
+      "Use marketplace add-ons"
+    ],
+    "common_use_cases": [
+      "Web application security testing",
+      "Automated security scanning",
+      "Manual penetration testing",
+      "API security testing",
+      "CI/CD security integration",
+      "Developer security testing",
+      "Security regression testing",
+      "Compliance scanning",
+      "Bug bounty hunting",
+      "Security training"
+    ],
+    "recommended_update_frequency": "Update weekly for latest security checks",
+    "value_proposition": "World-class web application security scanner that's completely free, actively maintained, and trusted by security professionals globally"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Comprehensive web app coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "OWASP community-verified",
+    "reliability": "excellent",
+    "update_speed": "Weekly"
+  },
+  "quality_score": 96,
+  "subcategory": "owasp",
+  "url": "https://www.zaproxy.org/"
+}
