@@ -1,0 +1,192 @@
+{
+  "api": {
+    "base_url": "https://abuse.ch",
+    "feeds": [
+      {
+        "description": "Malicious URL feed",
+        "endpoints": [
+          "https://urlhaus.abuse.ch/downloads/csv_recent/",
+          "https://urlhaus.abuse.ch/downloads/json_recent/",
+          "https://urlhaus.abuse.ch/downloads/text_recent/"
+        ],
+        "formats": [
+          "csv",
+          "json",
+          "txt"
+        ],
+        "name": "URLhaus",
+        "url": "https://urlhaus.abuse.ch/"
+      },
+      {
+        "description": "Malware samples database",
+        "endpoints": [
+          "https://bazaar.abuse.ch/export/csv/recent/",
+          "https://bazaar.abuse.ch/export/json/recent/"
+        ],
+        "formats": [
+          "csv",
+          "json"
+        ],
+        "name": "MalwareBazaar",
+        "url": "https://bazaar.abuse.ch/"
+      },
+      {
+        "description": "Banking trojan C2 servers",
+        "endpoints": [
+          "https://feodotracker.abuse.ch/downloads/ipblocklist.csv",
+          "https://feodotracker.abuse.ch/downloads/ipblocklist.json"
+        ],
+        "formats": [
+          "csv",
+          "json",
+          "txt"
+        ],
+        "name": "Feodo Tracker",
+        "url": "https://feodotracker.abuse.ch/"
+      },
+      {
+        "description": "SSL certificates used by malware",
+        "endpoints": [
+          "https://sslbl.abuse.ch/blacklist/sslblacklist.csv",
+          "https://sslbl.abuse.ch/blacklist/sslblacklist.json"
+        ],
+        "formats": [
+          "csv",
+          "json"
+        ],
+        "name": "SSL Blacklist",
+        "url": "https://sslbl.abuse.ch/"
+      },
+      {
+        "description": "IOC sharing platform",
+        "endpoints": [
+          "https://threatfox.abuse.ch/export/csv/recent/",
+          "https://threatfox.abuse.ch/export/json/recent/"
+        ],
+        "formats": [
+          "csv",
+          "json"
+        ],
+        "name": "ThreatFox",
+        "url": "https://threatfox.abuse.ch/"
+      }
+    ],
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! No authentication required. All feeds are open access. No registration, API keys, or payment needed.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 93,
+  "category": "threat-intelligence",
+  "coverage": 91,
+  "data_coverage": {
+    "content_types": [
+      "Malicious URLs",
+      "Malware samples",
+      "Command & Control servers",
+      "Botnet trackers",
+      "SSL certificates",
+      "Indicators of Compromise",
+      "Banking trojans",
+      "Ransomware"
+    ],
+    "indicator_types": [
+      "URLs",
+      "IP addresses",
+      "Domain names",
+      "File hashes (MD5, SHA256)",
+      "SSL fingerprints",
+      "JA3 fingerprints",
+      "Email addresses",
+      "Bitcoin addresses"
+    ],
+    "malware_families": [
+      "Emotet",
+      "TrickBot",
+      "QakBot",
+      "IcedID",
+      "BazarLoader",
+      "Cobalt Strike",
+      "Dridex",
+      "Lokibot",
+      "AgentTesla",
+      "FormBook"
+    ],
+    "temporal": {
+      "historical_data": "2016-present",
+      "latency": "Near real-time",
+      "update_frequency": "Real-time"
+    }
+  },
+  "description": "Abuse.ch - FREE threat intelligence feeds tracking malware and botnets. Community-driven project providing real-time feeds for URLhaus, MalwareBazaar, Feodo Tracker, SSL Blacklist, and ThreatFox.",
+  "format": "json",
+  "id": "abuse-ch-feeds",
+  "integration_examples": {
+    "bash": {
+      "abuse_ch_feeds": "#!/bin/bash\n# Abuse.ch Feeds Downloader - FREE!\n\necho \"== Abuse.ch Threat Intelligence Feeds (FREE!)\"\necho \"=============================================\"\necho \"\"\n\necho \"[+] URLhaus - Malicious URLs:\"\nwget -q -O- https://urlhaus.abuse.ch/downloads/text_recent/ | head -20\necho \"\"\n\necho \"[+] Feodo Tracker - Banking Trojan C2s:\"\nwget -q -O- https://feodotracker.abuse.ch/downloads/ipblocklist.txt | head -20\necho \"\"\n\necho \"[+] SSL Blacklist - Malicious Certificates:\"\nwget -q -O- https://sslbl.abuse.ch/blacklist/sslblacklist.csv | head -20\necho \"\"\n\necho \"[+] ThreatFox - Recent IOCs:\"\ncurl -s https://threatfox.abuse.ch/export/json/recent/ | jq '.[] | select(.ioc_type==\"domain\") | .ioc' | head -10\necho \"\"\n\necho \"[+] MalwareBazaar - Check Hash:\"\nHASH=\"YOUR_HASH_HERE\"\ncurl -X POST https://mb-api.abuse.ch/api/v1/ \\\n  -d \"query=get_info&hash=$HASH\" \\\n  | jq '.'\n\necho \"\"\necho \"[!] All feeds are 100% FREE - No registration required!\""
+    },
+    "curl": {
+      "get_feeds": "# Download Abuse.ch feeds - FREE!\n# URLhaus recent malicious URLs\ncurl -O https://urlhaus.abuse.ch/downloads/csv_recent/\n\n# Feodo Tracker C2 IPs\ncurl -O https://feodotracker.abuse.ch/downloads/ipblocklist.csv\n\n# ThreatFox IOCs\ncurl -O https://threatfox.abuse.ch/export/json/recent/"
+    },
+    "python": {
+      "abuse_ch_client": "import requests\nimport json\nimport csv\nfrom datetime import datetime\nfrom typing import Dict, List\nimport hashlib\n\nclass AbuseCHClient:\n    \"\"\"Abuse.ch Threat Intelligence Client - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self):\n        self.base_url = 'https://abuse.ch'\n        self.feeds = {\n            'urlhaus': 'https://urlhaus.abuse.ch/downloads/csv_recent/',\n            'malwarebazaar': 'https://bazaar.abuse.ch/export/csv/recent/',\n            'feodo': 'https://feodotracker.abuse.ch/downloads/ipblocklist.csv',\n            'sslbl': 'https://sslbl.abuse.ch/blacklist/sslblacklist.csv',\n            'threatfox': 'https://threatfox.abuse.ch/export/csv/recent/'\n        }\n    \n    def fetch_urlhaus(self):\n        \"\"\"Fetch malicious URLs from URLhaus (FREE!)\"\"\"\n        print(\"== URLhaus Malicious URLs (FREE!)\\n\")\n        \n        try:\n            response = requests.get(self.feeds['urlhaus'])\n            lines = response.text.split('\\n')\n            \n            print(\"Recent malicious URLs:\")\n            count = 0\n            for line in lines[9:20]:  # Skip comments, show 10 entries\n                if line and not line.startswith('#'):\n                    parts = line.split('\",\"')\n                    if len(parts) >= 6:\n                        url = parts[2].strip('\"')\n                        threat = parts[5].strip('\"')\n                        print(f\"  URL: {url[:60]}...\")\n                        print(f\"  Threat: {threat}\\n\")\n                        count += 1\n            \n            print(f\"Total recent entries: {count}+\")\n            \n        except Exception as e:\n            print(f\"Error fetching URLhaus: {e}\")\n    \n    def fetch_feodo_tracker(self):\n        \"\"\"Fetch banking trojan C2 servers (FREE!)\"\"\"\n        print(\"== Feodo Tracker C2 Servers (FREE!)\\n\")\n        \n        try:\n            response = requests.get(self.feeds['feodo'])\n            lines = response.text.split('\\n')\n            \n            print(\"Active C2 servers:\")\n            count = 0\n            for line in lines:\n                if line and not line.startswith('#'):\n                    parts = line.split(',')\n                    if len(parts) >= 3:\n                        ip = parts[1]\n                        malware = parts[2]\n                        print(f\"  IP: {ip} - Malware: {malware}\")\n                        count += 1\n                        if count >= 10:\n                            break\n            \n            print(f\"\\nTotal C2 servers tracked: {count}+\")\n            \n        except Exception as e:\n            print(f\"Error fetching Feodo: {e}\")\n    \n    def fetch_threatfox_iocs(self):\n        \"\"\"Fetch recent IOCs from ThreatFox (FREE!)\"\"\"\n        print(\"== ThreatFox IOCs (FREE!)\\n\")\n        \n        try:\n            response = requests.get(self.feeds['threatfox'])\n            lines = response.text.split('\\n')\n            \n            ioc_types = {}\n            for line in lines[9:]:  # Skip header\n                if line and not line.startswith('#'):\n                    parts = line.split('\",\"')\n                    if len(parts) >= 4:\n                        ioc_type = parts[3].strip('\"')\n                        ioc_types[ioc_type] = ioc_types.get(ioc_type, 0) + 1\n            \n            print(\"IOC Distribution:\")\n            for ioc_type, count in sorted(ioc_types.items(), key=lambda x: x[1], reverse=True)[:10]:\n                print(f\"  {ioc_type}: {count}\")\n            \n        except Exception as e:\n            print(f\"Error fetching ThreatFox: {e}\")\n    \n    def check_hash(self, file_hash):\n        \"\"\"Check if hash exists in MalwareBazaar (FREE!)\"\"\"\n        print(f\"Checking hash: {file_hash}\\n\")\n        \n        api_url = 'https://mb-api.abuse.ch/api/v1/'\n        data = {'query': 'get_info', 'hash': file_hash}\n        \n        try:\n            response = requests.post(api_url, data=data)\n            result = response.json()\n            \n            if result.get('query_status') == 'ok':\n                info = result.get('data', [{}])[0]\n                print(f\"MALWARE DETECTED!\")\n                print(f\"  Family: {info.get('signature', 'Unknown')}\")\n                print(f\"  First seen: {info.get('first_seen', 'Unknown')}\")\n                print(f\"  File type: {info.get('file_type', 'Unknown')}\")\n            else:\n                print(\"Hash not found (likely safe)\")\n                \n        except Exception as e:\n            print(f\"Error checking hash: {e}\")\n    \n    def download_all_feeds(self, output_dir='./abuse_ch_feeds'):\n        \"\"\"Download all Abuse.ch feeds (FREE!)\"\"\"\n        print(\"== Downloading All Abuse.ch Feeds (FREE!)\\n\")\n        \n        import os\n        os.makedirs(output_dir, exist_ok=True)\n        \n        for feed_name, feed_url in self.feeds.items():\n            print(f\"Downloading {feed_name}...\")\n            try:\n                response = requests.get(feed_url)\n                filename = f\"{output_dir}/{feed_name}_{datetime.now().strftime('%Y%m%d')}.csv\"\n                \n                with open(filename, 'w') as f:\n                    f.write(response.text)\n                \n                print(f\"  Saved to: {filename}\")\n                print(f\"  Size: {len(response.text)} bytes\\n\")\n                \n            except Exception as e:\n                print(f\"  Error: {e}\\n\")\n\n# Usage\n# client = AbuseCHClient()\n# client.fetch_urlhaus()\n# client.fetch_feodo_tracker()\n# client.fetch_threatfox_iocs()\n# client.check_hash('d41d8cd98f00b204e9800998ecf8427e')\n# client.download_all_feeds()"
+    }
+  },
+  "last_updated": "2025-01-15T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "alienvault-otx",
+      "misp-project",
+      "threatfox-api"
+    ],
+    "last_verified": "2025-01-15",
+    "license": "CC0 1.0 Universal",
+    "maintainer": "abuse.ch",
+    "related_resources": [
+      "URLhaus API",
+      "MalwareBazaar API",
+      "ThreatFox API",
+      "Spamhaus"
+    ]
+  },
+  "name": "Abuse.ch Threat Feeds",
+  "operational_guidance": {
+    "best_practices": [
+      "Automate feed consumption",
+      "Integrate with SIEM/SOAR",
+      "Regular updates (hourly)",
+      "Cross-reference with other feeds",
+      "Implement in firewall rules",
+      "Use for DNS blocking",
+      "Monitor for your infrastructure",
+      "Contribute back to community"
+    ],
+    "common_use_cases": [
+      "Threat intelligence gathering",
+      "Security monitoring",
+      "Firewall blocking",
+      "DNS filtering",
+      "Malware analysis",
+      "Incident response",
+      "Threat hunting",
+      "Network defense",
+      "IOC enrichment",
+      "Botnet tracking"
+    ],
+    "recommended_update_frequency": "Every 5 minutes for URLhaus, hourly for others",
+    "value_proposition": "High-quality, community-driven threat intelligence feeds that are completely free and require no registration"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Focused on active threats",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community-validated",
+    "reliability": "excellent",
+    "update_speed": "Real-time"
+  },
+  "quality_score": 92,
+  "subcategory": "abuse-ch",
+  "url": "https://abuse.ch/"
+}

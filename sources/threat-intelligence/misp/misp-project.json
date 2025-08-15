@@ -1,0 +1,188 @@
+{
+  "api": {
+    "api_features": [
+      "Full REST API",
+      "Event management",
+      "Attribute creation",
+      "Feed integration",
+      "Galaxy clusters",
+      "Taxonomy management",
+      "Warninglist management",
+      "Export formats"
+    ],
+    "base_url": "https://localhost/api",
+    "core_features": [
+      "IOC management",
+      "Threat sharing",
+      "Feed aggregation",
+      "Correlation engine",
+      "Galaxy clusters",
+      "Taxonomies",
+      "Warning lists",
+      "Export/Import",
+      "Automation",
+      "Integration APIs"
+    ],
+    "export_formats": [
+      "STIX 1.x/2.x",
+      "OpenIOC",
+      "JSON",
+      "CSV",
+      "RPZ",
+      "Suricata",
+      "Snort",
+      "Bro/Zeek",
+      "Text",
+      "XML"
+    ],
+    "installation_methods": [
+      {
+        "command": "docker pull coolacid/misp-docker",
+        "description": "Docker deployment",
+        "method": "Docker"
+      },
+      {
+        "command": "wget -O /tmp/INSTALL.sh https://raw.githubusercontent.com/MISP/MISP/2.4/INSTALL/INSTALL.sh && bash /tmp/INSTALL.sh",
+        "description": "Automated Ubuntu installation",
+        "method": "Ubuntu Install"
+      },
+      {
+        "command": "Download from https://vm.misp-project.org/",
+        "description": "Pre-built VM image",
+        "method": "Virtual Machine"
+      }
+    ],
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source platform. Self-host or use community instances. No license fees or registration required for core platform.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 96,
+  "category": "threat-intelligence",
+  "coverage": 96,
+  "data_coverage": {
+    "attribute_types": [
+      "IP addresses",
+      "Domain names",
+      "URLs",
+      "Email addresses",
+      "File hashes (MD5, SHA1, SHA256)",
+      "Registry keys",
+      "Filenames",
+      "Mutexes",
+      "YARA rules",
+      "Sigma rules",
+      "CVE numbers",
+      "Port numbers"
+    ],
+    "content_types": [
+      "Indicators of Compromise (IOCs)",
+      "Threat intelligence",
+      "Malware samples",
+      "Attack patterns",
+      "Threat actors",
+      "Campaigns",
+      "Vulnerabilities",
+      "Taxonomies"
+    ],
+    "feeds_available": [
+      "CIRCL OSINT Feed",
+      "Botvrij.eu",
+      "Blocklist.de",
+      "CI Army",
+      "Emerging Threats",
+      "FireHOL",
+      "URLhaus",
+      "ThreatFox"
+    ],
+    "galaxy_clusters": [
+      "Threat Actor",
+      "Tool",
+      "Attack Pattern",
+      "Course of Action",
+      "Malware",
+      "RAT",
+      "Ransomware",
+      "Exploit Kit",
+      "TTP",
+      "Country",
+      "Sector"
+    ],
+    "temporal": {
+      "historical_data": "2012-present",
+      "latency": "Near real-time sharing",
+      "update_frequency": "Real-time"
+    }
+  },
+  "description": "MISP - FREE, open source threat intelligence platform for gathering, sharing, storing and correlating Indicators of Compromise (IOCs) of targeted attacks, threat intelligence, financial fraud information, vulnerability information or counter-terrorism information.",
+  "format": "json",
+  "id": "misp-project",
+  "integration_examples": {
+    "bash": {
+      "misp_setup": "#!/bin/bash\n# MISP Setup - FREE!\n\necho \"[*] MISP Setup (COMPLETELY FREE!)\"\necho \"==================================\"\necho \"\"\n\necho \"[+] Docker Installation:\"\necho \"    docker pull coolacid/misp-docker\"\necho \"    docker run -d -p 443:443 coolacid/misp-docker\"\necho \"\"\n\necho \"[+] Ubuntu Installation:\"\necho \"    wget -O /tmp/INSTALL.sh https://raw.githubusercontent.com/MISP/MISP/2.4/INSTALL/INSTALL.sh\"\necho \"    bash /tmp/INSTALL.sh\"\necho \"\"\n\necho \"[+] Access MISP:\"\necho \"    URL: https://localhost\"\necho \"    Default: admin@admin.test / admin\"\necho \"\"\n\necho \"[+] Key Features:\"\necho \"    - IOC Management\"\necho \"    - Threat Intelligence Sharing\"\necho \"    - Feed Aggregation\"\necho \"    - Correlation Engine\"\necho \"    - Galaxy Clusters\"\necho \"    - Export Formats (STIX, OpenIOC, etc.)\"\necho \"\"\n\necho \"[+] Resources:\"\necho \"    - Website: https://www.misp-project.org/\"\necho \"    - GitHub: https://github.com/MISP/MISP\"\necho \"    - Documentation: https://www.misp-project.org/documentation/\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "create_event": "# Create MISP event - FREE!\ncurl -X POST https://localhost/events/add \\\n  -H 'Authorization: YOUR_API_KEY' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"Event\": {\"info\": \"Test Event\", \"distribution\": 2, \"threat_level_id\": 1}}'"
+    },
+    "python": {
+      "pymisp_client": "from pymisp import PyMISP, MISPEvent, MISPAttribute\nimport json\nfrom datetime import datetime\nfrom typing import Dict, List\n\nclass MISPClient:\n    \"\"\"MISP Platform Client - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self, url='https://localhost', key='YOUR_API_KEY'):\n        # Note: For demo purposes only\n        self.url = url\n        self.key = key\n        # self.misp = PyMISP(url, key, False)\n        \n    def create_event_example(self):\n        \"\"\"Create threat event (FREE!)\"\"\"\n        print(\"== MISP Event Creation (FREE!)\\n\")\n        \n        event = {\n            'info': 'Ransomware Campaign - LockBit 3.0',\n            'distribution': 2,  # Organization only\n            'threat_level': 1,  # High\n            'analysis': 2,  # Completed\n            'tags': [\n                'ransomware:lockbit',\n                'tlp:amber',\n                'mitre-attack:impact'\n            ]\n        }\n        \n        print(\"Event details:\")\n        for key, value in event.items():\n            print(f\"  {key}: {value}\")\n        \n        return event\n    \n    def add_iocs_example(self):\n        \"\"\"Add IOCs to event (FREE!)\"\"\"\n        print(\"== Adding IOCs (FREE!)\\n\")\n        \n        iocs = [\n            {'type': 'ip-dst', 'value': '192.168.1.100', 'category': 'Network activity'},\n            {'type': 'domain', 'value': 'malicious.example.com', 'category': 'Network activity'},\n            {'type': 'md5', 'value': 'd41d8cd98f00b204e9800998ecf8427e', 'category': 'Payload delivery'},\n            {'type': 'email-src', 'value': 'phishing@badactor.com', 'category': 'Payload delivery'},\n            {'type': 'url', 'value': 'http://malware.download/payload.exe', 'category': 'Payload delivery'},\n            {'type': 'yara', 'value': 'rule detect_ransomware { strings: $a = \"LOCKBIT\" condition: $a }', 'category': 'Payload installation'}\n        ]\n        \n        print(\"IOCs to add:\")\n        for ioc in iocs:\n            print(f\"  [{ioc['type']}] {ioc['value'][:50]}...\" if len(ioc['value']) > 50 else f\"  [{ioc['type']}] {ioc['value']}\")\n        \n        return iocs\n    \n    def search_events_example(self):\n        \"\"\"Search threat events (FREE!)\"\"\"\n        print(\"== Searching Events (FREE!)\\n\")\n        \n        searches = [\n            {'tags': 'ransomware'},\n            {'type_attribute': 'ip-src'},\n            {'from': '2024-01-01'},\n            {'threat_level': '1'},  # High\n            {'published': True}\n        ]\n        \n        print(\"Search filters:\")\n        for search in searches:\n            for key, value in search.items():\n                print(f\"  {key}: {value}\")\n        \n        return searches\n    \n    def galaxy_clusters_example(self):\n        \"\"\"Galaxy clusters example (FREE!)\"\"\"\n        print(\"== MISP Galaxy Clusters (FREE!)\\n\")\n        \n        galaxies = {\n            'Threat Actor': ['APT28', 'APT29', 'Lazarus Group', 'FIN7'],\n            'Malware': ['Emotet', 'TrickBot', 'Cobalt Strike', 'Mimikatz'],\n            'Attack Pattern': ['Spearphishing', 'Supply Chain Attack', 'Living off the Land'],\n            'Tool': ['PowerShell Empire', 'BloodHound', 'Responder', 'CrackMapExec']\n        }\n        \n        for galaxy_type, items in galaxies.items():\n            print(f\"[+] {galaxy_type}:\")\n            for item in items:\n                print(f\"    - {item}\")\n            print()\n        \n        return galaxies"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "opencti",
+      "yeti",
+      "crits"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "AGPL-3.0",
+    "maintainer": "MISP Project",
+    "related_resources": [
+      "PyMISP",
+      "MISP Modules",
+      "MISP Galaxy",
+      "MISP Taxonomies"
+    ]
+  },
+  "name": "MISP Project",
+  "operational_guidance": {
+    "best_practices": [
+      "Set up regular feeds",
+      "Use taxonomies consistently",
+      "Configure sharing groups",
+      "Enable correlation",
+      "Set up warning lists",
+      "Automate with PyMISP",
+      "Regular backups",
+      "Monitor feed quality"
+    ],
+    "common_use_cases": [
+      "Threat intelligence sharing",
+      "IOC management",
+      "Incident correlation",
+      "Threat hunting",
+      "Security automation",
+      "CTI program management",
+      "Information sharing",
+      "Malware analysis",
+      "Attack attribution",
+      "Vulnerability tracking"
+    ],
+    "recommended_update_frequency": "Continuous feed updates",
+    "value_proposition": "The de facto standard for threat intelligence sharing, completely free and open source with global community support"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Comprehensive CTI coverage",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Community-validated",
+    "reliability": "excellent",
+    "update_speed": "Real-time"
+  },
+  "quality_score": 95,
+  "subcategory": "misp",
+  "url": "https://www.misp-project.org/"
+}
