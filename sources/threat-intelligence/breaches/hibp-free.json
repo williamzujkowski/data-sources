@@ -1,0 +1,192 @@
+{
+  "api": {
+    "base_url": "https://haveibeenpwned.com/api/v3",
+    "endpoints": [
+      {
+        "authentication_required": true,
+        "description": "Get all breaches for an email (requires API key)",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Email address to check",
+            "example": "test@example.com",
+            "name": "email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Return breach names only",
+            "example": "true",
+            "name": "truncateResponse",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "path": "/breachedaccount/{email}"
+      },
+      {
+        "authentication_required": false,
+        "description": "Get all breached sites - COMPLETELY FREE!",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Filter by domain",
+            "example": "adobe.com",
+            "name": "domain",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/breaches"
+      },
+      {
+        "authentication_required": false,
+        "description": "Get specific breach details - FREE!",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Breach name",
+            "example": "Adobe",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/breach/{name}"
+      },
+      {
+        "authentication_required": false,
+        "description": "Get all data classes in breaches - FREE!",
+        "method": "GET",
+        "parameters": [],
+        "path": "/dataclasses"
+      },
+      {
+        "authentication_required": false,
+        "description": "Check password by SHA-1 hash prefix - FREE!",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "First 5 characters of SHA-1 hash",
+            "example": "21BD1",
+            "name": "hashPrefix",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/range/{hashPrefix}"
+      }
+    ],
+    "rate_limit": {
+      "notes": "One request per 1500 milliseconds for unauthenticated requests",
+      "requests_per_second": 0.67
+    },
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "FREE for breach data (no auth). Paste data requires paid API key ($3.50/month). Rate limited to 1 request per 1500ms without authentication.",
+    "required": false,
+    "type": "api_key"
+  },
+  "authority": 98,
+  "category": "threat-intelligence",
+  "coverage": 95,
+  "data_coverage": {
+    "compromised_accounts": "13+ billion",
+    "data_classes": [
+      "Email addresses",
+      "Passwords",
+      "Usernames",
+      "Names",
+      "Phone numbers",
+      "Physical addresses",
+      "Dates of birth",
+      "IP addresses",
+      "Social media profiles",
+      "Financial information"
+    ],
+    "temporal": {
+      "historical_data": "2007-present",
+      "latency": "Days to weeks after breach discovery"
+    },
+    "total_breaches": "700+ breached sites",
+    "update_frequency": "As breaches are verified"
+  },
+  "description": "FREE breach notification service checking if email addresses or passwords have been compromised. Public API with rate limiting for non-authenticated requests.",
+  "documentation": "https://haveibeenpwned.com/API/v3",
+  "format": "json",
+  "id": "hibp-free",
+  "integration_examples": {
+    "curl": {
+      "breach_details": "# Get specific breach details - FREE!\ncurl https://haveibeenpwned.com/api/v3/breach/Adobe | jq '.'",
+      "check_password": "# Check password (first 5 chars of SHA-1) - FREE!\necho -n 'password123' | sha1sum | cut -c1-5 | xargs -I {} curl https://haveibeenpwned.com/api/v3/range/{}",
+      "data_classes": "# Get all data classes - FREE!\ncurl https://haveibeenpwned.com/api/v3/dataclasses | jq '.'",
+      "get_breaches": "# Get all breaches - COMPLETELY FREE!\ncurl https://haveibeenpwned.com/api/v3/breaches | jq '.[0:5]'"
+    },
+    "javascript": {
+      "check_password": "// Check password using k-anonymity - FREE!\nconst crypto = require('crypto');\n\nconst checkPasswordPwned = async (password) => {\n  // SHA-1 hash the password\n  const sha1 = crypto.createHash('sha1')\n    .update(password)\n    .digest('hex')\n    .toUpperCase();\n  \n  const prefix = sha1.slice(0, 5);\n  const suffix = sha1.slice(5);\n  \n  // Query with prefix only (k-anonymity)\n  const url = `https://haveibeenpwned.com/api/v3/range/${prefix}`;\n  \n  const response = await fetch(url);\n  const text = await response.text();\n  \n  // Check if suffix appears in results\n  const hashes = text.split('\\n');\n  \n  for (const hashLine of hashes) {\n    const [hashSuffix, count] = hashLine.split(':');\n    if (hashSuffix === suffix) {\n      return parseInt(count);\n    }\n  }\n  \n  return 0;\n};\n\n// Usage\ncheckPasswordPwned('password123').then(count => {\n  if (count > 0) {\n    console.log(`\u26a0\ufe0f Password found ${count.toLocaleString()} times!`);\n  } else {\n    console.log('\u2713 Password not found in breaches');\n  }\n});",
+      "get_breaches": "// Get all breaches - FREE!\nconst getAllBreaches = async () => {\n  const url = 'https://haveibeenpwned.com/api/v3/breaches';\n  \n  const response = await fetch(url);\n  const breaches = await response.json();\n  \n  console.log(`Total breaches: ${breaches.length}\\n`);\n  \n  // Get statistics\n  const totalPwned = breaches.reduce((sum, b) => sum + b.PwnCount, 0);\n  console.log(`Total accounts compromised: ${totalPwned.toLocaleString()}\\n`);\n  \n  // Recent breaches\n  const recent = breaches\n    .sort((a, b) => new Date(b.BreachDate) - new Date(a.BreachDate))\n    .slice(0, 5);\n  \n  console.log('Recent major breaches:');\n  recent.forEach(breach => {\n    console.log(`- ${breach.Name} (${breach.BreachDate})`);\n    console.log(`  ${breach.PwnCount.toLocaleString()} accounts`);\n  });\n  \n  return breaches;\n};\n\ngetAllBreaches();"
+    },
+    "python": {
+      "breach_monitor": "import requests\nimport time\nimport json\nfrom datetime import datetime, timedelta\n\nclass HIBPMonitor:\n    \"\"\"Monitor breaches for a domain - FREE!\"\"\"\n    \n    def __init__(self, domain):\n        self.domain = domain\n        self.base_url = 'https://haveibeenpwned.com/api/v3'\n        self.known_breaches = set()\n    \n    def get_domain_breaches(self):\n        \"\"\"Get all breaches affecting a domain\"\"\"\n        url = f'{self.base_url}/breaches?domain={self.domain}'\n        \n        # Respect rate limit (1 req per 1500ms)\n        time.sleep(1.5)\n        \n        response = requests.get(url)\n        if response.status_code == 200:\n            return response.json()\n        return []\n    \n    def check_new_breaches(self):\n        \"\"\"Check for new breaches\"\"\"\n        breaches = self.get_domain_breaches()\n        new_breaches = []\n        \n        for breach in breaches:\n            if breach['Name'] not in self.known_breaches:\n                new_breaches.append(breach)\n                self.known_breaches.add(breach['Name'])\n        \n        return new_breaches\n    \n    def monitor(self, interval_hours=24):\n        \"\"\"Monitor for new breaches\"\"\"\n        print(f\"Monitoring breaches for {self.domain}...\")\n        \n        while True:\n            new = self.check_new_breaches()\n            \n            if new:\n                print(f\"\\n\ud83d\udea8 New breaches found for {self.domain}:\")\n                for breach in new:\n                    print(f\"  - {breach['Name']}\")\n                    print(f\"    Date: {breach['BreachDate']}\")\n                    print(f\"    Affected: {breach['PwnCount']:,}\")\n            \n            time.sleep(interval_hours * 3600)\n\n# Monitor a domain\nmonitor = HIBPMonitor('adobe.com')\nbreaches = monitor.get_domain_breaches()\nprint(f\"Found {len(breaches)} breaches for adobe.com\")",
+      "check_breaches": "import requests\nimport time\nimport hashlib\n\n# Get all breaches - COMPLETELY FREE!\nurl = 'https://haveibeenpwned.com/api/v3/breaches'\nresponse = requests.get(url)\nbreaches = response.json()\n\nprint(f\"Total breaches: {len(breaches)}\\n\")\n\n# Show recent major breaches\nfor breach in sorted(breaches, key=lambda x: x['BreachDate'], reverse=True)[:5]:\n    print(f\"- {breach['Name']} ({breach['BreachDate']})\")\n    print(f\"  Compromised: {breach['PwnCount']:,} accounts\")\n    print(f\"  Data: {', '.join(breach['DataClasses'])}\")\n    print()",
+      "password_check": "import hashlib\nimport requests\n\ndef check_password_pwned(password):\n    \"\"\"Check if password has been pwned using k-anonymity - FREE!\"\"\"\n    \n    # SHA-1 hash the password\n    sha1 = hashlib.sha1(password.encode()).hexdigest().upper()\n    prefix = sha1[:5]\n    suffix = sha1[5:]\n    \n    # Query HIBP with prefix only (k-anonymity)\n    url = f'https://haveibeenpwned.com/api/v3/range/{prefix}'\n    response = requests.get(url)\n    \n    # Check if our suffix appears in results\n    hashes = response.text.splitlines()\n    for hash_line in hashes:\n        hash_suffix, count = hash_line.split(':')\n        if hash_suffix == suffix:\n            return int(count)\n    \n    return 0\n\n# Check a password (never sent in plain text!)\npassword = 'password123'\ntimes_pwned = check_password_pwned(password)\n\nif times_pwned:\n    print(f\"\u26a0\ufe0f Password found {times_pwned:,} times in breaches!\")\nelse:\n    print(\"\u2713 Password not found in breach databases\")"
+    }
+  },
+  "last_updated": "2025-08-15T17:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "dehashed",
+      "leakcheck",
+      "snusbase"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "Creative Commons Attribution 4.0",
+    "maintainer": "Troy Hunt",
+    "pricing": {
+      "api_key": "$3.50/month - Email searches, higher rate limits",
+      "free": "$0 - Breach data, password checks (rate limited)"
+    }
+  },
+  "name": "Have I Been Pwned Free Tier",
+  "operational_guidance": {
+    "best_practices": [
+      "Implement 1500ms delay between requests",
+      "Use k-anonymity for password checks",
+      "Cache breach list locally",
+      "Never send full passwords to API",
+      "Use SHA-1 hash prefix for password checks",
+      "Monitor rate limit headers"
+    ],
+    "common_use_cases": [
+      "Check if email is in known breaches",
+      "Password security verification",
+      "Monitor organization domain breaches",
+      "Security awareness training",
+      "Account takeover prevention",
+      "Credential monitoring",
+      "Compliance reporting"
+    ],
+    "limitations": [
+      "Email search requires paid API key",
+      "1500ms rate limit for free tier",
+      "No bulk email checking in free tier",
+      "No real-time notifications",
+      "Paste data requires subscription"
+    ],
+    "recommended_update_frequency": "Check breach list weekly, password checks on-demand",
+    "value_proposition": "Essential breach data mostly free, with smart k-anonymity for password checks"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration for most endpoints",
+    "api_stability": "Stable v3 API",
+    "completeness": "Most comprehensive breach database",
+    "cost": "MOSTLY FREE (email checks require API key)",
+    "data_quality": "Verified breach data only",
+    "reliability": "excellent",
+    "update_speed": "After verification process"
+  },
+  "quality_score": 93,
+  "subcategory": "breaches",
+  "url": "https://haveibeenpwned.com"
+}

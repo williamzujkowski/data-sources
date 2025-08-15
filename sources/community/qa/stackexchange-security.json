@@ -1,0 +1,272 @@
+{
+  "api": {
+    "base_url": "https://api.stackexchange.com/2.3",
+    "endpoints": [
+      {
+        "description": "Get questions from Security Stack Exchange",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Stack Exchange site",
+            "example": "security",
+            "name": "site",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Sort order: activity, votes, creation, hot, week, month",
+            "example": "votes",
+            "name": "sort",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Semicolon separated tags",
+            "example": "penetration-test;vulnerability",
+            "name": "tagged",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Number of items (max 100)",
+            "example": "50",
+            "name": "pagesize",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "path": "/questions"
+      },
+      {
+        "description": "Advanced search across questions and answers",
+        "method": "GET",
+        "parameters": [
+          {
+            "example": "security",
+            "name": "site",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Search query",
+            "example": "ransomware",
+            "name": "q",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Has accepted answer",
+            "example": "true",
+            "name": "accepted",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Minimum number of answers",
+            "example": "1",
+            "name": "answers",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "path": "/search/advanced"
+      },
+      {
+        "description": "Get popular tags",
+        "method": "GET",
+        "parameters": [
+          {
+            "example": "security",
+            "name": "site",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "popular, activity, name",
+            "example": "popular",
+            "name": "sort",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "path": "/tags"
+      },
+      {
+        "description": "Get answers for specific questions",
+        "method": "GET",
+        "parameters": [
+          {
+            "description": "Semicolon separated question IDs",
+            "example": "12345;67890",
+            "name": "ids",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "example": "security",
+            "name": "site",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "path": "/questions/{ids}/answers"
+      }
+    ],
+    "rate_limit": {
+      "notes": "Quota resets daily at UTC midnight. Response includes quota remaining in headers.",
+      "requests_per_day_no_auth": 300,
+      "requests_per_day_with_key": 10000
+    },
+    "sites": [
+      {
+        "name": "Information Security",
+        "site_param": "security",
+        "topics": [
+          "General security",
+          "Best practices",
+          "Vulnerabilities"
+        ],
+        "url": "https://security.stackexchange.com"
+      },
+      {
+        "name": "Cryptography",
+        "site_param": "crypto",
+        "topics": [
+          "Encryption",
+          "Hashing",
+          "Protocols"
+        ],
+        "url": "https://crypto.stackexchange.com"
+      },
+      {
+        "name": "Network Engineering",
+        "site_param": "networkengineering",
+        "topics": [
+          "Network security",
+          "Firewalls",
+          "VPNs"
+        ],
+        "url": "https://networkengineering.stackexchange.com"
+      },
+      {
+        "name": "Server Fault",
+        "site_param": "serverfault",
+        "topics": [
+          "Server security",
+          "Infrastructure",
+          "Hardening"
+        ],
+        "url": "https://serverfault.com"
+      }
+    ],
+    "type": "REST"
+  },
+  "authentication": {
+    "notes": "FREE without auth: 300 requests/day. With free app key: 10,000 requests/day. Register app at stackapps.com for key.",
+    "required": false,
+    "type": "api_key"
+  },
+  "authority": 85,
+  "category": "community",
+  "coverage": 90,
+  "data_coverage": {
+    "active_users": "200,000+ security professionals",
+    "content_types": [
+      "Security questions",
+      "Expert answers",
+      "Code examples",
+      "Configuration guides",
+      "Best practices",
+      "Vulnerability discussions",
+      "Tool recommendations",
+      "Compliance guidance"
+    ],
+    "quality_indicators": [
+      "Accepted answers",
+      "Vote scores",
+      "User reputation",
+      "Peer review",
+      "Moderation"
+    ],
+    "total_questions": "150,000+ security questions",
+    "update_frequency": "Continuous community activity"
+  },
+  "description": "FREE API access to Information Security Stack Exchange and related sites. 10,000 requests per day without authentication, 300 with key.",
+  "documentation": "https://api.stackexchange.com/docs",
+  "format": "json",
+  "id": "stackexchange-security",
+  "integration_examples": {
+    "curl": {
+      "hot_questions": "# Get hot security questions - FREE!\ncurl -s 'https://api.stackexchange.com/2.3/questions?site=security&sort=hot&pagesize=5' | jq '.items[] | {title, score, link}'",
+      "popular_tags": "# Get popular security tags - FREE!\ncurl -s 'https://api.stackexchange.com/2.3/tags?site=security&sort=popular&pagesize=10' | jq '.items[] | .name'",
+      "search": "# Search for specific topic - FREE!\ncurl -s 'https://api.stackexchange.com/2.3/search?site=security&intitle=ransomware&sort=votes' | jq '.items[0:3]'",
+      "with_app_key": "# With app key for 10,000 requests/day\ncurl -s 'https://api.stackexchange.com/2.3/questions?site=security&key=YOUR_APP_KEY' | jq '.quota_remaining'"
+    },
+    "javascript": {
+      "fetch_answers": "// Get top answers for security questions - FREE!\nconst getTopAnswers = async (questionIds) => {\n  const baseUrl = 'https://api.stackexchange.com/2.3';\n  const ids = questionIds.join(';');\n  \n  const params = new URLSearchParams({\n    site: 'security',\n    order: 'desc',\n    sort: 'votes',\n    filter: 'withbody'  // Include answer body\n  });\n  \n  const url = `${baseUrl}/questions/${ids}/answers?${params}`;\n  \n  const response = await fetch(url);\n  const data = await response.json();\n  \n  console.log('Top Security Answers (FREE!)\\n');\n  \n  data.items?.forEach(answer => {\n    console.log(`Answer Score: ${answer.score}`);\n    console.log(`Accepted: ${answer.is_accepted ? '\u2713' : '\u2717'}`);\n    \n    // Extract text preview\n    const preview = answer.body\n      ?.replace(/<[^>]*>/g, '')\n      .substring(0, 200);\n    \n    console.log(`Preview: ${preview}...\\n`);\n  });\n  \n  return data.items;\n};\n\n// Get answers for specific questions\ngetTopAnswers([12345, 67890]);",
+      "search_api": "// Search Security Stack Exchange - FREE!\nconst searchSecurityQuestions = async (query) => {\n  const baseUrl = 'https://api.stackexchange.com/2.3/search/advanced';\n  \n  const params = new URLSearchParams({\n    site: 'security',\n    q: query,\n    sort: 'votes',\n    order: 'desc',\n    accepted: 'true',\n    pagesize: '20'\n  });\n  \n  const response = await fetch(`${baseUrl}?${params}`);\n  const data = await response.json();\n  \n  // Check API quota\n  console.log(`Quota: ${data.quota_remaining}/${data.quota_max}\\n`);\n  \n  // Process results\n  const questions = data.items || [];\n  \n  console.log(`Found ${questions.length} questions about '${query}':\\n`);\n  \n  questions.slice(0, 5).forEach(q => {\n    console.log(`Q: ${q.title}`);\n    console.log(`   Score: ${q.score}, Answers: ${q.answer_count}`);\n    console.log(`   ${q.link}`);\n    console.log();\n  });\n  \n  return questions;\n};\n\n// Usage\nsearchSecurityQuestions('zero-day vulnerability');"
+    },
+    "python": {
+      "get_trending": "import requests\nimport gzip\nimport json\n\ndef get_trending_security_topics():\n    \"\"\"Get trending security topics - FREE!\"\"\"\n    \n    # Hot questions endpoint\n    url = 'https://api.stackexchange.com/2.3/questions'\n    \n    params = {\n        'site': 'security',\n        'sort': 'hot',\n        'pagesize': 30\n    }\n    \n    # API returns gzip compressed\n    response = requests.get(url, params=params)\n    data = response.json()\n    \n    print(\"\ud83d\udd25 Trending Security Topics (FREE!)\\n\")\n    \n    # Group by tags\n    tag_counts = {}\n    for item in data.get('items', []):\n        for tag in item.get('tags', []):\n            tag_counts[tag] = tag_counts.get(tag, 0) + 1\n    \n    # Show top tags\n    top_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)\n    \n    print(\"Trending tags:\")\n    for tag, count in top_tags[:10]:\n        print(f\"  #{tag}: {count} questions\")\n    \n    print(\"\\nHot questions:\")\n    for item in data.get('items', [])[:5]:\n        print(f\"- {item['title']}\")\n        print(f\"  Views: {item['view_count']:,}, Score: {item['score']}\")\n\nget_trending_security_topics()",
+      "monitor_tags": "import requests\nimport time\nimport json\n\nclass StackSecurityMonitor:\n    \"\"\"Monitor Stack Exchange for security topics\"\"\"\n    \n    def __init__(self, app_key=None):\n        self.base_url = 'https://api.stackexchange.com/2.3'\n        self.app_key = app_key  # Optional: for 10k requests/day\n        self.quota_remaining = None\n    \n    def get_questions_by_tag(self, tag, site='security'):\n        \"\"\"Get questions for a specific tag\"\"\"\n        \n        params = {\n            'site': site,\n            'tagged': tag,\n            'sort': 'creation',\n            'order': 'desc',\n            'pagesize': 10\n        }\n        \n        if self.app_key:\n            params['key'] = self.app_key\n        \n        response = requests.get(\n            f'{self.base_url}/questions',\n            params=params\n        )\n        \n        data = response.json()\n        self.quota_remaining = data.get('quota_remaining')\n        \n        return data.get('items', [])\n    \n    def monitor_topics(self, topics, interval=3600):\n        \"\"\"Monitor multiple security topics\"\"\"\n        \n        print(f\"Monitoring: {', '.join(topics)}\")\n        print(f\"Quota: {self.quota_remaining or '?'}/{'10000' if self.app_key else '300'}\\n\")\n        \n        while True:\n            for topic in topics:\n                questions = self.get_questions_by_tag(topic)\n                \n                if questions:\n                    print(f\"\\n\ud83d\udccc New '{topic}' questions:\")\n                    for q in questions[:3]:\n                        print(f\"  - {q['title']}\")\n                        print(f\"    {q['link']}\")\n            \n            print(f\"\\nQuota remaining: {self.quota_remaining}\")\n            time.sleep(interval)\n\n# Monitor without key (300 req/day)\nmonitor = StackSecurityMonitor()\nquestions = monitor.get_questions_by_tag('vulnerability')\nprint(f\"Found {len(questions)} vulnerability questions\")",
+      "search_questions": "import requests\nimport json\nfrom datetime import datetime\n\n# Search Security Stack Exchange - FREE!\ndef search_security_questions(query, min_score=5):\n    base_url = 'https://api.stackexchange.com/2.3/search/advanced'\n    \n    params = {\n        'site': 'security',\n        'q': query,\n        'sort': 'votes',\n        'order': 'desc',\n        'accepted': 'true',  # Only with accepted answers\n        'pagesize': 20\n    }\n    \n    response = requests.get(base_url, params=params)\n    data = response.json()\n    \n    # Check quota\n    if 'quota_remaining' in data:\n        print(f\"API Quota remaining: {data['quota_remaining']}/300 (no key)\\n\")\n    \n    results = []\n    for item in data.get('items', []):\n        if item['score'] >= min_score:\n            results.append({\n                'title': item['title'],\n                'score': item['score'],\n                'answers': item['answer_count'],\n                'link': item['link'],\n                'tags': item['tags']\n            })\n    \n    return results\n\n# Search for ransomware questions\nquestions = search_security_questions('ransomware')\n\nfor q in questions[:5]:\n    print(f\"Q: {q['title']}\")\n    print(f\"   Score: {q['score']}, Answers: {q['answers']}\")\n    print(f\"   Tags: {', '.join(q['tags'])}\")\n    print(f\"   Link: {q['link']}\")\n    print()"
+    }
+  },
+  "last_updated": "2025-08-15T19:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "reddit-netsec",
+      "security-forums",
+      "discord-security"
+    ],
+    "last_verified": "2025-08-15",
+    "license": "CC BY-SA 4.0 for content",
+    "maintainer": "Stack Exchange Inc.",
+    "related_sites": [
+      "crypto.stackexchange.com",
+      "reverseengineering.stackexchange.com",
+      "tor.stackexchange.com"
+    ]
+  },
+  "name": "Stack Exchange Security Sites",
+  "operational_guidance": {
+    "best_practices": [
+      "Use app key for 10,000 daily requests",
+      "Cache frequently accessed content",
+      "Monitor quota in response headers",
+      "Use filters to reduce response size",
+      "Implement exponential backoff",
+      "Compress requests with gzip"
+    ],
+    "common_use_cases": [
+      "Security knowledge base",
+      "Research common vulnerabilities",
+      "Find configuration guidance",
+      "Troubleshooting security issues",
+      "Training and education",
+      "Community sentiment analysis",
+      "Best practices discovery"
+    ],
+    "limitations": [
+      "300 requests/day without key",
+      "API returns compressed responses",
+      "Rate limiting per IP",
+      "No real-time notifications in free tier",
+      "Historical data may require pagination"
+    ],
+    "recommended_update_frequency": "Daily for new questions, weekly for trending topics",
+    "value_proposition": "Massive security Q&A database with generous free API limits"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration for basic use",
+    "api_stability": "Stable v2.3 API",
+    "completeness": "Comprehensive security Q&A",
+    "cost": "FREE (300-10,000 requests/day)",
+    "data_quality": "Community-vetted answers",
+    "reliability": "excellent",
+    "update_speed": "Real-time community contributions"
+  },
+  "quality_score": 91,
+  "subcategory": "qa",
+  "url": "https://security.stackexchange.com"
+}

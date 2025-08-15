@@ -1,0 +1,131 @@
+{
+  "api": {
+    "base_url": "https://krebsonsecurity.com",
+    "rate_limit": {
+      "notes": "No rate limits on RSS feeds",
+      "requests_per_second": null
+    },
+    "rss_feeds": [
+      {
+        "description": "All articles from Krebs on Security",
+        "name": "Main Feed",
+        "update_frequency": "Multiple times per week",
+        "url": "https://krebsonsecurity.com/feed/"
+      },
+      {
+        "description": "Recent comments on articles",
+        "name": "Comments Feed",
+        "update_frequency": "continuous",
+        "url": "https://krebsonsecurity.com/comments/feed/"
+      }
+    ],
+    "type": "RSS"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! All content available via RSS feed without any authentication or limits.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 98,
+  "category": "news",
+  "coverage": 85,
+  "data_coverage": {
+    "content_types": [
+      "Data breach investigations",
+      "Cybercrime analysis",
+      "Malware reports",
+      "Security research",
+      "Fraud investigations",
+      "Underground economy",
+      "Law enforcement actions",
+      "Identity theft",
+      "Ransomware analysis",
+      "Supply chain attacks"
+    ],
+    "temporal": {
+      "historical_data": "2009-present",
+      "latency": "Breaking news and original investigations",
+      "update_frequency": "2-4 articles per week"
+    },
+    "unique_features": [
+      "Original investigative reporting",
+      "Deep dive breach analysis",
+      "Cybercriminal profiling",
+      "Exclusive sources and leaks",
+      "Technical and accessible writing"
+    ]
+  },
+  "description": "In-depth security news and investigation by Brian Krebs. COMPLETELY FREE RSS feed with full articles covering cybercrime, breaches, and security research.",
+  "documentation": "https://krebsonsecurity.com/feed/",
+  "format": "rss",
+  "id": "krebs-on-security",
+  "integration_examples": {
+    "curl": {
+      "get_feed": "# Get Krebs on Security RSS feed - COMPLETELY FREE!\ncurl -s https://krebsonsecurity.com/feed/ | grep -E '<title>|<link>|<pubDate>' | head -20",
+      "latest_titles": "# Get latest article titles\ncurl -s https://krebsonsecurity.com/feed/ | grep '<title>' | sed 's/<[^>]*>//g' | head -10",
+      "with_xmllint": "# Parse with xmllint for better formatting\ncurl -s https://krebsonsecurity.com/feed/ | xmllint --format - | grep -A 2 '<item>'"
+    },
+    "javascript": {
+      "breach_tracker": "// Track breach reports from Krebs - FREE!\nconst Parser = require('rss-parser');\nconst fs = require('fs');\nconst crypto = require('crypto');\n\nclass KrebsBreachTracker {\n  constructor() {\n    this.parser = new Parser();\n    this.feedUrl = 'https://krebsonsecurity.com/feed/';\n    this.stateFile = 'krebs_breaches.json';\n    this.breachKeywords = [\n      'breach', 'hacked', 'leaked', 'exposed',\n      'compromised', 'ransomware', 'data theft'\n    ];\n    this.knownArticles = this.loadState();\n  }\n  \n  loadState() {\n    try {\n      return new Set(JSON.parse(fs.readFileSync(this.stateFile, 'utf8')));\n    } catch {\n      return new Set();\n    }\n  }\n  \n  saveState() {\n    fs.writeFileSync(\n      this.stateFile,\n      JSON.stringify([...this.knownArticles])\n    );\n  }\n  \n  async checkForBreaches() {\n    const feed = await this.parser.parseURL(this.feedUrl);\n    const breachArticles = [];\n    \n    for (const item of feed.items) {\n      const hash = crypto\n        .createHash('md5')\n        .update(item.link)\n        .digest('hex');\n      \n      if (this.knownArticles.has(hash)) {\n        continue;\n      }\n      \n      const text = `${item.title} ${item.contentSnippet}`.toLowerCase();\n      \n      const isBreachRelated = this.breachKeywords.some(\n        keyword => text.includes(keyword)\n      );\n      \n      if (isBreachRelated) {\n        breachArticles.push({\n          title: item.title,\n          link: item.link,\n          date: item.pubDate,\n          summary: item.contentSnippet?.substring(0, 200)\n        });\n        \n        this.knownArticles.add(hash);\n      }\n    }\n    \n    if (breachArticles.length > 0) {\n      this.saveState();\n      console.log(`\ud83d\udea8 New breach-related articles:`);\n      breachArticles.forEach(article => {\n        console.log(`- ${article.title}`);\n        console.log(`  ${article.link}`);\n      });\n    }\n    \n    return breachArticles;\n  }\n}\n\n// Usage\nconst tracker = new KrebsBreachTracker();\ntracker.checkForBreaches();",
+      "fetch_articles": "// Fetch Krebs on Security RSS - COMPLETELY FREE!\nconst Parser = require('rss-parser');\nconst parser = new Parser();\n\nconst fetchKrebsArticles = async () => {\n  const feedUrl = 'https://krebsonsecurity.com/feed/';\n  \n  try {\n    const feed = await parser.parseURL(feedUrl);\n    \n    console.log('Krebs on Security - Latest Articles (FREE!)\\n');\n    \n    feed.items.slice(0, 10).forEach(item => {\n      console.log(`\ud83d\udcf0 ${item.title}`);\n      console.log(`   Date: ${item.pubDate}`);\n      console.log(`   Link: ${item.link}`);\n      \n      // Extract text from content\n      const text = item.contentSnippet || item.content;\n      console.log(`   Preview: ${text.substring(0, 150)}...`);\n      \n      if (item.categories && item.categories.length > 0) {\n        console.log(`   Tags: ${item.categories.join(', ')}`);\n      }\n      console.log();\n    });\n    \n    return feed.items;\n  } catch (error) {\n    console.error('Error fetching feed:', error);\n    return [];\n  }\n};\n\nfetchKrebsArticles();"
+    },
+    "python": {
+      "keyword_monitor": "import feedparser\nimport hashlib\nimport json\nimport time\nfrom datetime import datetime\n\nclass KrebsMonitor:\n    \"\"\"Monitor Krebs on Security for keywords - FREE!\"\"\"\n    \n    def __init__(self, keywords):\n        self.feed_url = 'https://krebsonsecurity.com/feed/'\n        self.keywords = [k.lower() for k in keywords]\n        self.seen_articles = set()\n        self.state_file = 'krebs_monitor.json'\n        self.load_state()\n    \n    def load_state(self):\n        try:\n            with open(self.state_file, 'r') as f:\n                data = json.load(f)\n                self.seen_articles = set(data['seen'])\n        except:\n            pass\n    \n    def save_state(self):\n        with open(self.state_file, 'w') as f:\n            json.dump({'seen': list(self.seen_articles)}, f)\n    \n    def check_feed(self):\n        \"\"\"Check for new articles matching keywords\"\"\"\n        feed = feedparser.parse(self.feed_url)\n        matches = []\n        \n        for entry in feed.entries:\n            # Create unique ID\n            article_id = hashlib.md5(entry.link.encode()).hexdigest()\n            \n            if article_id in self.seen_articles:\n                continue\n            \n            # Check for keyword matches\n            text = f\"{entry.title} {entry.summary}\".lower()\n            matching_keywords = [k for k in self.keywords if k in text]\n            \n            if matching_keywords:\n                matches.append({\n                    'title': entry.title,\n                    'link': entry.link,\n                    'date': entry.published,\n                    'keywords': matching_keywords\n                })\n            \n            self.seen_articles.add(article_id)\n        \n        if matches:\n            self.save_state()\n        \n        return matches\n    \n    def monitor(self, interval_seconds=3600):\n        \"\"\"Monitor continuously\"\"\"\n        print(f\"Monitoring Krebs for: {', '.join(self.keywords)}\")\n        \n        while True:\n            matches = self.check_feed()\n            \n            if matches:\n                print(f\"\\n\ud83d\udd14 New articles at {datetime.now()}:\")\n                for article in matches:\n                    print(f\"  - {article['title']}\")\n                    print(f\"    Keywords: {', '.join(article['keywords'])}\")\n                    print(f\"    {article['link']}\")\n            \n            time.sleep(interval_seconds)\n\n# Monitor for specific topics\nmonitor = KrebsMonitor(['ransomware', 'breach', 'zero-day'])\nmatches = monitor.check_feed()\nprint(f\"Found {len(matches)} matching articles\")",
+      "parse_feed": "import feedparser\nfrom datetime import datetime\nimport re\n\n# Parse Krebs on Security RSS feed - COMPLETELY FREE!\nfeed_url = 'https://krebsonsecurity.com/feed/'\nfeed = feedparser.parse(feed_url)\n\nprint(f\"Krebs on Security - Latest Articles (FREE!)\\n\")\n\nfor entry in feed.entries[:10]:\n    print(f\"Title: {entry.title}\")\n    print(f\"Date: {entry.published}\")\n    print(f\"Link: {entry.link}\")\n    \n    # Extract summary (remove HTML)\n    summary = re.sub('<[^<]+?>', '', entry.summary)\n    print(f\"Summary: {summary[:200]}...\")\n    print(f\"Categories: {', '.join([t.term for t in entry.tags])}\")\n    print()"
+    }
+  },
+  "last_updated": "2025-08-15T18:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "dark-reading",
+      "bleeping-computer",
+      "the-hacker-news"
+    ],
+    "author_info": {
+      "awards": [
+        "Multiple journalism awards",
+        "Cited by major media outlets",
+        "Trusted industry source"
+      ],
+      "background": "Former Washington Post security reporter",
+      "name": "Brian Krebs"
+    },
+    "last_verified": "2025-08-15",
+    "license": "Copyright (content), RSS feed freely available",
+    "maintainer": "Brian Krebs"
+  },
+  "name": "Krebs on Security",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to RSS for real-time updates",
+      "Parse full article content from feed",
+      "Monitor for breaking security news",
+      "Use as authoritative source for incidents",
+      "Cache articles for offline access",
+      "Set up alerts for specific keywords"
+    ],
+    "common_use_cases": [
+      "Threat intelligence gathering",
+      "Breach impact analysis",
+      "Security awareness training",
+      "Incident response research",
+      "Cybercrime trend monitoring",
+      "Executive briefings",
+      "Compliance reporting context"
+    ],
+    "recommended_update_frequency": "Check RSS feed daily",
+    "value_proposition": "Premier investigative security journalism completely free via RSS"
+  },
+  "quality_metrics": {
+    "accessibility": "No registration required",
+    "api_stability": "Stable RSS feed",
+    "completeness": "In-depth coverage of major incidents",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Award-winning investigative journalism",
+    "reliability": "excellent",
+    "update_speed": "Regular weekly updates"
+  },
+  "quality_score": 96,
+  "subcategory": "blogs",
+  "url": "https://krebsonsecurity.com"
+}
