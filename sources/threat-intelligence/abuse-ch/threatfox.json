@@ -140,6 +140,7 @@
   },
   "description": "FREE threat intelligence platform for sharing indicators of compromise (IOCs) associated with malware. Provides real-time access to malicious URLs, domains, IPs, and hashes. No registration or API key required!",
   "documentation": "https://threatfox.abuse.ch/api/",
+  "format": "json",
   "id": "abuse-ch-threatfox",
   "integration_examples": {
     "curl": {

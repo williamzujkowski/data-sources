@@ -115,6 +115,7 @@
   },
   "description": "Free access to cryptography and security research papers from arXiv, Cornell University's open-access repository. Covers topics including network security, cryptographic protocols, privacy, malware analysis, and cybersecurity research.",
   "documentation": "https://info.arxiv.org/help/api/index.html",
+  "format": "json",
   "id": "arxiv-cs-security",
   "integration_examples": {
     "curl": {

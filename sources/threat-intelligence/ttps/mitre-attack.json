@@ -128,6 +128,7 @@
   },
   "description": "MITRE ATT&CK is a globally-accessible knowledge base of adversary tactics, techniques, and procedures (TTPs) based on real-world observations. It provides a comprehensive framework for understanding adversary behavior throughout the attack lifecycle, used as a foundation for threat models, methodologies, and security tools worldwide.",
   "documentation": "https://attack.mitre.org/resources/",
+  "format": "json",
   "id": "mitre-attack",
   "integration_examples": {
     "curl": {

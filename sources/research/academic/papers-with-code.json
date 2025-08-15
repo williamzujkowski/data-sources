@@ -224,6 +224,7 @@
   },
   "description": "Free access to machine learning papers with implementation code, benchmarks, and leaderboards. Tracks state-of-the-art results across ML tasks including adversarial robustness, privacy-preserving ML, and AI security.",
   "documentation": "https://paperswithcode.com/api/v1/docs/",
+  "format": "json",
   "id": "papers-with-code",
   "integration_examples": {
     "curl": {

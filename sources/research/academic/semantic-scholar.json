@@ -263,6 +263,7 @@
   },
   "description": "AI-powered research tool providing FREE access to 200+ million academic papers across all fields with citation graphs, paper recommendations, and research analytics. Excellent for security and computer science research.",
   "documentation": "https://api.semanticscholar.org/api-docs/",
+  "format": "json",
   "id": "semantic-scholar",
   "integration_examples": {
     "curl": {
