@@ -194,6 +194,7 @@
       "Bulk exports"
     ]
   },
+  "quality_score": 90,
   "subcategory": "iocs",
   "url": "https://threatfox.abuse.ch"
 }

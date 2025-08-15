@@ -167,6 +167,7 @@
     "reliability": "excellent",
     "update_speed": "Real-time after submission"
   },
+  "quality_score": 90,
   "subcategory": "academic",
   "url": "https://arxiv.org/list/cs.CR/recent"
 }

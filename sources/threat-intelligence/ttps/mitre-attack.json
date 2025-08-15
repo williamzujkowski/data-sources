@@ -213,6 +213,7 @@
     "reliability": "high",
     "timeliness": "Quarterly updates with emerging techniques"
   },
+  "quality_score": 90,
   "subcategory": "ttps",
   "troubleshooting": {
     "common_errors": [

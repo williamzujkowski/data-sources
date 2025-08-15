@@ -275,6 +275,7 @@
     "data_quality": "High - curated implementations and verified results",
     "reliability": "Excellent - maintained by Meta AI"
   },
+  "quality_score": 90,
   "subcategory": "academic",
   "url": "https://paperswithcode.com"
 }
