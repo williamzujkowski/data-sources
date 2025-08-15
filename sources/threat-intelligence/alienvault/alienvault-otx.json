@@ -1,0 +1,142 @@
+{
+  "api": {
+    "base_url": "https://otx.alienvault.com/api/v1",
+    "endpoints": [
+      {
+        "description": "Get subscribed threat intelligence pulses",
+        "method": "GET",
+        "name": "Get Pulses",
+        "path": "/pulses/subscribed"
+      },
+      {
+        "description": "Search for specific indicators",
+        "method": "GET",
+        "name": "Search Indicators",
+        "path": "/indicators/{type}/{indicator}"
+      },
+      {
+        "description": "Get latest threat events",
+        "method": "GET",
+        "name": "Get Events",
+        "path": "/pulses/events"
+      }
+    ],
+    "rate_limits": {
+      "authentication": "API key required",
+      "free_tier": "10,000 requests per hour"
+    },
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "FREE API key available! Register at otx.alienvault.com for free API access with 10,000 requests per hour limit.",
+    "required": true,
+    "type": "api_key"
+  },
+  "authority": 89,
+  "category": "threat-intelligence",
+  "coverage": 88,
+  "data_coverage": {
+    "content_types": [
+      "Indicators of Compromise (IOCs)",
+      "Threat intelligence pulses",
+      "Malware samples and families",
+      "Attack patterns",
+      "Adversary information",
+      "CVE data",
+      "File hashes (MD5, SHA1, SHA256)",
+      "IP reputation data"
+    ],
+    "data_sources": [
+      "Community contributions",
+      "AlienVault Labs research",
+      "Open source feeds",
+      "Partner intelligence",
+      "Honeypot data",
+      "Malware analysis",
+      "Security research"
+    ],
+    "indicator_types": [
+      "IPv4 addresses",
+      "IPv6 addresses",
+      "Domain names",
+      "Hostnames",
+      "Email addresses",
+      "URLs",
+      "File hashes",
+      "CVE identifiers",
+      "YARA rules",
+      "Mutex names",
+      "SSL certificates"
+    ],
+    "temporal": {
+      "historical_data": "2012-present",
+      "latency": "Near real-time",
+      "update_frequency": "Real-time community contributions"
+    }
+  },
+  "description": "AlienVault Open Threat Exchange (OTX) providing free threat intelligence data, indicators of compromise (IOCs), and collaborative threat research. FREE tier with API access to threat data.",
+  "format": "json",
+  "id": "alienvault-otx",
+  "integration_examples": {
+    "bash": {
+      "check_ioc": "#!/bin/bash\n# OTX IOC Checker - FREE!\n\nAPI_KEY=\"YOUR_FREE_API_KEY\"\nINDICATOR=\"$1\"\nTYPE=\"$2\"  # IPv4, domain, hostname, etc.\n\necho \"\ud83c\udf10 AlienVault OTX Lookup (FREE!)\\n\"\n\ncurl -s -H \"X-OTX-API-KEY: $API_KEY\" \\\n  \"https://otx.alienvault.com/api/v1/indicators/${TYPE}/${INDICATOR}/general\" \\\n  | jq '.'\n\necho \"\\n\ud83d\udcca Check pulses:\"\ncurl -s -H \"X-OTX-API-KEY: $API_KEY\" \\\n  \"https://otx.alienvault.com/api/v1/indicators/${TYPE}/${INDICATOR}/pulses\" \\\n  | jq '.count'"
+    },
+    "curl": {
+      "get_pulses": "# Get latest pulses - FREE with API key!\ncurl -H \"X-OTX-API-KEY: YOUR_API_KEY\" \\\n  \"https://otx.alienvault.com/api/v1/pulses/subscribed?limit=10\""
+    },
+    "python": {
+      "otx_client": "from OTXv2 import OTXv2\nimport json\nfrom datetime import datetime, timedelta\n\n# FREE OTX API Client\notx = OTXv2('YOUR_FREE_API_KEY')  # Get free key at otx.alienvault.com\n\nclass OTXThreatIntel:\n    \"\"\"AlienVault OTX Threat Intelligence - FREE TIER!\"\"\"\n    \n    def __init__(self, api_key):\n        self.otx = OTXv2(api_key)\n    \n    def get_recent_pulses(self, days_back=7):\n        \"\"\"Get recent threat pulses\"\"\"\n        print(\"\ud83c\udf10 AlienVault OTX Recent Pulses (FREE!)\\n\")\n        \n        # Get pulses from last N days\n        modified_since = (datetime.now() - timedelta(days=days_back)).isoformat()\n        pulses = self.otx.getall_iter(modified_since=modified_since)\n        \n        for pulse in pulses:\n            print(f\"\ud83d\udcca {pulse['name']}\")\n            print(f\"   Created: {pulse['created']}\")\n            print(f\"   Indicators: {len(pulse.get('indicators', []))}\")\n            print(f\"   Tags: {', '.join(pulse.get('tags', []))}\")\n            print()\n        \n        return pulses\n    \n    def check_ip_reputation(self, ip_address):\n        \"\"\"Check IP address reputation\"\"\"\n        print(f\"\ud83d\udd0d Checking IP: {ip_address}\\n\")\n        \n        alerts = self.otx.get_indicator_details_by_section(\n            indicator_type='IPv4',\n            indicator=ip_address,\n            section='general'\n        )\n        \n        print(f\"Reputation: {alerts.get('reputation', 'Unknown')}\")\n        print(f\"Country: {alerts.get('country_name', 'Unknown')}\")\n        print(f\"ASN: {alerts.get('asn', 'Unknown')}\")\n        \n        # Check for pulses\n        pulse_info = self.otx.get_indicator_details_by_section(\n            indicator_type='IPv4',\n            indicator=ip_address,\n            section='pulses'\n        )\n        \n        if pulse_info.get('pulses'):\n            print(f\"\\n\u26a0\ufe0f Found in {len(pulse_info['pulses'])} threat pulses\")\n        \n        return alerts\n    \n    def search_file_hash(self, file_hash):\n        \"\"\"Search for file hash indicators\"\"\"\n        print(f\"\ud83d\udd0e Searching hash: {file_hash}\\n\")\n        \n        # Determine hash type\n        hash_type = 'FileHash-SHA256' if len(file_hash) == 64 else 'FileHash-MD5'\n        \n        results = self.otx.get_indicator_details_full(\n            indicator_type=hash_type,\n            indicator=file_hash\n        )\n        \n        if results.get('general', {}).get('pulse_count', 0) > 0:\n            print(f\"\u26a0\ufe0f MALICIOUS - Found in {results['general']['pulse_count']} pulses\")\n        else:\n            print(\"\u2705 Not found in threat intelligence\")\n        \n        return results\n\n# Usage\n# otx_client = OTXThreatIntel('your_free_api_key')\n# otx_client.get_recent_pulses()\n# otx_client.check_ip_reputation('8.8.8.8')"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "virustotal-api",
+      "abuseipdb",
+      "threatcrowd"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free tier available",
+    "maintainer": "AlienVault (AT&T Cybersecurity)",
+    "related_resources": [
+      "AlienVault USM",
+      "AT&T Cybersecurity",
+      "OSSIM"
+    ]
+  },
+  "name": "AlienVault OTX",
+  "operational_guidance": {
+    "best_practices": [
+      "Subscribe to relevant pulses",
+      "Integrate with SIEM/SOAR",
+      "Automate IOC checking",
+      "Contribute threat intelligence",
+      "Monitor for your infrastructure",
+      "Cross-reference with other sources",
+      "Regular API integration updates"
+    ],
+    "common_use_cases": [
+      "Threat intelligence gathering",
+      "IOC enrichment",
+      "Security monitoring",
+      "Incident response",
+      "Threat hunting",
+      "Risk assessment",
+      "Vulnerability correlation",
+      "Security research"
+    ],
+    "recommended_update_frequency": "Real-time or hourly for active monitoring",
+    "value_proposition": "Community-driven threat intelligence platform with free API access to millions of IOCs and threat data"
+  },
+  "quality_metrics": {
+    "accessibility": "Free tier with generous API limits",
+    "completeness": "Millions of IOCs from global sources",
+    "cost": "FREE with registration",
+    "data_quality": "Community-validated threat intelligence",
+    "reliability": "good",
+    "update_speed": "Real-time pulse updates"
+  },
+  "quality_score": 88,
+  "subcategory": "alienvault",
+  "url": "https://otx.alienvault.com/"
+}

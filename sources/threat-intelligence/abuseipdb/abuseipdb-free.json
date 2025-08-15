@@ -1,0 +1,152 @@
+{
+  "api": {
+    "base_url": "https://api.abuseipdb.com/api/v2",
+    "endpoints": [
+      {
+        "description": "Check IP address abuse score",
+        "method": "GET",
+        "name": "Check IP",
+        "path": "/check"
+      },
+      {
+        "description": "Report abusive IP address",
+        "method": "POST",
+        "name": "Report IP",
+        "path": "/report"
+      },
+      {
+        "description": "Get most reported IPs",
+        "method": "GET",
+        "name": "Blacklist",
+        "path": "/blacklist"
+      },
+      {
+        "description": "Check CIDR block",
+        "method": "GET",
+        "name": "Check Block",
+        "path": "/check-block"
+      }
+    ],
+    "rate_limits": {
+      "check_limit": "1,000 checks daily",
+      "free_tier": "1,000 requests per day",
+      "report_limit": "Included in daily limit"
+    },
+    "type": "rest"
+  },
+  "authentication": {
+    "notes": "FREE API key available! Register at abuseipdb.com for free tier with 1,000 daily requests.",
+    "required": true,
+    "type": "api_key"
+  },
+  "authority": 87,
+  "category": "threat-intelligence",
+  "coverage": 90,
+  "data_coverage": {
+    "abuse_categories": [
+      "DNS Compromise",
+      "DNS Poisoning",
+      "Fraud Orders",
+      "DDoS Attack",
+      "FTP Brute-Force",
+      "Ping of Death",
+      "Phishing",
+      "Fraud VoIP",
+      "Open Proxy",
+      "Web Spam",
+      "Email Spam",
+      "Blog Spam",
+      "VPN IP",
+      "Port Scan",
+      "Hacking",
+      "SQL Injection",
+      "Spoofing",
+      "Brute-Force",
+      "Bad Web Bot",
+      "Exploited Host",
+      "Web App Attack",
+      "SSH",
+      "IoT Targeted"
+    ],
+    "content_types": [
+      "IP reputation scores",
+      "Abuse confidence scores",
+      "Abuse categories",
+      "Report counts",
+      "Country information",
+      "ISP data",
+      "Usage type classification",
+      "Whitelisted IPs"
+    ],
+    "temporal": {
+      "historical_data": "90 days lookback (free tier)",
+      "latency": "Immediate updates",
+      "update_frequency": "Real-time reporting"
+    }
+  },
+  "description": "AbuseIPDB providing free IP address reputation data and abuse reporting. FREE tier includes 1,000 API requests per day for checking and reporting malicious IP addresses.",
+  "format": "json",
+  "id": "abuseipdb-free",
+  "integration_examples": {
+    "bash": {
+      "check_ip": "#!/bin/bash\n# AbuseIPDB IP Checker - FREE!\n\nAPI_KEY=\"YOUR_FREE_API_KEY\"  # Get at abuseipdb.com\nIP=\"$1\"\n\necho \"\ud83d\udd0d AbuseIPDB Check (FREE - 1,000/day limit)\"\necho \"===========================================\"\n\ncurl -s -G \"https://api.abuseipdb.com/api/v2/check\" \\\n  -d \"ipAddress=$IP\" \\\n  -d \"maxAgeInDays=90\" \\\n  -d \"verbose\" \\\n  -H \"Key: $API_KEY\" \\\n  -H \"Accept: application/json\" | jq '.'\n\necho \"\\n\ud83d\udcca Daily limit: 1,000 requests\""
+    },
+    "curl": {
+      "blacklist": "# Get blacklisted IPs - FREE!\ncurl -G \"https://api.abuseipdb.com/api/v2/blacklist\" \\\n  -d \"confidenceMinimum=90\" \\\n  -H \"Key: YOUR_API_KEY\" \\\n  -H \"Accept: application/json\""
+    },
+    "python": {
+      "abuse_checker": "import requests\nimport json\nfrom datetime import datetime, timedelta\n\nclass AbuseIPDBChecker:\n    \"\"\"AbuseIPDB Free Tier Checker - 1,000 requests/day FREE!\"\"\"\n    \n    def __init__(self, api_key):\n        self.api_key = api_key\n        self.base_url = 'https://api.abuseipdb.com/api/v2'\n        self.headers = {\n            'Accept': 'application/json',\n            'Key': api_key\n        }\n    \n    def check_ip(self, ip_address, max_age_days=90):\n        \"\"\"Check IP reputation (FREE - uses 1 request)\"\"\"\n        print(f\"\ud83d\udd0d Checking IP: {ip_address} (FREE!)\\n\")\n        \n        params = {\n            'ipAddress': ip_address,\n            'maxAgeInDays': str(max_age_days),\n            'verbose': ''  # Get detailed information\n        }\n        \n        response = requests.get(\n            f'{self.base_url}/check',\n            headers=self.headers,\n            params=params\n        )\n        \n        if response.status_code == 200:\n            data = response.json()['data']\n            \n            print(f\"IP: {data['ipAddress']}\")\n            print(f\"Abuse Score: {data['abuseConfidenceScore']}%\")\n            print(f\"Country: {data.get('countryCode', 'Unknown')}\")\n            print(f\"ISP: {data.get('isp', 'Unknown')}\")\n            print(f\"Usage Type: {data.get('usageType', 'Unknown')}\")\n            print(f\"Total Reports: {data['totalReports']}\")\n            print(f\"Distinct Users: {data['numDistinctUsers']}\")\n            print(f\"Whitelisted: {'Yes' if data['isWhitelisted'] else 'No'}\")\n            \n            if data['totalReports'] > 0:\n                print(\"\\n\u26a0\ufe0f Recent Report Categories:\")\n                for report in data.get('reports', [])[:5]:\n                    print(f\"   \u2022 {report['comment'][:100]}...\")\n                    print(f\"     Categories: {report['categories']}\")\n                    print(f\"     Date: {report['reportedAt']}\")\n            else:\n                print(\"\\n\u2705 No abuse reports found\")\n            \n            return data\n        else:\n            print(f\"Error: {response.status_code}\")\n            return None\n    \n    def report_ip(self, ip_address, categories, comment):\n        \"\"\"Report abusive IP (FREE - uses 1 request)\"\"\"\n        print(f\"\ud83d\udce2 Reporting IP: {ip_address}\\n\")\n        \n        data = {\n            'ip': ip_address,\n            'categories': ','.join(map(str, categories)),\n            'comment': comment\n        }\n        \n        response = requests.post(\n            f'{self.base_url}/report',\n            headers=self.headers,\n            data=data\n        )\n        \n        if response.status_code == 200:\n            result = response.json()['data']\n            print(\"\u2705 IP reported successfully\")\n            print(f\"   New abuse score: {result['abuseConfidenceScore']}%\")\n            return result\n        else:\n            print(f\"Error reporting: {response.status_code}\")\n            return None\n    \n    def get_blacklist(self, confidence_minimum=90, limit=100):\n        \"\"\"Get most reported IPs (FREE - uses 1 request)\"\"\"\n        print(f\"\ud83d\udeab Getting Blacklist (Score >= {confidence_minimum}%)\\n\")\n        \n        params = {\n            'confidenceMinimum': str(confidence_minimum),\n            'limit': str(limit)\n        }\n        \n        response = requests.get(\n            f'{self.base_url}/blacklist',\n            headers=self.headers,\n            params=params\n        )\n        \n        if response.status_code == 200:\n            data = response.json()['data']\n            \n            print(f\"Found {len(data)} malicious IPs:\\n\")\n            for ip_data in data[:10]:  # Show first 10\n                print(f\"   \u2022 {ip_data['ipAddress']}\")\n                print(f\"     Score: {ip_data['abuseConfidenceScore']}%\")\n                print(f\"     Country: {ip_data['countryCode']}\")\n            \n            return data\n        else:\n            print(f\"Error: {response.status_code}\")\n            return None\n    \n    def check_subnet(self, network, max_age_days=30):\n        \"\"\"Check subnet for abuse (FREE - uses more requests)\"\"\"\n        print(f\"\ud83c\udf10 Checking Subnet: {network}\\n\")\n        \n        params = {\n            'network': network,\n            'maxAgeInDays': str(max_age_days)\n        }\n        \n        response = requests.get(\n            f'{self.base_url}/check-block',\n            headers=self.headers,\n            params=params\n        )\n        \n        if response.status_code == 200:\n            data = response.json()['data']\n            \n            print(f\"Network: {data['networkAddress']}\")\n            print(f\"Reported Addresses: {data['numPossibleHosts']}\")\n            print(f\"Abuse Percentage: {data['addressSpaceDesc']}\")\n            \n            if data.get('reportedAddress'):\n                print(\"\\n\u26a0\ufe0f Reported IPs in subnet:\")\n                for ip_report in data['reportedAddress'][:10]:\n                    print(f\"   \u2022 {ip_report['ipAddress']}\")\n                    print(f\"     Score: {ip_report['abuseConfidenceScore']}%\")\n                    print(f\"     Reports: {ip_report['numReports']}\")\n            \n            return data\n        else:\n            print(f\"Error: {response.status_code}\")\n            return None\n\n# Usage\n# checker = AbuseIPDBChecker('your_free_api_key')\n# checker.check_ip('8.8.8.8')\n# checker.get_blacklist()"
+    }
+  },
+  "last_updated": "2025-08-16T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "alienvault-otx",
+      "virustotal-api",
+      "ipvoid"
+    ],
+    "last_verified": "2025-08-16",
+    "license": "Free tier available",
+    "maintainer": "AbuseIPDB",
+    "related_resources": [
+      "IP reputation services",
+      "Threat intelligence platforms",
+      "SIEM integrations"
+    ]
+  },
+  "name": "AbuseIPDB Free Tier",
+  "operational_guidance": {
+    "best_practices": [
+      "Cache results to minimize API calls",
+      "Batch check operations",
+      "Report confirmed abuse only",
+      "Use appropriate categories",
+      "Monitor API usage",
+      "Integrate with security tools",
+      "Regular blacklist updates"
+    ],
+    "common_use_cases": [
+      "IP reputation checking",
+      "Abuse reporting",
+      "Blacklist generation",
+      "Security monitoring",
+      "Firewall rule creation",
+      "Incident investigation",
+      "Threat hunting",
+      "Risk assessment"
+    ],
+    "recommended_update_frequency": "Daily blacklist updates, real-time checking for critical IPs",
+    "value_proposition": "Collaborative IP reputation database with free API access for checking and reporting malicious IPs"
+  },
+  "quality_metrics": {
+    "accessibility": "Free tier with 1,000 daily requests",
+    "completeness": "Global IP coverage",
+    "cost": "FREE with registration",
+    "data_quality": "Community-reported and validated",
+    "reliability": "good",
+    "update_speed": "Real-time updates"
+  },
+  "quality_score": 88,
+  "subcategory": "abuseipdb",
+  "url": "https://www.abuseipdb.com/"
+}
