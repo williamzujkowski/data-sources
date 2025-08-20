@@ -1,0 +1,183 @@
+{
+  "api": {
+    "base_url": "https://github.com/sleuthkit/autopsy",
+    "core_features": [
+      "Disk image analysis",
+      "File system forensics",
+      "Timeline analysis",
+      "Keyword searching",
+      "Hash matching",
+      "Email analysis",
+      "Registry analysis",
+      "Web artifact analysis",
+      "Media analysis",
+      "Mobile device forensics"
+    ],
+    "installation_methods": [
+      {
+        "command": "Download from https://github.com/sleuthkit/autopsy/releases",
+        "description": "Windows installer package",
+        "method": "Windows MSI"
+      },
+      {
+        "command": "apt install autopsy",
+        "description": "Debian/Ubuntu package",
+        "method": "Linux Package"
+      },
+      {
+        "command": "docker pull sleuthkit/autopsy",
+        "description": "Container deployment",
+        "method": "Docker"
+      },
+      {
+        "command": "git clone https://github.com/sleuthkit/autopsy.git",
+        "description": "Build from source",
+        "method": "Source Build"
+      }
+    ],
+    "modules": [
+      "Hash Lookup Module",
+      "File Type Identification",
+      "Extension Mismatch Detector",
+      "Embedded File Extractor",
+      "Email Parser",
+      "Interesting Files Identifier",
+      "PhotoRec Carver",
+      "Virtual Machine Extractor",
+      "Data Source Integrity",
+      "Android Analyzer"
+    ],
+    "type": "other"
+  },
+  "authentication": {
+    "notes": "COMPLETELY FREE! Open source tool. Download and use without any registration, license fees, or restrictions.",
+    "required": false,
+    "type": "none"
+  },
+  "authority": 95,
+  "category": "forensics",
+  "coverage": 93,
+  "data_coverage": {
+    "analysis_types": [
+      "Timeline analysis",
+      "File carving",
+      "Keyword searching",
+      "Hash analysis",
+      "Registry analysis",
+      "Web artifacts",
+      "Email analysis",
+      "EXIF data",
+      "Deleted file recovery",
+      "Volume analysis"
+    ],
+    "artifact_types": [
+      "Browser history",
+      "Downloads",
+      "Cookies",
+      "Bookmarks",
+      "Autofill data",
+      "Recent documents",
+      "USB history",
+      "Network shares",
+      "User accounts",
+      "Installed programs"
+    ],
+    "content_types": [
+      "Disk images (E01, DD, AFF4)",
+      "Virtual machines (VMDK, VHD)",
+      "Local drives",
+      "Logical files",
+      "Memory dumps",
+      "Mobile device images",
+      "Network captures",
+      "Cloud storage"
+    ],
+    "file_systems": [
+      "NTFS",
+      "FAT12/16/32",
+      "ExFAT",
+      "Ext2/3/4",
+      "HFS+",
+      "APFS",
+      "ISO9660",
+      "UDF",
+      "YAFFS2"
+    ],
+    "temporal": {
+      "historical_data": "2012-present",
+      "latency": "Real-time analysis",
+      "update_frequency": "Quarterly releases"
+    }
+  },
+  "description": "Autopsy - FREE, open source digital forensics platform. The graphical interface to The Sleuth Kit and other forensics tools for analyzing hard drives, mobile devices, and media files.",
+  "format": "other",
+  "id": "autopsy-forensics",
+  "integration_examples": {
+    "bash": {
+      "autopsy_setup": "#!/bin/bash\n# Autopsy Setup - FREE!\n\necho \"== Autopsy Digital Forensics Setup (FREE!)\"\necho \"==========================================\"\necho \"\"\n\necho \"[+] Installation Methods:\"\necho \"    # Windows\"\necho \"    Download MSI from: https://github.com/sleuthkit/autopsy/releases\"\necho \"\"\necho \"    # Linux (Ubuntu/Debian)\"\necho \"    sudo apt update\"\necho \"    sudo apt install autopsy sleuthkit\"\necho \"\"\necho \"    # macOS\"\necho \"    brew install sleuthkit\"\necho \"    Download Autopsy from GitHub releases\"\necho \"\"\n\necho \"[+] Quick Start:\"\necho \"    # Command line with TSK\"\necho \"    img_stat disk.img          # Image info\"\necho \"    mmls disk.img              # Partition layout\"\necho \"    fls -r disk.img            # List files\"\necho \"    icat disk.img 1234         # Extract file by inode\"\necho \"\"\necho \"    # GUI\"\necho \"    autopsy                    # Start Autopsy GUI\"\necho \"\"\n\necho \"[+] Key Features:\"\necho \"    - Multi-user cases\"\necho \"    - Timeline analysis\"\necho \"    - Keyword searching\"\necho \"    - Hash filtering\"\necho \"    - File carving\"\necho \"    - Registry analysis\"\necho \"    - Web artifacts\"\necho \"    - Report generation\"\necho \"\"\n\necho \"[+] Resources:\"\necho \"    - Website: https://www.sleuthkit.org/autopsy/\"\necho \"    - Docs: https://sleuthkit.org/autopsy/docs/\"\necho \"    - GitHub: https://github.com/sleuthkit/autopsy\"\necho \"\"\n\necho \"[!] 100% FREE - No license required!\""
+    },
+    "curl": {
+      "download_autopsy": "# Download Autopsy - FREE!\n# Latest Windows version\ncurl -L https://github.com/sleuthkit/autopsy/releases/latest/download/autopsy-4.21.0-64bit.msi -o autopsy.msi\n\n# Linux - use package manager\nsudo apt install autopsy"
+    },
+    "python": {
+      "autopsy_automation": "import os\nimport subprocess\nimport hashlib\nfrom typing import Dict, List\nimport sqlite3\n\nclass AutopsyForensics:\n    \"\"\"Autopsy Digital Forensics Automation - COMPLETELY FREE!\"\"\"\n    \n    def __init__(self, case_dir='/cases'):\n        self.case_dir = case_dir\n        self.tsk_path = '/usr/bin/'  # Sleuth Kit tools path\n        \n    def create_case(self, case_name, examiner):\n        \"\"\"Create new forensics case (FREE!)\"\"\"\n        print(f\"== Creating Autopsy Case (FREE!)\\n\")\n        \n        case_info = {\n            'case_name': case_name,\n            'case_number': f'CASE-{hashlib.md5(case_name.encode()).hexdigest()[:8].upper()}',\n            'examiner': examiner,\n            'case_dir': f'{self.case_dir}/{case_name}',\n            'created': 'timestamp',\n            'description': 'Digital forensics investigation'\n        }\n        \n        print(\"Case Details:\")\n        for key, value in case_info.items():\n            print(f\"  {key}: {value}\")\n        \n        # Create case directory structure\n        dirs = ['Export', 'LogFiles', 'ModuleOutput', 'Reports', 'Images']\n        print(\"\\nCreating directory structure:\")\n        for dir_name in dirs:\n            print(f\"  {case_info['case_dir']}/{dir_name}/\")\n        \n        return case_info\n    \n    def analyze_disk_image(self, image_path):\n        \"\"\"Analyze disk image with TSK (FREE!)\"\"\"\n        print(f\"== Analyzing Disk Image (FREE!)\\n\")\n        print(f\"Image: {image_path}\\n\")\n        \n        # Example TSK commands\n        commands = {\n            'Image Info': f'img_stat {image_path}',\n            'Partition Layout': f'mmls {image_path}',\n            'File System Info': f'fsstat -o 2048 {image_path}',\n            'List Files': f'fls -r -o 2048 {image_path}',\n            'Timeline': f'fls -r -m / -o 2048 {image_path}'\n        }\n        \n        print(\"Sleuth Kit Analysis Commands:\")\n        for analysis, command in commands.items():\n            print(f\"[+] {analysis}:\")\n            print(f\"    {command}\\n\")\n        \n        return commands\n    \n    def search_keywords(self, keywords):\n        \"\"\"Keyword search configuration (FREE!)\"\"\"\n        print(\"== Keyword Search (FREE!)\\n\")\n        \n        search_config = {\n            'keywords': keywords,\n            'options': {\n                'case_sensitive': False,\n                'whole_word': True,\n                'regex': True,\n                'unicode': True\n            },\n            'locations': [\n                'Allocated Space',\n                'Unallocated Space',\n                'Slack Space',\n                'Registry',\n                'Email',\n                'Documents'\n            ]\n        }\n        \n        print(f\"Searching for: {', '.join(keywords)}\")\n        print(\"\\nSearch locations:\")\n        for location in search_config['locations']:\n            print(f\"  - {location}\")\n        \n        return search_config\n    \n    def ingest_modules(self):\n        \"\"\"List ingest modules (FREE!)\"\"\"\n        print(\"== Autopsy Ingest Modules (FREE!)\\n\")\n        \n        modules = [\n            {'name': 'Hash Lookup', 'description': 'Calculate MD5 hashes and lookup in databases'},\n            {'name': 'File Type ID', 'description': 'Determine file types based on signatures'},\n            {'name': 'Embedded File Extractor', 'description': 'Extract files from archives, documents'},\n            {'name': 'EXIF Parser', 'description': 'Extract EXIF metadata from images'},\n            {'name': 'Keyword Search', 'description': 'Search for keywords and regex patterns'},\n            {'name': 'Email Parser', 'description': 'Parse PST, MBOX, EML files'},\n            {'name': 'Chrome/Firefox', 'description': 'Extract browser artifacts'},\n            {'name': 'Registry Analysis', 'description': 'Parse Windows registry'},\n            {'name': 'Data Carver', 'description': 'Carve files from unallocated space'},\n            {'name': 'Timeline', 'description': 'Create comprehensive timeline'}\n        ]\n        \n        for module in modules:\n            print(f\"[+] {module['name']}\")\n            print(f\"    {module['description']}\\n\")\n        \n        return modules\n    \n    def generate_report(self, case_name):\n        \"\"\"Generate forensics report (FREE!)\"\"\"\n        print(f\"== Forensics Report Generation (FREE!)\\n\")\n        \n        report_sections = [\n            'Executive Summary',\n            'Case Information',\n            'Evidence Summary',\n            'Timeline Analysis',\n            'File Analysis',\n            'Deleted Files',\n            'Web Artifacts',\n            'Email Analysis',\n            'Registry Analysis',\n            'Conclusions'\n        ]\n        \n        print(f\"Report for: {case_name}\")\n        print(\"\\nReport Sections:\")\n        for section in report_sections:\n            print(f\"  - {section}\")\n        \n        print(\"\\nExport Formats:\")\n        print(\"  - HTML Report\")\n        print(\"  - Excel/CSV\")\n        print(\"  - KML (Google Earth)\")\n        print(\"  - Body File (Timeline)\")\n        \n        return report_sections\n\n# Usage Example\n# forensics = AutopsyForensics()\n# forensics.create_case('Investigation-001', 'John Doe')\n# forensics.analyze_disk_image('/evidence/disk.E01')\n# forensics.search_keywords(['password', 'confidential', 'secret'])\n# forensics.ingest_modules()\n# forensics.generate_report('Investigation-001')"
+    }
+  },
+  "last_updated": "2025-01-15T00:00:00.000Z",
+  "metadata": {
+    "alternatives": [
+      "x-ways-forensics",
+      "ftk-imager",
+      "encase"
+    ],
+    "last_verified": "2025-01-15",
+    "license": "Apache-2.0",
+    "maintainer": "The Sleuth Kit",
+    "related_resources": [
+      "The Sleuth Kit",
+      "Digital Forensics Framework",
+      "SANS SIFT",
+      "Forensics Wiki"
+    ]
+  },
+  "name": "Autopsy Digital Forensics",
+  "operational_guidance": {
+    "best_practices": [
+      "Create forensic images first",
+      "Use write blockers",
+      "Document chain of custody",
+      "Work on copies only",
+      "Generate comprehensive reports",
+      "Verify hash values",
+      "Use multiple tools",
+      "Follow standard procedures",
+      "Maintain detailed notes",
+      "Regular tool updates"
+    ],
+    "common_use_cases": [
+      "Digital forensics investigations",
+      "Incident response",
+      "Law enforcement investigations",
+      "Corporate investigations",
+      "Data recovery",
+      "Malware analysis",
+      "eDiscovery",
+      "Criminal investigations",
+      "Civil litigation support",
+      "Compliance auditing"
+    ],
+    "recommended_update_frequency": "Update before each investigation",
+    "value_proposition": "Industry-standard digital forensics platform that's completely free and used by law enforcement, military, and corporate investigators worldwide"
+  },
+  "quality_metrics": {
+    "accessibility": "Completely free",
+    "completeness": "Comprehensive forensics",
+    "cost": "COMPLETELY FREE",
+    "data_quality": "Court-admissible",
+    "reliability": "excellent",
+    "update_speed": "Quarterly"
+  },
+  "quality_score": 94,
+  "subcategory": "autopsy",
+  "url": "https://www.sleuthkit.org/autopsy/"
+}
